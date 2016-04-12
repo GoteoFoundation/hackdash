@@ -3,6 +3,7 @@ node_modules
 .sublime-project
 .sublime-workspace
 keys.json
+config.json
 config/config.json
 config/config.test.json
 public/uploads/*

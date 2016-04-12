@@ -1,15 +1,18 @@
+
 var
     config = require('../config.json')
   , async = require('async')
   , mongoose = require('mongoose');
 
 mongoose.connect(config.db.url || ('mongodb://' + config.db.host + '/'+ config.db.name));
+require('babel/register');
 
-require('../models')({
-  get: function(){
-    return ['brainstorming','wireframing','building','researching','prototyping','releasing'];
-  }
-});
+require('../lib/models');
+// require('../lib/models')({
+//   get: function(){
+//     return ['brainstorming','wireframing','building','researching','prototyping','releasing'];
+//   }
+// });
 
 var program = require('commander');
 

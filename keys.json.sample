@@ -3,7 +3,7 @@
         "consumerKey" :   ""
       , "consumerSecret" : ""
       , "callbackURL":  "http://localhost/auth/twitter/callback"
-    } 
+    }
   , "meetup": {
         "consumerKey": ""
       , "consumerSecret": ""
