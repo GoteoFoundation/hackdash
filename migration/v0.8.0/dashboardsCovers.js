@@ -14,7 +14,7 @@ mongoose.connect(config.db.url || ('mongodb://' + config.db.host + '/'+ config.d
 
 require('../../models')({
   get: function(){
-    return ['brainstorming','wireframing','building','researching','prototyping','releasing'];
+    return ['brainstorming', 'forecasting', 'prototyping', 'wireframing', 'tasklogging', 'building', 'releasing' ];
   }
 });
 

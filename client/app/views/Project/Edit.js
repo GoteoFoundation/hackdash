@@ -17,6 +17,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
   ui: {
     "title": "input[name=title]",
     "description": "textarea[name=description]",
+    "whatif": "textarea[name=whatif]",
     "link": "input[name=link]",
     "tags": "input[name=tags]",
     "status": "select[name=status]",
@@ -103,6 +104,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
     var toSave = {
       title: this.ui.title.val(),
       description: this.ui.description.val(),
+      whatif: this.ui.whatif.val(),
       link: this.ui.link.val(),
       tags: this.ui.tags.val().split(','),
       status: this.ui.status.val(),
@@ -150,6 +152,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
       return;
     }
 
+    console.log(err.responseText);
     var error = JSON.parse(err.responseText).error;
 
     var ctrl = error.split("_")[0];

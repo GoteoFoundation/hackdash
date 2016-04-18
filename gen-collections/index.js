@@ -10,7 +10,7 @@ require('babel/register');
 require('../lib/models');
 // require('../lib/models')({
 //   get: function(){
-//     return ['brainstorming','wireframing','building','researching','prototyping','releasing'];
+//     return ['brainstorming', 'forecasting', 'prototyping', 'wireframing', 'tasklogging', 'building', 'releasing' ];
 //   }
 // });
 

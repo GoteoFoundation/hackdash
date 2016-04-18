@@ -20,7 +20,7 @@ Handlebars.registerHelper('getProjectUrl', function(_id) {
 
 var Dashboard = module.exports = function(options){
   var opts = options || {};
-  
+
   this.container = opts.container;
   this.name = opts.name;
 
@@ -50,7 +50,7 @@ Dashboard.prototype.render = function(data){
 };
 
 function getBaseURL(){
-  var 
+  var
     config = window.hackdashEmbed.config,
     uri = config.baseURI,
     uriSSL = config.baseURISSL,

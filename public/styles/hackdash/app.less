@@ -129,7 +129,7 @@ footer, #main:after {
 
 .dash-create {
   text-align: center;
-  
+
   .create-project {
     font-size: @fsize-22;
     color: @color-white;
@@ -628,7 +628,7 @@ footer {
         padding-bottom: 60px;
         margin-bottom: 30px;
 
-        .description {
+        .description, .whatif {
           word-break: break-word;
           word-wrap: break-word;
         }
@@ -742,12 +742,14 @@ footer {
           }
         }
 
-        .description {
+        .description, .whatif {
           font-family: @primary-font;
           font-size: @fsize-15;
           text-transform: none;
         }
-
+        .whatif {
+          margin: 20px 0;
+        }
         .tags {
           list-style: none;
           padding: 0;
@@ -889,7 +891,7 @@ footer {
             }
           }
 
-          .description {
+          .description, .whatif {
 
             textarea {
               width: 100%;
@@ -899,7 +901,11 @@ footer {
               resize: none;
             }
           }
-
+          .whatif {
+            textarea {
+              height: 100px;
+            }
+          }
         }
       }
 

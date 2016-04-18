@@ -8,7 +8,7 @@ config/config.json
 config/config.test.json
 public/uploads/*
 npm-debug.log
-
+sync.sh
 public/styles/app.css
 public/styles/embed.css
 public/styles/landing.css

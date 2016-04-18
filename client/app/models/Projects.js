@@ -107,6 +107,7 @@ var Projects = module.exports = BaseCollection.extend({
       if (
         regex.test(project.title) ||
         regex.test(project.description) ||
+        regex.test(project.whatif) ||
         regex.test(project.tags.join(' '))
         ) {
 

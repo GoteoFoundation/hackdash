@@ -20,9 +20,10 @@ module.exports = function(){
 
   hackdash.statuses = [
     'brainstorming',
-    'researching',
+    'forecasting',
     'prototyping',
     'wireframing',
+    'tasklogging',
     'building',
     'releasing'
   ];
