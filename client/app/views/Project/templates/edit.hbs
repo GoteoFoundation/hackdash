@@ -43,11 +43,11 @@
 
       <div class="cover">
 
-        <div class="progress" title="{{status}}">
+        <div class="progress" title="{{statusesText status}}">
           <div class="status">
             <select name="status" id="status" class="form-control" value="{{status}}">
               {{#each statuses}}
-              <option value="{{.}}">{{.}}</option>
+              <option value="{{.}}">{{statusesText .}}</option>
               {{/each}}
             </select>
           </div>

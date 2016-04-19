@@ -437,6 +437,18 @@ Handlebars.registerHelper('embedCode', function() {
   });
 });
 
+Handlebars.registerHelper('statusesText', function(status) {
+  var statusesText = { 'brainstorming' : 'brainstorming',
+    'forecasting' : 'scenario forecasting',
+    'prototyping' : 'prototyping',
+    'wireframing' : 'wireframing',
+    'tasklogging' : 'tasklogging',
+    'building' : 'building',
+    'releasing' : 'releasing'
+  };
+  return statusesText[status];
+});
+
 Handlebars.registerHelper('firstUpper', function(text) {
   return text.charAt(0).toUpperCase() + text.slice(1);
 });
@@ -5796,8 +5808,8 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
 },"35":function(depth0,helpers,partials,data) {
   return "checked";
   },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data,depths) {
-  var stack1, helper, options, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, blockHelperMissing=helpers.blockHelperMissing, buffer = "\n<div class=\"progress\" title=\""
-    + escapeExpression(((helper = (helper = helpers.status || (depth0 != null ? depth0.status : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"status","hash":{},"data":data}) : helper)))
+  var stack1, helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, functionType="function", blockHelperMissing=helpers.blockHelperMissing, buffer = "\n<div class=\"progress\" title=\""
+    + escapeExpression(((helpers.statusesText || (depth0 && depth0.statusesText) || helperMissing).call(depth0, (depth0 != null ? depth0.status : depth0), {"name":"statusesText","hash":{},"data":data})))
     + "\">\n  <div class=\"progress-bar progress-bar-success progress-bar-striped "
     + escapeExpression(((helper = (helper = helpers.status || (depth0 != null ? depth0.status : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"status","hash":{},"data":data}) : helper)))
     + "\" role=\"progressbar\">\n  </div>\n</div>\n\n<div class=\"cover\">\n";
@@ -5846,11 +5858,11 @@ var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partials,data) {
   return "    <div id=\"ghImportHolder\" class=\"hidden-xs\">\n\n      <div class=\"project-link\">\n        <a id=\"ghImportBtn\" >\n          <label>Import Project</label>\n          <div>\n            <i class=\"fa fa-github\"></i>\n            <span class=\"github\">GitHub</span>\n          </div>\n        </a>\n      </div>\n\n      <div class=\"gh-import input-group col-md-4 hide\">\n        <input id=\"txt-repo\" type=\"text\" class=\"form-control\" placeholder=\"username / repository\">\n        <span class=\"input-group-btn\">\n          <button id=\"searchGh\" class=\"btn btn-blue\" type=\"button\" data-loading-text=\"LOADING\">\n            import\n          </button>\n        </span>\n      </div>\n\n    </div>\n";
   },"3":function(depth0,helpers,partials,data) {
-  var lambda=this.lambda, escapeExpression=this.escapeExpression;
+  var lambda=this.lambda, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing;
   return "              <option value=\""
     + escapeExpression(lambda(depth0, depth0))
     + "\">"
-    + escapeExpression(lambda(depth0, depth0))
+    + escapeExpression(((helpers.statusesText || (depth0 && depth0.statusesText) || helperMissing).call(depth0, depth0, {"name":"statusesText","hash":{},"data":data})))
     + "</option>\n";
 },"5":function(depth0,helpers,partials,data) {
   var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
@@ -5878,7 +5890,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
   stack1 = helpers.unless.call(depth0, (depth0 != null ? depth0._id : depth0), {"name":"unless","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
   buffer += "\n    <div class=\"col-md-4\">\n\n      <div class=\"cover\">\n\n        <div class=\"progress\" title=\""
-    + escapeExpression(((helper = (helper = helpers.status || (depth0 != null ? depth0.status : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"status","hash":{},"data":data}) : helper)))
+    + escapeExpression(((helpers.statusesText || (depth0 && depth0.statusesText) || helperMissing).call(depth0, (depth0 != null ? depth0.status : depth0), {"name":"statusesText","hash":{},"data":data})))
     + "\">\n          <div class=\"status\">\n            <select name=\"status\" id=\"status\" class=\"form-control\" value=\""
     + escapeExpression(((helper = (helper = helpers.status || (depth0 != null ? depth0.status : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"status","hash":{},"data":data}) : helper)))
     + "\">\n";
@@ -6011,7 +6023,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
     + "\">\n          <div class=\""
     + escapeExpression(((helper = (helper = helpers.status || (depth0 != null ? depth0.status : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"status","hash":{},"data":data}) : helper)))
     + "\"></div>\n          <div class=\"status\">"
-    + escapeExpression(((helper = (helper = helpers.status || (depth0 != null ? depth0.status : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"status","hash":{},"data":data}) : helper)))
+    + escapeExpression(((helpers.statusesText || (depth0 && depth0.statusesText) || helperMissing).call(depth0, (depth0 != null ? depth0.status : depth0), {"name":"statusesText","hash":{},"data":data})))
     + "</div>\n        </div>\n\n";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.cover : depth0), {"name":"if","hash":{},"fn":this.program(3, data),"inverse":this.program(5, data),"data":data});
   if (stack1 != null) { buffer += stack1; }

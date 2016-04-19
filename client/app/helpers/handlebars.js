@@ -14,6 +14,18 @@ Handlebars.registerHelper('embedCode', function() {
   });
 });
 
+Handlebars.registerHelper('statusesText', function(status) {
+  var statusesText = { 'brainstorming' : 'brainstorming',
+    'forecasting' : 'scenario forecasting',
+    'prototyping' : 'prototyping',
+    'wireframing' : 'wireframing',
+    'tasklogging' : 'tasklogging',
+    'building' : 'building',
+    'releasing' : 'releasing'
+  };
+  return statusesText[status];
+});
+
 Handlebars.registerHelper('firstUpper', function(text) {
   return text.charAt(0).toUpperCase() + text.slice(1);
 });

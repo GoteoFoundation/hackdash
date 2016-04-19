@@ -201,6 +201,18 @@ Handlebars.registerHelper('embedCode', function() {
   });
 });
 
+Handlebars.registerHelper('statusesText', function(status) {
+  var statusesText = { 'brainstorming' : 'brainstorming',
+    'forecasting' : 'scenario forecasting',
+    'prototyping' : 'prototyping',
+    'wireframing' : 'wireframing',
+    'tasklogging' : 'tasklogging',
+    'building' : 'building',
+    'releasing' : 'releasing'
+  };
+  return statusesText[status];
+});
+
 Handlebars.registerHelper('firstUpper', function(text) {
   return text.charAt(0).toUpperCase() + text.slice(1);
 });
@@ -1924,8 +1936,8 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
 },"35":function(depth0,helpers,partials,data) {
   return "checked";
   },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data,depths) {
-  var stack1, helper, options, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, blockHelperMissing=helpers.blockHelperMissing, buffer = "\n<div class=\"progress\" title=\""
-    + escapeExpression(((helper = (helper = helpers.status || (depth0 != null ? depth0.status : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"status","hash":{},"data":data}) : helper)))
+  var stack1, helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, functionType="function", blockHelperMissing=helpers.blockHelperMissing, buffer = "\n<div class=\"progress\" title=\""
+    + escapeExpression(((helpers.statusesText || (depth0 && depth0.statusesText) || helperMissing).call(depth0, (depth0 != null ? depth0.status : depth0), {"name":"statusesText","hash":{},"data":data})))
     + "\">\n  <div class=\"progress-bar progress-bar-success progress-bar-striped "
     + escapeExpression(((helper = (helper = helpers.status || (depth0 != null ? depth0.status : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"status","hash":{},"data":data}) : helper)))
     + "\" role=\"progressbar\">\n  </div>\n</div>\n\n<div class=\"cover\">\n";
@@ -1972,9 +1984,9 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partials,data) {
-  var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+  var helper, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, functionType="function";
   return "<div class=\"progress\" title=\""
-    + escapeExpression(((helper = (helper = helpers.status || (depth0 != null ? depth0.status : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"status","hash":{},"data":data}) : helper)))
+    + escapeExpression(((helpers.statusesText || (depth0 && depth0.statusesText) || helperMissing).call(depth0, (depth0 != null ? depth0.status : depth0), {"name":"statusesText","hash":{},"data":data})))
     + "\">\n  <div class=\"progress-bar progress-bar-success progress-bar-striped "
     + escapeExpression(((helper = (helper = helpers.status || (depth0 != null ? depth0.status : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"status","hash":{},"data":data}) : helper)))
     + "\" role=\"progressbar\">\n  </div>\n</div>\n";
