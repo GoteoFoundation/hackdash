@@ -1,11 +1,10 @@
 
+require('babel/register');
 var
-    config = require('../config.json')
+    config = require('../config')
   , async = require('async')
   , mongoose = require('mongoose');
 
-mongoose.connect(config.db.url || ('mongodb://' + config.db.host + '/'+ config.db.name));
-require('babel/register');
 
 require('../lib/models');
 // require('../lib/models')({
@@ -13,6 +12,7 @@ require('../lib/models');
 //     return ['brainstorming', 'forecasting', 'prototyping', 'wireframing', 'tasklogging', 'building', 'releasing' ];
 //   }
 // });
+
 
 var program = require('commander');
 
@@ -124,6 +124,6 @@ async.waterfall([
     throw err;
   }
 
-  console.log('collection created! Visit ' + 'https://hackdash.org/collections/' + collection._id);
+  console.log('collection created! Visit ' + config.host + '/collections/' + collection._id);
   process.exit(0);
 });
