@@ -198,7 +198,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
       uploadMultiple: false,
       clickable: true,
       dictDefaultMessage: 'Drop Image Here',
-      dictFileTooBig: 'File is too big, 500 Kb is the max',
+      dictFileTooBig: 'File is too big, 2 Mb is the max',
       dictInvalidFileType: 'Only jpg, png and gif are allowed'
     });
 

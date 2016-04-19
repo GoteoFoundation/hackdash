@@ -5387,12 +5387,12 @@ module.exports = Backbone.Marionette.ItemView.extend({
       url: hackdash.apiURL + '/projects/cover',
       paramName: 'cover',
       maxFiles: 1,
-      maxFilesize: 0.5, // MB
+      maxFilesize: 2, // MB
       acceptedFiles: 'image/jpeg,image/png,image/gif',
       uploadMultiple: false,
       clickable: true,
       dictDefaultMessage: 'Drop Image Here',
-      dictFileTooBig: 'File is too big, 500 Kb is the max',
+      dictFileTooBig: 'File is too big, 2 Mb is the max',
       dictInvalidFileType: 'Only jpg, png and gif are allowed'
     });
 
