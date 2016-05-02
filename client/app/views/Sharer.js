@@ -190,7 +190,7 @@ var Sharer = module.exports = Backbone.Marionette.ItemView.extend({
       , url = 'url=' + window.location.protocol + "//" + window.location.host
       , stitle = 'title='
       , text = 'summary='
-      , source = '&source=HackDash';
+      , source = '&source=Wotify';
 
     var domain = this.model.get('domain');
     var title = this.model.get('title');
@@ -204,7 +204,7 @@ var Sharer = module.exports = Backbone.Marionette.ItemView.extend({
 
     var textShort = 'Hacking at ' + (title || domain);
     stitle += textShort;
-    text += textShort + ' - HackDash';
+    text += textShort + ' - Wotify';
 
     link += this.enc(url) + '&' + this.enc(stitle) + '&' + this.enc(text) + source;
     window.open(link,'LinkedIn','height=350,width=520');

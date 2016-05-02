@@ -1,8 +1,8 @@
-/*! 
+/*!
 * Hackdash - v0.10.1
-* Copyright (c) 2016 Hackdash 
-*  
-*/ 
+* Copyright (c) 2016 Hackdash
+*
+*/
 
 
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
@@ -725,7 +725,7 @@ module.exports = Backbone.Model.extend({
   idAttribute: "_id",
 
   urlRoot: function(){
-    return hackdash.apiURL + '/collections'; 
+    return hackdash.apiURL + '/collections';
   },
 
   parse: function(response){
@@ -898,10 +898,10 @@ var BaseCollection = require('./BaseCollection');
 module.exports = BaseCollection.extend({
 
   url: function(){
-    return hackdash.apiURL + "/dashboards"; 
+    return hackdash.apiURL + "/dashboards";
   },
 
-  idAttribute: "_id", 
+  idAttribute: "_id",
 
 });
 
@@ -3474,7 +3474,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
     }
 
     var pos = (top - offset >= 0 ? top - offset : 0);
-    
+
     $(window).scrollTop(pos);
   }
 
@@ -4950,7 +4950,7 @@ module.exports = ItemView.extend({
       contributing: this.model.isContributor(),
       following: this.model.isFollower(),
       isOwner: isOwner,
-      contributorsMore: contribs.length > 5 ? contribs.length-4 : 0 
+      contributorsMore: contribs.length > 5 ? contribs.length-4 : 0
     }, this.model.toJSON());
   },
 
@@ -6271,7 +6271,7 @@ var Sharer = module.exports = Backbone.Marionette.ItemView.extend({
       , url = 'url=' + window.location.protocol + "//" + window.location.host
       , stitle = 'title='
       , text = 'summary='
-      , source = '&source=HackDash';
+      , source = '&source=Wotify';
 
     var domain = this.model.get('domain');
     var title = this.model.get('title');
@@ -6285,7 +6285,7 @@ var Sharer = module.exports = Backbone.Marionette.ItemView.extend({
 
     var textShort = 'Hacking at ' + (title || domain);
     stitle += textShort;
-    text += textShort + ' - HackDash';
+    text += textShort + ' - Wotify';
 
     link += this.enc(url) + '&' + this.enc(stitle) + '&' + this.enc(text) + source;
     window.open(link,'LinkedIn','height=350,width=520');
