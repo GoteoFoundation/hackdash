@@ -1,10 +1,10 @@
 {
-  "author": "Hackdash",
-  "name": "Hackdash",
+  "author": "Platoniq",
+  "name": "wotify-hackdash",
   "description": "",
-  "version": "0.10.1",
+  "version": "0.11.0",
   "engines": {
-    "node": "0.8.x"
+    "node": "0.10.x"
   },
   "dependencies": {},
   "devDependencies": {

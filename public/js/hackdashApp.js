@@ -1,8 +1,8 @@
-/*!
-* Hackdash - v0.10.1
-* Copyright (c) 2016 Hackdash
-*
-*/
+/*! 
+* wotify-hackdash - v0.11.0
+* Copyright (c) 2016 Platoniq 
+*  
+*/ 
 
 
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
@@ -725,7 +725,7 @@ module.exports = Backbone.Model.extend({
   idAttribute: "_id",
 
   urlRoot: function(){
-    return hackdash.apiURL + '/collections';
+    return hackdash.apiURL + '/collections'; 
   },
 
   parse: function(response){
@@ -898,10 +898,10 @@ var BaseCollection = require('./BaseCollection');
 module.exports = BaseCollection.extend({
 
   url: function(){
-    return hackdash.apiURL + "/dashboards";
+    return hackdash.apiURL + "/dashboards"; 
   },
 
-  idAttribute: "_id",
+  idAttribute: "_id", 
 
 });
 
@@ -2711,7 +2711,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
   var stack1, buffer = "\n<a class=\"brand ";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.isDashboard : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
-  buffer += "\">\n  <span class=\"logo\"></span>\n  <h3>What If dashboard</h3>\n  <span class=\"logo-platoniq\" title=\"Developed by Platoniq\">Platoniq.net</span>\n  <span class=\"logo-hackdash\" title=\"Powered by Hackdash\">Powered by Hackdash</span>\n</a>\n\n";
+  buffer += "\">\n  <span class=\"logo 1\"></span>\n  <h3>What If Dashboard</h3>\n  <span class=\"logo-platoniq\" title=\"Developed by Platoniq\">Platoniq.net 1</span>\n  <span class=\"logo-hackdash\" title=\"Powered by Hackdash\">Powered by Hackdash</span>\n</a>\n\n";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.isDashboard : depth0), {"name":"if","hash":{},"fn":this.program(4, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
   return buffer + "\n<a class=\"up-button\">\n  <i class=\"fa fa-long-arrow-up\"></i>\n  <span>up</span>\n</a>";
@@ -3474,7 +3474,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
     }
 
     var pos = (top - offset >= 0 ? top - offset : 0);
-
+    
     $(window).scrollTop(pos);
   }
 
@@ -4950,7 +4950,7 @@ module.exports = ItemView.extend({
       contributing: this.model.isContributor(),
       following: this.model.isFollower(),
       isOwner: isOwner,
-      contributorsMore: contribs.length > 5 ? contribs.length-4 : 0
+      contributorsMore: contribs.length > 5 ? contribs.length-4 : 0 
     }, this.model.toJSON());
   },
 
@@ -6235,7 +6235,7 @@ var Sharer = module.exports = Backbone.Marionette.ItemView.extend({
       people = getPeople(this.model.get('admins').toJSON());
 
       var covers = this.model.get('covers');
-      picture = url + ((covers && covers.length && covers[0]) || '/images/logowhatif.png');
+      picture = url + ((covers && covers.length && covers[0]) || '/images/logo-wotify.png');
 
       url += '/d/' + domain;
     }
@@ -6244,7 +6244,7 @@ var Sharer = module.exports = Backbone.Marionette.ItemView.extend({
       people = getPeople(this.model.get('contributors'));
 
       var cover = this.model.get('cover');
-      picture = url + (cover || '/images/logowhatif.png');
+      picture = url + (cover || '/images/logo-wotify.png');
 
       url += '/p/' + this.model.get('_id');
     }

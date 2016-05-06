@@ -1,6 +1,6 @@
 /*! 
-* Hackdash - v0.10.1
-* Copyright (c) 2016 Hackdash 
+* wotify-hackdash - v0.11.0
+* Copyright (c) 2016 Platoniq 
 *  
 */ 
 

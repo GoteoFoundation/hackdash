@@ -1,6 +1,6 @@
 {
-  "name": "hackdash",
-  "version": "0.10.1",
+  "name": "wotify-hackdash",
+  "version": "0.11.0",
   "private": true,
   "scripts": {
     "start": "NODE_PATH=. DEBUG=hackdash:* nodemon index",
