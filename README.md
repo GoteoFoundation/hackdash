@@ -1,9 +1,11 @@
-HackDash
+Wotify dashboards
 ========
 
 Organize hackaton ideas into a dashboard
 
 ![HackDash Logo](http://i.imgur.com/XLQGF3y.png)
+
+Special version suited for the [Europeana Wotify Dashboards](https://wotify.co)
 
 Install
 ===========
@@ -32,6 +34,11 @@ In your `config.json`:
 * `prerender`:
 	+ `enabled`: Boolean (true, false). Where the website would use the SEO Prerender 
 	+ `db`: The Mongo URI of Cached Pages.
+
+Added vars for Wotify Dashboards:
+
+* `publicHost`: and alternative public host can be specified here (used in several links to return home, i.e: **wotify.co**). This is useful in case you run your node app behind a proxy in a different port than 80.
+* `publicCreateDashboard` : a boolean to specify if dashboards can be created by anyone or just the users marked as "superadmin"
 
 Generating collections
 =================
