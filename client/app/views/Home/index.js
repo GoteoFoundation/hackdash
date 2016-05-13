@@ -3,6 +3,7 @@ var template = require("./templates/home.hbs")
   , TabContent = require("./TabContent")
   , LoginView = require("../Login")
   , StatsView = require("./Stats")
+  , DashboardListView = require("./DashboardList")
   , TeamView = require("./Team")
   , PartnersView = require("./Partners")
   , FooterView = require("./Footer")
@@ -27,6 +28,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     "projects": "#projects",
     "users": "#users",
     "collections": "#collections",
+    "dashboardList": "#dashboard-list",
 
     "stats": ".stats-ctn",
     "team": ".team-ctn",
@@ -36,7 +38,9 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
   ui: {
     "domain": "#domain",
-    "create": "#create-dashboard",
+    // "create": "#create-dashboard",
+    "createProject": "#create-project",
+    "dashboardList": "#dashboard-list",
     "errorHolder": "#new-dashboard-error",
 
     "dashboards": "#dashboards",
@@ -54,6 +58,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     "click @ui.domain": "checkLogin",
     "click .login": "checkLogin",
     "click @ui.create": "createDashboard",
+    "click @ui.createProject": "createProject",
     "click .up-button": "goTop",
     "click @ui.mobileMenu": "toggleMobileMenu",
     "click .continue": "clickContiune"
@@ -116,11 +121,13 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       this.lists[this.section] =
         this.lists[this.section] || this.getNewList(this.section);
 
+
       this[this.section].show(new TabContent({
         collection: this.lists[this.section]
       }));
     }
 
+    console.log(this.section , this.lists[this.section]);
     this.ui[this.section].tab("show");
 
     if (this.ui.mobileMenu.is(':visible')){
@@ -154,7 +161,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   errors: {
-    "subdomain_invalid": "5 to 10 chars, no spaces or special",
+    "subdomain_invalid": "5 to 20 chars, no spaces or special",
     "subdomain_inuse": "Sorry, that one is in use. Try another one."
   },
 
@@ -182,13 +189,41 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       var name = this.ui.domain.val();
       this.cleanErrors();
 
-      if(/^[a-z0-9]{5,10}$/.test(name)) {
+      if(/^[a-z0-9]{5,20}$/.test(name)) {
         this.cleanErrors();
       } else {
         this.ui.errorHolder
           .removeClass('hidden')
           .text(this.errors.subdomain_invalid);
       }
+    }
+  },
+
+  createProject: function(){
+    if (this.checkLogin()){
+      if(this.ui.dashboardList.hasClass('open')) {
+        this.ui.dashboardList
+          .removeClass('open')
+          .html('');
+        this.ui.createProject
+          .html('<span class="glyphicon glyphicon-pencil"></span> Create project');
+        return;
+      }
+
+      this.ui.createProject
+        .html('<span class="glyphicon glyphicon-arrow-down"></span> Where to?');
+
+      // Load dashboards if not loaded
+      this.lists.dashboards =
+        this.lists.dashboards || this.getNewList('dashboards');
+
+      // console.log(this.lists.dashboards);
+
+      this.dashboardList.show(new DashboardListView({
+        collection: this.lists.dashboards
+      }));
+      this.ui.dashboardList.addClass('open');
+
     }
   },
 
