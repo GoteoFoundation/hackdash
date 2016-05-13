@@ -1,5 +1,17 @@
-
 <div class="landing-header">
+
+  <div class="my-profile hidden-xs">
+    <div class="pull-right">
+    {{#isLoggedIn}}
+      <a class="btn-profile">
+        {{getMyProfileImageHex}}
+      </a>
+      <a class="logout" href="/logout" data-bypass>Log out</a>
+    {{else}}
+    <a class="login">Log in</a>
+    {{/isLoggedIn}}
+    </div>
+  </div>
 
   <div class="text-vcenter call-action">
 
@@ -59,7 +71,15 @@
         <li id="user" class="user">
           <a href="#users" role="tab" data-toggle="tab">People</a>
         </li>
-
+        {{#isLoggedIn}}
+        <li>
+          <a class="logout" href="/logout" data-bypass>Log out</a>
+        </li>
+        {{else}}
+        <li>
+          <a class="login">Log in</a>
+        </li>
+        {{/isLoggedIn}}
       </ul>
 
     </div>
