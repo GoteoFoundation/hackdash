@@ -40,6 +40,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     "domain": "#domain",
     // "create": "#create-dashboard",
     "createProject": "#create-project",
+    "gotoTools": "#goto-tools",
     "dashboardList": "#dashboard-list",
     "errorHolder": "#new-dashboard-error",
 
@@ -59,6 +60,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     "click .login": "checkLogin",
     "click @ui.create": "createDashboard",
     "click @ui.createProject": "createProject",
+    "click @ui.gotoTools": "gotoTools",
     "click .up-button": "goTop",
     "click @ui.mobileMenu": "toggleMobileMenu",
     "click .continue": "clickContiune"
@@ -127,7 +129,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       }));
     }
 
-    console.log(this.section , this.lists[this.section]);
+    // console.log(this.section , this.lists[this.section]);
     this.ui[this.section].tab("show");
 
     if (this.ui.mobileMenu.is(':visible')){
@@ -199,19 +201,21 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     }
   },
 
+  gotoTools: function(){
+    window.location = 'https://issuu.com/platoniq/docs/platoniq_co-creation_eng';
+  },
+
   createProject: function(){
     if (this.checkLogin()){
       if(this.ui.dashboardList.hasClass('open')) {
-        this.ui.dashboardList
-          .removeClass('open')
-          .html('');
+        this.ui.dashboardList.removeClass('open');
         this.ui.createProject
-          .html('<span class="glyphicon glyphicon-pencil"></span> Create project');
+          .html('Create project');
         return;
       }
 
       this.ui.createProject
-        .html('<span class="glyphicon glyphicon-arrow-down"></span> Where to?');
+        .html('Where to?');
 
       // Load dashboards if not loaded
       this.lists.dashboards =
