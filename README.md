@@ -44,7 +44,18 @@ Generating collections
 =================
 
 ```bash
-NODE_PATH=. node gen-collections/index.js
+NODE_PATH=. node scripts/index.js
+```
+
+Managing users
+=================
+
+Superadmin has been introduced, currently landing page only show the create dashboard to superadmins.
+
+Create superadmins with:
+
+```bash
+NODE_PATH=. node scripts/users.js
 ```
 
 Contribute

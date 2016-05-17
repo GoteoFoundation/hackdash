@@ -66,6 +66,13 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     "click .continue": "clickContiune"
   },
 
+  templateHelpers: {
+    isSuperAdmin: function(){
+      // return true;
+      return hackdash.user && hackdash.user.superadmin;
+    }
+  },
+
   lists: {
     projects: null,
     dashboards: null,

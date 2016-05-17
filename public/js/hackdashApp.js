@@ -3118,13 +3118,36 @@ var DasboardItem = Backbone.Marionette.LayoutView.extend({
     window.location = "/dashboards/" + this.model.get("domain")  + '/create';
   },
 
+  onRender: function(){
+    this.$el.animate({height: '48px'});
+  }
+
 });
 
 module.exports = Backbone.Marionette.CollectionView.extend({
 
   tagName: 'ul',
   className: 'dropdown-menu open',
-  childView: DasboardItem
+  childView: DasboardItem,
+
+  //--------------------------------------
+  //+ INHERITED / OVERRIDES
+  //--------------------------------------
+
+  initialize: function(){
+    var self = this;
+
+    function showLoading(){
+      self.ui.loading.removeClass('hidden');
+    }
+
+    this.collection.on('fetch', showLoading);
+
+    this.collection.on('reset', function(){
+      self.ui.loading.addClass('hidden');
+      self.collection.off('fetch', showLoading);
+    });
+  },
 
 });
 },{"./templates/dashboardItemSimple.hbs":61}],48:[function(require,module,exports){
@@ -3882,6 +3905,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     "domain": "#domain",
     // "create": "#create-dashboard",
     "createProject": "#create-project",
+    "gotoTools": "#goto-tools",
     "dashboardList": "#dashboard-list",
     "errorHolder": "#new-dashboard-error",
 
@@ -3901,9 +3925,17 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     "click .login": "checkLogin",
     "click @ui.create": "createDashboard",
     "click @ui.createProject": "createProject",
+    "click @ui.gotoTools": "gotoTools",
     "click .up-button": "goTop",
     "click @ui.mobileMenu": "toggleMobileMenu",
     "click .continue": "clickContiune"
+  },
+
+  templateHelpers: {
+    isSuperAdmin: function(){
+      // return true;
+      return hackdash.user && hackdash.user.superadmin;
+    }
   },
 
   lists: {
@@ -3969,7 +4001,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       }));
     }
 
-    console.log(this.section , this.lists[this.section]);
+    // console.log(this.section , this.lists[this.section]);
     this.ui[this.section].tab("show");
 
     if (this.ui.mobileMenu.is(':visible')){
@@ -4041,19 +4073,21 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     }
   },
 
+  gotoTools: function(){
+    window.location = 'https://issuu.com/platoniq/docs/platoniq_co-creation_eng';
+  },
+
   createProject: function(){
     if (this.checkLogin()){
       if(this.ui.dashboardList.hasClass('open')) {
-        this.ui.dashboardList
-          .removeClass('open')
-          .html('');
+        this.ui.dashboardList.removeClass('open');
         this.ui.createProject
-          .html('<span class="glyphicon glyphicon-pencil"></span> Create project');
+          .html('Create project');
         return;
       }
 
       this.ui.createProject
-        .html('<span class="glyphicon glyphicon-arrow-down"></span> Where to?');
+        .html('Where to?');
 
       // Load dashboards if not loaded
       this.lists.dashboards =
@@ -4227,16 +4261,21 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
 },"3":function(depth0,helpers,partials,data) {
   return "    <a class=\"login\">Log in</a>\n";
   },"5":function(depth0,helpers,partials,data) {
-  return "        <li>\n          <a class=\"logout\" href=\"/logout\" data-bypass>Log out</a>\n        </li>\n";
+  return "        <div class=\"col-xs-12\">\n          <div class=\"input-group\">\n            <input id=\"domain\" type=\"text\" class=\"form-control\" placeholder=\"event name (5-20 chars)\">\n            <span class=\"input-group-btn\">\n              <button id=\"create-dashboard\" class=\"btn btn-primary\" type=\"button\">create now</button>\n            </span>\n          </div>\n          <p id=\"new-dashboard-error\" class=\"text-center text-danger hidden\">ERROR</p>\n        </div>\n";
   },"7":function(depth0,helpers,partials,data) {
+  return "        <li>\n          <a class=\"logout\" href=\"/logout\" data-bypass>Log out</a>\n        </li>\n";
+  },"9":function(depth0,helpers,partials,data) {
   return "        <li>\n          <a class=\"login\">Log in</a>\n        </li>\n";
   },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   var stack1, helper, options, functionType="function", helperMissing=helpers.helperMissing, blockHelperMissing=helpers.blockHelperMissing, buffer = "<div class=\"landing-header\">\n\n  <div class=\"my-profile hidden-xs\">\n    <div class=\"pull-right\">\n";
   stack1 = ((helper = (helper = helpers.isLoggedIn || (depth0 != null ? depth0.isLoggedIn : depth0)) != null ? helper : helperMissing),(options={"name":"isLoggedIn","hash":{},"fn":this.program(1, data),"inverse":this.program(3, data),"data":data}),(typeof helper === functionType ? helper.call(depth0, options) : helper));
   if (!helpers.isLoggedIn) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if (stack1 != null) { buffer += stack1; }
-  buffer += "    </div>\n  </div>\n\n  <div class=\"text-vcenter call-action\">\n\n    <div class=\"logo\"></div>\n\n    <h1>Scenarios for <span class=\"highlight\">co-creation</span></h1>\n\n    <div class=\"container-fluid\">\n\n      <div class=\"row\">\n\n\n\n        <div class=\"col-xs-12\">\n          <div class=\"input-group\">\n                <button id=\"create-project\" class=\"btn btn-primary btn-blue\" type=\"button\"><span class=\"glyphicon glyphicon-pencil\"></span> Create project</button>\n              <div class=\"dropdown-project dropdown\" id=\"dashboard-list\"></div>\n          </div>\n        </div>\n\n\n\n      </div>\n\n      <div class=\"row\">\n        <div class=\"col-xs-12\">\n          <a class=\"continue\">\n            <i class=\"fa fa-angle-down\"></i>\n          </a>\n        </div>\n      </div>\n\n    </div>\n\n  </div>\n\n</div>\n\n<div class=\"container-fluid\">\n  <div class=\"row\">\n    <div class=\"col-md-12 text-center\">\n\n      <a class=\"btn btn-default mobile-menu visible-xs\">\n        <i class=\"fa fa-align-justify\"></i>\n      </a>\n\n      <ul class=\"nav nav-tabs landing\" role=\"tablist\">\n\n        <li id=\"collection\" class=\"collection\">\n          <a href=\"#collections\" role=\"tab\" data-toggle=\"tab\">Collections</a>\n        </li>\n        <li id=\"dashboard\" class=\"dashboard\">\n          <a href=\"#dashboards\" role=\"tab\" data-toggle=\"tab\">Event boards</a>\n        </li>\n        <li id=\"project\" class=\"project\">\n          <a href=\"#projects\" role=\"tab\" data-toggle=\"tab\">Projects</a>\n        </li>\n        <li id=\"user\" class=\"user\">\n          <a href=\"#users\" role=\"tab\" data-toggle=\"tab\">People</a>\n        </li>\n";
-  stack1 = ((helper = (helper = helpers.isLoggedIn || (depth0 != null ? depth0.isLoggedIn : depth0)) != null ? helper : helperMissing),(options={"name":"isLoggedIn","hash":{},"fn":this.program(5, data),"inverse":this.program(7, data),"data":data}),(typeof helper === functionType ? helper.call(depth0, options) : helper));
+  buffer += "    </div>\n  </div>\n\n  <div class=\"text-vcenter call-action\">\n\n    <div class=\"logo\"></div>\n\n    <h1>Scenarios for <span class=\"highlight\">co-creation</span></h1>\n\n    <div class=\"container-fluid\">\n\n      <div class=\"row\">\n\n\n\n        <div class=\"col-xs-12\">\n          <div class=\"input-group\">\n              <div class=\"pull-left\">\n                <button id=\"goto-tools\" class=\"btn btn-primary btn-red\" type=\"button\">Our tools</button>\n              </div>\n              <div class=\"pull-right\">\n                <button id=\"create-project\" class=\"btn btn-primary btn-blue\" type=\"button\">Create project</button>\n                <div class=\"dropdown-project dropdown\" id=\"dashboard-list\"></div>\n              </div>\n          </div>\n        </div>\n\n\n";
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.isSuperAdmin : depth0), {"name":"if","hash":{},"fn":this.program(5, data),"inverse":this.noop,"data":data});
+  if (stack1 != null) { buffer += stack1; }
+  buffer += "\n\n\n      </div>\n\n      <div class=\"row\">\n        <div class=\"col-xs-12\">\n          <a class=\"continue\">\n            <i class=\"fa fa-angle-down\"></i>\n          </a>\n        </div>\n      </div>\n\n    </div>\n\n  </div>\n\n</div>\n\n<div class=\"container-fluid\">\n  <div class=\"row\">\n    <div class=\"col-md-12 text-center\">\n\n      <a class=\"btn btn-default mobile-menu visible-xs\">\n        <i class=\"fa fa-align-justify\"></i>\n      </a>\n\n      <ul class=\"nav nav-tabs landing\" role=\"tablist\">\n\n        <li id=\"collection\" class=\"collection\">\n          <a href=\"#collections\" role=\"tab\" data-toggle=\"tab\">Collections</a>\n        </li>\n        <li id=\"dashboard\" class=\"dashboard\">\n          <a href=\"#dashboards\" role=\"tab\" data-toggle=\"tab\">Event boards</a>\n        </li>\n        <li id=\"project\" class=\"project\">\n          <a href=\"#projects\" role=\"tab\" data-toggle=\"tab\">Projects</a>\n        </li>\n        <li id=\"user\" class=\"user\">\n          <a href=\"#users\" role=\"tab\" data-toggle=\"tab\">People</a>\n        </li>\n";
+  stack1 = ((helper = (helper = helpers.isLoggedIn || (depth0 != null ? depth0.isLoggedIn : depth0)) != null ? helper : helperMissing),(options={"name":"isLoggedIn","hash":{},"fn":this.program(7, data),"inverse":this.program(9, data),"data":data}),(typeof helper === functionType ? helper.call(depth0, options) : helper));
   if (!helpers.isLoggedIn) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if (stack1 != null) { buffer += stack1; }
   return buffer + "      </ul>\n\n    </div>\n  </div>\n</div>\n\n<div class=\"tab-content\">\n  <div role=\"tabpanel\" class=\"tab-pane\" id=\"dashboards\"></div>\n  <div role=\"tabpanel\" class=\"tab-pane\" id=\"projects\"></div>\n  <div role=\"tabpanel\" class=\"tab-pane\" id=\"users\"></div>\n  <div role=\"tabpanel\" class=\"tab-pane\" id=\"collections\"></div>\n</div>\n\n<div class=\"col-md-12 stats-ctn\"></div>\n\n<h3 class=\"team-tab visible-xs\">team</h3>\n<div class=\"col-md-12 team-ctn\"></div>\n\n<div class=\"team-partners hidden-xs\">\n  <div class=\"col-sm-5 col-sm-offset-1 col-md-3 col-md-offset-3 col-lg-2 col-lg-offset-4 partners-tab\">\n    <h3>partners</h3>\n  </div>\n  <div class=\"col-sm-5 col-md-3 col-lg-2 team-tab\">\n    <h3>team</h3>\n  </div>\n</div>\n\n<h3 class=\"partners-tab visible-xs\">partners</h3>\n<div class=\"col-md-12 partners-ctn\"></div>\n\n<div class=\"col-md-12 about-ctn\">\nWhat if Dashboard is a repository of events and projects where the \"Co-creation made Agile\" methodology is applied (developed by <a href=\"http://platoniq.net/\" data-bypass=\"true\" target=\"__blank\">Platoniq</a> as part of the Europeana Creative project). Whatif Dashboard is built with <a href=\"http://hackdash.org/\" data-bypass=\"true\" target=\"__blank\">Hackdash</a>.\n</p>\n\n</div>\n<div class=\"col-md-12 footer-ctn\"></div>\n";

@@ -66,8 +66,13 @@ label, span, p {
   background-color: @color-project;
 }
 .btn-primary.btn-blue {
-  border: 1px solid @color-project;
+  .landing-tab(@color-project);
+}
+.btn-red {
   background-color: @color-project;
+}
+.btn-primary.btn-red {
+  .landing-tab(@color-dashboard);
 }
 
 .btn-cancel {

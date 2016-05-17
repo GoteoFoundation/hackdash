@@ -142,17 +142,41 @@ html, body, #main, #main>div {
       padding: 0;
       border: none;
       li {
-        font-family: @primary-font;
+        font-family: @secondary-font;
         text-transform: uppercase;
         margin:1px 0;
+        padding:0;
+        font-size: 1.4em;
         min-width: 216px;
+        height: 48px;
         background-color: rgba(255,255,255,0.5);
         a {
+          color:white;
           cursor:pointer;
+          padding:10px 20px;
+          &:hover {
+            background-color: rgba(200,0,0,0.7);
+          }
         }
       }
     }
+  }
 
+  button#create-project.btn-primary {
+    font-size: 2em;
+    line-height: 1em;
+    background-image: url(../images/pencil.svg);
+    background-repeat: no-repeat;
+    padding:0 10px 0 50px;
+  }
+  button#goto-tools.btn-primary {
+    font-size: 2em;
+    line-height: 1em;
+    background-image: url(../images/eye.svg);
+    background-position: center left;
+    background-repeat: no-repeat;
+    padding:0 10px 0 60px;
+    margin-right: 10px;
   }
 }
 
