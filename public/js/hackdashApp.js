@@ -2940,12 +2940,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   openProfile: function(e){
     e.preventDefault();
 
-    window.fromURL = '/' + Backbone.history.fragment;
-
-    hackdash.app.router.navigate("/users/profile", {
-      trigger: true,
-      replace: true
-    });
+    window.location = '/users/profile';
   },
 
   showLogin: function(){
@@ -3928,7 +3923,8 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     "click @ui.gotoTools": "gotoTools",
     "click .up-button": "goTop",
     "click @ui.mobileMenu": "toggleMobileMenu",
-    "click .continue": "clickContiune"
+    "click .continue": "clickContiune",
+    "click .btn-profile": "openProfile"
   },
 
   templateHelpers: {
@@ -4042,6 +4038,17 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   //--------------------------------------
   //+ EVENT HANDLERS
   //--------------------------------------
+
+  openProfile: function(e){
+    e.preventDefault();
+
+    window.fromURL = '/' + Backbone.history.fragment;
+
+    hackdash.app.router.navigate("/users/profile", {
+      trigger: true,
+      replace: true
+    });
+  },
 
   checkLogin: function(){
     if (window.hackdash.user){
@@ -4261,7 +4268,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
 },"3":function(depth0,helpers,partials,data) {
   return "    <a class=\"login\">Log in</a>\n";
   },"5":function(depth0,helpers,partials,data) {
-  return "        <div class=\"col-xs-12\">\n          <div class=\"input-group\">\n            <input id=\"domain\" type=\"text\" class=\"form-control\" placeholder=\"event name (5-20 chars)\">\n            <span class=\"input-group-btn\">\n              <button id=\"create-dashboard\" class=\"btn btn-primary\" type=\"button\">create now</button>\n            </span>\n          </div>\n          <p id=\"new-dashboard-error\" class=\"text-center text-danger hidden\">ERROR</p>\n        </div>\n";
+  return "        <div class=\"col-xs-12\">\n          <div class=\"input-group\">\n            <input id=\"domain\" type=\"text\" class=\"form-control\" placeholder=\"board name (5-20 chars)\">\n            <span class=\"input-group-btn\">\n              <button id=\"create-dashboard\" class=\"btn btn-primary\" type=\"button\">create board</button>\n            </span>\n          </div>\n          <p id=\"new-dashboard-error\" class=\"text-center text-danger hidden\">ERROR</p>\n        </div>\n";
   },"7":function(depth0,helpers,partials,data) {
   return "        <li>\n          <a class=\"logout\" href=\"/logout\" data-bypass>Log out</a>\n        </li>\n";
   },"9":function(depth0,helpers,partials,data) {

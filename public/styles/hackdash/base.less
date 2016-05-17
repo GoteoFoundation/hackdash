@@ -65,16 +65,32 @@ label, span, p {
 .btn-blue {
   background-color: @color-project;
 }
-.btn-primary.btn-blue {
-  .landing-tab(@color-project);
-}
 .btn-red {
   background-color: @color-project;
 }
-.btn-primary.btn-red {
-  .landing-tab(@color-dashboard);
+.btn-primary.btn-blue {
+  .btn-custom(@color-project);
 }
+.btn-primary.btn-red {
+  .btn-custom(@color-dashboard);
+}
+.btn-custom(@color) {
+  background-color: @color;
+  border: 1px solid @color;
 
+  &:hover, a:hover, a:focus {
+    background-color: darken(@color, 6.5%);
+    border: 1px solid darken(@color, 6.5%);
+  }
+
+  &.active {
+    &:hover, a, a:hover, a:focus {
+      color: @color-white;
+      background-color: @color;
+      border: 1px solid @color;
+    }
+  }
+}
 .btn-cancel {
   color: @color-white;
   font-size: @fsize-20;

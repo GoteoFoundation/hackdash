@@ -63,7 +63,8 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     "click @ui.gotoTools": "gotoTools",
     "click .up-button": "goTop",
     "click @ui.mobileMenu": "toggleMobileMenu",
-    "click .continue": "clickContiune"
+    "click .continue": "clickContiune",
+    "click .btn-profile": "openProfile"
   },
 
   templateHelpers: {
@@ -177,6 +178,17 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   //--------------------------------------
   //+ EVENT HANDLERS
   //--------------------------------------
+
+  openProfile: function(e){
+    e.preventDefault();
+
+    window.fromURL = '/' + Backbone.history.fragment;
+
+    hackdash.app.router.navigate("/users/profile", {
+      trigger: true,
+      replace: true
+    });
+  },
 
   checkLogin: function(){
     if (window.hackdash.user){
