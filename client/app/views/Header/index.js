@@ -75,7 +75,12 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   openProfile: function(e){
     e.preventDefault();
 
-    window.location = '/users/profile';
+    window.fromURL = '/' + Backbone.history.fragment;
+
+    hackdash.app.router.navigate("/users/profile", {
+      trigger: true,
+      replace: true
+    });
   },
 
   showLogin: function(){

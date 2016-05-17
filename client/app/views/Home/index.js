@@ -38,7 +38,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
   ui: {
     "domain": "#domain",
-    // "create": "#create-dashboard",
+    "create": "#create-dashboard",
     "createProject": "#create-project",
     "gotoTools": "#goto-tools",
     "dashboardList": "#dashboard-list",
@@ -172,7 +172,8 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
   errors: {
     "subdomain_invalid": "5 to 20 chars, no spaces or special",
-    "subdomain_inuse": "Sorry, that one is in use. Try another one."
+    "subdomain_inuse": "Sorry, that one is in use. Try another one.",
+    "sudomain_create_permission": "Sorry, you don't have permissions to create a dashboard."
   },
 
   //--------------------------------------
@@ -182,12 +183,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   openProfile: function(e){
     e.preventDefault();
 
-    window.fromURL = '/' + Backbone.history.fragment;
-
-    hackdash.app.router.navigate("/users/profile", {
-      trigger: true,
-      replace: true
-    });
+    window.location = "/users/profile";
   },
 
   checkLogin: function(){
