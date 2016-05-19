@@ -28,9 +28,6 @@ In your `config.json`:
 * `live`: Boolean (true, false) that enable/disable the live feed feature in yourdomain.com/live.
 * `mailer`: SMTP mail info to enable email notifications using nodemailer. Check out the [options](https://github.com/andris9/Nodemailer#setting-up-smtp)
 * `team`: An array of `user`.`_id` to be shown as Team on Landing Page.
-* `publicDashboardCreation`: Set it to false in order to allow only super-admins create dashboards
-* `homeCreateProject` : Set it to true in order to show a button in the front page to create projects
-* `homeToolsUrl` : Set it to some URL ("http://...") in order to show a button in the front page with a link to it
 * `maxQueryLimit`: a Number for the max amount of results at the landing page searchs.
 * `googleAnalytics`: the UA-XXXXXXXX-X code from Google Analytics. if not specified wont set the script.
 * `facebookAppId`: the Facebook App Id for share buttons. It will take first from keys.json, if not will use this one. Don't set it to not show FB share buttons.
@@ -41,7 +38,23 @@ In your `config.json`:
 Added vars for Wotify Dashboards:
 
 * `publicHost`: and alternative public host can be specified here (used in several links to return home, i.e: **wotify.co**). This is useful in case you run your node app behind a proxy in a different port than 80.
-* `publicCreateDashboard` : a boolean to specify if dashboards can be created by anyone or just the users marked as "superadmin"
+* `publicDashboardCreation` : a boolean to specify if dashboards can be created by anyone or just the users marked as "superadmin"
+* `homeCreateProject` : Set it to true in order to show a button in the front page to create projects
+* `homeToolsUrl` : Set it to some URL ("http://...") in order to show a button in the front page with a link to it
+
+
+Login keys setup
+=================
+
+Logins are only available through 3 th party services. You'll need to create Apps and obtain the secrets from those services (currently Twitter, Facebook, Github and Google).
+We've added Google login tot the keys.
+
+User the keys.json.sample as an example. Google login uses Oauth2.0 version.
+
+```bash
+cp keys.json.sample keys.json
+```
+
 
 Generating collections
 =================
