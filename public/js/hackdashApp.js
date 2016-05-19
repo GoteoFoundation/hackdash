@@ -3933,9 +3933,14 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   templateHelpers: {
+    homeCreateProject: function(){
+      return window.hackdash.homeCreateProject;
+    },
+    homeToolsUrl: function(){
+      return window.hackdash.homeToolsUrl;
+    },
     canCreateDashboard: function(){
-      // return false;
-      console.log(window.hackdash);
+      // return true;
       if(window.hackdash.publicDashboardCreation) {
         return true;
       }
@@ -4086,7 +4091,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   gotoTools: function(){
-    window.location = 'https://issuu.com/platoniq/docs/platoniq_co-creation_eng';
+    window.location = window.hackdash.homeToolsUrl;
   },
 
   createProject: function(){
@@ -4273,21 +4278,31 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
 },"3":function(depth0,helpers,partials,data) {
   return "    <a class=\"login\">Log in</a>\n";
   },"5":function(depth0,helpers,partials,data) {
-  return "        <div class=\"col-xs-12\">\n          <div class=\"input-group\">\n            <input id=\"domain\" type=\"text\" class=\"form-control\" placeholder=\"board name (5-20 chars)\">\n            <span class=\"input-group-btn\">\n              <button id=\"create-dashboard\" class=\"btn btn-primary\" type=\"button\">create board</button>\n            </span>\n          </div>\n          <p id=\"new-dashboard-error\" class=\"text-center text-danger hidden\">ERROR</p>\n        </div>\n";
-  },"7":function(depth0,helpers,partials,data) {
+  var stack1, buffer = "        <div class=\"col-xs-12\">\n          <div class=\"input-group\">\n";
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.homeToolsUrl : depth0), {"name":"if","hash":{},"fn":this.program(6, data),"inverse":this.noop,"data":data});
+  if (stack1 != null) { buffer += stack1; }
+  return buffer + "              <div class=\"pull-right\">\n                <button id=\"create-project\" class=\"btn btn-primary btn-blue\" type=\"button\">Create project</button>\n                <div class=\"dropdown-project dropdown\" id=\"dashboard-list\"></div>\n              </div>\n          </div>\n        </div>\n";
+},"6":function(depth0,helpers,partials,data) {
+  return "              <div class=\"pull-left\">\n                <button id=\"goto-tools\" class=\"btn btn-primary btn-red\" type=\"button\">Our tools</button>\n              </div>\n";
+  },"8":function(depth0,helpers,partials,data) {
+  return "        <div class=\"col-xs-12\">\n          <div class=\"input-group\">\n            <input id=\"domain\" type=\"text\" class=\"form-control\" placeholder=\"event name (5-20 chars)\">\n            <span class=\"input-group-btn\">\n              <button id=\"create-dashboard\" class=\"btn btn-primary\" type=\"button\">create event</button>\n            </span>\n          </div>\n          <p id=\"new-dashboard-error\" class=\"text-center text-danger hidden\">ERROR</p>\n        </div>\n";
+  },"10":function(depth0,helpers,partials,data) {
   return "        <li>\n          <a class=\"logout\" href=\"/logout\" data-bypass>Log out</a>\n        </li>\n";
-  },"9":function(depth0,helpers,partials,data) {
+  },"12":function(depth0,helpers,partials,data) {
   return "        <li>\n          <a class=\"login\">Log in</a>\n        </li>\n";
   },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   var stack1, helper, options, functionType="function", helperMissing=helpers.helperMissing, blockHelperMissing=helpers.blockHelperMissing, buffer = "<div class=\"landing-header\">\n\n  <div class=\"my-profile hidden-xs\">\n    <div class=\"pull-right\">\n";
   stack1 = ((helper = (helper = helpers.isLoggedIn || (depth0 != null ? depth0.isLoggedIn : depth0)) != null ? helper : helperMissing),(options={"name":"isLoggedIn","hash":{},"fn":this.program(1, data),"inverse":this.program(3, data),"data":data}),(typeof helper === functionType ? helper.call(depth0, options) : helper));
   if (!helpers.isLoggedIn) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if (stack1 != null) { buffer += stack1; }
-  buffer += "    </div>\n  </div>\n\n  <div class=\"text-vcenter call-action\">\n\n    <div class=\"logo\"></div>\n\n    <h1>Scenarios for <span class=\"highlight\">co-creation</span></h1>\n\n    <div class=\"container-fluid\">\n\n      <div class=\"row\">\n\n\n\n        <div class=\"col-xs-12\">\n          <div class=\"input-group\">\n              <div class=\"pull-left\">\n                <button id=\"goto-tools\" class=\"btn btn-primary btn-red\" type=\"button\">Our tools</button>\n              </div>\n              <div class=\"pull-right\">\n                <button id=\"create-project\" class=\"btn btn-primary btn-blue\" type=\"button\">Create project</button>\n                <div class=\"dropdown-project dropdown\" id=\"dashboard-list\"></div>\n              </div>\n          </div>\n        </div>\n\n\n";
-  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.canCreateDashboard : depth0), {"name":"if","hash":{},"fn":this.program(5, data),"inverse":this.noop,"data":data});
+  buffer += "    </div>\n  </div>\n\n  <div class=\"text-vcenter call-action\">\n\n    <div class=\"logo\"></div>\n\n    <h1>Scenarios for <span class=\"highlight\">co-creation</span></h1>\n\n    <div class=\"container-fluid\">\n\n      <div class=\"row\">\n\n\n\n";
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.homeCreateProject : depth0), {"name":"if","hash":{},"fn":this.program(5, data),"inverse":this.noop,"data":data});
+  if (stack1 != null) { buffer += stack1; }
+  buffer += "\n\n";
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.canCreateDashboard : depth0), {"name":"if","hash":{},"fn":this.program(8, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
   buffer += "\n\n\n      </div>\n\n      <div class=\"row\">\n        <div class=\"col-xs-12\">\n          <a class=\"continue\">\n            <i class=\"fa fa-angle-down\"></i>\n          </a>\n        </div>\n      </div>\n\n    </div>\n\n  </div>\n\n</div>\n\n<div class=\"container-fluid\">\n  <div class=\"row\">\n    <div class=\"col-md-12 text-center\">\n\n      <a class=\"btn btn-default mobile-menu visible-xs\">\n        <i class=\"fa fa-align-justify\"></i>\n      </a>\n\n      <ul class=\"nav nav-tabs landing\" role=\"tablist\">\n\n        <li id=\"collection\" class=\"collection\">\n          <a href=\"#collections\" role=\"tab\" data-toggle=\"tab\">Collections</a>\n        </li>\n        <li id=\"dashboard\" class=\"dashboard\">\n          <a href=\"#dashboards\" role=\"tab\" data-toggle=\"tab\">Event boards</a>\n        </li>\n        <li id=\"project\" class=\"project\">\n          <a href=\"#projects\" role=\"tab\" data-toggle=\"tab\">Projects</a>\n        </li>\n        <li id=\"user\" class=\"user\">\n          <a href=\"#users\" role=\"tab\" data-toggle=\"tab\">People</a>\n        </li>\n";
-  stack1 = ((helper = (helper = helpers.isLoggedIn || (depth0 != null ? depth0.isLoggedIn : depth0)) != null ? helper : helperMissing),(options={"name":"isLoggedIn","hash":{},"fn":this.program(7, data),"inverse":this.program(9, data),"data":data}),(typeof helper === functionType ? helper.call(depth0, options) : helper));
+  stack1 = ((helper = (helper = helpers.isLoggedIn || (depth0 != null ? depth0.isLoggedIn : depth0)) != null ? helper : helperMissing),(options={"name":"isLoggedIn","hash":{},"fn":this.program(10, data),"inverse":this.program(12, data),"data":data}),(typeof helper === functionType ? helper.call(depth0, options) : helper));
   if (!helpers.isLoggedIn) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if (stack1 != null) { buffer += stack1; }
   return buffer + "      </ul>\n\n    </div>\n  </div>\n</div>\n\n<div class=\"tab-content\">\n  <div role=\"tabpanel\" class=\"tab-pane\" id=\"dashboards\"></div>\n  <div role=\"tabpanel\" class=\"tab-pane\" id=\"projects\"></div>\n  <div role=\"tabpanel\" class=\"tab-pane\" id=\"users\"></div>\n  <div role=\"tabpanel\" class=\"tab-pane\" id=\"collections\"></div>\n</div>\n\n<div class=\"col-md-12 stats-ctn\"></div>\n\n<h3 class=\"team-tab visible-xs\">team</h3>\n<div class=\"col-md-12 team-ctn\"></div>\n\n<div class=\"team-partners hidden-xs\">\n  <div class=\"col-sm-5 col-sm-offset-1 col-md-3 col-md-offset-3 col-lg-2 col-lg-offset-4 partners-tab\">\n    <h3>partners</h3>\n  </div>\n  <div class=\"col-sm-5 col-md-3 col-lg-2 team-tab\">\n    <h3>team</h3>\n  </div>\n</div>\n\n<h3 class=\"partners-tab visible-xs\">partners</h3>\n<div class=\"col-md-12 partners-ctn\"></div>\n\n<div class=\"col-md-12 about-ctn\">\nWhat if Dashboard is a repository of events and projects where the \"Co-creation made Agile\" methodology is applied (developed by <a href=\"http://platoniq.net/\" data-bypass=\"true\" target=\"__blank\">Platoniq</a> as part of the Europeana Creative project). Whatif Dashboard is built with <a href=\"http://hackdash.org/\" data-bypass=\"true\" target=\"__blank\">Hackdash</a>.\n</p>\n\n</div>\n<div class=\"col-md-12 footer-ctn\"></div>\n";

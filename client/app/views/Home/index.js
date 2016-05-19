@@ -15,8 +15,6 @@ var template = require("./templates/home.hbs")
   , Collections = require("../../models/Collections")
   , Team = require("../../models/Team");
 
-import {publicDashboardCreation} from 'config';
-
 module.exports = Backbone.Marionette.LayoutView.extend({
 
   //--------------------------------------
@@ -70,9 +68,14 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   templateHelpers: {
+    homeCreateProject: function(){
+      return window.hackdash.homeCreateProject;
+    },
+    homeToolsUrl: function(){
+      return window.hackdash.homeToolsUrl;
+    },
     canCreateDashboard: function(){
-      // return false;
-      console.log(window.hackdash);
+      // return true;
       if(window.hackdash.publicDashboardCreation) {
         return true;
       }
@@ -223,7 +226,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   gotoTools: function(){
-    window.location = 'https://issuu.com/platoniq/docs/platoniq_co-creation_eng';
+    window.location = window.hackdash.homeToolsUrl;
   },
 
   createProject: function(){

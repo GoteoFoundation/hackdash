@@ -25,25 +25,29 @@
 
 
 
+    {{#if homeCreateProject}}
         <div class="col-xs-12">
           <div class="input-group">
+            {{#if homeToolsUrl}}
               <div class="pull-left">
                 <button id="goto-tools" class="btn btn-primary btn-red" type="button">Our tools</button>
               </div>
+            {{/if}}
               <div class="pull-right">
                 <button id="create-project" class="btn btn-primary btn-blue" type="button">Create project</button>
                 <div class="dropdown-project dropdown" id="dashboard-list"></div>
               </div>
           </div>
         </div>
+    {{/if}}
 
 
     {{#if canCreateDashboard}}
         <div class="col-xs-12">
           <div class="input-group">
-            <input id="domain" type="text" class="form-control" placeholder="board name (5-20 chars)">
+            <input id="domain" type="text" class="form-control" placeholder="event name (5-20 chars)">
             <span class="input-group-btn">
-              <button id="create-dashboard" class="btn btn-primary" type="button">create board</button>
+              <button id="create-dashboard" class="btn btn-primary" type="button">create event</button>
             </span>
           </div>
           <p id="new-dashboard-error" class="text-center text-danger hidden">ERROR</p>
