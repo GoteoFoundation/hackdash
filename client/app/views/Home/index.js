@@ -15,6 +15,8 @@ var template = require("./templates/home.hbs")
   , Collections = require("../../models/Collections")
   , Team = require("../../models/Team");
 
+import {publicDashboardCreation} from 'config';
+
 module.exports = Backbone.Marionette.LayoutView.extend({
 
   //--------------------------------------
@@ -68,9 +70,13 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   templateHelpers: {
-    isSuperAdmin: function(){
-      // return true;
-      return hackdash.user && hackdash.user.superadmin;
+    canCreateDashboard: function(){
+      // return false;
+      console.log(window.hackdash);
+      if(window.hackdash.publicDashboardCreation) {
+        return true;
+      }
+      return window.hackdash.user && window.hackdash.user.superadmin;
     }
   },
 

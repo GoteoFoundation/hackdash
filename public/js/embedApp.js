@@ -133,7 +133,7 @@ module.exports = function(){
     $.fn.editable.defaults.mode = 'inline';
   }
 
-  hackdash.statuses = [
+  window.hackdash.statuses = [
     'brainstorming',
     'forecasting',
     'prototyping',

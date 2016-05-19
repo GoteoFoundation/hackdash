@@ -28,6 +28,7 @@ In your `config.json`:
 * `live`: Boolean (true, false) that enable/disable the live feed feature in yourdomain.com/live.
 * `mailer`: SMTP mail info to enable email notifications using nodemailer. Check out the [options](https://github.com/andris9/Nodemailer#setting-up-smtp)
 * `team`: An array of `user`.`_id` to be shown as Team on Landing Page.
+* `publicDashboardCreation`: Set it to false in order to allow only super-admins create dashboards
 * `maxQueryLimit`: a Number for the max amount of results at the landing page searchs.
 * `googleAnalytics`: the UA-XXXXXXXX-X code from Google Analytics. if not specified wont set the script.
 * `facebookAppId`: the Facebook App Id for share buttons. It will take first from keys.json, if not will use this one. Don't set it to not show FB share buttons.

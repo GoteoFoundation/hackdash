@@ -13,7 +13,7 @@
   "mailer": null,
   "prerender": {
     "enabled": false,
-    "db": ""mongodb"://localhost/prerender"
+    "db": "mongodb://localhost/prerender"
   },
   "team": [
     "516d1997b2951b02280000e1",
@@ -23,6 +23,7 @@
     "516d1997b2951b02280000e5",
     "516d1997b2951b02280000e6"
   ],
+  "publicDashboardCreation" : true,
   "maxQueryLimit": 30,
   "googleAnalytics": "UA-XXXXXXXX-X",
   "facebookAppId": "YYYYYYYYYYYY"

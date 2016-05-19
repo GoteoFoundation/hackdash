@@ -369,7 +369,7 @@ module.exports = function(){
     $.fn.editable.defaults.mode = 'inline';
   }
 
-  hackdash.statuses = [
+  window.hackdash.statuses = [
     'brainstorming',
     'forecasting',
     'prototyping',
@@ -3933,9 +3933,13 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   templateHelpers: {
-    isSuperAdmin: function(){
-      // return true;
-      return hackdash.user && hackdash.user.superadmin;
+    canCreateDashboard: function(){
+      // return false;
+      console.log(window.hackdash);
+      if(window.hackdash.publicDashboardCreation) {
+        return true;
+      }
+      return window.hackdash.user && window.hackdash.user.superadmin;
     }
   },
 
@@ -4280,7 +4284,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
   if (!helpers.isLoggedIn) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if (stack1 != null) { buffer += stack1; }
   buffer += "    </div>\n  </div>\n\n  <div class=\"text-vcenter call-action\">\n\n    <div class=\"logo\"></div>\n\n    <h1>Scenarios for <span class=\"highlight\">co-creation</span></h1>\n\n    <div class=\"container-fluid\">\n\n      <div class=\"row\">\n\n\n\n        <div class=\"col-xs-12\">\n          <div class=\"input-group\">\n              <div class=\"pull-left\">\n                <button id=\"goto-tools\" class=\"btn btn-primary btn-red\" type=\"button\">Our tools</button>\n              </div>\n              <div class=\"pull-right\">\n                <button id=\"create-project\" class=\"btn btn-primary btn-blue\" type=\"button\">Create project</button>\n                <div class=\"dropdown-project dropdown\" id=\"dashboard-list\"></div>\n              </div>\n          </div>\n        </div>\n\n\n";
-  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.isSuperAdmin : depth0), {"name":"if","hash":{},"fn":this.program(5, data),"inverse":this.noop,"data":data});
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.canCreateDashboard : depth0), {"name":"if","hash":{},"fn":this.program(5, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
   buffer += "\n\n\n      </div>\n\n      <div class=\"row\">\n        <div class=\"col-xs-12\">\n          <a class=\"continue\">\n            <i class=\"fa fa-angle-down\"></i>\n          </a>\n        </div>\n      </div>\n\n    </div>\n\n  </div>\n\n</div>\n\n<div class=\"container-fluid\">\n  <div class=\"row\">\n    <div class=\"col-md-12 text-center\">\n\n      <a class=\"btn btn-default mobile-menu visible-xs\">\n        <i class=\"fa fa-align-justify\"></i>\n      </a>\n\n      <ul class=\"nav nav-tabs landing\" role=\"tablist\">\n\n        <li id=\"collection\" class=\"collection\">\n          <a href=\"#collections\" role=\"tab\" data-toggle=\"tab\">Collections</a>\n        </li>\n        <li id=\"dashboard\" class=\"dashboard\">\n          <a href=\"#dashboards\" role=\"tab\" data-toggle=\"tab\">Event boards</a>\n        </li>\n        <li id=\"project\" class=\"project\">\n          <a href=\"#projects\" role=\"tab\" data-toggle=\"tab\">Projects</a>\n        </li>\n        <li id=\"user\" class=\"user\">\n          <a href=\"#users\" role=\"tab\" data-toggle=\"tab\">People</a>\n        </li>\n";
   stack1 = ((helper = (helper = helpers.isLoggedIn || (depth0 != null ? depth0.isLoggedIn : depth0)) != null ? helper : helperMissing),(options={"name":"isLoggedIn","hash":{},"fn":this.program(7, data),"inverse":this.program(9, data),"data":data}),(typeof helper === functionType ? helper.call(depth0, options) : helper));
