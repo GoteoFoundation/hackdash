@@ -212,7 +212,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
   validateDomain: function(){
     if (this.checkLogin()){
-      var name = this.ui.domain.val();
+      var name = this.ui.domain.val().toLowerCase();
       this.cleanErrors();
 
       if(/^[a-z0-9]{5,20}$/.test(name)) {
@@ -220,7 +220,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       } else {
         this.ui.errorHolder
           .removeClass('hidden')
-          .text(this.errors.subdomain_invalid);
+          .text(this.errors.subdomain_invalid + ' [' + name +']');
       }
     }
   },
@@ -257,8 +257,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
   createDashboard: function(){
     if (this.checkLogin()){
-      var domain = this.ui.domain.val();
-
+      var domain = this.ui.domain.val().toLowerCase();
       this.cleanErrors();
 
       this.ui.create.button('loading');
