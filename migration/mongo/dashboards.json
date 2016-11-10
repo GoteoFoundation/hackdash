@@ -1,0 +1,171 @@
+{ 
+    "_id" : ObjectId("570cbfe55c8f17f3469fb141"), 
+    "domain" : "testhack", 
+    "owner" : ObjectId("570cbfa05c8f17f3469fb140"), 
+    "covers" : [
+        "/uploads/a6f8272ea2bd9d1a88d8c5187d991066.jpg", 
+        "/uploads/45dd47f55e9b06fadfabb0dc70381418.png"
+    ], 
+    "created_at" : ISODate("2016-04-12T09:29:09.231+0000"), 
+    "showcase" : [
+        "570cc0025c8f17f3469fb142", 
+        "570ccc051a2660c85703bbbf"
+    ], 
+    "open" : true, 
+    "__v" : NumberInt(5), 
+    "projectsCount" : NumberInt(5)
+}
+{ 
+    "_id" : ObjectId("570cc96d1a2660c85703bbbd"), 
+    "domain" : "testdash", 
+    "owner" : ObjectId("570cbfa05c8f17f3469fb140"), 
+    "covers" : [
+
+    ], 
+    "created_at" : ISODate("2016-04-12T10:09:49.973+0000"), 
+    "showcase" : [
+        "570ccb841a2660c85703bbbe"
+    ], 
+    "open" : false, 
+    "__v" : NumberInt(0), 
+    "title" : "A new hackaton board", 
+    "projectsCount" : NumberInt(1)
+}
+{ 
+    "_id" : ObjectId("570cda0f5322ab4e74fdd979"), 
+    "domain" : "newdash", 
+    "owner" : ObjectId("570cd61b94fc79ec6bc12462"), 
+    "covers" : [
+
+    ], 
+    "created_at" : ISODate("2016-04-12T11:20:47.728+0000"), 
+    "showcase" : [
+        "570cda335322ab4e74fdd97a"
+    ], 
+    "open" : true, 
+    "__v" : NumberInt(0), 
+    "title" : "new dash", 
+    "projectsCount" : NumberInt(2)
+}
+{ 
+    "_id" : ObjectId("570ce5a0aeec1eb810e37ffc"), 
+    "covers" : [
+
+    ], 
+    "created_at" : ISODate("2016-04-12T12:10:08.225+0000"), 
+    "showcase" : [
+
+    ], 
+    "open" : true, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("570ce649aeec1eb810e37ffd"), 
+    "covers" : [
+
+    ], 
+    "created_at" : ISODate("2016-04-12T12:12:57.429+0000"), 
+    "showcase" : [
+
+    ], 
+    "open" : true, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5714c661cbc59c275c136c91"), 
+    "domain" : "another", 
+    "owner" : ObjectId("570cbfa05c8f17f3469fb140"), 
+    "covers" : [
+
+    ], 
+    "created_at" : ISODate("2016-04-18T11:34:57.727+0000"), 
+    "showcase" : [
+
+    ], 
+    "open" : true, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5714cd91ef08d2de608693a5"), 
+    "domain" : "bestdash", 
+    "owner" : ObjectId("570cbfa05c8f17f3469fb140"), 
+    "covers" : [
+
+    ], 
+    "created_at" : ISODate("2016-04-18T12:05:37.363+0000"), 
+    "showcase" : [
+
+    ], 
+    "open" : true, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("573ceae1647464921caf1c6f"), 
+    "domain" : "testboard", 
+    "owner" : ObjectId("570cbfa05c8f17f3469fb140"), 
+    "covers" : [
+
+    ], 
+    "created_at" : ISODate("2016-05-18T22:21:21.496+0000"), 
+    "showcase" : [
+
+    ], 
+    "open" : true, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("573d812852c1771b1e62371e"), 
+    "domain" : "testingb", 
+    "owner" : ObjectId("570cbfa05c8f17f3469fb140"), 
+    "covers" : [
+
+    ], 
+    "created_at" : ISODate("2016-05-19T09:02:32.012+0000"), 
+    "showcase" : [
+
+    ], 
+    "open" : true, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("573d833d04dd60052994b9f3"), 
+    "domain" : "testingagaints", 
+    "owner" : ObjectId("570cbfa05c8f17f3469fb140"), 
+    "covers" : [
+
+    ], 
+    "created_at" : ISODate("2016-05-19T09:11:25.648+0000"), 
+    "showcase" : [
+
+    ], 
+    "open" : true, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("573ddcf317b4eb586ff3832e"), 
+    "domain" : "asdfasdf", 
+    "owner" : ObjectId("570cbfa05c8f17f3469fb140"), 
+    "covers" : [
+
+    ], 
+    "created_at" : ISODate("2016-05-19T15:34:11.152+0000"), 
+    "showcase" : [
+
+    ], 
+    "open" : true, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5755688305ba637e29804280"), 
+    "domain" : "asadjdj", 
+    "owner" : ObjectId("570cbfa05c8f17f3469fb140"), 
+    "covers" : [
+
+    ], 
+    "created_at" : ISODate("2016-06-06T12:11:47.464+0000"), 
+    "showcase" : [
+
+    ], 
+    "open" : true, 
+    "__v" : NumberInt(0)
+}

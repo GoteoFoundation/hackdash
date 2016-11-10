@@ -55,12 +55,28 @@ User the keys.json.sample as an example. Google login uses Oauth2.0 version.
 cp keys.json.sample keys.json
 ```
 
+Init test server
+=================
+
+```bash
+npm start
+```
+
+Generate Client scripts
+=================
+
+This step is necessary if you make changes in the CSS or the client code (folder `client`)
+
+```bash
+cd client
+grunt 
+```
 
 Generating collections
 =================
 
 ```bash
-NODE_PATH=. node scripts/index.js
+NODE_PATH=. node scripts/collections.js
 ```
 
 Managing users

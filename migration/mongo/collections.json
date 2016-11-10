@@ -1,0 +1,31 @@
+{ 
+    "_id" : ObjectId("570ce52efec7009510efb621"), 
+    "title" : "collection", 
+    "owner" : ObjectId("570cbfa05c8f17f3469fb140"), 
+    "created_at" : ISODate("2016-04-12T12:08:14.072+0000"), 
+    "dashboards" : [
+        ObjectId("570cda0f5322ab4e74fdd979")
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5715f204725818087676c91c"), 
+    "title" : "New collection of test", 
+    "owner" : ObjectId("570cbfa05c8f17f3469fb140"), 
+    "created_at" : ISODate("2016-04-19T08:53:24.540+0000"), 
+    "dashboards" : [
+        ObjectId("570cbfe55c8f17f3469fb141")
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5715f31d0522e19f785a4c0a"), 
+    "title" : "New collection of test", 
+    "owner" : ObjectId("570cbfa05c8f17f3469fb140"), 
+    "created_at" : ISODate("2016-04-19T08:58:05.886+0000"), 
+    "dashboards" : [
+        ObjectId("570cbfe55c8f17f3469fb141"), 
+        ObjectId("570cda0f5322ab4e74fdd979")
+    ], 
+    "__v" : NumberInt(0)
+}
