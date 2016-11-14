@@ -17,4 +17,30 @@
 
       {{/each}}
   </div>
+
+  {{#if localLogin}}
+    <div class="row">
+      <div class="col-xs-12 col-md-8 col-md-offset-2">
+
+      <hr>
+      <h3>Or login with your email/password:</h3>
+
+      <form class="login">
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" class="form-control" id="email" placeholder="Em@il">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" placeholder="Password">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+
+      <hr>
+      <p class="pull-right"><strong>New user?</strong> <a href="/register" class="register">Register here</a></p>
+
+      </div>
+    </div>
+  {{/if}}
 </div>

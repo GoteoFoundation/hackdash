@@ -201,10 +201,14 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     }
 
     var providers = window.hackdash.providers;
+    var useLocalLogin = window.hackdash.useLocalLogin;
     var app = window.hackdash.app;
 
     app.modals.show(new LoginView({
-      model: new Backbone.Model({ providers: providers.split(',') })
+      model: new Backbone.Model({
+        providers: providers.split(','),
+        localLogin: useLocalLogin
+       })
     }));
 
     return false;

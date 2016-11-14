@@ -3,8 +3,7 @@
  *
  */
 
-var template = require('./templates/login.hbs');
-var Register = require("./Register");
+var template = require('./templates/register.hbs');
 
 module.exports = Backbone.Marionette.ItemView.extend({
 
@@ -12,24 +11,23 @@ module.exports = Backbone.Marionette.ItemView.extend({
   //+ PUBLIC PROPERTIES / CONSTANTS
   //--------------------------------------
 
-  className: "login",
+  className: "register",
   template: template,
 
+  ui: {
+    form: 'form.signup',
+    name: 'form.signup #name',
+    email: 'form.signup #email',
+    password: 'form.signup #password'
+  },
   events: {
-    "click .register": "register",
+    "submit @ui.form": "signup",
     "click .close": "destroy"
   },
 
   //--------------------------------------
   //+ INHERITED / OVERRIDES
   //--------------------------------------
-
-  templateHelpers: {
-    redirectURL: function(){
-      var url = hackdash.app.previousURL || '';
-      return (url.length ? '?redirect=' + url : url);
-    }
-  },
 
   //--------------------------------------
   //+ PUBLIC METHODS / GETTERS / SETTERS
@@ -39,13 +37,14 @@ module.exports = Backbone.Marionette.ItemView.extend({
   //+ EVENT HANDLERS
   //--------------------------------------
 
-  register: function(){
-    hackdash.app.modals.show(new Register({
-        model: this.model
-      }));
-    this.destroy();
-  },
+  signup: function(e) {
+    var name = this.ui.name.val();
+    var email = this.ui.email.val();
+    var password = this.ui.password.val();
+    console.log('Wellcome', name,email,password, e);
 
+    return false;
+  }
   //--------------------------------------
   //+ PRIVATE AND PROTECTED METHODS
   //--------------------------------------

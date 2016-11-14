@@ -41,6 +41,7 @@ Added vars for Wotify Dashboards:
 * `publicDashboardCreation` : a boolean to specify if dashboards can be created by anyone or just the users marked as "superadmin"
 * `homeCreateProject` : Set it to true in order to show a button in the front page to create projects
 * `homeToolsUrl` : Set it to some URL ("http://...") in order to show a button in the front page with a link to it
+* `seLocalLogin`: Set to true if you want to allow username/password registration
 
 
 Login keys setup
@@ -54,6 +55,8 @@ User the keys.json.sample as an example. Google login uses Oauth2.0 version.
 ```bash
 cp keys.json.sample keys.json
 ```
+
+Local login (traditional username/password) can be added by setting `"useLocalLogin": true` in `config.js`
 
 Init test server
 =================
