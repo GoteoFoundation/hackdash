@@ -30,12 +30,10 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
   initialize: function(options){
     this.flashError = (options && options.model && options.model.attributes && options.model.attributes.flashError) || [];
-    console.log(options, this.flashError);
   },
 
   templateHelpers: function() {
     var flashError = this.flashError;
-    console.log('flashError', flashError);
     return {
       showErrors: function(){
         return flashError;
@@ -56,8 +54,11 @@ module.exports = Backbone.Marionette.ItemView.extend({
   //--------------------------------------
 
   register: function(){
+    var flashError = this.flashError;
     hackdash.app.modals.show(new Register({
-        model: this.model
+        model: new Backbone.Model({
+          flashError: flashError
+         })
       }));
     this.destroy();
   },

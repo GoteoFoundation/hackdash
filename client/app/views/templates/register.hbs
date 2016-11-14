@@ -7,10 +7,17 @@
 
 <div class="modal-body">
   <div class="row">
+
+    {{#if showErrors}}
+      <div class="alert alert-danger" id="login-errors">
+        {{showErrors}}
+      </div>
+    {{/if}}
+
     <div class="col-xs-12 col-md-8 col-md-offset-2">
 
 
-      <form class="signup" method="post">
+      <form class="signup" method="post" action="/register{{redirectURL}}">
         <div class="form-group">
           <label for="name">Name</label>
           <input type="name" class="form-control" id="name" placeholder="Name">

@@ -205,6 +205,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     var useLocalLogin = window.hackdash.useLocalLogin;
     var error = window.hackdash.flashError;
     var app = window.hackdash.app;
+
     app.modals.show(new LoginView({
       model: new Backbone.Model({
         providers: providers.split(','),
@@ -215,8 +216,11 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   showRegister: function() {
+    var error = window.hackdash.flashError;
       window.hackdash.app.modals.show(new RegisterView({
-        model: new Backbone.Model()
+        model: new Backbone.Model({
+          flashError: error
+        })
       }));
   },
 
