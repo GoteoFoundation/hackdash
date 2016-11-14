@@ -30,7 +30,6 @@ module.exports = Backbone.Marionette.ItemView.extend({
   //--------------------------------------
   initialize: function(options){
     this.flashError = (options && options.model && options.model.attributes && options.model.attributes.flashError) || [];
-    console.log(options, this.flashError);
   },
 
   templateHelpers: function() {

@@ -6338,7 +6338,6 @@ module.exports = Backbone.Marionette.ItemView.extend({
   //--------------------------------------
   initialize: function(options){
     this.flashError = (options && options.model && options.model.attributes && options.model.attributes.flashError) || [];
-    console.log(options, this.flashError);
   },
 
   templateHelpers: function() {
@@ -6685,7 +6684,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
   var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
   return "    <div class=\"row\">\n      <div class=\"col-xs-12 col-md-8 col-md-offset-2\">\n\n      <hr>\n      <h3>Or login with your email/password:</h3>\n\n      <form class=\"login\" action=\"/login"
     + escapeExpression(((helper = (helper = helpers.redirectURL || (depth0 != null ? depth0.redirectURL : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"redirectURL","hash":{},"data":data}) : helper)))
-    + "\" method=\"post\">\n        <div class=\"form-group\">\n          <label for=\"email\">Email address</label>\n          <input type=\"email\" class=\"form-control\" id=\"email\" placeholder=\"Em@il\">\n        </div>\n        <div class=\"form-group\">\n          <label for=\"password\">Password</label>\n          <input type=\"password\" class=\"form-control\" id=\"password\" placeholder=\"Password\">\n        </div>\n        <button type=\"submit\" class=\"btn btn-default\">Submit</button>\n      </form>\n\n      <hr>\n      <p class=\"pull-right\"><strong>New user?</strong> <a href=\"/register\" class=\"register\">Register here</a></p>\n\n      </div>\n    </div>\n";
+    + "\" method=\"post\">\n        <div class=\"form-group\">\n          <label for=\"username\">Email address</label>\n          <input type=\"email\" class=\"form-control\" id=\"username\" name=\"username\" placeholder=\"Em@il\">\n        </div>\n        <div class=\"form-group\">\n          <label for=\"password\">Password</label>\n          <input type=\"password\" class=\"form-control\" id=\"password\" name=\"password\" placeholder=\"Password\">\n        </div>\n        <button type=\"submit\" class=\"btn btn-default\">Submit</button>\n      </form>\n\n      <hr>\n      <p class=\"pull-right\"><strong>New user?</strong> <a href=\"/register\" class=\"register\">Register here</a></p>\n\n      </div>\n    </div>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data,depths) {
   var stack1, buffer = "<div class=\"modal-header\">\n  <button type=\"button\" class=\"close\" data-dismiss=\"modal\">\n    <i class=\"fa fa-close\"></i>\n  </button>\n  <h2 class=\"modal-title\">Log In</h2>\n</div>\n\n<div class=\"modal-body\">\n\n";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.showErrors : depth0), {"name":"if","hash":{},"fn":this.program(1, data, depths),"inverse":this.noop,"data":data});
@@ -6727,7 +6726,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
   if (stack1 != null) { buffer += stack1; }
   return buffer + "\n    <div class=\"col-xs-12 col-md-8 col-md-offset-2\">\n\n\n      <form class=\"signup\" method=\"post\" action=\"/register"
     + escapeExpression(((helper = (helper = helpers.redirectURL || (depth0 != null ? depth0.redirectURL : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"redirectURL","hash":{},"data":data}) : helper)))
-    + "\">\n        <div class=\"form-group\">\n          <label for=\"name\">Name</label>\n          <input type=\"name\" class=\"form-control\" id=\"name\" placeholder=\"Name\">\n        </div>\n        <div class=\"form-group\">\n          <label for=\"email\">Email address</label>\n          <input type=\"email\" class=\"form-control\" id=\"email\" placeholder=\"Em@il\">\n        </div>\n        <div class=\"form-group\">\n          <label for=\"password\">Password</label>\n          <input type=\"password\" class=\"form-control\" id=\"password\" placeholder=\"Password\">\n        </div>\n        <button type=\"submit\" class=\"btn btn-default\">Submit</button>\n      </form>\n\n\n    </div>\n  </div>\n</div>\n";
+    + "\">\n        <div class=\"form-group\">\n          <label for=\"name\">Name</label>\n          <input type=\"name\" class=\"form-control\" id=\"name\" name=\"name\" placeholder=\"Name\">\n        </div>\n        <div class=\"form-group\">\n          <label for=\"email\">Email address</label>\n          <input type=\"email\" class=\"form-control\" id=\"email\" name=\"email\" placeholder=\"Em@il\">\n        </div>\n        <div class=\"form-group\">\n          <label for=\"password\">Password</label>\n          <input type=\"password\" class=\"form-control\" id=\"password\" name=\"password\" placeholder=\"Password\">\n        </div>\n        <button type=\"submit\" class=\"btn btn-default\">Submit</button>\n      </form>\n\n\n    </div>\n  </div>\n</div>\n";
 },"useData":true});
 
 },{"hbsfy/runtime":104}],96:[function(require,module,exports){
