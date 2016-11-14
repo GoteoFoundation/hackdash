@@ -31,11 +31,13 @@ module.exports = function(){
     app.showLogin = function(){
       var providers = window.hackdash.providers;
       var useLocalLogin = window.hackdash.useLocalLogin;
+      var error = window.hackdash.flashError;
 
       app.modals.show(new LoginView({
         model: new Backbone.Model({
           providers: providers.split(','),
-          localLogin: useLocalLogin
+          localLogin: useLocalLogin,
+          flashError: error
         })
       }));
     };
@@ -4085,12 +4087,13 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
     var providers = window.hackdash.providers;
     var useLocalLogin = window.hackdash.useLocalLogin;
+    var error = window.hackdash.flashError;
     var app = window.hackdash.app;
-
     app.modals.show(new LoginView({
       model: new Backbone.Model({
         providers: providers.split(','),
-        localLogin: useLocalLogin
+        localLogin: useLocalLogin,
+        flashError: error
        })
     }));
   },
@@ -4405,6 +4408,10 @@ module.exports = Backbone.Marionette.ItemView.extend({
   className: "login",
   template: template,
 
+  ui: {
+    "errorHolder": "#login-errors"
+  },
+
   events: {
     "click .register": "register",
     "click .close": "destroy"
@@ -4414,11 +4421,23 @@ module.exports = Backbone.Marionette.ItemView.extend({
   //+ INHERITED / OVERRIDES
   //--------------------------------------
 
-  templateHelpers: {
-    redirectURL: function(){
-      var url = hackdash.app.previousURL || '';
-      return (url.length ? '?redirect=' + url : url);
-    }
+  initialize: function(options){
+    this.flashError = (options && options.model && options.model.attributes && options.model.attributes.flashError) || [];
+    console.log(options, this.flashError);
+  },
+
+  templateHelpers: function() {
+    var flashError = this.flashError;
+    console.log('flashError', flashError);
+    return {
+      showErrors: function(){
+        return flashError;
+      },
+      redirectURL: function(){
+        var url = hackdash.app.previousURL || '';
+        return (url.length ? '?redirect=' + url : url);
+      }
+    };
   },
 
   //--------------------------------------
@@ -6327,7 +6346,6 @@ module.exports = Backbone.Marionette.ItemView.extend({
     var password = this.ui.password.val();
     console.log('Welcome', name,email,password, e);
 
-    return false;
   }
   //--------------------------------------
   //+ PRIVATE AND PROTECTED METHODS
@@ -6623,7 +6641,12 @@ var Sharer = module.exports = Backbone.Marionette.ItemView.extend({
 },{"./Dashboard/Share":28,"./Project/Share":86,"./templates/sharer.hbs":96}],93:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
-module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partials,data,depths) {
+module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partials,data) {
+  var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+  return "    <div class=\"alert alert-danger\" id=\"login-errors\">\n      "
+    + escapeExpression(((helper = (helper = helpers.showErrors || (depth0 != null ? depth0.showErrors : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"showErrors","hash":{},"data":data}) : helper)))
+    + "\n    </div>\n";
+},"3":function(depth0,helpers,partials,data,depths) {
   var lambda=this.lambda, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing;
   return "\n      <div class=\"col-xs-12 col-md-8 col-md-offset-2\">\n        <a href=\"/auth/"
     + escapeExpression(lambda(depth0, depth0))
@@ -6635,14 +6658,20 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
     + "\"></i>Access with "
     + escapeExpression(((helpers.firstUpper || (depth0 && depth0.firstUpper) || helperMissing).call(depth0, depth0, {"name":"firstUpper","hash":{},"data":data})))
     + "\n        </a>\n      </div>\n\n";
-},"3":function(depth0,helpers,partials,data) {
-  return "    <div class=\"row\">\n      <div class=\"col-xs-12 col-md-8 col-md-offset-2\">\n\n      <hr>\n      <h3>Or login with your email/password:</h3>\n\n      <form class=\"login\">\n        <div class=\"form-group\">\n          <label for=\"email\">Email address</label>\n          <input type=\"email\" class=\"form-control\" id=\"email\" placeholder=\"Em@il\">\n        </div>\n        <div class=\"form-group\">\n          <label for=\"password\">Password</label>\n          <input type=\"password\" class=\"form-control\" id=\"password\" placeholder=\"Password\">\n        </div>\n        <button type=\"submit\" class=\"btn btn-default\">Submit</button>\n      </form>\n\n      <hr>\n      <p class=\"pull-right\"><strong>New user?</strong> <a href=\"/register\" class=\"register\">Register here</a></p>\n\n      </div>\n    </div>\n";
-  },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data,depths) {
-  var stack1, buffer = "<div class=\"modal-header\">\n  <button type=\"button\" class=\"close\" data-dismiss=\"modal\">\n    <i class=\"fa fa-close\"></i>\n  </button>\n  <h2 class=\"modal-title\">Log In</h2>\n</div>\n\n<div class=\"modal-body\">\n  <div class=\"row\">\n";
-  stack1 = helpers.each.call(depth0, (depth0 != null ? depth0.providers : depth0), {"name":"each","hash":{},"fn":this.program(1, data, depths),"inverse":this.noop,"data":data});
+},"5":function(depth0,helpers,partials,data) {
+  var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+  return "    <div class=\"row\">\n      <div class=\"col-xs-12 col-md-8 col-md-offset-2\">\n\n      <hr>\n      <h3>Or login with your email/password:</h3>\n\n      <form class=\"login\" action=\"/auth/local"
+    + escapeExpression(((helper = (helper = helpers.redirectURL || (depth0 != null ? depth0.redirectURL : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"redirectURL","hash":{},"data":data}) : helper)))
+    + "\" method=\"post\">\n        <div class=\"form-group\">\n          <label for=\"email\">Email address</label>\n          <input type=\"email\" class=\"form-control\" id=\"email\" placeholder=\"Em@il\">\n        </div>\n        <div class=\"form-group\">\n          <label for=\"password\">Password</label>\n          <input type=\"password\" class=\"form-control\" id=\"password\" placeholder=\"Password\">\n        </div>\n        <button type=\"submit\" class=\"btn btn-default\">Submit</button>\n      </form>\n\n      <hr>\n      <p class=\"pull-right\"><strong>New user?</strong> <a href=\"/register\" class=\"register\">Register here</a></p>\n\n      </div>\n    </div>\n";
+},"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data,depths) {
+  var stack1, buffer = "<div class=\"modal-header\">\n  <button type=\"button\" class=\"close\" data-dismiss=\"modal\">\n    <i class=\"fa fa-close\"></i>\n  </button>\n  <h2 class=\"modal-title\">Log In</h2>\n</div>\n\n<div class=\"modal-body\">\n\n";
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.showErrors : depth0), {"name":"if","hash":{},"fn":this.program(1, data, depths),"inverse":this.noop,"data":data});
+  if (stack1 != null) { buffer += stack1; }
+  buffer += "\n  <div class=\"row\">\n";
+  stack1 = helpers.each.call(depth0, (depth0 != null ? depth0.providers : depth0), {"name":"each","hash":{},"fn":this.program(3, data, depths),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
   buffer += "  </div>\n\n";
-  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.localLogin : depth0), {"name":"if","hash":{},"fn":this.program(3, data, depths),"inverse":this.noop,"data":data});
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.localLogin : depth0), {"name":"if","hash":{},"fn":this.program(5, data, depths),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
   return buffer + "</div>\n";
 },"useData":true,"useDepths":true});
@@ -6665,7 +6694,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-  return "<div class=\"modal-header\">\n  <button type=\"button\" class=\"close\" data-dismiss=\"modal\">\n    <i class=\"fa fa-close\"></i>\n  </button>\n  <h2 class=\"modal-title\">New User</h2>\n</div>\n\n<div class=\"modal-body\">\n  <div class=\"row\">\n    <div class=\"col-xs-12 col-md-8 col-md-offset-2\">\n\n\n      <form class=\"signup\">\n        <div class=\"form-group\">\n          <label for=\"name\">Name</label>\n          <input type=\"name\" class=\"form-control\" id=\"name\" placeholder=\"Name\">\n        </div>\n        <div class=\"form-group\">\n          <label for=\"email\">Email address</label>\n          <input type=\"email\" class=\"form-control\" id=\"email\" placeholder=\"Em@il\">\n        </div>\n        <div class=\"form-group\">\n          <label for=\"password\">Password</label>\n          <input type=\"password\" class=\"form-control\" id=\"password\" placeholder=\"Password\">\n        </div>\n        <button type=\"submit\" class=\"btn btn-default\">Submit</button>\n      </form>\n\n\n    </div>\n  </div>\n</div>\n";
+  return "<div class=\"modal-header\">\n  <button type=\"button\" class=\"close\" data-dismiss=\"modal\">\n    <i class=\"fa fa-close\"></i>\n  </button>\n  <h2 class=\"modal-title\">New User</h2>\n</div>\n\n<div class=\"modal-body\">\n  <div class=\"row\">\n    <div class=\"col-xs-12 col-md-8 col-md-offset-2\">\n\n\n      <form class=\"signup\" method=\"post\">\n        <div class=\"form-group\">\n          <label for=\"name\">Name</label>\n          <input type=\"name\" class=\"form-control\" id=\"name\" placeholder=\"Name\">\n        </div>\n        <div class=\"form-group\">\n          <label for=\"email\">Email address</label>\n          <input type=\"email\" class=\"form-control\" id=\"email\" placeholder=\"Em@il\">\n        </div>\n        <div class=\"form-group\">\n          <label for=\"password\">Password</label>\n          <input type=\"password\" class=\"form-control\" id=\"password\" placeholder=\"Password\">\n        </div>\n        <button type=\"submit\" class=\"btn btn-default\">Submit</button>\n      </form>\n\n\n    </div>\n  </div>\n</div>\n";
   },"useData":true});
 
 },{"hbsfy/runtime":104}],96:[function(require,module,exports){

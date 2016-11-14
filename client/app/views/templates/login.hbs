@@ -6,6 +6,13 @@
 </div>
 
 <div class="modal-body">
+
+  {{#if showErrors}}
+    <div class="alert alert-danger" id="login-errors">
+      {{showErrors}}
+    </div>
+  {{/if}}
+
   <div class="row">
       {{#each providers}}
 
@@ -25,7 +32,7 @@
       <hr>
       <h3>Or login with your email/password:</h3>
 
-      <form class="login">
+      <form class="login" action="/auth/local{{redirectURL}}" method="post">
         <div class="form-group">
           <label for="email">Email address</label>
           <input type="email" class="form-control" id="email" placeholder="Em@il">

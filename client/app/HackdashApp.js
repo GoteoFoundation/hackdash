@@ -23,11 +23,13 @@ module.exports = function(){
     app.showLogin = function(){
       var providers = window.hackdash.providers;
       var useLocalLogin = window.hackdash.useLocalLogin;
+      var error = window.hackdash.flashError;
 
       app.modals.show(new LoginView({
         model: new Backbone.Model({
           providers: providers.split(','),
-          localLogin: useLocalLogin
+          localLogin: useLocalLogin,
+          flashError: error
         })
       }));
     };

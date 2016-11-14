@@ -15,6 +15,10 @@ module.exports = Backbone.Marionette.ItemView.extend({
   className: "login",
   template: template,
 
+  ui: {
+    "errorHolder": "#login-errors"
+  },
+
   events: {
     "click .register": "register",
     "click .close": "destroy"
@@ -24,11 +28,23 @@ module.exports = Backbone.Marionette.ItemView.extend({
   //+ INHERITED / OVERRIDES
   //--------------------------------------
 
-  templateHelpers: {
-    redirectURL: function(){
-      var url = hackdash.app.previousURL || '';
-      return (url.length ? '?redirect=' + url : url);
-    }
+  initialize: function(options){
+    this.flashError = (options && options.model && options.model.attributes && options.model.attributes.flashError) || [];
+    console.log(options, this.flashError);
+  },
+
+  templateHelpers: function() {
+    var flashError = this.flashError;
+    console.log('flashError', flashError);
+    return {
+      showErrors: function(){
+        return flashError;
+      },
+      redirectURL: function(){
+        var url = hackdash.app.previousURL || '';
+        return (url.length ? '?redirect=' + url : url);
+      }
+    };
   },
 
   //--------------------------------------
