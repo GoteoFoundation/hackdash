@@ -2,6 +2,7 @@
 var template = require("./templates/home.hbs")
   , TabContent = require("./TabContent")
   , LoginView = require("../Login")
+  , RegisterView = require("../Register")
   , StatsView = require("./Stats")
   , DashboardListView = require("./DashboardList")
   , TeamView = require("./Team")
@@ -210,8 +211,12 @@ module.exports = Backbone.Marionette.LayoutView.extend({
         localLogin: useLocalLogin
        })
     }));
+  },
 
-    return false;
+  showRegister: function() {
+      window.hackdash.app.modals.show(new RegisterView({
+        model: new Backbone.Model()
+      }));
   },
 
   validateDomain: function(){

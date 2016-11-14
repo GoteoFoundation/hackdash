@@ -41,7 +41,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
     var name = this.ui.name.val();
     var email = this.ui.email.val();
     var password = this.ui.password.val();
-    console.log('Wellcome', name,email,password, e);
+    console.log('Welcome', name,email,password, e);
 
     return false;
   }

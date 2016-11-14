@@ -105,7 +105,7 @@ module.exports = Backbone.Marionette.AppRouter.extend({
   routes : {
       "" : "showHome"
     , "login" : "showLogin"
-    , "register" : "showLogin"
+    , "register" : "showRegister"
 
     // LANDING
     , "dashboards" : "showLandingDashboards"
@@ -143,6 +143,12 @@ module.exports = Backbone.Marionette.AppRouter.extend({
   showLogin: function(){
     this.showHome();
     this.homeView.checkLogin();
+  },
+
+  // Automatic shows register modal
+  showRegister: function(){
+    this.showHome();
+    this.homeView.showRegister();
   },
 
   getSearchQuery: function(){
@@ -3878,6 +3884,7 @@ module.exports = ItemView.extend({
 var template = require("./templates/home.hbs")
   , TabContent = require("./TabContent")
   , LoginView = require("../Login")
+  , RegisterView = require("../Register")
   , StatsView = require("./Stats")
   , DashboardListView = require("./DashboardList")
   , TeamView = require("./Team")
@@ -4086,8 +4093,12 @@ module.exports = Backbone.Marionette.LayoutView.extend({
         localLogin: useLocalLogin
        })
     }));
+  },
 
-    return false;
+  showRegister: function() {
+      window.hackdash.app.modals.show(new RegisterView({
+        model: new Backbone.Model()
+      }));
   },
 
   validateDomain: function(){
@@ -4212,7 +4223,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
 });
 
-},{"../../models/Collections":10,"../../models/Dashboards":13,"../../models/Projects":16,"../../models/Team":17,"../../models/Users":19,"../Login":70,"./DashboardList":47,"./Footer":49,"./Partners":51,"./Stats":53,"./TabContent":54,"./Team":55,"./templates/home.hbs":63}],59:[function(require,module,exports){
+},{"../../models/Collections":10,"../../models/Dashboards":13,"../../models/Projects":16,"../../models/Team":17,"../../models/Users":19,"../Login":70,"../Register":91,"./DashboardList":47,"./Footer":49,"./Partners":51,"./Stats":53,"./TabContent":54,"./Team":55,"./templates/home.hbs":63}],59:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partials,data) {
@@ -6314,7 +6325,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
     var name = this.ui.name.val();
     var email = this.ui.email.val();
     var password = this.ui.password.val();
-    console.log('Wellcome', name,email,password, e);
+    console.log('Welcome', name,email,password, e);
 
     return false;
   }

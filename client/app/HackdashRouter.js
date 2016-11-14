@@ -24,7 +24,7 @@ module.exports = Backbone.Marionette.AppRouter.extend({
   routes : {
       "" : "showHome"
     , "login" : "showLogin"
-    , "register" : "showLogin"
+    , "register" : "showRegister"
 
     // LANDING
     , "dashboards" : "showLandingDashboards"
@@ -62,6 +62,12 @@ module.exports = Backbone.Marionette.AppRouter.extend({
   showLogin: function(){
     this.showHome();
     this.homeView.checkLogin();
+  },
+
+  // Automatic shows register modal
+  showRegister: function(){
+    this.showHome();
+    this.homeView.showRegister();
   },
 
   getSearchQuery: function(){
