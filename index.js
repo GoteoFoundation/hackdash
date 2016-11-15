@@ -7,7 +7,7 @@ require('babel/register');
 var app = require('lib/server');
 var debug = require('debug')('hackdash:server');
 var http = require('http');
-var config = require('config/config.json');
+var config = require('./config/config.json');
 var live = require('lib/live');
 //Listener for mail sending on events
 require('lib/mailer/listener.js');
