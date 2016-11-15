@@ -102,6 +102,14 @@ Handlebars.registerHelper('formatDate', function(date) {
   return "-";
 });
 
+Handlebars.registerHelper('formatDateDate', function(date) {
+  if (date && moment(date).isValid()) {
+    return moment(date).format("DD/MM/YYYY");
+  }
+
+  return "-";
+});
+
 Handlebars.registerHelper('formatDateText', function(date) {
   if (date && moment(date).isValid()) {
     return moment(date).format("DD MMM YYYY, HH:mm");

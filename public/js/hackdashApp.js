@@ -554,6 +554,14 @@ Handlebars.registerHelper('formatDate', function(date) {
   return "-";
 });
 
+Handlebars.registerHelper('formatDateDate', function(date) {
+  if (date && moment(date).isValid()) {
+    return moment(date).format("DD/MM/YYYY");
+  }
+
+  return "-";
+});
+
 Handlebars.registerHelper('formatDateText', function(date) {
   if (date && moment(date).isValid()) {
     return moment(date).format("DD MMM YYYY, HH:mm");
@@ -4720,6 +4728,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
     "name": "input[name=name]",
     "email": "input[name=email]",
     "bio": "textarea[name=bio]",
+    "birthdate": "input[name=birthdate]",
   },
 
   events: {
@@ -4751,7 +4760,6 @@ module.exports = Backbone.Marionette.ItemView.extend({
     }, this);
 
     this.cleanErrors();
-
     $("#save", this.$el).button('loading');
 
     this.model
@@ -5138,7 +5146,9 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
   if (stack1 != null) { buffer += stack1; }
   buffer += "    </div>\n    <div class=\"form-group\">\n      <textarea name=\"bio\" placeholder=\"Some about you\" class=\"form-control\" rows=\"4\">"
     + escapeExpression(((helper = (helper = helpers.bio || (depth0 != null ? depth0.bio : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"bio","hash":{},"data":data}) : helper)))
-    + "</textarea>\n    </div>\n  </div>\n  <div class=\"form-actions\">\n    <input id=\"save\" type=\"button\" data-loading-text=\"saving..\" value=\"Save profile\" class=\"btn-primary pull-right\"/>\n    <label class=\"saved pull-left hidden\">Profile saved, going back to business ...</label>\n";
+    + "</textarea>\n    </div>\n    <div class=\"form-group\">\n      <input name=\"birthdate\" type=\"text\" data-provide=\"datepicker\" data-date-format=\"dd/mm/yyyy\" placeholder=\"Date of birth\" value=\""
+    + escapeExpression(((helpers.formatDateDate || (depth0 && depth0.formatDateDate) || helperMissing).call(depth0, (depth0 != null ? depth0.birthdate : depth0), {"name":"formatDateDate","hash":{},"data":data})))
+    + "\" class=\"form-control\"/>\n    </div>\n  </div>\n  <div class=\"form-actions\">\n    <input id=\"save\" type=\"button\" data-loading-text=\"saving..\" value=\"Save profile\" class=\"btn-primary pull-right\"/>\n    <label class=\"saved pull-left hidden\">Profile saved, going back to business ...</label>\n";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.email : depth0), {"name":"if","hash":{},"fn":this.program(3, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
   return buffer + "  </div>\n</form>";

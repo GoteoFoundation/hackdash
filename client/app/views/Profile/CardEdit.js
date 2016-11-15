@@ -17,6 +17,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
     "name": "input[name=name]",
     "email": "input[name=email]",
     "bio": "textarea[name=bio]",
+    "birthdate": "input[name=birthdate]",
   },
 
   events: {
@@ -48,7 +49,6 @@ module.exports = Backbone.Marionette.ItemView.extend({
     }, this);
 
     this.cleanErrors();
-
     $("#save", this.$el).button('loading');
 
     this.model
