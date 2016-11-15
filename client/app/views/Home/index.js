@@ -219,6 +219,10 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   showRegister: function() {
+    if (window.hackdash.user){
+      return true;
+    }
+
     var error = window.hackdash.flashError;
     var msg = window.hackdash.flashMessage;
     window.hackdash.app.modals.show(new RegisterView({
@@ -230,6 +234,10 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   showForgot: function(token) {
+    if (window.hackdash.user){
+      return true;
+    }
+
     var error = window.hackdash.flashError;
     var msg = window.hackdash.flashMessage;
 

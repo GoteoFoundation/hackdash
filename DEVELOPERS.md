@@ -10,8 +10,7 @@ Main application folders:
 
 ```
 config/         -> Config files
-public/         -> Images, css and other public resources.
-                   Generated grunt files goes here as well.
+public/         -> Images, css and other public resources
 views/          -> Basic templates for node. Using Jade template language
 lib/            -> Classes, models and application packages
 client/         -> Frontend files, using the Marionette framework
