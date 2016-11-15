@@ -25,6 +25,8 @@ module.exports = Backbone.Marionette.AppRouter.extend({
       "" : "showHome"
     , "login" : "showLogin"
     , "register" : "showRegister"
+    , "lost-password" : "showForgot"
+    , "lost-password/:token" : "showForgot"
 
     // LANDING
     , "dashboards" : "showLandingDashboards"
@@ -68,6 +70,12 @@ module.exports = Backbone.Marionette.AppRouter.extend({
   showRegister: function(){
     this.showHome();
     this.homeView.showRegister();
+  },
+
+  // Automatic shows register modal
+  showForgot: function(token){
+    this.showHome();
+    this.homeView.showForgot(token);
   },
 
   getSearchQuery: function(){

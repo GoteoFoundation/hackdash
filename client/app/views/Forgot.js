@@ -3,9 +3,7 @@
  *
  */
 
-var template = require('./templates/login.hbs');
-var Register = require("./Register");
-var Forgot = require("./Forgot");
+var template = require('./templates/forgot.hbs');
 
 module.exports = Backbone.Marionette.ItemView.extend({
 
@@ -13,32 +11,30 @@ module.exports = Backbone.Marionette.ItemView.extend({
   //+ PUBLIC PROPERTIES / CONSTANTS
   //--------------------------------------
 
-  className: "login",
+  className: "forgot",
   template: template,
 
-  ui: {
-    "errorHolder": "#login-errors"
-  },
-
   events: {
-    "click .register": "register",
-    "click .lostpass": "lostPassword",
     "click .close": "destroy"
   },
 
   //--------------------------------------
   //+ INHERITED / OVERRIDES
   //--------------------------------------
-
   initialize: function(options){
     this.flashError = (options && options.model && options.model.attributes && options.model.attributes.flashError) || '';
     this.flashMessage = (options && options.model && options.model.attributes && options.model.attributes.flashMessage) || '';
+    this.token = (options && options.model && options.model.attributes && options.model.attributes.token) || null;
   },
 
   templateHelpers: function() {
     var flashError = this.flashError;
     var flashMessage = this.flashMessage;
+    var token = this.token;
     return {
+      token: function(){
+        return token;
+      },
       showErrors: function(){
         return flashError;
       },
@@ -59,29 +55,6 @@ module.exports = Backbone.Marionette.ItemView.extend({
   //--------------------------------------
   //+ EVENT HANDLERS
   //--------------------------------------
-
-  register: function(){
-    var flashError = this.flashError;
-    hackdash.app.modals.show(new Register({
-        model: new Backbone.Model({
-          flashError: flashError
-         })
-      }));
-    this.destroy();
-  },
-
-  lostPassword: function(){
-    var flashError = this.flashError;
-    var flashMessage = this.flashMessage;
-    hackdash.app.modals.show(new Forgot({
-        model: new Backbone.Model({
-          flashError: flashError,
-          flashMessage: flashMessage,
-         })
-      }));
-    this.destroy();
-    return false; // do not follow routes
-  }
 
   //--------------------------------------
   //+ PRIVATE AND PROTECTED METHODS

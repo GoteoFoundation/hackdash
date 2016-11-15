@@ -3,6 +3,7 @@ var template = require("./templates/home.hbs")
   , TabContent = require("./TabContent")
   , LoginView = require("../Login")
   , RegisterView = require("../Register")
+  , ForgotView = require("../Forgot")
   , StatsView = require("./Stats")
   , DashboardListView = require("./DashboardList")
   , TeamView = require("./Team")
@@ -204,24 +205,41 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     var providers = window.hackdash.providers;
     var useLocalLogin = window.hackdash.useLocalLogin;
     var error = window.hackdash.flashError;
+    var msg = window.hackdash.flashMessage;
     var app = window.hackdash.app;
 
     app.modals.show(new LoginView({
       model: new Backbone.Model({
         providers: providers.split(','),
         localLogin: useLocalLogin,
-        flashError: error
+        flashError: error,
+        flashMessage: msg,
        })
     }));
   },
 
   showRegister: function() {
     var error = window.hackdash.flashError;
-      window.hackdash.app.modals.show(new RegisterView({
-        model: new Backbone.Model({
-          flashError: error
-        })
-      }));
+    var msg = window.hackdash.flashMessage;
+    window.hackdash.app.modals.show(new RegisterView({
+      model: new Backbone.Model({
+        flashError: error,
+        flashMessage: msg,
+      })
+    }));
+  },
+
+  showForgot: function(token) {
+    var error = window.hackdash.flashError;
+    var msg = window.hackdash.flashMessage;
+
+    window.hackdash.app.modals.show(new ForgotView({
+      model: new Backbone.Model({
+        flashError: error,
+        flashMessage: msg,
+        token: token
+      })
+    }));
   },
 
   validateDomain: function(){

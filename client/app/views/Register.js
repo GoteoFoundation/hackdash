@@ -14,14 +14,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
   className: "register",
   template: template,
 
-  ui: {
-    form: 'form.signup',
-    name: 'form.signup #name',
-    email: 'form.signup #email',
-    password: 'form.signup #password'
-  },
   events: {
-    // "submit @ui.form": "signup",
     "click .close": "destroy"
   },
 
@@ -29,7 +22,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
   //+ INHERITED / OVERRIDES
   //--------------------------------------
   initialize: function(options){
-    this.flashError = (options && options.model && options.model.attributes && options.model.attributes.flashError) || [];
+    this.flashError = (options && options.model && options.model.attributes && options.model.attributes.flashError) || '';
   },
 
   templateHelpers: function() {
@@ -53,14 +46,6 @@ module.exports = Backbone.Marionette.ItemView.extend({
   //+ EVENT HANDLERS
   //--------------------------------------
 
-
-  signup: function(e) {
-    var name = this.ui.name.val();
-    var email = this.ui.email.val();
-    var password = this.ui.password.val();
-    console.log('Welcome', name,email,password, e);
-
-  }
   //--------------------------------------
   //+ PRIVATE AND PROTECTED METHODS
   //--------------------------------------
