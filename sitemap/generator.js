@@ -9,7 +9,7 @@ var mongoose = require('mongoose'),
   _ = require('underscore'),
   executing = false;
 
-var config = require('../config');
+var config = require('../config/config.json');
 var configSM = require('./config.json');
 
 mongoose.connect(config.db.url ||

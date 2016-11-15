@@ -7,7 +7,7 @@
  */
 
 var
-    config = require('../../config.json')
+    config = require('../../config/config.json')
   , async = require('async')
   , mongoose = require('mongoose');
 

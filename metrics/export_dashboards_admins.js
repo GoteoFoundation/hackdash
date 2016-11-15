@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
   fs = require('fs'),
   moment = require('moment');
 
-var config = require('../config.json');
+var config = require('../config/config.json');
 
 mongoose.connect(config.db.url ||
   ('mongodb://' + config.db.host + '/'+ config.db.name));

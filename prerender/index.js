@@ -1,6 +1,6 @@
 
 var kill = require('tree-kill');
-var config = require('./config.json');
+var config = require('./config/config.json');
 
 if (!process.env.PORT && config.PORT){
   process.env.PORT = config.PORT;

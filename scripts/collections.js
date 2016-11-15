@@ -1,7 +1,7 @@
 
 require('babel/register');
 var
-    config = require('../config')
+    config = require('../config/config.json')
   , async = require('async')
   , mongoose = require('mongoose');
 

@@ -4,6 +4,7 @@ node_modules
 .sublime-workspace
 keys.json
 config.json
+config/keys.json
 config/config.json
 config/config.test.json
 public/uploads/*

@@ -5,6 +5,8 @@ Organize hackaton ideas into a dashboard
 
 ![HackDash Logo](http://i.imgur.com/XLQGF3y.png)
 
+![Wotify Logo](https://wotify.co/images/mini-logo-wotify.png)
+
 Special version suited for the [Europeana Wotify Dashboards](https://wotify.co)
 
 Install
@@ -15,7 +17,14 @@ I wrote a [blog post](http://zajdband.com/installing-hackdash) explaining the in
 Config
 ======
 
-In your `config.json`:
+You can copy the sample data and edit your values:
+
+```bash
+cp config/config.json.sample config/config.json
+```
+
+
+In your `config/config.json`:
 
 * `db`:
 	+ `url`: Overrides other db config. Full MongoDB URL.
@@ -54,7 +63,7 @@ We've added Google login tot the keys.
 User the keys.json.sample as an example. Google login uses Oauth2.0 version.
 
 ```bash
-cp keys.json.sample keys.json
+cp config/keys.json.sample config/keys.json
 ```
 
 Local login (traditional username/password) can be added by setting `"useLocalLogin": true` in `config.js`
@@ -73,7 +82,7 @@ This step is necessary if you make changes in the CSS or the client code (folder
 
 ```bash
 cd client
-grunt 
+grunt
 ```
 
 Generating collections
@@ -96,4 +105,7 @@ NODE_PATH=. node scripts/users.js
 
 Contribute
 ==========
-Please check the [WIKI](https://github.com/danzajdband/hackdash/wiki)
+
+The original [wiki guide is here](https://github.com/danzajdband/hackdash/wiki) (hopefully):
+
+Feel free to make contributions to this copy of Hackdash if somehow is useful for you.

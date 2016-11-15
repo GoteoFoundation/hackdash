@@ -6,15 +6,20 @@
   },
   "host": "local.host",
   "port": 3000,
+  "publicHost": "http://mysite.com",
   "session": "wefewfef",
   "disqus_shortname": null,
-  "title": "hackdash",
+  "title": "Hackdash site",
   "live": true,
   "mailer": null,
+  "mailerFrom": "",
   "prerender": {
     "enabled": false,
     "db": "mongodb://localhost/prerender"
   },
+  "publicDashboardCreation" : true,
+  "homeCreateProject" : true,
+  "homeToolsUrl" : "",
   "team": [
     "516d1997b2951b02280000e1",
     "516d1997b2951b02280000e2",
@@ -23,10 +28,8 @@
     "516d1997b2951b02280000e5",
     "516d1997b2951b02280000e6"
   ],
-  "publicDashboardCreation" : true,
-  "homeCreateProject" : false,
-  "homeToolsUrl" : "",
   "maxQueryLimit": 30,
   "googleAnalytics": "UA-XXXXXXXX-X",
-  "facebookAppId": "YYYYYYYYYYYY"
+  "facebookAppId": "YYYYYYYYYYYY",
+  "useLocalLogin": true
 }

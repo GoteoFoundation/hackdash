@@ -1,6 +1,6 @@
 
 module.exports = (function() {
-  
+
   if (window.hackdashEmbed){
     // already defined
     return;
@@ -10,7 +10,7 @@ module.exports = (function() {
   window.hackdashEmbed.jsonpCallbacks = {};
 
   window.hackdashEmbed.VERSION = require('../package.json').version;
-  window.hackdashEmbed.config = require('../config.json');
+  window.hackdashEmbed.config = require('../config/config.json');
 
   window.hackdashEmbed.build();
 

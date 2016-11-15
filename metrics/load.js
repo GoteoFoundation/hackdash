@@ -6,7 +6,7 @@ var mongoose = require('mongoose'),
   jf = require('jsonfile'),
   executing = false;
 
-var config = require('../config');
+var config = require('../config/config.json');
 var configM = require('./config.json');
 
 jf.spaces = 2;
