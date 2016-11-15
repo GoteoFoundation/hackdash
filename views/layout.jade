@@ -74,6 +74,9 @@ html
       script.
         window.hackdash.user = !{JSON.stringify(user)};
 
+    script.
+    script(src="https://maps.googleapis.com/maps/api/js?libraries=places&key=" + googleApiKey)
+
     block scripts
 
     if (googleAnalytics)

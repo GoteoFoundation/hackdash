@@ -40,6 +40,7 @@ In your `config/config.json`:
 * `team`: An array of `user`.`_id` to be shown as Team on Landing Page.
 * `maxQueryLimit`: a Number for the max amount of results at the landing page searchs.
 * `googleAnalytics`: the UA-XXXXXXXX-X code from Google Analytics. if not specified wont set the script.
+* `googleApiKey`: The Google Maps API Key for geolocation purposes
 * `facebookAppId`: the Facebook App Id for share buttons. It will take first from keys.json, if not will use this one. Don't set it to not show FB share buttons.
 * `prerender`:
 	+ `enabled`: Boolean (true, false). Where the website would use the SEO Prerender

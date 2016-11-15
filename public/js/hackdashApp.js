@@ -489,6 +489,7 @@ Handlebars.registerHelper('firstLetter', function(text) {
   return "";
 });
 
+//TODO: use marked
 Handlebars.registerHelper('markdown', function(md) {
   if (md){
     return markdown.toHTML(md);
@@ -4734,11 +4735,13 @@ module.exports = Backbone.Marionette.ItemView.extend({
     "bio": "textarea[name=bio]",
     "birthdate": "input[name=birthdate]",
     "gender": "select[name=gender]",
+    "location": "input[name=location]",
   },
 
   events: {
     "click #save": "saveProfile",
-    "click #cancel": "cancel"
+    "click #cancel": "cancel",
+    "focus @ui.location": "geolocate"
   },
 
   modelEvents:{
@@ -4748,7 +4751,13 @@ module.exports = Backbone.Marionette.ItemView.extend({
   //--------------------------------------
   //+ INHERITED / OVERRIDES
   //--------------------------------------
+  initialize: function(){
+    this.autocomplete = null;
+  },
 
+  onRender: function(){
+    this.initGoogleAutocomplete(this.ui.location.get(0));
+  },
   //--------------------------------------
   //+ PUBLIC METHODS / GETTERS / SETTERS
   //--------------------------------------
@@ -4828,6 +4837,62 @@ module.exports = Backbone.Marionette.ItemView.extend({
   cleanErrors: function(){
     $(".error", this.$el).removeClass("error");
     $("span.help-inline", this.$el).remove();
+  },
+
+  initGoogleAutocomplete: function(el) {
+    console.log(this.ui);
+    var autocomplete;
+    var fillInAddress = this.fillInAddress;
+    if(window.google) {
+      this.autocomplete = autocomplete = new window.google.maps.places.Autocomplete(el, {types: ['geocode']});
+      autocomplete.addListener('place_changed', function(){fillInAddress(autocomplete);});
+    }
+  },
+
+  fillInAddress: function(autocomplete) {
+    var place = autocomplete.getPlace();
+    // Get each component of the address from the place details
+    // and fill the corresponding field on the form.
+    for (var i = 0; i < place.address_components.length; i++) {
+      var addressType = place.address_components[i].types[0];
+      var short = place.address_components[i].short_name;
+      var long = place.address_components[i].long_name;
+      if(addressType === 'country') {
+        $('input[name="country"]').val(short);
+      }
+      else if(addressType === 'locality') {
+        $('input[name="city"]').val(long);
+      }
+      else if(addressType === 'administrative_area_level_2') {
+        $('input[name="region"]').val(short);
+      }
+      else if(addressType === 'postal_code') {
+        $('input[name="zip"]').val(short);
+      }
+    }
+  },
+
+  // Bias the autocomplete object to the user's geographical location,
+  // as supplied by the browser's 'navigator.geolocation' object.
+  geolocate: function () {
+    if (window.navigator.geolocation) {
+      if(this.geolocateAsked) {
+        return;
+      }
+      this.geolocateAsked = true;
+      var autocomplete = this.autocomplete;
+      window.navigator.geolocation.getCurrentPosition(function(position) {
+        var geolocation = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        var circle = new window.google.maps.Circle({
+          center: geolocation,
+          radius: position.coords.accuracy
+        });
+        autocomplete.setBounds(circle.getBounds());
+      });
+    }
   }
 
 });
@@ -5140,7 +5205,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
   },"3":function(depth0,helpers,partials,data) {
   return "    <a id=\"cancel\" class=\"btn-cancel pull-left\">cancel</a>\n";
   },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-  var stack1, helper, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, functionType="function", buffer = "<h1 class=\"header edit\">Edit Your Profile</h1>\n\n<div class=\"cover\">"
+  var stack1, helper, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, functionType="function", lambda=this.lambda, buffer = "<h1 class=\"header edit\">Edit Your Profile</h1>\n\n<div class=\"cover\">"
     + escapeExpression(((helpers.getProfileImageHex || (depth0 && depth0.getProfileImageHex) || helperMissing).call(depth0, depth0, {"name":"getProfileImageHex","hash":{},"data":data})))
     + "</div>\n\n<form>\n  <div class=\"form-content\">\n    <label class=\"profile-fields-required\">all fields required</label>\n    <div class=\"form-group\">\n      <input name=\"name\" type=\"text\" placeholder=\"Name\" value=\""
     + escapeExpression(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"name","hash":{},"data":data}) : helper)))
@@ -5159,7 +5224,9 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
     + escapeExpression(((helpers.selected || (depth0 && depth0.selected) || helperMissing).call(depth0, (depth0 != null ? depth0.gender : depth0), "F", {"name":"selected","hash":{},"data":data})))
     + ">Female</option>\n        <option value=\"O\""
     + escapeExpression(((helpers.selected || (depth0 && depth0.selected) || helperMissing).call(depth0, (depth0 != null ? depth0.gender : depth0), "O", {"name":"selected","hash":{},"data":data})))
-    + ">Other</option>\n      </select>\n    </div>\n  </div>\n  <div class=\"form-actions\">\n    <input id=\"save\" type=\"button\" data-loading-text=\"saving..\" value=\"Save profile\" class=\"btn-primary pull-right\"/>\n    <label class=\"saved pull-left hidden\">Profile saved, going back to business ...</label>\n";
+    + ">Other</option>\n      </select>\n    </div>\n    <div class=\"form-group\">\n      <input name=\"location\" type=\"text\" placeholder=\"City\" value=\""
+    + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.location : depth0)) != null ? stack1.city : stack1), depth0))
+    + "\" class=\"form-control\"/>\n    </div>\n\n      <input name=\"city\" type=\"text\"/>\n      <input name=\"region\" type=\"text\"/>\n      <input name=\"country\" type=\"text\"/>\n      <input name=\"zip\" type=\"text\"/>\n\n  </div>\n  <div class=\"form-actions\">\n    <input id=\"save\" type=\"button\" data-loading-text=\"saving..\" value=\"Save profile\" class=\"btn-primary pull-right\"/>\n    <label class=\"saved pull-left hidden\">Profile saved, going back to business ...</label>\n";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.email : depth0), {"name":"if","hash":{},"fn":this.program(3, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
   return buffer + "  </div>\n</form>";

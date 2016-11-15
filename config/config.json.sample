@@ -31,5 +31,6 @@
   "maxQueryLimit": 30,
   "googleAnalytics": "UA-XXXXXXXX-X",
   "facebookAppId": "YYYYYYYYYYYY",
+  "googleApiKey": "",
   "useLocalLogin": true
 }
