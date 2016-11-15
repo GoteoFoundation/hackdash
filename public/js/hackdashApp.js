@@ -563,7 +563,7 @@ Handlebars.registerHelper('formatDateDate', function(date) {
     return moment(date).format("DD/MM/YYYY");
   }
 
-  return "-";
+  return "";
 });
 
 Handlebars.registerHelper('formatDateText', function(date) {
