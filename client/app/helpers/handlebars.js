@@ -86,6 +86,10 @@ Handlebars.registerHelper('isEmbed', function(options) {
   }
 });
 
+Handlebars.registerHelper('selected', function(foo, bar) {
+  return foo === bar ? ' selected' : '';
+});
+
 Handlebars.registerHelper('timeAgo', function(date) {
   if (date && moment(date).isValid()) {
     return moment(date).fromNow();

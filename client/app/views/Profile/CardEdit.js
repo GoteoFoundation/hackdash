@@ -18,6 +18,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
     "email": "input[name=email]",
     "bio": "textarea[name=bio]",
     "birthdate": "input[name=birthdate]",
+    "gender": "select[name=gender]",
   },
 
   events: {

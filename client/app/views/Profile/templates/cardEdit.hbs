@@ -18,7 +18,18 @@
       <textarea name="bio" placeholder="Some about you" class="form-control" rows="4">{{bio}}</textarea>
     </div>
     <div class="form-group">
+      <p class="form-control-static">This data is for statistics purposes and it is not public:</p>
+    </div>
+    <div class="form-group">
       <input name="birthdate" type="text" data-provide="datepicker" data-date-format="dd/mm/yyyy" placeholder="Date of birth" value="{{formatDateDate birthdate}}" class="form-control"/>
+    </div>
+    <div class="form-group">
+      <select name="gender" class="form-control">
+        <option value="">Gender</option>
+        <option value="M"{{selected gender "M"}}>Male</option>
+        <option value="F"{{selected gender "F"}}>Female</option>
+        <option value="O"{{selected gender "O"}}>Other</option>
+      </select>
     </div>
   </div>
   <div class="form-actions">
