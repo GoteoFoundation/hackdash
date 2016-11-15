@@ -27,6 +27,7 @@ In your `config.json`:
 * `title`: Instance title used in the html title tag and other headings.
 * `live`: Boolean (true, false) that enable/disable the live feed feature in yourdomain.com/live.
 * `mailer`: SMTP mail info to enable email notifications using nodemailer. Check out the [options](https://github.com/andris9/Nodemailer#setting-up-smtp)
+* `mailerFrom`: "Some name <noreply@example.com>" REQUIRED if mailer is used, this is the default from used in email comunications
 * `team`: An array of `user`.`_id` to be shown as Team on Landing Page.
 * `maxQueryLimit`: a Number for the max amount of results at the landing page searchs.
 * `googleAnalytics`: the UA-XXXXXXXX-X code from Google Analytics. if not specified wont set the script.
@@ -37,7 +38,7 @@ In your `config.json`:
 
 Added vars for Wotify Dashboards:
 
-* `publicHost`: and alternative public host can be specified here (used in several links to return home, i.e: **wotify.co**). This is useful in case you run your node app behind a proxy in a different port than 80.
+* `publicHost`: and alternative public host can be specified here (used in several links to return home, i.e: **wotify.co**). This is useful in case you run your node app behind a proxy in a different port than 80 (Please specify protocol (http://example.com or better https://example.com).
 * `publicDashboardCreation` : a boolean to specify if dashboards can be created by anyone or just the users marked as "superadmin"
 * `homeCreateProject` : Set it to true in order to show a button in the front page to create projects
 * `homeToolsUrl` : Set it to some URL ("http://...") in order to show a button in the front page with a link to it

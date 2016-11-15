@@ -9,6 +9,7 @@ var debug = require('debug')('hackdash:server');
 var http = require('http');
 var config = require('./config');
 var live = require('lib/live');
+require('lib/mailer/listener.js');
 
 /**
  * Get port from environment and store in Express.
