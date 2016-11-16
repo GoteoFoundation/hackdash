@@ -4736,6 +4736,12 @@ module.exports = Backbone.Marionette.ItemView.extend({
     "birthdate": "input[name=birthdate]",
     "gender": "select[name=gender]",
     "location": "input[name=location]",
+    "city": "input[name=city]",
+    "region": "input[name=region]",
+    "country": "input[name=country]",
+    "zip": "input[name=zip]",
+    "lat": "input[name=lat]",
+    "lng": "input[name=lng]",
   },
 
   events: {
@@ -4757,6 +4763,10 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
   onRender: function(){
     this.initGoogleAutocomplete(this.ui.location.get(0));
+    // console.log(this.model.attributes);
+    if(!this.model.attributes.location.coordinates || this.model.attributes.location.coordinates.length === 0) {
+      this.geolocate(); //Ask for browser geolocation
+    }
   },
   //--------------------------------------
   //+ PUBLIC METHODS / GETTERS / SETTERS
@@ -4767,11 +4777,27 @@ module.exports = Backbone.Marionette.ItemView.extend({
   //--------------------------------------
 
   saveProfile: function(){
-    var toSave = {};
+    var toSave = {
+      name: this.ui.name.val(),
+      email: this.ui.email.val(),
+      bio: this.ui.bio.val(),
+      birthdate: this.ui.birthdate.val(),
+      gender: this.ui.gender.val()
+    };
+    var lat = parseFloat(this.ui.lat.val());
+    var lng = parseFloat(this.ui.lng.val());
+    if(!isNaN(lat) && !isNaN(lng)) {
+      toSave.location = {
+        type: 'Point',
+        city: this.ui.city.val(),
+        region: this.ui.region.val(),
+        country: this.ui.country.val(),
+        zip: this.ui.zip.val(),
+        coordinates: [lat, lng]
+      };
+    }
 
-    _.each(this.ui, function(ele, type){
-      toSave[type] = ele.val();
-    }, this);
+    console.log(toSave, this.model.attributes.location);
 
     this.cleanErrors();
     $("#save", this.$el).button('loading');
@@ -4829,9 +4855,15 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
     var error = JSON.parse(err.responseText).error;
 
-    var ctrl = error.split("_")[0];
-    this.ui[ctrl].parents('.control-group').addClass('error');
-    this.ui[ctrl].after('<span class="help-inline">' + this.errors[error] + '</span>');
+    if(this.errors[error]) {
+      var ctrl = error.split("_")[0];
+      this.ui[ctrl].parents('.control-group').addClass('error');
+      this.ui[ctrl].after('<span class="help-inline">' + this.errors[error] + '</span>');
+    } else {
+      // Quick and dirty
+      window.alert(error);
+    }
+
   },
 
   cleanErrors: function(){
@@ -4840,7 +4872,6 @@ module.exports = Backbone.Marionette.ItemView.extend({
   },
 
   initGoogleAutocomplete: function(el) {
-    console.log(this.ui);
     var autocomplete;
     var fillInAddress = this.fillInAddress;
     if(window.google) {
@@ -4851,12 +4882,16 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
   fillInAddress: function(autocomplete) {
     var place = autocomplete.getPlace();
+    $('input[name="lat"]').val(place.geometry.location.lat());
+    $('input[name="lng"]').val(place.geometry.location.lng());
+
     // Get each component of the address from the place details
     // and fill the corresponding field on the form.
     for (var i = 0; i < place.address_components.length; i++) {
       var addressType = place.address_components[i].types[0];
       var short = place.address_components[i].short_name;
       var long = place.address_components[i].long_name;
+      // console.log(addressType, short, long);
       if(addressType === 'country') {
         $('input[name="country"]').val(short);
       }
@@ -4886,10 +4921,13 @@ module.exports = Backbone.Marionette.ItemView.extend({
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
+        $('input[name="lat"]').val(geolocation.lat);
+        $('input[name="lng"]').val(geolocation.lng);
         var circle = new window.google.maps.Circle({
           center: geolocation,
           radius: position.coords.accuracy
         });
+
         autocomplete.setBounds(circle.getBounds());
       });
     }
@@ -5203,6 +5241,10 @@ var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partials,data) {
   return "      <label class=\"email-info\">email only visible for logged in users</label>\n";
   },"3":function(depth0,helpers,partials,data) {
+  var stack1, lambda=this.lambda, escapeExpression=this.escapeExpression;
+  return ", "
+    + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.location : depth0)) != null ? stack1.country : stack1), depth0));
+},"5":function(depth0,helpers,partials,data) {
   return "    <a id=\"cancel\" class=\"btn-cancel pull-left\">cancel</a>\n";
   },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   var stack1, helper, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, functionType="function", lambda=this.lambda, buffer = "<h1 class=\"header edit\">Edit Your Profile</h1>\n\n<div class=\"cover\">"
@@ -5226,8 +5268,23 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
     + escapeExpression(((helpers.selected || (depth0 && depth0.selected) || helperMissing).call(depth0, (depth0 != null ? depth0.gender : depth0), "O", {"name":"selected","hash":{},"data":data})))
     + ">Other</option>\n      </select>\n    </div>\n    <div class=\"form-group\">\n      <input name=\"location\" type=\"text\" placeholder=\"City\" value=\""
     + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.location : depth0)) != null ? stack1.city : stack1), depth0))
-    + "\" class=\"form-control\"/>\n    </div>\n\n      <input name=\"city\" type=\"text\"/>\n      <input name=\"region\" type=\"text\"/>\n      <input name=\"country\" type=\"text\"/>\n      <input name=\"zip\" type=\"text\"/>\n\n  </div>\n  <div class=\"form-actions\">\n    <input id=\"save\" type=\"button\" data-loading-text=\"saving..\" value=\"Save profile\" class=\"btn-primary pull-right\"/>\n    <label class=\"saved pull-left hidden\">Profile saved, going back to business ...</label>\n";
-  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.email : depth0), {"name":"if","hash":{},"fn":this.program(3, data),"inverse":this.noop,"data":data});
+    + " ";
+  stack1 = helpers['if'].call(depth0, ((stack1 = (depth0 != null ? depth0.location : depth0)) != null ? stack1.country : stack1), {"name":"if","hash":{},"fn":this.program(3, data),"inverse":this.noop,"data":data});
+  if (stack1 != null) { buffer += stack1; }
+  buffer += "\" class=\"form-control\"/>\n    </div>\n\n      <input name=\"city\" type=\"hidden\" value=\""
+    + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.location : depth0)) != null ? stack1.city : stack1), depth0))
+    + "\"/>\n      <input name=\"region\" type=\"hidden\" value=\""
+    + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.location : depth0)) != null ? stack1.region : stack1), depth0))
+    + "\"/>\n      <input name=\"country\" type=\"hidden\" value=\""
+    + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.location : depth0)) != null ? stack1.country : stack1), depth0))
+    + "\"/>\n      <input name=\"zip\" type=\"hidden\" value=\""
+    + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.location : depth0)) != null ? stack1.zip : stack1), depth0))
+    + "\"/>\n      <input name=\"lat\" type=\"hidden\" value=\""
+    + escapeExpression(lambda(((stack1 = ((stack1 = (depth0 != null ? depth0.location : depth0)) != null ? stack1.coordinates : stack1)) != null ? stack1['0'] : stack1), depth0))
+    + "\"/>\n      <input name=\"lng\" type=\"hidden\" value=\""
+    + escapeExpression(lambda(((stack1 = ((stack1 = (depth0 != null ? depth0.location : depth0)) != null ? stack1.coordinates : stack1)) != null ? stack1['1'] : stack1), depth0))
+    + "\"/>\n\n  </div>\n  <div class=\"form-actions\">\n    <input id=\"save\" type=\"button\" data-loading-text=\"saving..\" value=\"Save profile\" class=\"btn-primary pull-right\"/>\n    <label class=\"saved pull-left hidden\">Profile saved, going back to business ...</label>\n";
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.email : depth0), {"name":"if","hash":{},"fn":this.program(5, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
   return buffer + "  </div>\n</form>";
 },"useData":true});

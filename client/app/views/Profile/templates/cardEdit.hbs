@@ -32,13 +32,15 @@
       </select>
     </div>
     <div class="form-group">
-      <input name="location" type="text" placeholder="City" value="{{location.city}}" class="form-control"/>
+      <input name="location" type="text" placeholder="City" value="{{location.city}} {{#if location.country}}, {{location.country}}{{/if}}" class="form-control"/>
     </div>
 
-      <input name="city" type="text"/>
-      <input name="region" type="text"/>
-      <input name="country" type="text"/>
-      <input name="zip" type="text"/>
+      <input name="city" type="hidden" value="{{location.city}}"/>
+      <input name="region" type="hidden" value="{{location.region}}"/>
+      <input name="country" type="hidden" value="{{location.country}}"/>
+      <input name="zip" type="hidden" value="{{location.zip}}"/>
+      <input name="lat" type="hidden" value="{{location.coordinates.[0]}}"/>
+      <input name="lng" type="hidden" value="{{location.coordinates.[1]}}"/>
 
   </div>
   <div class="form-actions">

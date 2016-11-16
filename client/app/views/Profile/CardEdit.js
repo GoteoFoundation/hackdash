@@ -20,6 +20,12 @@ module.exports = Backbone.Marionette.ItemView.extend({
     "birthdate": "input[name=birthdate]",
     "gender": "select[name=gender]",
     "location": "input[name=location]",
+    "city": "input[name=city]",
+    "region": "input[name=region]",
+    "country": "input[name=country]",
+    "zip": "input[name=zip]",
+    "lat": "input[name=lat]",
+    "lng": "input[name=lng]",
   },
 
   events: {
@@ -41,6 +47,10 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
   onRender: function(){
     this.initGoogleAutocomplete(this.ui.location.get(0));
+    // console.log(this.model.attributes);
+    if(!this.model.attributes.location.coordinates || this.model.attributes.location.coordinates.length === 0) {
+      this.geolocate(); //Ask for browser geolocation
+    }
   },
   //--------------------------------------
   //+ PUBLIC METHODS / GETTERS / SETTERS
@@ -51,11 +61,27 @@ module.exports = Backbone.Marionette.ItemView.extend({
   //--------------------------------------
 
   saveProfile: function(){
-    var toSave = {};
+    var toSave = {
+      name: this.ui.name.val(),
+      email: this.ui.email.val(),
+      bio: this.ui.bio.val(),
+      birthdate: this.ui.birthdate.val(),
+      gender: this.ui.gender.val()
+    };
+    var lat = parseFloat(this.ui.lat.val());
+    var lng = parseFloat(this.ui.lng.val());
+    if(!isNaN(lat) && !isNaN(lng)) {
+      toSave.location = {
+        type: 'Point',
+        city: this.ui.city.val(),
+        region: this.ui.region.val(),
+        country: this.ui.country.val(),
+        zip: this.ui.zip.val(),
+        coordinates: [lat, lng]
+      };
+    }
 
-    _.each(this.ui, function(ele, type){
-      toSave[type] = ele.val();
-    }, this);
+    console.log(toSave, this.model.attributes.location);
 
     this.cleanErrors();
     $("#save", this.$el).button('loading');
@@ -113,9 +139,15 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
     var error = JSON.parse(err.responseText).error;
 
-    var ctrl = error.split("_")[0];
-    this.ui[ctrl].parents('.control-group').addClass('error');
-    this.ui[ctrl].after('<span class="help-inline">' + this.errors[error] + '</span>');
+    if(this.errors[error]) {
+      var ctrl = error.split("_")[0];
+      this.ui[ctrl].parents('.control-group').addClass('error');
+      this.ui[ctrl].after('<span class="help-inline">' + this.errors[error] + '</span>');
+    } else {
+      // Quick and dirty
+      window.alert(error);
+    }
+
   },
 
   cleanErrors: function(){
@@ -124,7 +156,6 @@ module.exports = Backbone.Marionette.ItemView.extend({
   },
 
   initGoogleAutocomplete: function(el) {
-    console.log(this.ui);
     var autocomplete;
     var fillInAddress = this.fillInAddress;
     if(window.google) {
@@ -135,12 +166,16 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
   fillInAddress: function(autocomplete) {
     var place = autocomplete.getPlace();
+    $('input[name="lat"]').val(place.geometry.location.lat());
+    $('input[name="lng"]').val(place.geometry.location.lng());
+
     // Get each component of the address from the place details
     // and fill the corresponding field on the form.
     for (var i = 0; i < place.address_components.length; i++) {
       var addressType = place.address_components[i].types[0];
       var short = place.address_components[i].short_name;
       var long = place.address_components[i].long_name;
+      // console.log(addressType, short, long);
       if(addressType === 'country') {
         $('input[name="country"]').val(short);
       }
@@ -170,10 +205,13 @@ module.exports = Backbone.Marionette.ItemView.extend({
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
+        $('input[name="lat"]').val(geolocation.lat);
+        $('input[name="lng"]').val(geolocation.lng);
         var circle = new window.google.maps.Circle({
           center: geolocation,
           radius: position.coords.accuracy
         });
+
         autocomplete.setBounds(circle.getBounds());
       });
     }
