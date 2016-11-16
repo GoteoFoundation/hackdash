@@ -489,7 +489,6 @@ Handlebars.registerHelper('firstLetter', function(text) {
   return "";
 });
 
-//TODO: use marked
 Handlebars.registerHelper('markdown', function(md) {
   if (md){
     return markdown.toHTML(md);
@@ -5772,6 +5771,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
   onShow: function(){
     this.initSelect2();
     this.initImageDrop();
+    this.simplemde = new window.SimpleMDE(this.ui.description.get(0));
   },
 
   //--------------------------------------

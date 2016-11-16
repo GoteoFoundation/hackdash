@@ -37,7 +37,6 @@ Handlebars.registerHelper('firstLetter', function(text) {
   return "";
 });
 
-//TODO: use marked
 Handlebars.registerHelper('markdown', function(md) {
   if (md){
     return markdown.toHTML(md);
