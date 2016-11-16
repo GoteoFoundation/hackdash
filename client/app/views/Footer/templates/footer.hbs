@@ -1,7 +1,7 @@
 
 <a class="brand {{#if isDashboard}}{{#if isAdmin}}dashboard-footer{{/if}}{{/if}}">
-  <span class="logo 1"></span>
-  <span class="logo-platoniq" title="Developed by Platoniq">Platoniq.net 1</span>
+  <span class="logo" title="Wotify"></span>
+  <span class="logo-platoniq" title="Developed by Platoniq">Platoniq.net</span>
   <span class="logo-hackdash" title="Powered by Hackdash">Powered by Hackdash</span>
 </a>
 
@@ -23,11 +23,15 @@
         <div>Event board Status</div>
       </a>
 
+      <a class="btn-add-questions" href="/dashboards/{{domain}}/questions">
+        <i class="fa fa-question"></i><div>Add questions</div>
+      </a>
     </div>
 
     <a class="btn-showcase-mode">
       <i class="btn-danger txt">off</i><div>Edit Showcase</div>
     </a>
+
 
   </div>
   {{/if}}

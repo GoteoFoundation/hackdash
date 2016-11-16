@@ -16,6 +16,7 @@ var Dashboard = require("./models/Dashboard")
   , ProjectFullView = require("./views/Project/Full")
   , ProjectEditView = require("./views/Project/Edit")
   , DashboardView = require("./views/Dashboard")
+  , QuestionView = require("./views/Question")
   , CollectionView = require("./views/Collection")
   ;
 
@@ -37,6 +38,7 @@ module.exports = Backbone.Marionette.AppRouter.extend({
     // APP
     , "dashboards/:dash": "showDashboard"
     , "dashboards/:dash/create": "showProjectCreate"
+    , "dashboards/:dash/questions": "showQuestionsEdit"
 
     , "projects/:pid/edit" : "showProjectEdit"
     , "projects/:pid" : "showProjectFull"
@@ -158,6 +160,29 @@ module.exports = Backbone.Marionette.AppRouter.extend({
 
   },
 
+  showQuestionsEdit: function(dash){
+
+    var app = window.hackdash.app;
+    var self = this;
+    app.type = "dashboard";
+
+    app.dashboard = new Dashboard({ domain: dash });
+    app.dashboard.fetch().done(function(){
+      if(!self.canEditDashboard(window.hackdash.user, app.dashboard.attributes)) {
+        window.location = "/dashboards/" + app.dashboard.attributes.domain;
+      }
+
+      // here the questions editor
+      // TODO: fetch questions
+      app.main.show(new QuestionView({
+        model: app.dashboard
+      }));
+
+      app.setTitle('Edit questions for ' + (app.dashboard.get('title') || app.dashboard.get('domain')));
+
+    });
+  },
+
   showProjectCreate: function(dashboard){
 
     var app = window.hackdash.app;
@@ -183,6 +208,7 @@ module.exports = Backbone.Marionette.AppRouter.extend({
   showProjectEdit: function(pid){
 
     var app = window.hackdash.app;
+    var self = this;
     app.type = "project";
 
     app.project = new Project({ _id: pid });
@@ -190,7 +216,11 @@ module.exports = Backbone.Marionette.AppRouter.extend({
     app.header.show(new Header());
 
     app.project.fetch().done(function(){
-
+      if(!self.canEditProject(window.hackdash.user, app.project.attributes)) {
+        // console.log('kickout', console.log(app.project));
+        // window.alert('Not allowed to edit this project');
+        window.location = "/projects/" + app.project.attributes._id;
+      }
       app.main.show(new ProjectEditView({
         model: app.project
       }));
@@ -290,4 +320,14 @@ module.exports = Backbone.Marionette.AppRouter.extend({
 
   },
 
+  canEditDashboard: function(user, dash) {
+    return user && dash && dash.owner && user._id === dash.owner._id;
+  },
+
+  canEditProject: function(user, project) {
+    console.log('USER', user, 'PROJECT', project);
+    var isLeader = user && project && project.leader && (user._id === project.leader._id);
+    // var isAdmin = user && project && project.domain && project.admin_in && (user.admin_in.indexOf(project.domain) >= 0);
+    return isLeader ;//|| isAdmin;
+  }
 });
