@@ -54,7 +54,11 @@ module.exports = Backbone.Marionette.ItemView.extend({
   onShow: function(){
     this.initSelect2();
     this.initImageDrop();
-    this.simplemde = new window.SimpleMDE(this.ui.description.get(0));
+    this.simplemde = new window.SimpleMDE({
+      element: this.ui.description.get(0),
+      forceSync: true,
+      spellChecker: false
+    });
   },
 
   //--------------------------------------

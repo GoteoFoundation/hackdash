@@ -578,7 +578,7 @@ Handlebars.registerHelper('formatDate', function(date) {
   return "-";
 });
 
-Handlebars.registerHelper('formatDateDate', function(date) {
+Handlebars.registerHelper('formatDateLocal', function(date) {
   if (date && moment(date).isValid()) {
     return moment(date).format("DD/MM/YYYY");
   }
@@ -4804,7 +4804,9 @@ module.exports = Backbone.Marionette.ItemView.extend({
     };
     // Optional
     if(this.ui.birthdate.val()) {
-      toSave.birthdate = this.ui.birthdate.val();
+      var d = this.ui.birthdate.val().split('/');
+      // We're not sending a Date() object here to not rely on locale timezones
+      toSave.birthdate = d[2] + '-' + d[1] + '-' +d[0];
     }
     if(this.ui.gender.val()) {
       toSave.gender = this.ui.gender.val();
@@ -5279,8 +5281,8 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
   if (stack1 != null) { buffer += stack1; }
   buffer += "    </div>\n    <div class=\"form-group\">\n      <textarea name=\"bio\" placeholder=\"Some about you\" class=\"form-control\" rows=\"4\">"
     + escapeExpression(((helper = (helper = helpers.bio || (depth0 != null ? depth0.bio : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"bio","hash":{},"data":data}) : helper)))
-    + "</textarea>\n    </div>\n    <div class=\"form-group\">\n      <p class=\"form-control-static\">This data is for statistics purposes and it is not public:</p>\n    </div>\n    <div class=\"form-group\">\n      <input name=\"birthdate\" type=\"text\" data-provide=\"datepicker\" data-date-format=\"dd/mm/yyyy\" placeholder=\"Date of birth\" value=\""
-    + escapeExpression(((helpers.formatDateDate || (depth0 && depth0.formatDateDate) || helperMissing).call(depth0, (depth0 != null ? depth0.birthdate : depth0), {"name":"formatDateDate","hash":{},"data":data})))
+    + "</textarea>\n    </div>\n    <div class=\"form-group\">\n      <p class=\"form-control-static\">This data is for statistics purposes and it is not public:</p>\n    </div>\n    <div class=\"form-group\">\n      <input name=\"birthdate\" type=\"text\" -data-provide=\"datepicker\" -data-date-format=\"dd/mm/yyyy\" placeholder=\"Date of birth\" value=\""
+    + escapeExpression(((helpers.formatDateLocal || (depth0 && depth0.formatDateLocal) || helperMissing).call(depth0, (depth0 != null ? depth0.birthdate : depth0), {"name":"formatDateLocal","hash":{},"data":data})))
     + "\" class=\"form-control\"/>\n    </div>\n    <div class=\"form-group\">\n      <select name=\"gender\" class=\"form-control\">\n        <option value=\"\">Gender</option>\n        <option value=\"M\""
     + escapeExpression(((helpers.selected || (depth0 && depth0.selected) || helperMissing).call(depth0, (depth0 != null ? depth0.gender : depth0), "M", {"name":"selected","hash":{},"data":data})))
     + ">Male</option>\n        <option value=\"F\""
@@ -5771,7 +5773,11 @@ module.exports = Backbone.Marionette.ItemView.extend({
   onShow: function(){
     this.initSelect2();
     this.initImageDrop();
-    this.simplemde = new window.SimpleMDE(this.ui.description.get(0));
+    this.simplemde = new window.SimpleMDE({
+      element: this.ui.description.get(0),
+      forceSync: true,
+      spellChecker: false
+    });
   },
 
   //--------------------------------------

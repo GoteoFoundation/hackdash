@@ -126,7 +126,7 @@ Handlebars.registerHelper('formatDate', function(date) {
   return "-";
 });
 
-Handlebars.registerHelper('formatDateDate', function(date) {
+Handlebars.registerHelper('formatDateLocal', function(date) {
   if (date && moment(date).isValid()) {
     return moment(date).format("DD/MM/YYYY");
   }

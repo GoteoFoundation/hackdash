@@ -69,7 +69,9 @@ module.exports = Backbone.Marionette.ItemView.extend({
     };
     // Optional
     if(this.ui.birthdate.val()) {
-      toSave.birthdate = this.ui.birthdate.val();
+      var d = this.ui.birthdate.val().split('/');
+      // We're not sending a Date() object here to not rely on locale timezones
+      toSave.birthdate = d[2] + '-' + d[1] + '-' +d[0];
     }
     if(this.ui.gender.val()) {
       toSave.gender = this.ui.gender.val();
