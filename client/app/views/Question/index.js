@@ -14,8 +14,11 @@ module.exports = Backbone.Marionette.ItemView.extend({
     "change": "render"
   },
   templateHelpers: {
-    type: function() {
-      return hackdash.app.type;
+    itemTitle: function() {
+      return this.title || this.domain;
+    },
+    isDashboard: function() {
+      return hackdash.app.type === 'dashboard_question';
     }
   }
 });

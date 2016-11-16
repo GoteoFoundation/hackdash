@@ -1,16 +1,22 @@
-
 <div class="header">
   <div class="container">
-
-  header
+	  <h1>Questions for <small>{{itemTitle}}</small></h1>
+	  {{#if isDashboard}}
+	  	<p>This questions will have to be aswered by the leaders of projects in this dashboard</p>
+	  {{else}}
+	  	<p>This questions will have to be aswered by the leaders of projects in this collection</p>
+  	{{/if}}
   </div>
+
 </div>
 
 <div class="body">
 
   <div class="container">
 
-  Questions for {{domain}} ({{type}})
+		<div id="questions-list"></div>
+
+		<div id="add-questions"></div>
 
   </div>
 

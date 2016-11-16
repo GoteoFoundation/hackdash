@@ -38,12 +38,13 @@ module.exports = Backbone.Marionette.AppRouter.extend({
     // APP
     , "dashboards/:dash": "showDashboard"
     , "dashboards/:dash/create": "showProjectCreate"
-    , "dashboards/:dash/questions": "showQuestionsEdit"
+    , "dashboards/:dash/questions": "showDashboardQuestionsEdit"
 
     , "projects/:pid/edit" : "showProjectEdit"
     , "projects/:pid" : "showProjectFull"
 
     , "collections/:cid" : "showCollection"
+    , "collections/:cid/questions" : "showCollectionQuestionsEdit"
 
     , "users/profile": "showProfile"
     , "users/:user_id" : "showProfile"
@@ -160,11 +161,11 @@ module.exports = Backbone.Marionette.AppRouter.extend({
 
   },
 
-  showQuestionsEdit: function(dash){
+  showDashboardQuestionsEdit: function(dash){
 
     var app = window.hackdash.app;
     var self = this;
-    app.type = "dashboard";
+    app.type = "dashboard_question";
 
     app.dashboard = new Dashboard({ domain: dash });
     app.dashboard.fetch().done(function(){
@@ -172,16 +173,45 @@ module.exports = Backbone.Marionette.AppRouter.extend({
         window.location = "/dashboards/" + app.dashboard.attributes.domain;
       }
 
+      app.header.show(new Header());
+
       // here the questions editor
       // TODO: fetch questions
       app.main.show(new QuestionView({
         model: app.dashboard
       }));
 
+      app.footer.show(new Footer());
       app.setTitle('Edit questions for ' + (app.dashboard.get('title') || app.dashboard.get('domain')));
 
     });
   },
+
+  showCollectionQuestionsEdit: function(id){
+
+      var app = window.hackdash.app;
+      var self = this;
+      app.type = "collection_question";
+
+      app.collection = new Collection({ _id: id });
+      app.collection.fetch().done(function(){
+        if(!self.canEditCollection(window.hackdash.user, app.collection.attributes)) {
+          window.location = "/collections/" + app.collection.attributes._id;
+        }
+
+        app.header.show(new Header());
+
+        // here the questions editor
+        // TODO: fetch questions
+        app.main.show(new QuestionView({
+          model: app.collection
+        }));
+
+        app.footer.show(new Footer());
+        app.setTitle('Edit questions for ' + app.collection.get('title'));
+
+      });
+    },
 
   showProjectCreate: function(dashboard){
 
@@ -322,6 +352,10 @@ module.exports = Backbone.Marionette.AppRouter.extend({
 
   canEditDashboard: function(user, dash) {
     return user && dash && dash.owner && user._id === dash.owner._id;
+  },
+
+  canEditCollection: function(user, col) {
+    return user && col && col.owner && user._id === col.owner._id;
   },
 
   canEditProject: function(user, project) {

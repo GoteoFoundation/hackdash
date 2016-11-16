@@ -123,12 +123,13 @@ module.exports = Backbone.Marionette.AppRouter.extend({
     // APP
     , "dashboards/:dash": "showDashboard"
     , "dashboards/:dash/create": "showProjectCreate"
-    , "dashboards/:dash/questions": "showQuestionsEdit"
+    , "dashboards/:dash/questions": "showDashboardQuestionsEdit"
 
     , "projects/:pid/edit" : "showProjectEdit"
     , "projects/:pid" : "showProjectFull"
 
     , "collections/:cid" : "showCollection"
+    , "collections/:cid/questions" : "showCollectionQuestionsEdit"
 
     , "users/profile": "showProfile"
     , "users/:user_id" : "showProfile"
@@ -245,11 +246,11 @@ module.exports = Backbone.Marionette.AppRouter.extend({
 
   },
 
-  showQuestionsEdit: function(dash){
+  showDashboardQuestionsEdit: function(dash){
 
     var app = window.hackdash.app;
     var self = this;
-    app.type = "dashboard";
+    app.type = "dashboard_question";
 
     app.dashboard = new Dashboard({ domain: dash });
     app.dashboard.fetch().done(function(){
@@ -257,16 +258,45 @@ module.exports = Backbone.Marionette.AppRouter.extend({
         window.location = "/dashboards/" + app.dashboard.attributes.domain;
       }
 
+      app.header.show(new Header());
+
       // here the questions editor
       // TODO: fetch questions
       app.main.show(new QuestionView({
         model: app.dashboard
       }));
 
+      app.footer.show(new Footer());
       app.setTitle('Edit questions for ' + (app.dashboard.get('title') || app.dashboard.get('domain')));
 
     });
   },
+
+  showCollectionQuestionsEdit: function(id){
+
+      var app = window.hackdash.app;
+      var self = this;
+      app.type = "collection_question";
+
+      app.collection = new Collection({ _id: id });
+      app.collection.fetch().done(function(){
+        if(!self.canEditCollection(window.hackdash.user, app.collection.attributes)) {
+          window.location = "/collections/" + app.collection.attributes._id;
+        }
+
+        app.header.show(new Header());
+
+        // here the questions editor
+        // TODO: fetch questions
+        app.main.show(new QuestionView({
+          model: app.collection
+        }));
+
+        app.footer.show(new Footer());
+        app.setTitle('Edit questions for ' + app.collection.get('title'));
+
+      });
+    },
 
   showProjectCreate: function(dashboard){
 
@@ -407,6 +437,10 @@ module.exports = Backbone.Marionette.AppRouter.extend({
 
   canEditDashboard: function(user, dash) {
     return user && dash && dash.owner && user._id === dash.owner._id;
+  },
+
+  canEditCollection: function(user, col) {
+    return user && col && col.owner && user._id === col.owner._id;
   },
 
   canEditProject: function(user, project) {
@@ -6655,21 +6689,28 @@ module.exports = Backbone.Marionette.ItemView.extend({
     "change": "render"
   },
   templateHelpers: {
-    type: function() {
-      return hackdash.app.type;
+    itemTitle: function() {
+      return this.title || this.domain;
+    },
+    isDashboard: function() {
+      return hackdash.app.type === 'dashboard_question';
     }
   }
 });
 },{"./templates/question.hbs":93}],93:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
-module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-  var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
-  return "\n<div class=\"header\">\n  <div class=\"container\">\n\n  header\n  </div>\n</div>\n\n<div class=\"body\">\n\n  <div class=\"container\">\n\n  Questions for "
-    + escapeExpression(((helper = (helper = helpers.domain || (depth0 != null ? depth0.domain : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"domain","hash":{},"data":data}) : helper)))
-    + " ("
-    + escapeExpression(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"type","hash":{},"data":data}) : helper)))
-    + ")\n\n  </div>\n\n</div>\n";
+module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partials,data) {
+  return "	  	<p>This questions will have to be aswered by the leaders of projects in this dashboard</p>\n";
+  },"3":function(depth0,helpers,partials,data) {
+  return "	  	<p>This questions will have to be aswered by the leaders of projects in this collection</p>\n";
+  },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+  var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "<div class=\"header\">\n  <div class=\"container\">\n	  <h1>Questions for <small>"
+    + escapeExpression(((helper = (helper = helpers.itemTitle || (depth0 != null ? depth0.itemTitle : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"itemTitle","hash":{},"data":data}) : helper)))
+    + "</small></h1>\n";
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.isDashboard : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.program(3, data),"data":data});
+  if (stack1 != null) { buffer += stack1; }
+  return buffer + "  </div>\n\n</div>\n\n<div class=\"body\">\n\n  <div class=\"container\">\n\n		<div id=\"questions-list\"></div>\n\n		<div id=\"add-questions\"></div>\n\n  </div>\n\n</div>\n";
 },"useData":true});
 
 },{"hbsfy/runtime":108}],94:[function(require,module,exports){
