@@ -497,6 +497,26 @@ Handlebars.registerHelper('markdown', function(md) {
   return "";
 });
 
+Handlebars.registerHelper('formatLocation', function(loc) {
+  var t = '';
+  if(loc.city) {
+    t += loc.city;
+  }
+  if(loc.region) {
+    if(t) {
+      t += ', ';
+    }
+    t += loc.region;
+  }
+  if(loc.country) {
+    if(t) {
+      t += ', ';
+    }
+    t += loc.country;
+  }
+  return t;
+});
+
 Handlebars.registerHelper('disqus_shortname', function() {
   return window.hackdash.disqus_shortname;
 });
@@ -4764,7 +4784,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
   onRender: function(){
     this.initGoogleAutocomplete(this.ui.location.get(0));
     // console.log(this.model.attributes);
-    if(!this.model.attributes.location.coordinates || this.model.attributes.location.coordinates.length === 0) {
+    if(!this.model.attributes.location || !this.model.attributes.location.coordinates || this.model.attributes.location.coordinates.length === 0) {
       this.geolocate(); //Ask for browser geolocation
     }
   },
@@ -4777,13 +4797,19 @@ module.exports = Backbone.Marionette.ItemView.extend({
   //--------------------------------------
 
   saveProfile: function(){
+    // Mandatory fields
     var toSave = {
       name: this.ui.name.val(),
       email: this.ui.email.val(),
-      bio: this.ui.bio.val(),
-      birthdate: this.ui.birthdate.val(),
-      gender: this.ui.gender.val()
+      bio: this.ui.bio.val()
     };
+    // Optional
+    if(this.ui.birthdate.val()) {
+      toSave.birthdate = this.ui.birthdate.val();
+    }
+    if(this.ui.gender.val()) {
+      toSave.gender = this.ui.gender.val();
+    }
     var lat = parseFloat(this.ui.lat.val());
     var lng = parseFloat(this.ui.lng.val());
     if(!isNaN(lat) && !isNaN(lng)) {
@@ -5241,10 +5267,6 @@ var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partials,data) {
   return "      <label class=\"email-info\">email only visible for logged in users</label>\n";
   },"3":function(depth0,helpers,partials,data) {
-  var stack1, lambda=this.lambda, escapeExpression=this.escapeExpression;
-  return ", "
-    + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.location : depth0)) != null ? stack1.country : stack1), depth0));
-},"5":function(depth0,helpers,partials,data) {
   return "    <a id=\"cancel\" class=\"btn-cancel pull-left\">cancel</a>\n";
   },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   var stack1, helper, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, functionType="function", lambda=this.lambda, buffer = "<h1 class=\"header edit\">Edit Your Profile</h1>\n\n<div class=\"cover\">"
@@ -5267,11 +5289,8 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
     + ">Female</option>\n        <option value=\"O\""
     + escapeExpression(((helpers.selected || (depth0 && depth0.selected) || helperMissing).call(depth0, (depth0 != null ? depth0.gender : depth0), "O", {"name":"selected","hash":{},"data":data})))
     + ">Other</option>\n      </select>\n    </div>\n    <div class=\"form-group\">\n      <input name=\"location\" type=\"text\" placeholder=\"City\" value=\""
-    + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.location : depth0)) != null ? stack1.city : stack1), depth0))
-    + " ";
-  stack1 = helpers['if'].call(depth0, ((stack1 = (depth0 != null ? depth0.location : depth0)) != null ? stack1.country : stack1), {"name":"if","hash":{},"fn":this.program(3, data),"inverse":this.noop,"data":data});
-  if (stack1 != null) { buffer += stack1; }
-  buffer += "\" class=\"form-control\"/>\n    </div>\n\n      <input name=\"city\" type=\"hidden\" value=\""
+    + escapeExpression(((helpers.formatLocation || (depth0 && depth0.formatLocation) || helperMissing).call(depth0, (depth0 != null ? depth0.location : depth0), {"name":"formatLocation","hash":{},"data":data})))
+    + "\" class=\"form-control\"/>\n    </div>\n\n      <input name=\"city\" type=\"hidden\" value=\""
     + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.location : depth0)) != null ? stack1.city : stack1), depth0))
     + "\"/>\n      <input name=\"region\" type=\"hidden\" value=\""
     + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.location : depth0)) != null ? stack1.region : stack1), depth0))
@@ -5284,7 +5303,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
     + "\"/>\n      <input name=\"lng\" type=\"hidden\" value=\""
     + escapeExpression(lambda(((stack1 = ((stack1 = (depth0 != null ? depth0.location : depth0)) != null ? stack1.coordinates : stack1)) != null ? stack1['1'] : stack1), depth0))
     + "\"/>\n\n  </div>\n  <div class=\"form-actions\">\n    <input id=\"save\" type=\"button\" data-loading-text=\"saving..\" value=\"Save profile\" class=\"btn-primary pull-right\"/>\n    <label class=\"saved pull-left hidden\">Profile saved, going back to business ...</label>\n";
-  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.email : depth0), {"name":"if","hash":{},"fn":this.program(5, data),"inverse":this.noop,"data":data});
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.email : depth0), {"name":"if","hash":{},"fn":this.program(3, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
   return buffer + "  </div>\n</form>";
 },"useData":true});

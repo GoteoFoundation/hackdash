@@ -45,6 +45,26 @@ Handlebars.registerHelper('markdown', function(md) {
   return "";
 });
 
+Handlebars.registerHelper('formatLocation', function(loc) {
+  var t = '';
+  if(loc.city) {
+    t += loc.city;
+  }
+  if(loc.region) {
+    if(t) {
+      t += ', ';
+    }
+    t += loc.region;
+  }
+  if(loc.country) {
+    if(t) {
+      t += ', ';
+    }
+    t += loc.country;
+  }
+  return t;
+});
+
 Handlebars.registerHelper('disqus_shortname', function() {
   return window.hackdash.disqus_shortname;
 });

@@ -48,7 +48,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
   onRender: function(){
     this.initGoogleAutocomplete(this.ui.location.get(0));
     // console.log(this.model.attributes);
-    if(!this.model.attributes.location.coordinates || this.model.attributes.location.coordinates.length === 0) {
+    if(!this.model.attributes.location || !this.model.attributes.location.coordinates || this.model.attributes.location.coordinates.length === 0) {
       this.geolocate(); //Ask for browser geolocation
     }
   },
@@ -61,13 +61,19 @@ module.exports = Backbone.Marionette.ItemView.extend({
   //--------------------------------------
 
   saveProfile: function(){
+    // Mandatory fields
     var toSave = {
       name: this.ui.name.val(),
       email: this.ui.email.val(),
-      bio: this.ui.bio.val(),
-      birthdate: this.ui.birthdate.val(),
-      gender: this.ui.gender.val()
+      bio: this.ui.bio.val()
     };
+    // Optional
+    if(this.ui.birthdate.val()) {
+      toSave.birthdate = this.ui.birthdate.val();
+    }
+    if(this.ui.gender.val()) {
+      toSave.gender = this.ui.gender.val();
+    }
     var lat = parseFloat(this.ui.lat.val());
     var lng = parseFloat(this.ui.lng.val());
     if(!isNaN(lat) && !isNaN(lng)) {
