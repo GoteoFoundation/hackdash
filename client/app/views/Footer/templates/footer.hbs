@@ -32,9 +32,19 @@
       <i class="btn-danger txt">off</i><div>Edit Showcase</div>
     </a>
 
-
   </div>
-  {{/if}}
+{{/if}}
+{{else}}
+    {{#if isQuestion}}
+    <div class="footer-dash-ctn">
+      <div class="footer-toggle-ctn">
+      <a href="/dashboards/{{domain}}">
+        <i class="fa fa-archive"></i>
+        <div>Back to dashboard</div>
+      </a>
+      </div>
+    </div>
+    {{/if}}
 {{/if}}
 
 <a class="up-button">

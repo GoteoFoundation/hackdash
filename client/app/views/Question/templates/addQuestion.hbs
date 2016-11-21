@@ -1,3 +1,16 @@
-<div>
-	new question form
-</div>
+<form>
+
+  <h1>Create a new question:</h1>
+
+  <div class="form-group">
+    <input type="text" class="form-control" name="title" id="newQuestion" placeholder="Question to respond">
+  </div>
+  <div class="form-group">
+    <select name="type" class="form-control" id="newQuestionType">
+    	<option value="" disabled selected>Question type (choose one)</option>
+    	<option value="text">Simple text</option>
+    	<option value="text">Boolean</option>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-default">Create the new question</button>
+</form>

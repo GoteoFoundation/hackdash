@@ -31,6 +31,9 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       var user = hackdash.user;
       return user && user.admin_in.indexOf(this.domain) >= 0 || false;
     },
+    isQuestion: function(){
+      return (hackdash.app.type.indexOf("question") > 0 );
+    },
     isDashboard: function(){
       return (hackdash.app.type === "dashboard");
     }

@@ -181,7 +181,9 @@ module.exports = Backbone.Marionette.AppRouter.extend({
         model: app.dashboard
       }));
 
-      app.footer.show(new Footer());
+      app.footer.show(new Footer({
+        model: app.dashboard
+      }));
       app.setTitle('Edit questions for ' + (app.dashboard.get('title') || app.dashboard.get('domain')));
 
     });

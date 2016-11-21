@@ -266,7 +266,9 @@ module.exports = Backbone.Marionette.AppRouter.extend({
         model: app.dashboard
       }));
 
-      app.footer.show(new Footer());
+      app.footer.show(new Footer({
+        model: app.dashboard
+      }));
       app.setTitle('Edit questions for ' + (app.dashboard.get('title') || app.dashboard.get('domain')));
 
     });
@@ -2674,6 +2676,9 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       var user = hackdash.user;
       return user && user.admin_in.indexOf(this.domain) >= 0 || false;
     },
+    isQuestion: function(){
+      return (hackdash.app.type.indexOf("question") > 0 );
+    },
     isDashboard: function(){
       return (hackdash.app.type === "dashboard");
     }
@@ -2831,7 +2836,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
   if (stack1 != null) { buffer += stack1; }
   return buffer + "</i>\n        <div>Event board Status</div>\n      </a>\n\n      <a class=\"btn-add-questions\" href=\"/dashboards/"
     + escapeExpression(((helper = (helper = helpers.domain || (depth0 != null ? depth0.domain : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"domain","hash":{},"data":data}) : helper)))
-    + "/questions\">\n        <i class=\"fa fa-question\"></i><div>Add questions</div>\n      </a>\n    </div>\n\n    <a class=\"btn-showcase-mode\">\n      <i class=\"btn-danger txt\">off</i><div>Edit Showcase</div>\n    </a>\n\n\n  </div>\n";
+    + "/questions\">\n        <i class=\"fa fa-question\"></i><div>Add questions</div>\n      </a>\n    </div>\n\n    <a class=\"btn-showcase-mode\">\n      <i class=\"btn-danger txt\">off</i><div>Edit Showcase</div>\n    </a>\n\n  </div>\n";
 },"6":function(depth0,helpers,partials,data) {
   return "dash-open";
   },"8":function(depth0,helpers,partials,data) {
@@ -2844,12 +2849,22 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
   return "Open";
   },"16":function(depth0,helpers,partials,data) {
   return "Close";
-  },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+  },"18":function(depth0,helpers,partials,data) {
+  var stack1, buffer = "";
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.isQuestion : depth0), {"name":"if","hash":{},"fn":this.program(19, data),"inverse":this.noop,"data":data});
+  if (stack1 != null) { buffer += stack1; }
+  return buffer;
+},"19":function(depth0,helpers,partials,data) {
+  var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+  return "    <div class=\"footer-dash-ctn\">\n      <div class=\"footer-toggle-ctn\">\n      <a href=\"/dashboards/"
+    + escapeExpression(((helper = (helper = helpers.domain || (depth0 != null ? depth0.domain : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"domain","hash":{},"data":data}) : helper)))
+    + "\">\n        <i class=\"fa fa-archive\"></i>\n        <div>Back to dashboard</div>\n      </a>\n      </div>\n    </div>\n";
+},"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   var stack1, buffer = "\n<a class=\"brand ";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.isDashboard : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
   buffer += "\">\n  <span class=\"logo\" title=\"Wotify\"></span>\n  <span class=\"logo-platoniq\" title=\"Developed by Platoniq\">Platoniq.net</span>\n  <span class=\"logo-hackdash\" title=\"Powered by Hackdash\">Powered by Hackdash</span>\n</a>\n\n";
-  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.isDashboard : depth0), {"name":"if","hash":{},"fn":this.program(4, data),"inverse":this.noop,"data":data});
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.isDashboard : depth0), {"name":"if","hash":{},"fn":this.program(4, data),"inverse":this.program(18, data),"data":data});
   if (stack1 != null) { buffer += stack1; }
   return buffer + "\n<a class=\"up-button\">\n  <i class=\"fa fa-long-arrow-up\"></i>\n  <span>up</span>\n</a>";
 },"useData":true});
@@ -6685,6 +6700,25 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
   template: template,
 
+  ui: {
+    'type' : '#newQuestionType'
+  },
+
+  onShow: function(){
+    this.initSelect2();
+  },
+
+  initSelect2: function() {
+    // if (this.model.get('type')){
+    //   this.ui.type.val(this.model.get('type'));
+    // }
+
+    // this.ui.type.select2({
+    //   placeholder: "Question type",
+    //   // allowClear: true
+    // });
+  }
+
 });
 
 },{"./templates/addQuestion.hbs":95}],93:[function(require,module,exports){
@@ -6747,7 +6781,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-  return "<div>\n	new question form\n</div>";
+  return "<form>\n\n  <h1>Create a new question:</h1>\n\n  <div class=\"form-group\">\n    <input type=\"text\" class=\"form-control\" name=\"title\" id=\"newQuestion\" placeholder=\"Question to respond\">\n  </div>\n  <div class=\"form-group\">\n    <select name=\"type\" class=\"form-control\" id=\"newQuestionType\">\n    	<option value=\"\" disabled selected>Question type (choose one)</option>\n    	<option value=\"text\">Simple text</option>\n    	<option value=\"text\">Boolean</option>\n    </select>\n  </div>\n  <button type=\"submit\" class=\"btn btn-default\">Create the new question</button>\n</form>";
   },"useData":true});
 
 },{"hbsfy/runtime":112}],96:[function(require,module,exports){
