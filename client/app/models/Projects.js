@@ -1,5 +1,5 @@
 /**
- * Collection: Projectss
+ * Collection: Projects
  *
  */
 

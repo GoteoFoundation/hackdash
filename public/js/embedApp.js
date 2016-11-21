@@ -510,7 +510,7 @@ module.exports = Backbone.Collection.extend({
 });
 },{}],9:[function(require,module,exports){
 /**
- * MODEL: Project
+ * MODEL: dashboard
  *
  */
 
@@ -703,7 +703,7 @@ module.exports = Backbone.Model.extend({
 
 },{}],11:[function(require,module,exports){
 /**
- * Collection: Projectss
+ * Collection: Projects
  *
  */
 

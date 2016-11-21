@@ -1,5 +1,5 @@
 /**
- * MODEL: Project
+ * MODEL: dashboard
  *
  */
 

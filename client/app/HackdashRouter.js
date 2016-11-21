@@ -5,6 +5,7 @@
 var Dashboard = require("./models/Dashboard")
   , Project = require("./models/Project")
   , Projects = require("./models/Projects")
+  , Questions = require("./models/Questions")
   , Collection = require("./models/Collection")
   , Profile = require("./models/Profile")
 
@@ -130,6 +131,7 @@ module.exports = Backbone.Marionette.AppRouter.extend({
 
     app.dashboard = new Dashboard();
     app.projects = new Projects();
+    app.questions = new Questions();
 
     if (dash){
       app.dashboard.set('domain', dash);
@@ -168,24 +170,29 @@ module.exports = Backbone.Marionette.AppRouter.extend({
     app.type = "dashboard_question";
 
     app.dashboard = new Dashboard({ domain: dash });
+    app.projects = new Projects();
+    app.questions = new Questions();
+
     app.dashboard.fetch().done(function(){
       if(!self.canEditDashboard(window.hackdash.user, app.dashboard.attributes)) {
         window.location = "/dashboards/" + app.dashboard.attributes.domain;
       }
+      app.questions.fetch({}, { parse: true })
+        .done(function(){
 
-      app.header.show(new Header());
+          app.header.show(new Header());
 
-      // here the questions editor
-      // TODO: fetch questions
-      app.main.show(new QuestionView({
-        model: app.dashboard
-      }));
+          // here the questions editor
+          // TODO: fetch questions
+          app.main.show(new QuestionView({
+            model: app.dashboard
+          }));
 
-      app.footer.show(new Footer({
-        model: app.dashboard
-      }));
-      app.setTitle('Edit questions for ' + (app.dashboard.get('title') || app.dashboard.get('domain')));
-
+          app.footer.show(new Footer({
+            model: app.dashboard
+          }));
+          app.setTitle('Edit questions for ' + (app.dashboard.get('title') || app.dashboard.get('domain')));
+        });
     });
   },
 
