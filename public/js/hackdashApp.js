@@ -262,7 +262,6 @@ module.exports = Backbone.Marionette.AppRouter.extend({
       app.header.show(new Header());
 
       // here the questions editor
-      // TODO: fetch questions
       app.main.show(new QuestionView({
         model: app.dashboard
       }));
@@ -274,13 +273,15 @@ module.exports = Backbone.Marionette.AppRouter.extend({
     });
   },
 
-  showCollectionQuestionsEdit: function(id){
+  showCollectionQuestionsEdit: function(cid){
 
       var app = window.hackdash.app;
       var self = this;
       app.type = "collection_question";
 
-      app.collection = new Collection({ _id: id });
+      app.collection = new Collection({ _id: cid });
+      // Set group same as _id to allow choose from dashboard or collection in QuestionView
+      app.collection.set('group', cid);
       app.collection.fetch().done(function(){
         if(!self.canEditCollection(window.hackdash.user, app.collection.attributes)) {
           window.location = "/collections/" + app.collection.attributes._id;
@@ -289,12 +290,13 @@ module.exports = Backbone.Marionette.AppRouter.extend({
         app.header.show(new Header());
 
         // here the questions editor
-        // TODO: fetch questions
         app.main.show(new QuestionView({
           model: app.collection
         }));
 
-        app.footer.show(new Footer());
+        app.footer.show(new Footer({
+          model: app.collection
+        }));
         app.setTitle('Edit questions for ' + app.collection.get('title'));
 
       });
@@ -1391,8 +1393,8 @@ var Questions = module.exports = BaseCollection.extend({
     if (this.domain){
       return hackdash.apiURL + '/dashboards/' + this.domain + '/questions';
     }
-    else if (this.collection){
-      return hackdash.apiURL + '/collections/' + this.collection + '/questions';
+    else if (this.group){
+      return hackdash.apiURL + '/collections/' + this.group + '/questions';
     }
     return hackdash.apiURL + '/questions'; // Not really used
   },
@@ -1400,7 +1402,6 @@ var Questions = module.exports = BaseCollection.extend({
   getActives: function(){
     return new Questions(
       this.filter(function(questions){
-        console.log('QUESTIONS', questions);
         return questions.get("active");
       })
     );
@@ -6060,12 +6061,12 @@ module.exports = Backbone.Marionette.ItemView.extend({
       url: hackdash.apiURL + '/projects/cover',
       paramName: 'cover',
       maxFiles: 1,
-      maxFilesize: 2, // MB
+      maxFilesize: 8, // MB
       acceptedFiles: 'image/jpeg,image/png,image/gif',
       uploadMultiple: false,
       clickable: true,
       dictDefaultMessage: 'Drop Image Here',
-      dictFileTooBig: 'File is too big, 2 Mb is the max',
+      dictFileTooBig: 'File is too big, 8 Mb is the max',
       dictInvalidFileType: 'Only jpg, png and gif are allowed'
     });
 
@@ -6859,14 +6860,20 @@ module.exports = Backbone.Marionette.ItemView.extend({
  *
  */
 
-var Item = require('./QuestionItem');
+var QuestionItem = require('./QuestionItem');
+
+var EmptyView = Backbone.Marionette.ItemView.extend({
+  template: _.template('No questions yet!')
+});
 
 module.exports = Backbone.Marionette.CollectionView.extend({
 
   tagName: 'div',
   className: 'list-group',
 
-  childView: Item,
+  childView: QuestionItem,
+
+  emptyView: EmptyView
 
 });
 
@@ -6926,7 +6933,9 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   drawQuestionList: function() {
     var self = this;
     var questions = new Questions();
-    questions.domain = this.model.get('domain');
+
+    questions.domain = this.model.get('domain'); //one of both will be empty
+    questions.group = this.model.get('group');
     questions.fetch().done(function(){
       self.questionList.show(new QuestionList({
         model: questions,
@@ -6940,7 +6949,8 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     var id = $(e.target).data('id');
     var question = new Question({
         id: id,
-        domain: this.model.get('domain')
+        domain: this.model.get('domain'),
+        group: this.model.get('group'),
       });
     // console.log(id ? 'edit' : 'new', id, question);
     if(id) {
@@ -7005,7 +7015,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
     + "</small></h1>\n";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.isDashboard : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.program(3, data),"data":data});
   if (stack1 != null) { buffer += stack1; }
-  return buffer + "  </div>\n\n</div>\n\n<div class=\"body\">\n\n  <div class=\"container\">\n\n  	<h3>Current questions:</h3>\n	<div class=\"questions-list\"></div>\n\n\n  	<button id=\"new-question\" class=\"btn btn-success\">Create a new question</button>\n\n  </div>\n\n</div>\n";
+  return buffer + "  </div>\n\n</div>\n\n<div class=\"body\">\n\n  <div class=\"container\">\n\n    <h3>Current questions:</h3>\n  	<div class=\"questions-list\"></div>\n\n  	<button id=\"new-question\" class=\"btn btn-success\">Create a new question</button>\n\n  </div>\n\n</div>\n";
 },"useData":true});
 
 },{"hbsfy/runtime":115}],101:[function(require,module,exports){

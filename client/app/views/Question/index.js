@@ -53,7 +53,9 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   drawQuestionList: function() {
     var self = this;
     var questions = new Questions();
-    questions.domain = this.model.get('domain');
+
+    questions.domain = this.model.get('domain'); //one of both will be empty
+    questions.group = this.model.get('group');
     questions.fetch().done(function(){
       self.questionList.show(new QuestionList({
         model: questions,
@@ -67,7 +69,8 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     var id = $(e.target).data('id');
     var question = new Question({
         id: id,
-        domain: this.model.get('domain')
+        domain: this.model.get('domain'),
+        group: this.model.get('group'),
       });
     // console.log(id ? 'edit' : 'new', id, question);
     if(id) {

@@ -177,7 +177,6 @@ module.exports = Backbone.Marionette.AppRouter.extend({
       app.header.show(new Header());
 
       // here the questions editor
-      // TODO: fetch questions
       app.main.show(new QuestionView({
         model: app.dashboard
       }));
@@ -189,13 +188,15 @@ module.exports = Backbone.Marionette.AppRouter.extend({
     });
   },
 
-  showCollectionQuestionsEdit: function(id){
+  showCollectionQuestionsEdit: function(cid){
 
       var app = window.hackdash.app;
       var self = this;
       app.type = "collection_question";
 
-      app.collection = new Collection({ _id: id });
+      app.collection = new Collection({ _id: cid });
+      // Set group same as _id to allow choose from dashboard or collection in QuestionView
+      app.collection.set('group', cid);
       app.collection.fetch().done(function(){
         if(!self.canEditCollection(window.hackdash.user, app.collection.attributes)) {
           window.location = "/collections/" + app.collection.attributes._id;
@@ -204,12 +205,13 @@ module.exports = Backbone.Marionette.AppRouter.extend({
         app.header.show(new Header());
 
         // here the questions editor
-        // TODO: fetch questions
         app.main.show(new QuestionView({
           model: app.collection
         }));
 
-        app.footer.show(new Footer());
+        app.footer.show(new Footer({
+          model: app.collection
+        }));
         app.setTitle('Edit questions for ' + app.collection.get('title'));
 
       });

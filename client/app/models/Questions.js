@@ -22,8 +22,8 @@ var Questions = module.exports = BaseCollection.extend({
     if (this.domain){
       return hackdash.apiURL + '/dashboards/' + this.domain + '/questions';
     }
-    else if (this.collection){
-      return hackdash.apiURL + '/collections/' + this.collection + '/questions';
+    else if (this.group){
+      return hackdash.apiURL + '/collections/' + this.group + '/questions';
     }
     return hackdash.apiURL + '/questions'; // Not really used
   },
@@ -31,7 +31,6 @@ var Questions = module.exports = BaseCollection.extend({
   getActives: function(){
     return new Questions(
       this.filter(function(questions){
-        console.log('QUESTIONS', questions);
         return questions.get("active");
       })
     );
