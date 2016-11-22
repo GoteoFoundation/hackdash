@@ -6,7 +6,7 @@ var
   Question = require('./Question'),
   BaseCollection = require('./BaseCollection');
 
-module.exports = BaseCollection.extend({
+var Questions = module.exports = BaseCollection.extend({
 
   model: Question,
 
@@ -14,17 +14,27 @@ module.exports = BaseCollection.extend({
 
   comparators: {
     title: function(a){ return a.get('title'); },
+    type: function(a){ return a.get('type'); },
     created_at: function(a){ return -a.get('created_at'); },
   },
 
   url: function(){
     if (this.domain){
-      return hackdash.apiURL + '/' + this.domain + '/questions';
+      return hackdash.apiURL + '/dashboards/' + this.domain + '/questions';
     }
     else if (this.collection){
-      return hackdash.apiURL + '/' + this.collection + '/questions';
+      return hackdash.apiURL + '/collections/' + this.collection + '/questions';
     }
-    return hackdash.apiURL + '/questions';
+    return hackdash.apiURL + '/questions'; // Not really used
+  },
+
+  getActives: function(){
+    return new Questions(
+      this.filter(function(questions){
+        console.log('QUESTIONS', questions);
+        return questions.get("active");
+      })
+    );
   },
 
 });

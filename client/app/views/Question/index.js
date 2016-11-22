@@ -36,13 +36,14 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
   onRender: function(){
     var self = this;
-    var questions = new Questions({
-      domain: this.model.get('domain')
-    });
+    var questions = new Questions();
+    questions.domain = this.model.get('domain');
 
     questions.fetch().done(function(){
       self.questionList.show(new QuestionList({
-        model: questions
+        model: questions,
+        // collection: questions.getActives(),
+        collection: questions, // All questions to admin
       }));
     });
 

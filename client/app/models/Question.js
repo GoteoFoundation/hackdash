@@ -8,10 +8,6 @@
 
 module.exports = Backbone.Model.extend({
 
-  defaults: {
-    admins: null
-  },
-
   urlRoot: function(){
     return hackdash.apiURL + '/questions';
   },

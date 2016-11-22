@@ -3,11 +3,13 @@
  *
  */
 
-var
-    template = require('./templates/questionList.hbs');
+var Item = require('./QuestionItem');
 
-module.exports = Backbone.Marionette.ItemView.extend({
+module.exports = Backbone.Marionette.CollectionView.extend({
 
-  template: template,
+  tagName: 'ul',
+  className: 'list-group',
+
+  childView: Item,
 
 });
