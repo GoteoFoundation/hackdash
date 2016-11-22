@@ -39,7 +39,6 @@ module.exports = Backbone.Marionette.ItemView.extend({
       type: this.ui.type.val(),
     };
 
-    console.log('toSave',toSave);
 
     this.cleanErrors();
 
@@ -52,13 +51,13 @@ module.exports = Backbone.Marionette.ItemView.extend({
   },
 
   destroyModal: function(){
+    hackdash.app.modals.trigger('question_edited');
     // TODO: update view
     this.destroy();
   },
 
 
   showError: function(err){
-    console.log('ERROR', err);
     $("#save", this.$el).button('reset');
 
     if (err.responseText === "OK"){

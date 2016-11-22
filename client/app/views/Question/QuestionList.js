@@ -7,7 +7,7 @@ var Item = require('./QuestionItem');
 
 module.exports = Backbone.Marionette.CollectionView.extend({
 
-  tagName: 'ul',
+  tagName: 'div',
   className: 'list-group',
 
   childView: Item,

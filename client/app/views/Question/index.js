@@ -40,9 +40,20 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
   onRender: function(){
     var self = this;
+
+    this.drawQuestionList();
+    // Listens 'edited' event fired in EditQuestion
+    // to reload the list if changes
+    hackdash.app.modals.on('question_edited', function(){
+      self.drawQuestionList();
+    });
+
+  },
+
+  drawQuestionList: function() {
+    var self = this;
     var questions = new Questions();
     questions.domain = this.model.get('domain');
-
     questions.fetch().done(function(){
       self.questionList.show(new QuestionList({
         model: questions,
@@ -50,14 +61,15 @@ module.exports = Backbone.Marionette.LayoutView.extend({
         collection: questions, // All questions to admin
       }));
     });
-
   },
 
   editQuestion: function(e) {
     var id = $(e.target).data('id');
-    var question = new Question({id: id});
-    question.domain = this.model.get('domain');
-    console.log(id ? 'edit' : 'new', id, question);
+    var question = new Question({
+        id: id,
+        domain: this.model.get('domain')
+      });
+    // console.log(id ? 'edit' : 'new', id, question);
     if(id) {
       question.fetch().done(function(){
         hackdash.app.modals.show(new EditQuestion({

@@ -1,14 +1,14 @@
 
-<a class="brand {{#if isDashboard}}{{#if isAdmin}}dashboard-footer{{/if}}{{/if}}">
+<a class="brand {{#if isAdmin}}dashboard-footer{{/if}}">
   <span class="logo" title="Wotify"></span>
   <span class="logo-platoniq" title="Developed by Platoniq">Platoniq.net</span>
   <span class="logo-hackdash" title="Powered by Hackdash">Powered by Hackdash</span>
 </a>
 
-{{#if isDashboard}}
-  {{#if isAdmin}}
+{{#if isAdmin}}
   <div class="footer-dash-ctn">
 
+    {{#if isDashboard}}
 
     <div class="footer-toggle-ctn">
 
@@ -17,15 +17,16 @@
         <div>Export .CSV File</div>
       </a>
 
+      <a class="btn-admin-questions" href="/dashboards/{{domain}}/questions">
+        <i class="fa fa-question-circle"></i><div>Admin questions</div>
+      </a>
+
       <a data-placement="top" data-original-title="{{switcherMsg}}"
         class="tooltips dashboard-btn {{#if open}}dash-open{{else}}dash-close{{/if}}">
         <i class="txt {{#if open}}btn-success{{else}}btn-danger{{/if}}">{{#if open}}Open{{else}}Close{{/if}}</i>
-        <div>Event board Status</div>
+        <div>Board Status</div>
       </a>
 
-      <a class="btn-add-questions" href="/dashboards/{{domain}}/questions">
-        <i class="fa fa-question"></i><div>Add questions</div>
-      </a>
     </div>
 
     <a class="btn-showcase-mode">
@@ -33,18 +34,17 @@
     </a>
 
   </div>
-{{/if}}
-{{else}}
-    {{#if isQuestion}}
-    <div class="footer-dash-ctn">
-      <div class="footer-toggle-ctn">
+  {{/if}}
+
+  {{#if isQuestion}}
+
       <a href="/dashboards/{{domain}}">
         <i class="fa fa-archive"></i>
         <div>Back to dashboard</div>
       </a>
-      </div>
-    </div>
-    {{/if}}
+
+  {{/if}}
+
 {{/if}}
 
 <a class="up-button">
