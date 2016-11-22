@@ -5,7 +5,7 @@
 
 var
     template = require('./templates/questions.hbs')
-  , AddQuestion = require('./AddQuestion')
+  , EditQuestion = require('./EditQuestion')
   , QuestionList = require('./QuestionList')
   , Question = require("../../models/Question")
   , Questions = require("../../models/Questions")
@@ -18,7 +18,11 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
   regions: {
     questionList: ".questions-list",
-    newQuestion: ".add-question"
+  },
+
+  events: {
+    'click #new-question': 'editQuestion',
+    'click .edit-question': 'editQuestion'
   },
 
   modelEvents: {
@@ -47,11 +51,23 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       }));
     });
 
-    this.newQuestion.show(new AddQuestion({
-      model: new Question({
-        domain: this.model.get('domain')
-      })
-    }));
   },
 
+  editQuestion: function(e) {
+    var id = $(e.target).data('id');
+    var question = new Question({id: id});
+    question.domain = this.model.get('domain');
+    console.log(id ? 'edit' : 'new', id, question);
+    if(id) {
+      question.fetch().done(function(){
+        hackdash.app.modals.show(new EditQuestion({
+          model: question
+        }));
+      });
+    } else {
+      hackdash.app.modals.show(new EditQuestion({
+        model: question
+      }));
+    }
+  }
 });

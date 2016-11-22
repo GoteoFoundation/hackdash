@@ -1,0 +1,23 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal">
+    <i class="fa fa-close"></i>
+  </button>
+  <h2 class="modal-title">Edit question</h2>
+</div>
+
+<div class="modal-body">
+
+  <div class="form-group">
+    <input type="text" class="form-control" name="title" id="newQuestion" placeholder="Question to respond" value="{{title}}">
+  </div>
+  <div class="form-group">
+    <select name="type" class="form-control" id="newQuestionType">
+    	<option value="" disabled{{selected type null}}>Question type (choose one)</option>
+    	<option value="text"{{selected type "text"}}>One line text</option>
+    	<option value="text"{{selected type "boolean"}}>Yes or no</option>
+    </select>
+  </div>
+
+  <a id="save" class="btn btn-success">Save</a>
+
+</div>

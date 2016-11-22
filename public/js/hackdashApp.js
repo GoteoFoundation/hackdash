@@ -6753,7 +6753,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
  */
 
 var
-    template = require('./templates/addQuestion.hbs');
+    template = require('./templates/editQuestion.hbs');
 
 module.exports = Backbone.Marionette.ItemView.extend({
 
@@ -6796,16 +6796,13 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
     this.model
       .save(toSave, { patch: true, silent: true })
-      .success(this.redirect.bind(this))
+      .success(this.destroyModal.bind(this))
       .error(this.showError.bind(this));
   },
 
-  redirect: function(){
-    // var url = "/dashboards/" + this.model.get('domain') + '/questions';
-    console.log('REDIRECT');
-    var url = "/dashboards/" + this.model.get('domain');
-    console.log('URL', url);
-    hackdash.app.router.navigate(url, { trigger: true, replace: true });
+  destroyModal: function(){
+    // TODO: update view
+    this.destroy();
   },
 
 
@@ -6814,7 +6811,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
     $("#save", this.$el).button('reset');
 
     if (err.responseText === "OK"){
-      this.redirect();
+      this.destroyModal();
       return;
     }
 
@@ -6835,7 +6832,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
   },
 });
 
-},{"./templates/addQuestion.hbs":98}],95:[function(require,module,exports){
+},{"./templates/editQuestion.hbs":98}],95:[function(require,module,exports){
 /**
  * VIEW: Question List
  *
@@ -6874,7 +6871,7 @@ module.exports = Backbone.Marionette.CollectionView.extend({
 
 var
     template = require('./templates/questions.hbs')
-  , AddQuestion = require('./AddQuestion')
+  , EditQuestion = require('./EditQuestion')
   , QuestionList = require('./QuestionList')
   , Question = require("../../models/Question")
   , Questions = require("../../models/Questions")
@@ -6887,7 +6884,11 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
   regions: {
     questionList: ".questions-list",
-    newQuestion: ".add-question"
+  },
+
+  events: {
+    'click #new-question': 'editQuestion',
+    'click .edit-question': 'editQuestion'
   },
 
   modelEvents: {
@@ -6916,20 +6917,41 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       }));
     });
 
-    this.newQuestion.show(new AddQuestion({
-      model: new Question({
-        domain: this.model.get('domain')
-      })
-    }));
   },
 
+  editQuestion: function(e) {
+    var id = $(e.target).data('id');
+    var question = new Question({id: id});
+    question.domain = this.model.get('domain');
+    console.log(id ? 'edit' : 'new', id, question);
+    if(id) {
+      question.fetch().done(function(){
+        hackdash.app.modals.show(new EditQuestion({
+          model: question
+        }));
+      });
+    } else {
+      hackdash.app.modals.show(new EditQuestion({
+        model: question
+      }));
+    }
+  }
 });
-},{"../../models/Question":17,"../../models/Questions":18,"./AddQuestion":94,"./QuestionList":96,"./templates/questions.hbs":100}],98:[function(require,module,exports){
+},{"../../models/Question":17,"../../models/Questions":18,"./EditQuestion":94,"./QuestionList":96,"./templates/questions.hbs":100}],98:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-  return "\n  <div class=\"form-group\">\n    <input type=\"text\" class=\"form-control\" name=\"title\" id=\"newQuestion\" placeholder=\"Question to respond\">\n  </div>\n  <div class=\"form-group\">\n    <select name=\"type\" class=\"form-control\" id=\"newQuestionType\">\n    	<option value=\"\" disabled selected>Question type (choose one)</option>\n    	<option value=\"text\">Simple text</option>\n    	<option value=\"text\">Boolean</option>\n    </select>\n  </div>\n\n  <a id=\"save\" class=\"btn btn-success\">Save</a>\n\n";
-  },"useData":true});
+  var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+  return "<div class=\"modal-header\">\n  <button type=\"button\" class=\"close\" data-dismiss=\"modal\">\n    <i class=\"fa fa-close\"></i>\n  </button>\n  <h2 class=\"modal-title\">Edit question</h2>\n</div>\n\n<div class=\"modal-body\">\n\n  <div class=\"form-group\">\n    <input type=\"text\" class=\"form-control\" name=\"title\" id=\"newQuestion\" placeholder=\"Question to respond\" value=\""
+    + escapeExpression(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"title","hash":{},"data":data}) : helper)))
+    + "\">\n  </div>\n  <div class=\"form-group\">\n    <select name=\"type\" class=\"form-control\" id=\"newQuestionType\">\n    	<option value=\"\" disabled"
+    + escapeExpression(((helpers.selected || (depth0 && depth0.selected) || helperMissing).call(depth0, (depth0 != null ? depth0.type : depth0), (depth0 != null ? depth0.null : depth0), {"name":"selected","hash":{},"data":data})))
+    + ">Question type (choose one)</option>\n    	<option value=\"text\""
+    + escapeExpression(((helpers.selected || (depth0 && depth0.selected) || helperMissing).call(depth0, (depth0 != null ? depth0.type : depth0), "text", {"name":"selected","hash":{},"data":data})))
+    + ">One line text</option>\n    	<option value=\"text\""
+    + escapeExpression(((helpers.selected || (depth0 && depth0.selected) || helperMissing).call(depth0, (depth0 != null ? depth0.type : depth0), "boolean", {"name":"selected","hash":{},"data":data})))
+    + ">Yes or no</option>\n    </select>\n  </div>\n\n  <a id=\"save\" class=\"btn btn-success\">Save</a>\n\n</div>";
+},"useData":true});
 
 },{"hbsfy/runtime":115}],99:[function(require,module,exports){
 // hbsfy compiled Handlebars template
@@ -6938,7 +6960,9 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
   var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
   return "<li class=\"list-group-item\">\n	"
     + escapeExpression(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"title","hash":{},"data":data}) : helper)))
-    + "\n</li>";
+    + "\n	<button class=\"btn btn-info btn-sm pull-right edit-question\" data-id=\""
+    + escapeExpression(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"_id","hash":{},"data":data}) : helper)))
+    + "\"><i class=\"fa fa-edit\"></i>Edit</button>\n</li>";
 },"useData":true});
 
 },{"hbsfy/runtime":115}],100:[function(require,module,exports){
@@ -6954,7 +6978,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
     + "</small></h1>\n";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.isDashboard : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.program(3, data),"data":data});
   if (stack1 != null) { buffer += stack1; }
-  return buffer + "  </div>\n\n</div>\n\n<div class=\"body\">\n\n  <div class=\"container\">\n\n  	<h3>Current questions:</h3>\n	<div class=\"questions-list\"></div>\n\n\n  	<h3>Create a new question:</h3>\n	<div class=\"add-question\"></div>\n\n  </div>\n\n</div>\n";
+  return buffer + "  </div>\n\n</div>\n\n<div class=\"body\">\n\n  <div class=\"container\">\n\n  	<h3>Current questions:</h3>\n	<div class=\"questions-list\"></div>\n\n\n  	<button id=\"new-question\" class=\"btn btn-success\">Create a new question</button>\n\n  </div>\n\n</div>\n";
 },"useData":true});
 
 },{"hbsfy/runtime":115}],101:[function(require,module,exports){

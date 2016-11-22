@@ -4,7 +4,7 @@
  */
 
 var
-    template = require('./templates/addQuestion.hbs');
+    template = require('./templates/editQuestion.hbs');
 
 module.exports = Backbone.Marionette.ItemView.extend({
 
@@ -47,16 +47,13 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
     this.model
       .save(toSave, { patch: true, silent: true })
-      .success(this.redirect.bind(this))
+      .success(this.destroyModal.bind(this))
       .error(this.showError.bind(this));
   },
 
-  redirect: function(){
-    // var url = "/dashboards/" + this.model.get('domain') + '/questions';
-    console.log('REDIRECT');
-    var url = "/dashboards/" + this.model.get('domain');
-    console.log('URL', url);
-    hackdash.app.router.navigate(url, { trigger: true, replace: true });
+  destroyModal: function(){
+    // TODO: update view
+    this.destroy();
   },
 
 
@@ -65,7 +62,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
     $("#save", this.$el).button('reset');
 
     if (err.responseText === "OK"){
-      this.redirect();
+      this.destroyModal();
       return;
     }
 
