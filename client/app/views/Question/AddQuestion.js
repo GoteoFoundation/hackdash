@@ -8,6 +8,7 @@ var
 
 module.exports = Backbone.Marionette.ItemView.extend({
 
+  className: "page-ctn question edition",
   template: template,
 
   ui: {
@@ -26,6 +27,10 @@ module.exports = Backbone.Marionette.ItemView.extend({
   onShow: function(){
   },
 
+  errors: {
+    "title_required": "Title is required",
+    "type_required": "Type is required"
+  },
 
   save: function(){
 
@@ -33,6 +38,8 @@ module.exports = Backbone.Marionette.ItemView.extend({
       title: this.ui.title.val(),
       type: this.ui.type.val(),
     };
+
+    console.log('toSave',toSave);
 
     this.cleanErrors();
 
@@ -45,13 +52,16 @@ module.exports = Backbone.Marionette.ItemView.extend({
   },
 
   redirect: function(){
-    var url = "/dashboards/" + this.model.get('domain') + '/questions';
-
+    // var url = "/dashboards/" + this.model.get('domain') + '/questions';
+    console.log('REDIRECT');
+    var url = "/dashboards/" + this.model.get('domain');
+    console.log('URL', url);
     hackdash.app.router.navigate(url, { trigger: true, replace: true });
   },
 
 
   showError: function(err){
+    console.log('ERROR', err);
     $("#save", this.$el).button('reset');
 
     if (err.responseText === "OK"){
@@ -59,12 +69,15 @@ module.exports = Backbone.Marionette.ItemView.extend({
       return;
     }
 
-    console.log(err.responseText);
-    var error = JSON.parse(err.responseText).error;
+    try {
+      var error = JSON.parse(err.responseText).error;
+      var ctrl = error.split("_")[0];
+      this.ui[ctrl].parents('.control-group').addClass('error');
+      this.ui[ctrl].after('<span class="help-inline">' + this.errors[error] + '</span>');
+    } catch(e) {
+      window.alert(e + "\n" + err.responseText);
+    }
 
-    var ctrl = error.split("_")[0];
-    this.ui[ctrl].parents('.control-group').addClass('error');
-    this.ui[ctrl].after('<span class="help-inline">' + this.errors[error] + '</span>');
   },
 
   cleanErrors: function(){

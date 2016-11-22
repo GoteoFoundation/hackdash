@@ -90,7 +90,6 @@ module.exports = function(){
 var Dashboard = require("./models/Dashboard")
   , Project = require("./models/Project")
   , Projects = require("./models/Projects")
-  , Questions = require("./models/Questions")
   , Collection = require("./models/Collection")
   , Profile = require("./models/Profile")
 
@@ -216,7 +215,6 @@ module.exports = Backbone.Marionette.AppRouter.extend({
 
     app.dashboard = new Dashboard();
     app.projects = new Projects();
-    app.questions = new Questions();
 
     if (dash){
       app.dashboard.set('domain', dash);
@@ -248,36 +246,31 @@ module.exports = Backbone.Marionette.AppRouter.extend({
 
   },
 
-  showDashboardQuestionsEdit: function(dash){
+  showDashboardQuestionsEdit: function(dashboard){
 
     var app = window.hackdash.app;
     var self = this;
     app.type = "dashboard_question";
 
-    app.dashboard = new Dashboard({ domain: dash });
-    app.projects = new Projects();
-    app.questions = new Questions();
-
+    app.dashboard = new Dashboard();
+    app.dashboard.set('domain', dashboard);
     app.dashboard.fetch().done(function(){
       if(!self.canEditDashboard(window.hackdash.user, app.dashboard.attributes)) {
         window.location = "/dashboards/" + app.dashboard.attributes.domain;
       }
-      app.questions.fetch({}, { parse: true })
-        .done(function(){
 
-          app.header.show(new Header());
+      app.header.show(new Header());
 
-          // here the questions editor
-          // TODO: fetch questions
-          app.main.show(new QuestionView({
-            model: app.dashboard
-          }));
+      // here the questions editor
+      // TODO: fetch questions
+      app.main.show(new QuestionView({
+        model: app.dashboard
+      }));
 
-          app.footer.show(new Footer({
-            model: app.dashboard
-          }));
-          app.setTitle('Edit questions for ' + (app.dashboard.get('title') || app.dashboard.get('domain')));
-        });
+      app.footer.show(new Footer({
+        model: app.dashboard
+      }));
+      app.setTitle('Edit questions for ' + (app.dashboard.get('title') || app.dashboard.get('domain')));
     });
   },
 
@@ -460,7 +453,7 @@ module.exports = Backbone.Marionette.AppRouter.extend({
   }
 });
 
-},{"./models/Collection":9,"./models/Dashboard":12,"./models/Profile":14,"./models/Project":15,"./models/Projects":16,"./models/Questions":18,"./views/Collection":23,"./views/Dashboard":33,"./views/Footer":41,"./views/Header":45,"./views/Home":61,"./views/Profile":80,"./views/Project/Edit":87,"./views/Project/Full":88,"./views/Question":96}],3:[function(require,module,exports){
+},{"./models/Collection":9,"./models/Dashboard":12,"./models/Profile":14,"./models/Project":15,"./models/Projects":16,"./views/Collection":23,"./views/Dashboard":33,"./views/Footer":41,"./views/Header":45,"./views/Home":61,"./views/Profile":80,"./views/Project/Edit":87,"./views/Project/Full":88,"./views/Question":96}],3:[function(require,module,exports){
 
 module.exports = function(){
 
@@ -982,7 +975,7 @@ module.exports = Backbone.Model.extend({
       return hackdash.apiURL + '/dashboards';
     }
     else {
-      throw new Error('Unkonw Dashboard domain name');
+      throw new Error('Unknown Dashboard domain name');
     }
   },
 
@@ -1372,12 +1365,7 @@ module.exports = Backbone.Model.extend({
   },
 
   urlRoot: function(){
-    if (this.get('domain')){
-      return hackdash.apiURL + '/dashboards';
-    }
-    else {
-      throw new Error('Unkonw Dashboard domain name');
-    }
+    return hackdash.apiURL + '/questions';
   },
 
 });
@@ -6033,7 +6021,6 @@ module.exports = Backbone.Marionette.ItemView.extend({
       return;
     }
 
-    console.log(err.responseText);
     var error = JSON.parse(err.responseText).error;
 
     var ctrl = error.split("_")[0];
@@ -6764,6 +6751,7 @@ var
 
 module.exports = Backbone.Marionette.ItemView.extend({
 
+  className: "page-ctn question edition",
   template: template,
 
   ui: {
@@ -6782,6 +6770,10 @@ module.exports = Backbone.Marionette.ItemView.extend({
   onShow: function(){
   },
 
+  errors: {
+    "title_required": "Title is required",
+    "type_required": "Type is required"
+  },
 
   save: function(){
 
@@ -6789,6 +6781,8 @@ module.exports = Backbone.Marionette.ItemView.extend({
       title: this.ui.title.val(),
       type: this.ui.type.val(),
     };
+
+    console.log('toSave',toSave);
 
     this.cleanErrors();
 
@@ -6801,13 +6795,16 @@ module.exports = Backbone.Marionette.ItemView.extend({
   },
 
   redirect: function(){
-    var url = "/dashboards/" + this.model.get('domain') + '/questions';
-
+    // var url = "/dashboards/" + this.model.get('domain') + '/questions';
+    console.log('REDIRECT');
+    var url = "/dashboards/" + this.model.get('domain');
+    console.log('URL', url);
     hackdash.app.router.navigate(url, { trigger: true, replace: true });
   },
 
 
   showError: function(err){
+    console.log('ERROR', err);
     $("#save", this.$el).button('reset');
 
     if (err.responseText === "OK"){
@@ -6815,12 +6812,15 @@ module.exports = Backbone.Marionette.ItemView.extend({
       return;
     }
 
-    console.log(err.responseText);
-    var error = JSON.parse(err.responseText).error;
+    try {
+      var error = JSON.parse(err.responseText).error;
+      var ctrl = error.split("_")[0];
+      this.ui[ctrl].parents('.control-group').addClass('error');
+      this.ui[ctrl].after('<span class="help-inline">' + this.errors[error] + '</span>');
+    } catch(e) {
+      window.alert(e + "\n" + err.responseText);
+    }
 
-    var ctrl = error.split("_")[0];
-    this.ui[ctrl].parents('.control-group').addClass('error');
-    this.ui[ctrl].after('<span class="help-inline">' + this.errors[error] + '</span>');
   },
 
   cleanErrors: function(){
@@ -6854,6 +6854,8 @@ var
     template = require('./templates/questions.hbs')
   , AddQuestion = require('./AddQuestion')
   , QuestionList = require('./QuestionList')
+  , Question = require("../../models/Question")
+  , Questions = require("../../models/Questions")
   ;
 
 module.exports = Backbone.Marionette.LayoutView.extend({
@@ -6880,12 +6882,26 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   onRender: function(){
-    this.questionList.show(new QuestionList());
-    this.newQuestion.show(new AddQuestion());
+    var self = this;
+    var questions = new Questions({
+      domain: this.model.get('domain')
+    });
+
+    questions.fetch().done(function(){
+      self.questionList.show(new QuestionList({
+        model: questions
+      }));
+    });
+
+    this.newQuestion.show(new AddQuestion({
+      model: new Question({
+        domain: this.model.get('domain')
+      })
+    }));
   },
 
 });
-},{"./AddQuestion":94,"./QuestionList":95,"./templates/questions.hbs":99}],97:[function(require,module,exports){
+},{"../../models/Question":17,"../../models/Questions":18,"./AddQuestion":94,"./QuestionList":95,"./templates/questions.hbs":99}],97:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {

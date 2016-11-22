@@ -7,6 +7,8 @@ var
     template = require('./templates/questions.hbs')
   , AddQuestion = require('./AddQuestion')
   , QuestionList = require('./QuestionList')
+  , Question = require("../../models/Question")
+  , Questions = require("../../models/Questions")
   ;
 
 module.exports = Backbone.Marionette.LayoutView.extend({
@@ -33,8 +35,22 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   onRender: function(){
-    this.questionList.show(new QuestionList());
-    this.newQuestion.show(new AddQuestion());
+    var self = this;
+    var questions = new Questions({
+      domain: this.model.get('domain')
+    });
+
+    questions.fetch().done(function(){
+      self.questionList.show(new QuestionList({
+        model: questions
+      }));
+    });
+
+    this.newQuestion.show(new AddQuestion({
+      model: new Question({
+        domain: this.model.get('domain')
+      })
+    }));
   },
 
 });

@@ -13,12 +13,7 @@ module.exports = Backbone.Model.extend({
   },
 
   urlRoot: function(){
-    if (this.get('domain')){
-      return hackdash.apiURL + '/dashboards';
-    }
-    else {
-      throw new Error('Unkonw Dashboard domain name');
-    }
+    return hackdash.apiURL + '/questions';
   },
 
 });

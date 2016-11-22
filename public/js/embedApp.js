@@ -527,7 +527,7 @@ module.exports = Backbone.Model.extend({
       return hackdash.apiURL + '/dashboards';
     }
     else {
-      throw new Error('Unkonw Dashboard domain name');
+      throw new Error('Unknown Dashboard domain name');
     }
   },
 

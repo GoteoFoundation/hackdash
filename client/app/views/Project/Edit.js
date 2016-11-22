@@ -157,7 +157,6 @@ module.exports = Backbone.Marionette.ItemView.extend({
       return;
     }
 
-    console.log(err.responseText);
     var error = JSON.parse(err.responseText).error;
 
     var ctrl = error.split("_")[0];
