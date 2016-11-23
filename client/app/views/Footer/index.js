@@ -50,7 +50,6 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       return (hackdash.app.type === "dashboard");
     },
     isCollection: function(){
-      console.log(hackdash.app.type);
       return (hackdash.app.type === "collection");
     }
   },

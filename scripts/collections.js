@@ -3,8 +3,8 @@ require('babel/register');
 var
     config = require('../config/config.json')
   , async = require('async')
-  , mongoose = require('mongoose');
-
+  , mongoose = require('mongoose')
+  , colors = require('colors');
 
 require('../lib/models');
 
@@ -14,6 +14,7 @@ program
   .version('1.0.0')
   .usage('[options] -t "My Collection" -d dash1,dash2,dash3 -o MONGO_DB_USER_ID')
   .option('-t, --title <title>', 'Title of collection')
+  .option('-c, --collection <collection>', 'The collection id to modify (if no owner specified)')
   .option('-o, --owner <userid>', 'The user id Owner of the collection')
   .option('-d, --dashboards <items>', 'Dashboards domains separated by an space')
   .parse(process.argv);
@@ -27,9 +28,14 @@ function dashboards(val) {
 }
 
 if (!program.dashboards || program.dashboards.length === 0){
-  abort('At least one dashboard is required, use -d dash1,dash2', true);
-} else if (!program.owner){
-  abort('An User Id as owner is required, use -o XXXYYYZZZ');
+  if(program.collection) {
+    // Show dashboards in collection
+    abort('Shown dashboard in collection [' + colors.green(program.collection) + ']', program.collection);
+  } else {
+    abort('At least one dashboard is required, use -d dash1,dash2', true);
+  }
+} else if (!program.owner && !program.collection){
+  abort('An User Id as owner or a Collection Id is required, use -o XXXYYYZZZ or -c XXXYYYZZZ');
 } else {
   execute();
 }
@@ -40,19 +46,36 @@ function execute() {
   var collection = {
     title: program.title || '',
     dashboards: (program.dashboards).split(','),
-    owner: program.owner
+    owner: program.owner,
+    collection: program.collection
   }
 
   async.waterfall([
 
     function (done){ // confirm collection
-      console.log(">>> About to create this collection: ");
-      console.dir(collection);
+      if(program.collection) {
+        Collection.findById(program.collection).exec(function(err, col){
+          if(err) return done(err);
+          if(!col) return done('Collection not found');
+          console.log(">>> About to modify this collection: ");
+          console.log(colors.blue(col.title), 'WITH THIS DASHBOARDS:', colors.blue(col.dashboards));
+          program.confirm('Continue? ', function(ok){
+            collection.col = col;
+            collection.title = col.title;
+            collection.owner = col.owner;
+            if (ok) return done(null, collection);
+            done('canceled');
+          });
+        });
+      } else {
+        console.log(">>> About to create this collection: ");
+        console.dir(collection);
 
-      program.confirm('Continue? ', function(ok){
-        if (ok) return done(null, collection);
-        done('canceled');
-      });
+        program.confirm('Continue? ', function(ok){
+          if (ok) return done(null, collection);
+          done('canceled');
+        });
+      }
     },
 
     function (collection, done){ // check User Owner Existance
@@ -61,7 +84,7 @@ function execute() {
 
       User.findById(collection.owner).exec(function(err, user){
         if (err) return done(err);
-        if (!user) return done(new Error("User with ID "+collection.owner+" was not found"));
+        if (!user) return done(new Error("User with ID "+colors.green(collection.owner)+" was not found"));
         done(null, collection);
       });
     },
@@ -104,10 +127,19 @@ function execute() {
     },
 
     function (collection, done){ // create the collection
-      Collection.create(collection, function(err, collection){
-        if(err) return done(err);
-        done(null, collection);
-      });
+      if(collection.col) {
+        collection.col.dashboards = collection.dashboards;
+        collection.col.save(function(err){
+          if(err) return exit(err);
+          collection._id = collection.col._id;
+          done(null, collection);
+        });
+      } else {
+        Collection.create(collection, function(err, collection){
+          if(err) return exit(err);
+          done(null, collection);
+        });
+      }
     }
 
   ], function(err, collection){
@@ -118,8 +150,11 @@ function execute() {
     else if (err){
       throw err;
     }
-
-    console.log('collection created! Visit ' + config.host + '/collections/' + collection._id);
+    if(collection.col) {
+      console.log('Collection modified! Visit ' + colors.green(config.host + '/collections/' + collection._id));
+    } else {
+      console.log('Collection created! Visit ' + colors.green(config.host + '/collections/' + collection._id));
+    }
     process.exit(0);
   });
 }
@@ -132,6 +167,7 @@ function exit(msg) {
 
 function abort(msg, list_collections) {
   var users = []
+  var dashboards = [];
 ;  async.waterfall([
     function(done) {
       console.error(msg);
@@ -150,23 +186,40 @@ function abort(msg, list_collections) {
       });
     },
     function(done) {
-      console.log('');
-      Collection.find({}, function(err, col) {
-        if(err) return exit(err);
+      var q = {};
+      if(typeof list_collections == 'string') {
+        Collection.findById(list_collections).exec(function(err, col) {
+          if(err) return exit(err);
+          if(col) dashboards = col.dashboards;
+          done();
+        });
+      } else {
+        console.log('');
         console.log('Available collections are:');
-        for(d in col) {
-          console.log(col[d].title, 'BY',  users[col[d].owner].name, 'USER_ID', col[d].owner);
-        }
-        done();
-      });
+        Collection.find(q, function(err, col) {
+          if(err) return exit(err);
+          for(d in col) {
+            console.log('[' + colors.blue(col[d].title)+']', 'COLLECTION_ID', colors.green(col[d]._id), 'BY',  '['+colors.cyan(users[col[d].owner].name)+']', 'USER_ID', colors.cyan(col[d].owner));
+          }
+          done();
+        });
+      }
     },
     function(done) {
       console.log('');
-      Dashboard.find({}, function(err, dash) {
+      var q = {};
+      if(typeof list_collections == 'string') {
+        q._id = { $in: dashboards }
+      }
+
+      Dashboard.find(q, function(err, dash) {
         if(err) return exit(err);
         console.log('Available dashboards are:');
         for(d in dash) {
-          console.log(dash[d].domain, 'BY',  users[dash[d].owner].name, 'USER_ID', dash[d].owner);
+          var dashboard = dash[d].domain;
+          var owner = dash[d].owner;
+          var user = users[owner] && users[owner].name;
+          console.log('['+colors.green(dashboard)+']', 'BY',  '['+colors.cyan(user)+']', 'USER_ID', colors.cyan(owner));
         }
         done();
       });
