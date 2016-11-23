@@ -293,7 +293,6 @@ module.exports = Backbone.Marionette.AppRouter.extend({
         app.main.show(new QuestionView({
           model: app.collection
         }));
-
         app.footer.show(new Footer({
           model: app.collection
         }));
@@ -395,7 +394,7 @@ module.exports = Backbone.Marionette.AppRouter.extend({
         }));
 
         app.footer.show(new Footer({
-          model: app.dashboard
+          model: app.collection
         }));
 
         app.setTitle(app.collection.get('title') || 'Collection');
@@ -2735,13 +2734,29 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   templateHelpers: {
     isAdmin: function(){
       var user = hackdash.user;
-      return user && user.admin_in.indexOf(this.domain) >= 0 || false;
+      if(user) {
+        var admin1 = user.admin_in.indexOf(this.domain) >= 0;
+        // If it has owner property its a collection
+        var admin2 = this.owner && user._id === this.owner._id;
+        return admin1 || admin2;
+      }
+      return false;
+    },
+    isDashboardQuestion: function(){
+      return (hackdash.app.type === "dashboard_question");
+    },
+    isCollectionQuestion: function(){
+      return (hackdash.app.type === "collection_question");
     },
     isQuestion: function(){
       return (hackdash.app.type.indexOf("question") > 0 );
     },
     isDashboard: function(){
       return (hackdash.app.type === "dashboard");
+    },
+    isCollection: function(){
+      console.log(hackdash.app.type);
+      return (hackdash.app.type === "collection");
     }
   },
 
@@ -2876,7 +2891,10 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.isDashboard : depth0), {"name":"if","hash":{},"fn":this.program(4, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
   buffer += "\n";
-  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.isQuestion : depth0), {"name":"if","hash":{},"fn":this.program(17, data),"inverse":this.noop,"data":data});
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.isCollection : depth0), {"name":"if","hash":{},"fn":this.program(17, data),"inverse":this.noop,"data":data});
+  if (stack1 != null) { buffer += stack1; }
+  buffer += "\n";
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.isQuestion : depth0), {"name":"if","hash":{},"fn":this.program(19, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
   return buffer + "\n";
 },"4":function(depth0,helpers,partials,data) {
@@ -2910,9 +2928,24 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
   return "Close";
   },"17":function(depth0,helpers,partials,data) {
   var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
-  return "\n      <a href=\"/dashboards/"
+  return "      <a class=\"btn-admin-questions\" href=\"/collections/"
+    + escapeExpression(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"_id","hash":{},"data":data}) : helper)))
+    + "/questions\">\n        <i class=\"fa fa-question-circle\"></i><div>Admin questions</div>\n      </a>\n";
+},"19":function(depth0,helpers,partials,data) {
+  var stack1, buffer = "";
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.isDashboardQuestion : depth0), {"name":"if","hash":{},"fn":this.program(20, data),"inverse":this.program(22, data),"data":data});
+  if (stack1 != null) { buffer += stack1; }
+  return buffer;
+},"20":function(depth0,helpers,partials,data) {
+  var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+  return "      <a href=\"/dashboards/"
     + escapeExpression(((helper = (helper = helpers.domain || (depth0 != null ? depth0.domain : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"domain","hash":{},"data":data}) : helper)))
-    + "\">\n        <i class=\"fa fa-archive\"></i>\n        <div>Back to dashboard</div>\n      </a>\n\n";
+    + "\">\n        <i class=\"fa fa-archive\"></i>\n        <div>Back to dashboard</div>\n      </a>\n";
+},"22":function(depth0,helpers,partials,data) {
+  var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+  return "      <a href=\"/collections/"
+    + escapeExpression(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"_id","hash":{},"data":data}) : helper)))
+    + "\">\n        <i class=\"fa fa-group\"></i>\n        <div>Back to collection</div>\n      </a>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   var stack1, buffer = "\n<a class=\"brand ";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.isAdmin : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});

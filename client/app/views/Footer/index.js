@@ -29,13 +29,29 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   templateHelpers: {
     isAdmin: function(){
       var user = hackdash.user;
-      return user && user.admin_in.indexOf(this.domain) >= 0 || false;
+      if(user) {
+        var admin1 = user.admin_in.indexOf(this.domain) >= 0;
+        // If it has owner property its a collection
+        var admin2 = this.owner && user._id === this.owner._id;
+        return admin1 || admin2;
+      }
+      return false;
+    },
+    isDashboardQuestion: function(){
+      return (hackdash.app.type === "dashboard_question");
+    },
+    isCollectionQuestion: function(){
+      return (hackdash.app.type === "collection_question");
     },
     isQuestion: function(){
       return (hackdash.app.type.indexOf("question") > 0 );
     },
     isDashboard: function(){
       return (hackdash.app.type === "dashboard");
+    },
+    isCollection: function(){
+      console.log(hackdash.app.type);
+      return (hackdash.app.type === "collection");
     }
   },
 

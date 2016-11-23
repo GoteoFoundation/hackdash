@@ -36,13 +36,24 @@
   </div>
   {{/if}}
 
-  {{#if isQuestion}}
+  {{#if isCollection}}
+      <a class="btn-admin-questions" href="/collections/{{_id}}/questions">
+        <i class="fa fa-question-circle"></i><div>Admin questions</div>
+      </a>
+  {{/if}}
 
+  {{#if isQuestion}}
+    {{#if isDashboardQuestion}}
       <a href="/dashboards/{{domain}}">
         <i class="fa fa-archive"></i>
         <div>Back to dashboard</div>
       </a>
-
+    {{else}}
+      <a href="/collections/{{_id}}">
+        <i class="fa fa-group"></i>
+        <div>Back to collection</div>
+      </a>
+    {{/if}}
   {{/if}}
 
 {{/if}}

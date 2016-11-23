@@ -208,7 +208,6 @@ module.exports = Backbone.Marionette.AppRouter.extend({
         app.main.show(new QuestionView({
           model: app.collection
         }));
-
         app.footer.show(new Footer({
           model: app.collection
         }));
@@ -310,7 +309,7 @@ module.exports = Backbone.Marionette.AppRouter.extend({
         }));
 
         app.footer.show(new Footer({
-          model: app.dashboard
+          model: app.collection
         }));
 
         app.setTitle(app.collection.get('title') || 'Collection');
