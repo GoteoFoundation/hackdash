@@ -17,8 +17,8 @@
         <div>Export .CSV File</div>
       </a>
 
-      <a class="btn-admin-questions" href="/dashboards/{{domain}}/questions">
-        <i class="fa fa-question-circle"></i><div>Admin questions</div>
+      <a class="btn-admin-forms" href="/dashboards/{{domain}}/forms">
+        <i class="fa fa-form-circle"></i><div>Admin forms</div>
       </a>
 
       <a data-placement="top" data-original-title="{{switcherMsg}}"
@@ -37,20 +37,20 @@
   {{/if}}
 
   {{#if isCollection}}
-      <a class="btn-admin-questions" href="/collections/{{_id}}/questions">
-        <i class="fa fa-question-circle"></i><div>Admin questions</div>
+      <a class="btn-admin-forms" href="/collections/{{_id}}/forms">
+        <i class="fa fa-file-text-o"></i><div>Admin forms</div>
       </a>
   {{/if}}
 
-  {{#if isQuestion}}
-    {{#if isDashboardQuestion}}
+  {{#if isForm}}
+    {{#if isDashboardForm}}
       <a href="/dashboards/{{domain}}">
-        <i class="fa fa-archive"></i>
+        <i class="fa fa-dashboard"></i>
         <div>Back to dashboard</div>
       </a>
     {{else}}
       <a href="/collections/{{_id}}">
-        <i class="fa fa-group"></i>
+        <i class="fa fa-object-group"></i>
         <div>Back to collection</div>
       </a>
     {{/if}}

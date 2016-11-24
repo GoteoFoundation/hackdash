@@ -1,5 +1,5 @@
 /*! 
-* wotify-hackdash - v0.12.0
+* wotify-hackdash - v0.13.0
 * Copyright (c) 2016 Platoniq 
 *  
 */ 

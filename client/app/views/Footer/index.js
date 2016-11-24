@@ -37,14 +37,14 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       }
       return false;
     },
-    isDashboardQuestion: function(){
-      return (hackdash.app.type === "dashboard_question");
+    isDashboardForm: function(){
+      return (hackdash.app.type === "dashboard_form");
     },
-    isCollectionQuestion: function(){
-      return (hackdash.app.type === "collection_question");
+    isCollectionForm: function(){
+      return (hackdash.app.type === "collection_form");
     },
-    isQuestion: function(){
-      return (hackdash.app.type.indexOf("question") > 0 );
+    isForm: function(){
+      return (hackdash.app.type.indexOf("form") > 0 );
     },
     isDashboard: function(){
       return (hackdash.app.type === "dashboard");

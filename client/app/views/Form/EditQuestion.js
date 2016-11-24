@@ -8,7 +8,7 @@ var
 
 module.exports = Backbone.Marionette.ItemView.extend({
 
-  className: "page-ctn question edition",
+  className: "page-ctn form edition",
   template: template,
 
   ui: {
@@ -51,7 +51,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
   },
 
   destroyModal: function(){
-    hackdash.app.modals.trigger('question_edited');
+    hackdash.app.modals.trigger('form_edited');
     // TODO: update view
     this.destroy();
   },

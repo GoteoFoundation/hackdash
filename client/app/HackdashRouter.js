@@ -16,7 +16,7 @@ var Dashboard = require("./models/Dashboard")
   , ProjectFullView = require("./views/Project/Full")
   , ProjectEditView = require("./views/Project/Edit")
   , DashboardView = require("./views/Dashboard")
-  , QuestionView = require("./views/Question")
+  , FormView = require("./views/Form")
   , CollectionView = require("./views/Collection")
   ;
 
@@ -38,13 +38,13 @@ module.exports = Backbone.Marionette.AppRouter.extend({
     // APP
     , "dashboards/:dash": "showDashboard"
     , "dashboards/:dash/create": "showProjectCreate"
-    , "dashboards/:dash/questions": "showDashboardQuestionsEdit"
+    , "dashboards/:dash/forms": "showDashboardFormsEdit"
 
     , "projects/:pid/edit" : "showProjectEdit"
     , "projects/:pid" : "showProjectFull"
 
     , "collections/:cid" : "showCollection"
-    , "collections/:cid/questions" : "showCollectionQuestionsEdit"
+    , "collections/:cid/forms" : "showCollectionFormsEdit"
 
     , "users/profile": "showProfile"
     , "users/:user_id" : "showProfile"
@@ -161,11 +161,11 @@ module.exports = Backbone.Marionette.AppRouter.extend({
 
   },
 
-  showDashboardQuestionsEdit: function(dashboard){
+  showDashboardFormsEdit: function(dashboard){
 
     var app = window.hackdash.app;
     var self = this;
-    app.type = "dashboard_question";
+    app.type = "dashboard_form";
 
     app.dashboard = new Dashboard();
     app.dashboard.set('domain', dashboard);
@@ -176,26 +176,26 @@ module.exports = Backbone.Marionette.AppRouter.extend({
 
       app.header.show(new Header());
 
-      // here the questions editor
-      app.main.show(new QuestionView({
+      // here the forms editor
+      app.main.show(new FormView({
         model: app.dashboard
       }));
 
       app.footer.show(new Footer({
         model: app.dashboard
       }));
-      app.setTitle('Edit questions for ' + (app.dashboard.get('title') || app.dashboard.get('domain')));
+      app.setTitle('Edit forms for ' + (app.dashboard.get('title') || app.dashboard.get('domain')));
     });
   },
 
-  showCollectionQuestionsEdit: function(cid){
+  showCollectionFormsEdit: function(cid){
 
       var app = window.hackdash.app;
       var self = this;
-      app.type = "collection_question";
+      app.type = "collection_form";
 
       app.collection = new Collection({ _id: cid });
-      // Set group same as _id to allow choose from dashboard or collection in QuestionView
+      // Set group same as _id to allow choose from dashboard or collection in FormView
       app.collection.set('group', cid);
       app.collection.fetch().done(function(){
         if(!self.canEditCollection(window.hackdash.user, app.collection.attributes)) {
@@ -204,14 +204,14 @@ module.exports = Backbone.Marionette.AppRouter.extend({
 
         app.header.show(new Header());
 
-        // here the questions editor
-        app.main.show(new QuestionView({
+        // here the forms editor
+        app.main.show(new FormView({
           model: app.collection
         }));
         app.footer.show(new Footer({
           model: app.collection
         }));
-        app.setTitle('Edit questions for ' + app.collection.get('title'));
+        app.setTitle('Edit forms for ' + app.collection.get('title'));
 
       });
     },

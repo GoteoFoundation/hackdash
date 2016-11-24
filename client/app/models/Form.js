@@ -1,5 +1,5 @@
 /**
- * MODEL: Question (bind to a collection or dashboard)
+ * MODEL: Form (bind to a collection or dashboard)
  *
  */
 
@@ -9,7 +9,7 @@
 module.exports = Backbone.Model.extend({
 
   urlRoot: function(){
-    return hackdash.apiURL + '/questions';
+    return hackdash.apiURL + '/forms';
   },
 
 });

@@ -15,6 +15,7 @@ module.exports = function(grunt) {
       },
       vendor: {
         js: "vendor/scripts/",
+        fonts: "vendor/fonts/",
         css: "vendor/styles/"
       },
       dist: {
@@ -24,7 +25,8 @@ module.exports = function(grunt) {
         vendorName: "vendor.js",
         vendorCSSName: "vendor.css",
         exportJS: "../public/js/",
-        exportCSS: "../public/styles/"
+        exportCSS: "../public/styles/",
+        exportFonts: "../public/fonts/"
       }
     },
 
@@ -87,7 +89,8 @@ module.exports = function(grunt) {
     copy: {
       dist: {
         cwd: "./",
-        files: {
+        files: [{
+
           "<%= paths.dist.exportCSS %><%= paths.dist.vendorCSSName %>":
             "<%= paths.dist.root %><%= paths.dist.vendorCSSName %>",
 
@@ -99,7 +102,14 @@ module.exports = function(grunt) {
 
           "<%= paths.dist.exportJS %><%= paths.dist.embedName %>":
             "<%= paths.dist.root %><%= paths.dist.embedName %>"
-        }
+        },
+        {
+            expand:true,
+            dest: "<%= paths.dist.exportFonts %>",
+            cwd: "<%= paths.vendor.fonts %>",
+            src: '*.*'
+        },
+        ]
       }
 
     },
