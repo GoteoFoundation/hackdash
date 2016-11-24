@@ -1,0 +1,22 @@
+<div class="panel panel-default">
+
+    <div class="panel-heading" role="tab" id="h-{{_id}}">
+      <h4 class="panel-title">
+        <a class="pull-left" role="button" data-toggle="collapse" data-parent="#accordion" href="#c-{{_id}}" aria-expanded="false" aria-controls="c-{{_id}}" data-bypass>
+          {{title}}
+        </a>
+        <button class="pull-right btn btn-link edit-form" data-id="{{_id}}"><i class="fa fa-edit"></i></button>
+        <div class="clearfix"></div>
+      </h4>
+    </div>
+
+    <div id="c-{{_id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="h-{{_id}}">
+      <div class="panel-body">
+
+      {{#if description}}{{{markdown description}}}{{/if}}
+
+      <div class="questions-list"></div>
+
+      </div>
+    </div>
+  </div>

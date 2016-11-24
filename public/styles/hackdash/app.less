@@ -340,7 +340,7 @@ footer {
     }
   }
 
-  &.profile {
+  &.profile, &.forms {
 
     .header {
       background-color: @color-user;
@@ -1145,6 +1145,16 @@ footer {
 }
 
 .modal {
+
+  .CodeMirror, .CodeMirror-scroll {
+      min-height: 100px;
+  }
+
+  .form-content {
+    .form-control {
+      text-transform: none;
+    }
+  }
 
   .share {
 

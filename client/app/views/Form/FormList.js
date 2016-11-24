@@ -3,18 +3,18 @@
  *
  */
 
-var QuesionItem = require('./QuestionItem');
+var FormItem = require('./FormItem');
 
 var EmptyView = Backbone.Marionette.ItemView.extend({
-  template: _.template('No forms yet!')
+  template: _.template('<p class="text-danger">No forms yet!</p>')
 });
 
 module.exports = Backbone.Marionette.CollectionView.extend({
 
   tagName: 'div',
-  className: 'list-group',
+  className: 'panel-group',
 
-  childView: QuesionItem,
+  childView: FormItem,
 
   emptyView: EmptyView
 

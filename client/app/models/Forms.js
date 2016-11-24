@@ -25,7 +25,7 @@ var Forms = module.exports = BaseCollection.extend({
     else if (this.group){
       return hackdash.apiURL + '/collections/' + this.group + '/forms';
     }
-    return hackdash.apiURL + '/forms'; // Not really used
+    return hackdash.apiURL + '/forms'; // Only in posts for Form.js
   },
 
   getActives: function(){

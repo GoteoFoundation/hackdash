@@ -5,7 +5,7 @@
 
 var
     template = require('./templates/forms.hbs')
-  , EditQuestion = require('./EditQuestion')
+  , EditForm = require('./EditForm')
   , FormList = require('./FormList')
   , Form = require("../../models/Form")
   , Forms = require("../../models/Forms")
@@ -13,7 +13,7 @@ var
 
 module.exports = Backbone.Marionette.LayoutView.extend({
 
-  className: "page-ctn profile",
+  className: "page-ctn forms",
   template: template,
 
   regions: {
@@ -42,7 +42,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     var self = this;
 
     this.drawFormList();
-    // Listens 'edited' event fired in EditQuestion
+    // Listens 'edited' event fired in EditForm
     // to reload the list if changes
     hackdash.app.modals.on('form_edited', function(){
       self.drawFormList();
@@ -75,12 +75,12 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     // console.log(id ? 'edit' : 'new', id, form);
     if(id) {
       form.fetch().done(function(){
-        hackdash.app.modals.show(new EditQuestion({
+        hackdash.app.modals.show(new EditForm({
           model: form
         }));
       });
     } else {
-      hackdash.app.modals.show(new EditQuestion({
+      hackdash.app.modals.show(new EditForm({
         model: form
       }));
     }

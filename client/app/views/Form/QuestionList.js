@@ -6,7 +6,7 @@
 var QuestionItem = require('./QuestionItem');
 
 var EmptyView = Backbone.Marionette.ItemView.extend({
-  template: _.template('No questions yet!')
+	template: _.template('<p class="text-danger">No questions yet!</p>')
 });
 
 module.exports = Backbone.Marionette.CollectionView.extend({

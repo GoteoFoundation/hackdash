@@ -4,7 +4,7 @@
  */
 
 var
-    template = require('./templates/editQuestion.hbs');
+    template = require('./templates/editForm.hbs');
 
 module.exports = Backbone.Marionette.ItemView.extend({
 
@@ -13,7 +13,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
   ui: {
     'title' : 'input[name=title]',
-    'type' : 'select[name=type]'
+    'description' : 'textarea[name=description]',
   },
 
   events: {
@@ -24,19 +24,23 @@ module.exports = Backbone.Marionette.ItemView.extend({
     "change": "render"
   },
 
-  onShow: function(){
+  errors: {
+    "title_required": "Title is required"
   },
 
-  errors: {
-    "title_required": "Title is required",
-    "type_required": "Type is required"
+  onShow: function() {
+    this.simplemde = new window.SimpleMDE({
+      element: this.ui.description.get(0),
+      forceSync: true,
+      spellChecker: false
+    });
   },
 
   save: function(){
 
     var toSave = {
       title: this.ui.title.val(),
-      type: this.ui.type.val(),
+      description: this.ui.description.val()
     };
 
 
@@ -51,7 +55,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
   },
 
   destroyModal: function(){
-    hackdash.app.modals.trigger('question_edited');
+    hackdash.app.modals.trigger('form_edited');
     // TODO: update view
     this.destroy();
   },
