@@ -43,6 +43,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
       description: this.ui.description.val()
     };
 
+    // console.log(toSave, this.model, this.model.isNew());
 
     this.cleanErrors();
 

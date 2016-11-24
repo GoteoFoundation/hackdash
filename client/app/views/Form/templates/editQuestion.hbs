@@ -13,10 +13,11 @@
     <input type="text" class="form-control" name="title" id="newQuestion" placeholder="Question to respond" value="{{title}}">
   </div>
   <div class="form-group">
+  type: {{type}}
     <select name="type" class="form-control" id="newQuestionType">
-    	<option value="" disabled{{selected type null}}>Question type (choose one)</option>
-    	<option value="text"{{selected type "text"}}>One line text</option>
-    	<option value="boolean"{{selected type "boolean"}}>Yes or no</option>
+    	<option value="" disabled{{typeSelected null}}>Question type (choose one)</option>
+    	<option value="text"{{typeSelected "text"}}>One line text</option>
+    	<option value="boolean"{{typeSelected "boolean"}}>Yes or no</option>
     </select>
   </div>
 

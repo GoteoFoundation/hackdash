@@ -14,7 +14,6 @@ var Forms = module.exports = BaseCollection.extend({
 
   comparators: {
     title: function(a){ return a.get('title'); },
-    type: function(a){ return a.get('type'); },
     created_at: function(a){ return -a.get('created_at'); },
   },
 

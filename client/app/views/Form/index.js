@@ -58,7 +58,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     forms.group = this.model.get('group');
     forms.fetch().done(function(){
       self.formList.show(new FormList({
-        model: forms,
+        // model: forms,
         // collection: forms.getActives(),
         collection: forms, // All forms to admin
       }));

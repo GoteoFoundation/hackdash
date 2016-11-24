@@ -23,5 +23,6 @@ module.exports = Backbone.Marionette.ItemView.extend({
 					return 'edit';
 			}
 		}
-	}
+	},
+
 });

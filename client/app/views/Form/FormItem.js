@@ -5,7 +5,7 @@
 
 var
     template = require('./templates/formItem.hbs')
-  // , Question = require('./../../models/Question')
+  , Form = require('./../../models/Form')
   , EditQuestion = require('./EditQuestion')
   , QuestionList = require('./QuestionList');
 
@@ -24,14 +24,16 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
   templateHelpers: {
     isLastItem: function() {
+      // console.log('isLastItem',this);
       return this.index === this.total;
     }
   },
 
   initialize: function() {
-    this.model = this.model.set({
+    this.model.set({
         index: this.options.index,
-        total: this.options.total
+        total: this.options.total,
+        // _id: this.opt
       });
   },
 
@@ -39,30 +41,40 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     var self = this;
 
     self.drawQuestionList();
-    // // Listens 'edited' event fired in EditForm
-    // // to reload the list if changes
-    // hackdash.app.modals.on('question_edited', function(){
-    //   self.drawQuestionList();
-    // });
-
   },
+
   drawQuestionList: function() {
     var form = this.model;
     this.questionsList.show(new QuestionList({
-      model: form,
-      collection: form.getQuestions(), // All forms to admin
+      // model: form,
+      collection: form.getQuestions()
     }));
   },
 
   editQuestion: function(e) {
-    var form = this.model;
-    // var question = new Question({form:this.model._id});
-    form.questionIndex = $(e.target).is('[data-index]') ? $(e.target).data('index') : -1;
-    console.log(form.questionIndex > -1 ? ('edit ' + form.questionIndex) : 'new', e.target, form);
+    var questionIndex = $(e.target).is('[data-index]') ? $(e.target).data('index') : -1;
+    var form = new Form({
+      id: this.model.get('_id'),
+      domain: this.model.get('domain'),
+      group: this.model.get('group'),
+      questions: this.model.get('questions'),
+      questionIndex: questionIndex
+    });
 
-    hackdash.app.modals.show(new EditQuestion({
-      model: form
-    }));
+    // model.id = model.get('id');
+    if(questionIndex > -1) {
+      // console.log('edit-' + questionIndex, form);
+      form.fetch().done(function(){
+        hackdash.app.modals.show(new EditQuestion({
+          model: form
+        }));
+      });
+    } else {
+      // console.log('new', form);
+      hackdash.app.modals.show(new EditQuestion({
+        model: form
+      }));
+    }
   }
 
 });

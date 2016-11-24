@@ -11,9 +11,11 @@ module.exports = Backbone.Model.extend({
 
   // Get questions as a generic Model
   getQuestions: function(){
+    // var self = this;
     var questions = this.get('questions') || [];
     return new Backbone.Collection(_.map(questions, function(e, k){
-        e.index = k;
+        e.questionIndex = k;
+        // e.form = self; // Original Form
         return new Backbone.Model(e);
       }));
   }
