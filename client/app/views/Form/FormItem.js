@@ -15,6 +15,19 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     questionsList: ".questions-list",
   },
 
+  templateHelpers: {
+    isLastItem: function() {
+      return this.index === this.total;
+    }
+  },
+
+  initialize: function() {
+    this.model = this.model.set({
+        index: this.options.index,
+        total: this.options.total
+      });
+  },
+
   onRender: function(){
     var self = this;
 
