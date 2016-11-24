@@ -56,7 +56,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
   },
 
   destroyModal: function(){
-    hackdash.app.modals.trigger('form_edited');
+    hackdash.app.modals.trigger('form_edited', this.model.get('id'));
     // TODO: update view
     this.destroy();
   },

@@ -3085,7 +3085,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
   },
 
   destroyModal: function(){
-    hackdash.app.modals.trigger('form_edited');
+    hackdash.app.modals.trigger('form_edited', this.model.get('id'));
     // TODO: update view
     this.destroy();
   },
@@ -3194,7 +3194,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
   },
 
   destroyModal: function(){
-    hackdash.app.modals.trigger('form_edited');
+    hackdash.app.modals.trigger('form_edited', this.model.get('id'));
     // TODO: update view
     this.destroy();
   },
@@ -3254,17 +3254,21 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   templateHelpers: {
-    isLastItem: function() {
-      // console.log('isLastItem',this);
+    opened: function() {
+      console.log('opened',this.openedForm, this._id);
+      if(this.openedForm) {
+        return this.openedForm === this._id;
+      }
       return this.index === this.total;
     }
   },
 
   initialize: function() {
+    console.log('init',this.options.openedForm);
     this.model.set({
         index: this.options.index,
         total: this.options.total,
-        // _id: this.opt
+        openedForm: this.options.openedForm
       });
   },
 
@@ -3277,7 +3281,6 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   drawQuestionList: function() {
     var form = this.model;
     this.questionsList.show(new QuestionList({
-      // model: form,
       collection: form.getQuestions()
     }));
   },
@@ -3292,7 +3295,6 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       questionIndex: questionIndex
     });
 
-    // model.id = model.get('id');
     if(questionIndex > -1) {
       // console.log('edit-' + questionIndex, form);
       form.fetch().done(function(){
@@ -3331,11 +3333,14 @@ module.exports = Backbone.Marionette.CollectionView.extend({
 
   emptyView: EmptyView,
 
+  initialize: function() {
+    this.openedForm = this.options.openedForm;
+  },
   childViewOptions: function (model) {
-    console.log('child', model, model.isNew());
     return {
       index: this.collection.indexOf(model) + 1,
-      total: this.collection.length
+      total: this.collection.length,
+      openedForm: this.openedForm
     };
   },
 
@@ -3442,13 +3447,14 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     this.drawFormList();
     // Listens 'edited' event fired in EditForm
     // to reload the list if changes
-    hackdash.app.modals.on('form_edited', function(){
-      self.drawFormList();
+    hackdash.app.modals.on('form_edited', function(id){
+      console.log('redraw form', id);
+      self.drawFormList(id);
     });
 
   },
 
-  drawFormList: function() {
+  drawFormList: function(id) {
     var self = this;
     var forms = new Forms();
 
@@ -3456,9 +3462,9 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     forms.group = this.model.get('group');
     forms.fetch().done(function(){
       self.formList.show(new FormList({
-        // model: forms,
         // collection: forms.getActives(),
         collection: forms, // All forms to admin
+        openedForm: id
       }));
     });
   },
@@ -3545,7 +3551,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
     + "\">\n      <h4 class=\"panel-title\">\n        <a class=\"pull-left\" role=\"button\" data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#c-"
     + escapeExpression(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"_id","hash":{},"data":data}) : helper)))
     + "\" aria-expanded=\"";
-  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.isLastItem : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.opened : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
   buffer += "\" aria-controls=\"c-"
     + escapeExpression(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"_id","hash":{},"data":data}) : helper)))
@@ -3556,7 +3562,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
     + "\"><i class=\"fa fa-edit\"></i></button>\n        <div class=\"clearfix\"></div>\n      </h4>\n\n    </div>\n\n    <div id=\"c-"
     + escapeExpression(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"_id","hash":{},"data":data}) : helper)))
     + "\" class=\"panel-collapse collapse";
-  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.isLastItem : depth0), {"name":"if","hash":{},"fn":this.program(3, data),"inverse":this.noop,"data":data});
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.opened : depth0), {"name":"if","hash":{},"fn":this.program(3, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
   buffer += "\" role=\"tabpanel\" aria-labelledby=\"h-"
     + escapeExpression(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"_id","hash":{},"data":data}) : helper)))

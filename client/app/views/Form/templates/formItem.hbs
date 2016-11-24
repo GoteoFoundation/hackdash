@@ -2,7 +2,7 @@
 
     <div class="panel-heading" role="tab" id="h-{{_id}}">
       <h4 class="panel-title">
-        <a class="pull-left" role="button" data-toggle="collapse" data-parent="#accordion" href="#c-{{_id}}" aria-expanded="{{#if isLastItem}}true{{/if}}" aria-controls="c-{{_id}}" data-bypass>
+        <a class="pull-left" role="button" data-toggle="collapse" data-parent="#accordion" href="#c-{{_id}}" aria-expanded="{{#if opened}}true{{/if}}" aria-controls="c-{{_id}}" data-bypass>
           {{title}}
         </a>
         <button class="pull-right btn btn-link edit-form" data-id="{{_id}}"><i class="fa fa-edit"></i></button>
@@ -11,7 +11,7 @@
 
     </div>
 
-    <div id="c-{{_id}}" class="panel-collapse collapse{{#if isLastItem}} in{{/if}}" role="tabpanel" aria-labelledby="h-{{_id}}">
+    <div id="c-{{_id}}" class="panel-collapse collapse{{#if opened}} in{{/if}}" role="tabpanel" aria-labelledby="h-{{_id}}">
       <div class="panel-body">
 
       {{#if description}}{{{markdown description}}}{{/if}}

@@ -44,13 +44,14 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     this.drawFormList();
     // Listens 'edited' event fired in EditForm
     // to reload the list if changes
-    hackdash.app.modals.on('form_edited', function(){
-      self.drawFormList();
+    hackdash.app.modals.on('form_edited', function(id){
+      console.log('redraw form', id);
+      self.drawFormList(id);
     });
 
   },
 
-  drawFormList: function() {
+  drawFormList: function(id) {
     var self = this;
     var forms = new Forms();
 
@@ -58,9 +59,9 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     forms.group = this.model.get('group');
     forms.fetch().done(function(){
       self.formList.show(new FormList({
-        // model: forms,
         // collection: forms.getActives(),
         collection: forms, // All forms to admin
+        openedForm: id
       }));
     });
   },

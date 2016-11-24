@@ -23,17 +23,21 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   templateHelpers: {
-    isLastItem: function() {
-      // console.log('isLastItem',this);
+    opened: function() {
+      console.log('opened',this.openedForm, this._id);
+      if(this.openedForm) {
+        return this.openedForm === this._id;
+      }
       return this.index === this.total;
     }
   },
 
   initialize: function() {
+    console.log('init',this.options.openedForm);
     this.model.set({
         index: this.options.index,
         total: this.options.total,
-        // _id: this.opt
+        openedForm: this.options.openedForm
       });
   },
 
@@ -46,7 +50,6 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   drawQuestionList: function() {
     var form = this.model;
     this.questionsList.show(new QuestionList({
-      // model: form,
       collection: form.getQuestions()
     }));
   },
@@ -61,7 +64,6 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       questionIndex: questionIndex
     });
 
-    // model.id = model.get('id');
     if(questionIndex > -1) {
       // console.log('edit-' + questionIndex, form);
       form.fetch().done(function(){

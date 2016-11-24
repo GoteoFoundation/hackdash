@@ -18,11 +18,14 @@ module.exports = Backbone.Marionette.CollectionView.extend({
 
   emptyView: EmptyView,
 
+  initialize: function() {
+    this.openedForm = this.options.openedForm;
+  },
   childViewOptions: function (model) {
-    console.log('child', model, model.isNew());
     return {
       index: this.collection.indexOf(model) + 1,
-      total: this.collection.length
+      total: this.collection.length,
+      openedForm: this.openedForm
     };
   },
 
