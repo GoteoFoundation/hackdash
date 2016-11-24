@@ -24,7 +24,13 @@ module.exports = Backbone.Marionette.ItemView.extend({
     "change": "render"
   },
 
-  onShow: function(){
+  templateHelpers: {
+    title: function(){
+      return this.questions[this.questionIndex] ? this.questions[this.questionIndex].title : '';
+    },
+    type: function(){
+      return this.questions[this.questionIndex] ? this.questions[this.questionIndex].type : '';
+    }
   },
 
   errors: {
@@ -32,13 +38,19 @@ module.exports = Backbone.Marionette.ItemView.extend({
     "type_required": "Type is required"
   },
 
-  save: function(){
+  initialize: function(){
+    // console.log('init',this.model.questionIndex,this.model.get('questionIndex'));
+    this.model.set({questionIndex: this.model.questionIndex});
+  },
 
-    var toSave = {
+  save: function(){
+    var q = {
       title: this.ui.title.val(),
       type: this.ui.type.val(),
     };
-
+    var toSave = {questions: this.model.questions || []};
+    toSave.questions.push(q);
+    console.log(toSave, this.model);
 
     this.cleanErrors();
 
@@ -67,9 +79,12 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
     try {
       var error = JSON.parse(err.responseText).error;
-      var ctrl = error.split("_")[0];
-      this.ui[ctrl].parents('.control-group').addClass('error');
-      this.ui[ctrl].after('<span class="help-inline">' + this.errors[error] + '</span>');
+      var self = this;
+      _.each(error.errors, function(o, k) {
+        var ctrl = k.substr(k.lastIndexOf('.') + 1);
+        self.ui[ctrl].parents('.control-group').addClass('error');
+        self.ui[ctrl].after('<span class="help-inline">' + self.errors[o.path + '_' + o.kind] ? self.errors[o.path + '_' + o.kind] : o.message + '</span>');
+      });
     } catch(e) {
       window.alert(e + "\n" + err.responseText);
     }

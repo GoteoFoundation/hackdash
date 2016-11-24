@@ -1050,14 +1050,20 @@ module.exports = BaseCollection.extend({
  *
  */
 
-
-// var Admins = require("./Admins");
-
 module.exports = Backbone.Model.extend({
 
   urlRoot: function(){
     return hackdash.apiURL + '/forms'; //Posts requests
   },
+
+  // Get questions as a generic Model
+  getQuestions: function(){
+    var questions = this.get('questions') || [];
+    return new Backbone.Collection(_.map(questions, function(e, k){
+        e.index = k;
+        return new Backbone.Model(e);
+      }));
+  }
 
 });
 
@@ -1098,7 +1104,7 @@ var Forms = module.exports = BaseCollection.extend({
         return forms.get("active");
       })
     );
-  },
+  }
 
 });
 
@@ -3135,7 +3141,13 @@ module.exports = Backbone.Marionette.ItemView.extend({
     "change": "render"
   },
 
-  onShow: function(){
+  templateHelpers: {
+    title: function(){
+      return this.questions[this.questionIndex] ? this.questions[this.questionIndex].title : '';
+    },
+    type: function(){
+      return this.questions[this.questionIndex] ? this.questions[this.questionIndex].type : '';
+    }
   },
 
   errors: {
@@ -3143,13 +3155,19 @@ module.exports = Backbone.Marionette.ItemView.extend({
     "type_required": "Type is required"
   },
 
-  save: function(){
+  initialize: function(){
+    // console.log('init',this.model.questionIndex,this.model.get('questionIndex'));
+    this.model.set({questionIndex: this.model.questionIndex});
+  },
 
-    var toSave = {
+  save: function(){
+    var q = {
       title: this.ui.title.val(),
       type: this.ui.type.val(),
     };
-
+    var toSave = {questions: this.model.questions || []};
+    toSave.questions.push(q);
+    console.log(toSave, this.model);
 
     this.cleanErrors();
 
@@ -3178,9 +3196,12 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
     try {
       var error = JSON.parse(err.responseText).error;
-      var ctrl = error.split("_")[0];
-      this.ui[ctrl].parents('.control-group').addClass('error');
-      this.ui[ctrl].after('<span class="help-inline">' + this.errors[error] + '</span>');
+      var self = this;
+      _.each(error.errors, function(o, k) {
+        var ctrl = k.substr(k.lastIndexOf('.') + 1);
+        self.ui[ctrl].parents('.control-group').addClass('error');
+        self.ui[ctrl].after('<span class="help-inline">' + self.errors[o.path + '_' + o.kind] ? self.errors[o.path + '_' + o.kind] : o.message + '</span>');
+      });
     } catch(e) {
       window.alert(e + "\n" + err.responseText);
     }
@@ -3201,6 +3222,8 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
 var
     template = require('./templates/formItem.hbs')
+  // , Question = require('./../../models/Question')
+  , EditQuestion = require('./EditQuestion')
   , QuestionList = require('./QuestionList');
 
 module.exports = Backbone.Marionette.LayoutView.extend({
@@ -3209,6 +3232,11 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
   regions: {
     questionsList: ".questions-list",
+  },
+
+  events: {
+    'click #new-question': 'editQuestion',
+    'click .edit-question': 'editQuestion'
   },
 
   templateHelpers: {
@@ -3236,30 +3264,33 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
   },
   drawQuestionList: function() {
-    var self = this;
-    // var forms = new Questions();
-
-    // forms.domain = this.model.get('domain'); //one of both will be empty
-    // forms.group = this.model.get('group');
-    // forms.fetch().done(function(){
-      self.questionsList.show(new QuestionList({
-        // model: forms,
-        // collection: forms.getActives(),
-        // collection: forms, // All forms to admin
-      }));
-    // });
+    var form = this.model;
+    this.questionsList.show(new QuestionList({
+      model: form,
+      collection: form.getQuestions(), // All forms to admin
+    }));
   },
+
+  editQuestion: function(e) {
+    var form = this.model;
+    // var question = new Question({form:this.model._id});
+    form.questionIndex = $(e.target).is('[data-index]') ? $(e.target).data('index') : -1;
+    console.log(form.questionIndex > -1 ? ('edit ' + form.questionIndex) : 'new', e.target, form);
+
+    hackdash.app.modals.show(new EditQuestion({
+      model: form
+    }));
+  }
 
 });
 
-},{"./QuestionList":49,"./templates/formItem.hbs":53}],47:[function(require,module,exports){
+},{"./EditQuestion":45,"./QuestionList":49,"./templates/formItem.hbs":53}],47:[function(require,module,exports){
 /**
  * VIEW: Form List
  *
  */
 
-var FormItem = require('./FormItem')
-  , EditQuestion = require('./EditQuestion');
+var FormItem = require('./FormItem');
 
 var EmptyView = Backbone.Marionette.ItemView.extend({
   template: _.template('<p class="text-danger">No forms yet!</p>')
@@ -3274,11 +3305,6 @@ module.exports = Backbone.Marionette.CollectionView.extend({
 
   emptyView: EmptyView,
 
-  events: {
-    'click #new-question': 'editQuestion',
-    'click .edit-question': 'editQuestion'
-  },
-
   childViewOptions: function (model) {
     return {
       index: this.collection.indexOf(model) + 1,
@@ -3286,32 +3312,10 @@ module.exports = Backbone.Marionette.CollectionView.extend({
     };
   },
 
-  editQuestion: function(e) {
-    var form = this.model;
-    var id = $(e.target).data('id');
-    // var form = new Form({
-    //     id: id,
-    //     domain: this.model.get('domain'),
-    //     group: this.model.get('group'),
-    //   });
-    console.log(id ? 'edit' : 'new', id, form);
-    if(id) {
-      form.fetch().done(function(){
-        hackdash.app.modals.show(new EditQuestion({
-          model: form
-        }));
-      });
-    } else {
-      hackdash.app.modals.show(new EditQuestion({
-        model: form
-      }));
-    }
-
-  }
 
 });
 
-},{"./EditQuestion":45,"./FormItem":46}],48:[function(require,module,exports){
+},{"./FormItem":46}],48:[function(require,module,exports){
 /**
  * VIEW: Question List
  *
@@ -3481,7 +3485,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
   var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "<div class=\"modal-header\">\n  <button type=\"button\" class=\"close\" data-dismiss=\"modal\">\n    <i class=\"fa fa-close\"></i>\n  </button>\n  <h2 class=\"modal-title\">";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.id : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.program(3, data),"data":data});
   if (stack1 != null) { buffer += stack1; }
-  return buffer + "</h2>\n</div>\n\n<div class=\"modal-body\">\n\n  <div class=\"form-group\">\n    <input type=\"text\" class=\"form-control\" name=\"title\" id=\"newQuestion\" placeholder=\"Question to respond\" value=\""
+  return buffer + "</h2>\n</div>\n\n<div class=\"modal-body\">\n\n<div class=\"form-content\">\n\n  <div class=\"form-group\">\n    <input type=\"text\" class=\"form-control\" name=\"title\" id=\"newQuestion\" placeholder=\"Question to respond\" value=\""
     + escapeExpression(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"title","hash":{},"data":data}) : helper)))
     + "\">\n  </div>\n  <div class=\"form-group\">\n    <select name=\"type\" class=\"form-control\" id=\"newQuestionType\">\n    	<option value=\"\" disabled"
     + escapeExpression(((helpers.selected || (depth0 && depth0.selected) || helperMissing).call(depth0, (depth0 != null ? depth0.type : depth0), (depth0 != null ? depth0.null : depth0), {"name":"selected","hash":{},"data":data})))
@@ -3489,7 +3493,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
     + escapeExpression(((helpers.selected || (depth0 && depth0.selected) || helperMissing).call(depth0, (depth0 != null ? depth0.type : depth0), "text", {"name":"selected","hash":{},"data":data})))
     + ">One line text</option>\n    	<option value=\"boolean\""
     + escapeExpression(((helpers.selected || (depth0 && depth0.selected) || helperMissing).call(depth0, (depth0 != null ? depth0.type : depth0), "boolean", {"name":"selected","hash":{},"data":data})))
-    + ">Yes or no</option>\n    </select>\n  </div>\n\n  <a id=\"save\" class=\"btn btn-success\">Save</a>\n\n</div>";
+    + ">Yes or no</option>\n    </select>\n  </div>\n\n  <a id=\"save\" class=\"btn btn-success\">Save</a>\n\n</div>\n\n</div>\n";
 },"useData":true});
 
 },{"hbsfy/runtime":120}],53:[function(require,module,exports){
@@ -3518,7 +3522,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
     + escapeExpression(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"title","hash":{},"data":data}) : helper)))
     + "\n        </a>\n        <button class=\"pull-right btn btn-link edit-form\" data-id=\""
     + escapeExpression(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"_id","hash":{},"data":data}) : helper)))
-    + "\"><i class=\"fa fa-edit\"></i></button>\n        <div class=\"clearfix\"></div>\n      </h4>\n    </div>\n\n    <div id=\"c-"
+    + "\"><i class=\"fa fa-edit\"></i></button>\n        <div class=\"clearfix\"></div>\n      </h4>\n\n    </div>\n\n    <div id=\"c-"
     + escapeExpression(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"_id","hash":{},"data":data}) : helper)))
     + "\" class=\"panel-collapse collapse";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.isLastItem : depth0), {"name":"if","hash":{},"fn":this.program(3, data),"inverse":this.noop,"data":data});
@@ -3552,13 +3556,13 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
-  return "<a class=\"list-group-item edit-question\" data-id=\""
-    + escapeExpression(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"_id","hash":{},"data":data}) : helper)))
+  return "<a class=\"list-group-item edit-question\" data-index=\""
+    + escapeExpression(((helper = (helper = helpers.index || (depth0 != null ? depth0.index : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"index","hash":{},"data":data}) : helper)))
     + "\">\n	<i class=\"fa fa-"
     + escapeExpression(((helpers.fa || (depth0 && depth0.fa) || helperMissing).call(depth0, (depth0 != null ? depth0.type : depth0), {"name":"fa","hash":{},"data":data})))
-    + "\"></i>\n	"
+    + " fa-ws\"></i>\n	"
     + escapeExpression(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"title","hash":{},"data":data}) : helper)))
-    + "\n</a>";
+    + "\n</a>\n";
 },"useData":true});
 
 },{"hbsfy/runtime":120}],56:[function(require,module,exports){

@@ -5,6 +5,8 @@
 
 var
     template = require('./templates/formItem.hbs')
+  // , Question = require('./../../models/Question')
+  , EditQuestion = require('./EditQuestion')
   , QuestionList = require('./QuestionList');
 
 module.exports = Backbone.Marionette.LayoutView.extend({
@@ -13,6 +15,11 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
   regions: {
     questionsList: ".questions-list",
+  },
+
+  events: {
+    'click #new-question': 'editQuestion',
+    'click .edit-question': 'editQuestion'
   },
 
   templateHelpers: {
@@ -40,18 +47,22 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
   },
   drawQuestionList: function() {
-    var self = this;
-    // var forms = new Questions();
-
-    // forms.domain = this.model.get('domain'); //one of both will be empty
-    // forms.group = this.model.get('group');
-    // forms.fetch().done(function(){
-      self.questionsList.show(new QuestionList({
-        // model: forms,
-        // collection: forms.getActives(),
-        // collection: forms, // All forms to admin
-      }));
-    // });
+    var form = this.model;
+    this.questionsList.show(new QuestionList({
+      model: form,
+      collection: form.getQuestions(), // All forms to admin
+    }));
   },
+
+  editQuestion: function(e) {
+    var form = this.model;
+    // var question = new Question({form:this.model._id});
+    form.questionIndex = $(e.target).is('[data-index]') ? $(e.target).data('index') : -1;
+    console.log(form.questionIndex > -1 ? ('edit ' + form.questionIndex) : 'new', e.target, form);
+
+    hackdash.app.modals.show(new EditQuestion({
+      model: form
+    }));
+  }
 
 });

@@ -34,7 +34,7 @@ var Forms = module.exports = BaseCollection.extend({
         return forms.get("active");
       })
     );
-  },
+  }
 
 });
 
