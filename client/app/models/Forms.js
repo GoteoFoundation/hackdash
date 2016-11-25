@@ -30,7 +30,7 @@ var Forms = module.exports = BaseCollection.extend({
   getActives: function(){
     return new Forms(
       this.filter(function(forms){
-        return forms.get("active");
+        return forms.get("open");
       })
     );
   }

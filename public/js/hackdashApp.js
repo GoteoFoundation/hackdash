@@ -1102,7 +1102,7 @@ var Forms = module.exports = BaseCollection.extend({
   getActives: function(){
     return new Forms(
       this.filter(function(forms){
-        return forms.get("active");
+        return forms.get("open");
       })
     );
   }
@@ -3250,12 +3250,13 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
   events: {
     'click #new-question': 'editQuestion',
-    'click .edit-question': 'editQuestion'
+    'click .edit-question': 'editQuestion',
+    "click .public-btn": 'onClickSwitcher'
   },
 
   templateHelpers: {
     opened: function() {
-      console.log('opened',this.openedForm, this._id);
+      // console.log('opened',this.openedForm, this._id);
       if(this.openedForm) {
         return this.openedForm === this._id;
       }
@@ -3263,8 +3264,13 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     }
   },
 
+  modelEvents: {
+    "change": "render"
+  },
+
+
   initialize: function() {
-    console.log('init',this.options.openedForm);
+    // console.log('init',this.options.openedForm);
     this.model.set({
         index: this.options.index,
         total: this.options.total,
@@ -3272,10 +3278,21 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       });
   },
 
-  onRender: function(){
-    var self = this;
+  serializeData: function(){
 
-    self.drawQuestionList();
+    var msg = "This Form is open: click to close";
+
+    if (!this.model.get("open")) {
+      msg = "This Form is closed: click to reopen";
+    }
+    return _.extend({
+      switcherMsg: msg
+    }, this.model.toJSON());
+  },
+
+  onRender: function(){
+    $('.tooltips', this.$el).tooltip({});
+    this.drawQuestionList();
   },
 
   drawQuestionList: function() {
@@ -3308,6 +3325,32 @@ module.exports = Backbone.Marionette.LayoutView.extend({
         model: form
       }));
     }
+  },
+
+  onClickSwitcher: function(e) {
+    var $e = $(e.target).is('[data-id]') ? $(e.target) : $(e.target).closest('.public-btn');
+    var self = this;
+    var form = new Form({
+      id: this.model.get('_id'),
+      domain: this.model.get('domain'),
+      group: this.model.get('group')
+    });
+    var open = true;
+
+    if ($e.hasClass("form-open")){
+      open = false;
+    }
+
+    form.fetch().done(function(){
+      console.log('public', $e.data('id'), form);
+
+      $('.tooltips', self.$el).tooltip('hide');
+
+      form.set({ "open": open }, { patch:true, trigger: false });
+      form.save({ wait: true });
+      self.model = form;
+      self.render();
+    });
   }
 
 });
@@ -3448,7 +3491,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     // Listens 'edited' event fired in EditForm
     // to reload the list if changes
     hackdash.app.modals.on('form_edited', function(id){
-      console.log('redraw form', id);
+      // console.log('redraw form', id);
       self.drawFormList(id);
     });
 
@@ -3488,7 +3531,8 @@ module.exports = Backbone.Marionette.LayoutView.extend({
         model: form
       }));
     }
-  }
+  },
+
 });
 
 },{"../../models/Form":14,"../../models/Forms":15,"./EditForm":44,"./FormList":47,"./templates/forms.hbs":54}],51:[function(require,module,exports){
@@ -3545,6 +3589,18 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
   stack1 = ((helpers.markdown || (depth0 && depth0.markdown) || helperMissing).call(depth0, (depth0 != null ? depth0.description : depth0), {"name":"markdown","hash":{},"data":data}));
   if (stack1 != null) { return stack1; }
   else { return ''; }
+  },"7":function(depth0,helpers,partials,data) {
+  return "form-open";
+  },"9":function(depth0,helpers,partials,data) {
+  return "form-close";
+  },"11":function(depth0,helpers,partials,data) {
+  return "btn-success";
+  },"13":function(depth0,helpers,partials,data) {
+  return "btn-danger";
+  },"15":function(depth0,helpers,partials,data) {
+  return "Open";
+  },"17":function(depth0,helpers,partials,data) {
+  return "Close";
   },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "<div class=\"panel panel-default\">\n\n    <div class=\"panel-heading\" role=\"tab\" id=\"h-"
     + escapeExpression(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"_id","hash":{},"data":data}) : helper)))
@@ -3569,7 +3625,20 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
     + "\">\n      <div class=\"panel-body\">\n\n      ";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.description : depth0), {"name":"if","hash":{},"fn":this.program(5, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
-  return buffer + "\n\n\n      <div class=\"questions-list\"></div>\n\n      <button id=\"new-question\" class=\"btn btn-sm btn-success\">Create a new question</button>\n\n      </div>\n    </div>\n  </div>\n";
+  buffer += "\n\n\n      <div class=\"questions-list\"></div>\n\n      <button id=\"new-question\" class=\"btn btn-sm btn-success\">Create a new question</button>\n\n      <a data-placement=\"top\" data-original-title=\""
+    + escapeExpression(((helper = (helper = helpers.switcherMsg || (depth0 != null ? depth0.switcherMsg : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"switcherMsg","hash":{},"data":data}) : helper)))
+    + "\" data-id=\""
+    + escapeExpression(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"_id","hash":{},"data":data}) : helper)))
+    + "\"\n        class=\"pull-right tooltips public-btn ";
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.open : depth0), {"name":"if","hash":{},"fn":this.program(7, data),"inverse":this.program(9, data),"data":data});
+  if (stack1 != null) { buffer += stack1; }
+  buffer += "\">\n        <i class=\"txt ";
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.open : depth0), {"name":"if","hash":{},"fn":this.program(11, data),"inverse":this.program(13, data),"data":data});
+  if (stack1 != null) { buffer += stack1; }
+  buffer += "\">";
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.open : depth0), {"name":"if","hash":{},"fn":this.program(15, data),"inverse":this.program(17, data),"data":data});
+  if (stack1 != null) { buffer += stack1; }
+  return buffer + "</i>\n        <div>Form Status</div>\n      </a>\n\n\n      </div>\n    </div>\n  </div>\n";
 },"useData":true});
 
 },{"hbsfy/runtime":120}],54:[function(require,module,exports){

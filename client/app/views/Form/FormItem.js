@@ -19,12 +19,13 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
   events: {
     'click #new-question': 'editQuestion',
-    'click .edit-question': 'editQuestion'
+    'click .edit-question': 'editQuestion',
+    "click .public-btn": 'onClickSwitcher'
   },
 
   templateHelpers: {
     opened: function() {
-      console.log('opened',this.openedForm, this._id);
+      // console.log('opened',this.openedForm, this._id);
       if(this.openedForm) {
         return this.openedForm === this._id;
       }
@@ -32,8 +33,13 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     }
   },
 
+  modelEvents: {
+    "change": "render"
+  },
+
+
   initialize: function() {
-    console.log('init',this.options.openedForm);
+    // console.log('init',this.options.openedForm);
     this.model.set({
         index: this.options.index,
         total: this.options.total,
@@ -41,10 +47,21 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       });
   },
 
-  onRender: function(){
-    var self = this;
+  serializeData: function(){
 
-    self.drawQuestionList();
+    var msg = "This Form is open: click to close";
+
+    if (!this.model.get("open")) {
+      msg = "This Form is closed: click to reopen";
+    }
+    return _.extend({
+      switcherMsg: msg
+    }, this.model.toJSON());
+  },
+
+  onRender: function(){
+    $('.tooltips', this.$el).tooltip({});
+    this.drawQuestionList();
   },
 
   drawQuestionList: function() {
@@ -77,6 +94,32 @@ module.exports = Backbone.Marionette.LayoutView.extend({
         model: form
       }));
     }
+  },
+
+  onClickSwitcher: function(e) {
+    var $e = $(e.target).is('[data-id]') ? $(e.target) : $(e.target).closest('.public-btn');
+    var self = this;
+    var form = new Form({
+      id: this.model.get('_id'),
+      domain: this.model.get('domain'),
+      group: this.model.get('group')
+    });
+    var open = true;
+
+    if ($e.hasClass("form-open")){
+      open = false;
+    }
+
+    form.fetch().done(function(){
+      console.log('public', $e.data('id'), form);
+
+      $('.tooltips', self.$el).tooltip('hide');
+
+      form.set({ "open": open }, { patch:true, trigger: false });
+      form.save({ wait: true });
+      self.model = form;
+      self.render();
+    });
   }
 
 });

@@ -10,7 +10,7 @@ var http = require('http');
 var config = require('./config/config.json');
 var live = require('lib/live');
 //Listener for mail sending on events
-require('lib/mailer/listener.js');
+require('lib/notifications/listener.js');
 
 /**
  * Get port from environment and store in Express.
