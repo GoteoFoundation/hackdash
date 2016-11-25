@@ -52,7 +52,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     var msg = "This Form is open: click to close";
 
     if (!this.model.get("open")) {
-      msg = "This Form is closed: click to reopen";
+      msg = "This Form is closed: click to reopen. A message will be sent to all project leaders involved (only if not previously sent)";
     }
     return _.extend({
       switcherMsg: msg
@@ -111,7 +111,6 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     }
 
     form.fetch().done(function(){
-      console.log('public', $e.data('id'), form);
 
       $('.tooltips', self.$el).tooltip('hide');
 
