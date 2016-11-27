@@ -67,6 +67,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   drawQuestionList: function() {
     var form = this.model;
     this.questionsList.show(new QuestionList({
+      model: form,
       collection: form.getQuestions()
     }));
   },
