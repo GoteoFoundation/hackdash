@@ -21,6 +21,7 @@ module.exports = Backbone.Marionette.CollectionView.extend({
   initialize: function() {
     this.openedForm = this.options.openedForm;
   },
+
   childViewOptions: function (model) {
     return {
       index: this.collection.indexOf(model) + 1,

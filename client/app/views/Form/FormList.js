@@ -6,7 +6,7 @@
 var FormItem = require('./FormItem');
 
 var EmptyView = Backbone.Marionette.ItemView.extend({
-  template: _.template('<p class="text-danger">No forms yet!</p>')
+  template: _.template('<p class="text-danger">Sorry, no forms for you!</p>')
 });
 
 module.exports = Backbone.Marionette.CollectionView.extend({
@@ -17,17 +17,5 @@ module.exports = Backbone.Marionette.CollectionView.extend({
   childView: FormItem,
 
   emptyView: EmptyView,
-
-  initialize: function() {
-    this.openedForm = this.options.openedForm;
-  },
-  childViewOptions: function (model) {
-    return {
-      index: this.collection.indexOf(model) + 1,
-      total: this.collection.length,
-      openedForm: this.openedForm
-    };
-  },
-
 
 });

@@ -332,7 +332,7 @@ module.exports = Backbone.Marionette.AppRouter.extend({
         collection: collection
       }));
       app.footer.show(new Footer());
-      app.setTitle('Form FID:' + fid + ' PID:' + pid);
+      app.setTitle('Forms: ' + (model ? model.get('title') : 'Your forms'));
     }
 
     app.type = 'forms_list';
@@ -345,7 +345,7 @@ module.exports = Backbone.Marionette.AppRouter.extend({
       form.fetch().done(function(){
         if(pid) {
           var project = new Project({
-            id: pid
+            _id: pid
           });
           project.fetch().done(function(){
             app.type = 'forms_project';
@@ -362,7 +362,6 @@ module.exports = Backbone.Marionette.AppRouter.extend({
         showView(null, forms);
       });
     }
-    console.log(app.type);
   },
 
   showProfile: function(userId) {
