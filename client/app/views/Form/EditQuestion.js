@@ -17,7 +17,8 @@ module.exports = Backbone.Marionette.ItemView.extend({
   },
 
   events: {
-    "click #save": "save"
+    "click #save": "save",
+    "click #delete": "delete"
   },
 
   modelEvents: {
@@ -26,13 +27,13 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
   templateHelpers: {
     title: function() {
-      return this.questions[this.questionIndex] ? this.questions[this.questionIndex].title : '';
+      return this.current ? this.current.title : '';
     },
     type: function() {
-      return this.questions[this.questionIndex] ? this.questions[this.questionIndex].type : null;
+      return this.current ? this.current.type : null;
     },
     typeSelected: function(type) {
-      var comp = this.questions[this.questionIndex] && this.questions[this.questionIndex].type;
+      var comp = this.current && this.current.type;
       if(!comp) {
         comp = '';
       }
@@ -48,19 +49,33 @@ module.exports = Backbone.Marionette.ItemView.extend({
     "type_required": "Type is required"
   },
 
+  initialize: function () {
+    var id = this.model.get('questionId');
+    if(id) {
+      this.model.set({current: _.findWhere(this.model.get('questions'), {_id: id})});
+    }
+  },
+
+  /**
+   * Saves the question into model.questions and maintants the sub-ObjectID
+   */
   save: function(){
-    var q = {
+    var model = this.model;
+    var toSave = {questions: model.get('questions') || []};
+    var id = model.get('questionId');
+    var query = {
       title: this.ui.title.val(),
       type: this.ui.type.val(),
     };
-    var model = this.model;
-    var toSave = {questions: model.get('questions') || []};
-    var index = model.get('questionIndex');
-    if(index > -1) {
-      toSave.questions[index] = q;
+    if(id) {
+      toSave.questions = _.map(toSave.questions, function(q){
+          if(q._id === id) {
+            return _.extend(q, query);
+          }
+          return q;
+        });
     } else {
-      toSave.questions.push(q);
-      model.set({questionIndex: toSave.questions.length -1 });
+      toSave.questions.push(query);
     }
     // console.log(toSave, model, model.isNew());
 
@@ -72,6 +87,25 @@ module.exports = Backbone.Marionette.ItemView.extend({
       .save(toSave, { patch: true, silent: true })
       .success(this.destroyModal.bind(this))
       .error(this.showError.bind(this));
+  },
+
+  delete: function() {
+    var id = this.model.get('questionId');
+    if(!id) {
+      return this.destroy();
+    }
+    if(window.confirm('Are you sure? Kittens may die!')) {
+      var toSave = {questions: this.model.get('questions') || []};
+      toSave.questions = _.reject(toSave.questions, function(q){
+          return q._id === id;
+        });
+      $("#delete", this.$el).button('loading');
+
+      this.model
+        .save(toSave, { patch: true, silent: true })
+        .success(this.destroyModal.bind(this))
+        .error(this.showError.bind(this));
+    }
   },
 
   destroyModal: function(){

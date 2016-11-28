@@ -21,7 +21,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   events: {
-    'click #new-form': 'editForm',
+    'click .new-form': 'editForm',
     'click .edit-form': 'editForm'
   },
 

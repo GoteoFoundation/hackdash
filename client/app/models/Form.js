@@ -13,11 +13,12 @@ module.exports = Backbone.Model.extend({
   getQuestions: function(){
     // var self = this;
     var questions = this.get('questions') || [];
-    return new Backbone.Collection(_.map(questions, function(e, k){
-        e.questionIndex = k;
-        // e.form = self; // Original Form
-        return new Backbone.Model(e);
-      }));
+    return new Backbone.Collection(questions);
+    // return new Backbone.Collection(_.map(questions, function(e, k){
+    //     e.questionIndex = k;
+    //     // e.form = self; // Original Form
+    //     return new Backbone.Model(e);
+    //   }));
   }
 
 });

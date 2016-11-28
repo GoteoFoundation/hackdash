@@ -25,6 +25,10 @@ module.exports = Backbone.Marionette.CollectionView.extend({
     });
   },
 
+  /**
+   * Reorders the questions lists and maintains the sub-ObjectId
+   * that mongoose generates for the subcollection model.questions
+   */
   endSortable: function(evt) {
     if(evt.oldIndex === evt.newIndex) {
       return;

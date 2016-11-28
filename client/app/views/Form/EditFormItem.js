@@ -18,7 +18,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   events: {
-    'click #new-question': 'editQuestion',
+    'click .new-question': 'editQuestion',
     'click .edit-question': 'editQuestion',
     "click .public-btn": 'onClickSwitcher'
   },
@@ -73,17 +73,17 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   editQuestion: function(e) {
-    var questionIndex = $(e.target).is('[data-index]') ? $(e.target).data('index') : -1;
+    var id = $(e.target).is('[id]') ? $(e.target).attr('id') : null;
     var form = new Form({
       id: this.model.get('_id'),
       domain: this.model.get('domain'),
       group: this.model.get('group'),
       questions: this.model.get('questions'),
-      questionIndex: questionIndex
+      questionId: id
     });
 
-    if(questionIndex > -1) {
-      // console.log('edit-' + questionIndex, form);
+    if(id) {
+      // console.log('edit-' + id, form);
       form.fetch().done(function(){
         hackdash.app.modals.show(new EditQuestion({
           model: form

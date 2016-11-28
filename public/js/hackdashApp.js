@@ -1109,11 +1109,12 @@ module.exports = Backbone.Model.extend({
   getQuestions: function(){
     // var self = this;
     var questions = this.get('questions') || [];
-    return new Backbone.Collection(_.map(questions, function(e, k){
-        e.questionIndex = k;
-        // e.form = self; // Original Form
-        return new Backbone.Model(e);
-      }));
+    return new Backbone.Collection(questions);
+    // return new Backbone.Collection(_.map(questions, function(e, k){
+    //     e.questionIndex = k;
+    //     // e.form = self; // Original Form
+    //     return new Backbone.Model(e);
+    //   }));
   }
 
 });
@@ -3102,7 +3103,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   events: {
-    'click #new-form': 'editForm',
+    'click .new-form': 'editForm',
     'click .edit-form': 'editForm'
   },
 
@@ -3281,7 +3282,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   events: {
-    'click #new-question': 'editQuestion',
+    'click .new-question': 'editQuestion',
     'click .edit-question': 'editQuestion',
     "click .public-btn": 'onClickSwitcher'
   },
@@ -3336,17 +3337,17 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   editQuestion: function(e) {
-    var questionIndex = $(e.target).is('[data-index]') ? $(e.target).data('index') : -1;
+    var id = $(e.target).is('[id]') ? $(e.target).attr('id') : null;
     var form = new Form({
       id: this.model.get('_id'),
       domain: this.model.get('domain'),
       group: this.model.get('group'),
       questions: this.model.get('questions'),
-      questionIndex: questionIndex
+      questionId: id
     });
 
-    if(questionIndex > -1) {
-      // console.log('edit-' + questionIndex, form);
+    if(id) {
+      // console.log('edit-' + id, form);
       form.fetch().done(function(){
         hackdash.app.modals.show(new EditQuestion({
           model: form
@@ -3443,7 +3444,8 @@ module.exports = Backbone.Marionette.ItemView.extend({
   },
 
   events: {
-    "click #save": "save"
+    "click #save": "save",
+    "click #delete": "delete"
   },
 
   modelEvents: {
@@ -3452,13 +3454,13 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
   templateHelpers: {
     title: function() {
-      return this.questions[this.questionIndex] ? this.questions[this.questionIndex].title : '';
+      return this.current ? this.current.title : '';
     },
     type: function() {
-      return this.questions[this.questionIndex] ? this.questions[this.questionIndex].type : null;
+      return this.current ? this.current.type : null;
     },
     typeSelected: function(type) {
-      var comp = this.questions[this.questionIndex] && this.questions[this.questionIndex].type;
+      var comp = this.current && this.current.type;
       if(!comp) {
         comp = '';
       }
@@ -3474,19 +3476,33 @@ module.exports = Backbone.Marionette.ItemView.extend({
     "type_required": "Type is required"
   },
 
+  initialize: function () {
+    var id = this.model.get('questionId');
+    if(id) {
+      this.model.set({current: _.findWhere(this.model.get('questions'), {_id: id})});
+    }
+  },
+
+  /**
+   * Saves the question into model.questions and maintants the sub-ObjectID
+   */
   save: function(){
-    var q = {
+    var model = this.model;
+    var toSave = {questions: model.get('questions') || []};
+    var id = model.get('questionId');
+    var query = {
       title: this.ui.title.val(),
       type: this.ui.type.val(),
     };
-    var model = this.model;
-    var toSave = {questions: model.get('questions') || []};
-    var index = model.get('questionIndex');
-    if(index > -1) {
-      toSave.questions[index] = q;
+    if(id) {
+      toSave.questions = _.map(toSave.questions, function(q){
+          if(q._id === id) {
+            return _.extend(q, query);
+          }
+          return q;
+        });
     } else {
-      toSave.questions.push(q);
-      model.set({questionIndex: toSave.questions.length -1 });
+      toSave.questions.push(query);
     }
     // console.log(toSave, model, model.isNew());
 
@@ -3498,6 +3514,25 @@ module.exports = Backbone.Marionette.ItemView.extend({
       .save(toSave, { patch: true, silent: true })
       .success(this.destroyModal.bind(this))
       .error(this.showError.bind(this));
+  },
+
+  delete: function() {
+    var id = this.model.get('questionId');
+    if(!id) {
+      return this.destroy();
+    }
+    if(window.confirm('Are you sure? Kittens may die!')) {
+      var toSave = {questions: this.model.get('questions') || []};
+      toSave.questions = _.reject(toSave.questions, function(q){
+          return q._id === id;
+        });
+      $("#delete", this.$el).button('loading');
+
+      this.model
+        .save(toSave, { patch: true, silent: true })
+        .success(this.destroyModal.bind(this))
+        .error(this.showError.bind(this));
+    }
   },
 
   destroyModal: function(){
@@ -3593,6 +3628,10 @@ module.exports = Backbone.Marionette.CollectionView.extend({
     });
   },
 
+  /**
+   * Reorders the questions lists and maintains the sub-ObjectId
+   * that mongoose generates for the subcollection model.questions
+   */
   endSortable: function(evt) {
     if(evt.oldIndex === evt.newIndex) {
       return;
@@ -4016,7 +4055,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
     + "\">\n      <div class=\"panel-body\">\n\n      ";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.description : depth0), {"name":"if","hash":{},"fn":this.program(5, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
-  buffer += "\n\n\n      <div class=\"questions-list\"></div>\n\n      <button id=\"new-question\" class=\"btn btn-sm btn-success\">Create a new question</button>\n\n      <a data-placement=\"top\" data-original-title=\""
+  buffer += "\n\n\n      <div class=\"questions-list\"></div>\n\n      <button class=\"btn btn-sm btn-success new-question\">Create a new question</button>\n\n      <a data-placement=\"top\" data-original-title=\""
     + escapeExpression(((helper = (helper = helpers.switcherMsg || (depth0 != null ? depth0.switcherMsg : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"switcherMsg","hash":{},"data":data}) : helper)))
     + "\" data-id=\""
     + escapeExpression(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"_id","hash":{},"data":data}) : helper)))
@@ -4045,7 +4084,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
     + "</small></h1>\n";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.isDashboard : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.program(3, data),"data":data});
   if (stack1 != null) { buffer += stack1; }
-  return buffer + "  </div>\n\n</div>\n\n<div class=\"body\">\n\n  <div class=\"container\">\n\n    <h3>Current forms:</h3>\n  	<div class=\"forms-list\"></div>\n\n  	<button id=\"new-form\" class=\"btn btn-primary\">Create a new form</button>\n\n  </div>\n\n</div>\n";
+  return buffer + "  </div>\n\n</div>\n\n<div class=\"body\">\n\n  <div class=\"container\">\n\n    <h3>Current forms:</h3>\n  	<div class=\"forms-list\"></div>\n\n  	<button class=\"btn btn-primary new-form\">Create a new form</button>\n\n  </div>\n\n</div>\n";
 },"useData":true});
 
 },{"hbsfy/runtime":133}],64:[function(require,module,exports){
@@ -4057,7 +4096,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
   return "New question";
   },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "<div class=\"modal-header\">\n  <button type=\"button\" class=\"close\" data-dismiss=\"modal\">\n    <i class=\"fa fa-close\"></i>\n  </button>\n  <h2 class=\"modal-title\">";
-  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.id : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.program(3, data),"data":data});
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0._id : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.program(3, data),"data":data});
   if (stack1 != null) { buffer += stack1; }
   return buffer + "</h2>\n</div>\n\n<div class=\"modal-body\">\n\n<div class=\"form-content\">\n\n  <div class=\"form-group\">\n    <input type=\"text\" class=\"form-control\" name=\"title\" id=\"newQuestion\" placeholder=\"Question to respond\" value=\""
     + escapeExpression(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"title","hash":{},"data":data}) : helper)))
@@ -4069,7 +4108,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
     + escapeExpression(((helpers.typeSelected || (depth0 && depth0.typeSelected) || helperMissing).call(depth0, "text", {"name":"typeSelected","hash":{},"data":data})))
     + ">One line text</option>\n    	<option value=\"boolean\""
     + escapeExpression(((helpers.typeSelected || (depth0 && depth0.typeSelected) || helperMissing).call(depth0, "boolean", {"name":"typeSelected","hash":{},"data":data})))
-    + ">Yes or no</option>\n    </select>\n  </div>\n\n  <a id=\"save\" class=\"btn btn-success\">Save</a>\n\n</div>\n\n</div>\n";
+    + ">Yes or no</option>\n    </select>\n  </div>\n\n  <a id=\"save\" class=\"btn btn-success\">Save</a>\n\n  <a id=\"delete\" class=\"btn btn-danger\">Delete</a>\n\n</div>\n\n</div>\n";
 },"useData":true});
 
 },{"hbsfy/runtime":133}],65:[function(require,module,exports){
@@ -4077,8 +4116,8 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
-  return "<a class=\"list-group-item edit-question\" data-index=\""
-    + escapeExpression(((helper = (helper = helpers.questionIndex || (depth0 != null ? depth0.questionIndex : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"questionIndex","hash":{},"data":data}) : helper)))
+  return "<a class=\"list-group-item edit-question\" id=\""
+    + escapeExpression(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"_id","hash":{},"data":data}) : helper)))
     + "\">\n	<i class=\"fa fa-"
     + escapeExpression(((helpers.fa || (depth0 && depth0.fa) || helperMissing).call(depth0, (depth0 != null ? depth0.type : depth0), {"name":"fa","hash":{},"data":data})))
     + " fa-ws\"></i>\n	"
