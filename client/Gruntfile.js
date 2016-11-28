@@ -173,6 +173,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-browserify');
+  grunt.loadNpmTasks('grunt-notify');
 
   grunt.registerTask("default", [
     "clean:before",

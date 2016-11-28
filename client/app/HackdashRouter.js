@@ -7,6 +7,8 @@ var Dashboard = require("./models/Dashboard")
   , Projects = require("./models/Projects")
   , Collection = require("./models/Collection")
   , Profile = require("./models/Profile")
+  , Form = require("./models/Form")
+  , Forms = require("./models/Forms")
 
   , Header = require("./views/Header")
   , Footer = require("./views/Footer")
@@ -16,6 +18,7 @@ var Dashboard = require("./models/Dashboard")
   , ProjectFullView = require("./views/Project/Full")
   , ProjectEditView = require("./views/Project/Edit")
   , DashboardView = require("./views/Dashboard")
+  , FormEditView = require("./views/Form/Edit")
   , FormView = require("./views/Form")
   , CollectionView = require("./views/Collection")
   ;
@@ -39,6 +42,10 @@ module.exports = Backbone.Marionette.AppRouter.extend({
     , "dashboards/:dash": "showDashboard"
     , "dashboards/:dash/create": "showProjectCreate"
     , "dashboards/:dash/forms": "showDashboardFormsEdit"
+
+    , "forms": "showForms"
+    , "forms/:fid": "showForms"
+    , "forms/:fid/:pid": "showForms"
 
     , "projects/:pid/edit" : "showProjectEdit"
     , "projects/:pid" : "showProjectFull"
@@ -177,7 +184,7 @@ module.exports = Backbone.Marionette.AppRouter.extend({
       app.header.show(new Header());
 
       // here the forms editor
-      app.main.show(new FormView({
+      app.main.show(new FormEditView({
         model: app.dashboard
       }));
 
@@ -316,6 +323,48 @@ module.exports = Backbone.Marionette.AppRouter.extend({
       });
   },
 
+  showForms: function (fid, pid) {
+    var app = window.hackdash.app;
+    function showView(model, collection) {
+      app.header.show(new Header());
+      app.main.show(new FormView({
+        model: model,
+        collection: collection
+      }));
+      app.footer.show(new Footer());
+      app.setTitle('Form FID:' + fid + ' PID:' + pid);
+    }
+
+    app.type = 'forms_list';
+    if(fid) {
+      app.type = 'forms_item';
+      // find form
+      var form = new Form({
+        id: fid
+      });
+      form.fetch().done(function(){
+        if(pid) {
+          var project = new Project({
+            id: pid
+          });
+          project.fetch().done(function(){
+            app.type = 'forms_project';
+            app.project = project;
+            showView(form);
+          });
+        } else {
+          showView(form);
+        }
+      });
+    } else {
+      var forms = new Forms();
+      forms.fetch().done(function(){
+        showView(null, forms);
+      });
+    }
+    console.log(app.type);
+  },
+
   showProfile: function(userId) {
 
     var app = window.hackdash.app;
@@ -362,7 +411,6 @@ module.exports = Backbone.Marionette.AppRouter.extend({
   },
 
   canEditProject: function(user, project) {
-    console.log('USER', user, 'PROJECT', project);
     var isLeader = user && project && project.leader && (user._id === project.leader._id);
     // var isAdmin = user && project && project.domain && project.admin_in && (user.admin_in.indexOf(project.domain) >= 0);
     return isLeader ;//|| isAdmin;

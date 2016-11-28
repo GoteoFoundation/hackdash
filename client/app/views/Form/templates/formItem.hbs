@@ -1,33 +1,22 @@
-<div class="panel panel-default">
+<div class="media">
+  <div class="media-body">
+    <h4 class="media-heading">{{title}}</h4>
+    {{{markdown description}}}
 
-    <div class="panel-heading" role="tab" id="h-{{_id}}">
-      <h4 class="panel-title">
-        <a class="pull-left" role="button" data-toggle="collapse" data-parent="#accordion" href="#c-{{_id}}" aria-expanded="{{#if opened}}true{{/if}}" aria-controls="c-{{_id}}" data-bypass>
-          {{title}}
-        </a>
-        <button class="pull-right btn btn-link edit-form" data-id="{{_id}}"><i class="fa fa-edit"></i></button>
-        <div class="clearfix"></div>
-      </h4>
-
-    </div>
-
-    <div id="c-{{_id}}" class="panel-collapse collapse{{#if opened}} in{{/if}}" role="tabpanel" aria-labelledby="h-{{_id}}">
-      <div class="panel-body">
-
-      {{#if description}}{{{markdown description}}}{{/if}}
-
-
-      <div class="questions-list"></div>
-
-      <button id="new-question" class="btn btn-sm btn-success">Create a new question</button>
-
-      <a data-placement="top" data-original-title="{{switcherMsg}}" data-id="{{_id}}"
-        class="pull-right tooltips public-btn {{#if open}}form-open{{else}}form-close{{/if}}">
-        <i class="txt {{#if open}}btn-success{{else}}btn-danger{{/if}}">{{#if open}}Open{{else}}Close{{/if}}</i>
-        <div>Form Status</div>
-      </a>
-
-
+    {{#if projects}}
+      {{#each projects}}
+      <div class="media">
+        <div class="media-left">
+          <a href="/forms/{{../_id}}/{{_id}}">
+            <img class="media-object" src="{{cover}}" alt="Project cover">
+          </a>
+        </div>
+        <div class="media-body">
+          <h4 class="media-heading">{{title}}</h4>
+        </div>
       </div>
-    </div>
+      {{/each}}
+    {{/if}}
+
   </div>
+</div>

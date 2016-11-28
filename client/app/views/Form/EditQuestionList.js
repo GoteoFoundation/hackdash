@@ -3,7 +3,7 @@
  *
  */
 
-var QuestionItem = require('./QuestionItem')
+var QuestionItem = require('./EditQuestionItem')
   , Form = require('../../models/Form');
 
 var EmptyView = Backbone.Marionette.ItemView.extend({

@@ -4,7 +4,7 @@
  */
 
 var
-    template = require('./templates/questionItem.hbs');
+    template = require('./templates/editQuestionItem.hbs');
 
 module.exports = Backbone.Marionette.ItemView.extend({
 

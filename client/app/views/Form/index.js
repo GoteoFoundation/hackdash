@@ -5,10 +5,8 @@
 
 var
     template = require('./templates/forms.hbs')
-  , EditForm = require('./EditForm')
   , FormList = require('./FormList')
-  , Form = require("../../models/Form")
-  , Forms = require("../../models/Forms")
+  // , Forms = require('./../../models/Forms')
   ;
 
 module.exports = Backbone.Marionette.LayoutView.extend({
@@ -17,12 +15,10 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   template: template,
 
   regions: {
-    formList: ".forms-list",
+    formContent: ".forms-content",
   },
 
   events: {
-    'click #new-form': 'editForm',
-    'click .edit-form': 'editForm'
   },
 
   modelEvents: {
@@ -30,61 +26,32 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   templateHelpers: {
-    itemTitle: function() {
-      return this.title || this.domain;
-    },
-    isDashboard: function() {
-      return hackdash.app.type === 'dashboard_form';
+
+    formDesc: function() {
+      switch(hackdash.app.type) {
+        case 'forms_project':
+          return 'Form for project ...';
+        case 'forms_item':
+          return 'List of projects under this form';
+        case 'forms_list':
+      }
+      return 'List of your forms';
     }
   },
 
   onRender: function(){
-    var self = this;
-
-    this.drawFormList();
-    // Listens 'edited' event fired in EditForm
-    // to reload the list if changes
-    hackdash.app.modals.on('form_edited', function(id){
-      // console.log('redraw form', id);
-      self.drawFormList(id);
-    });
-
-  },
-
-  drawFormList: function(id) {
-    var self = this;
-    var forms = new Forms();
-
-    forms.domain = this.model.get('domain'); //one of both will be empty
-    forms.group = this.model.get('group');
-    forms.fetch().done(function(){
-      self.formList.show(new FormList({
-        // collection: forms.getActives(),
-        collection: forms, // All forms to admin
-        openedForm: id
+    console.log('form render');
+    if(this.collection) {
+      // Render list
+      console.log('collection',this.collection);
+      this.formContent.show(new FormList({
+        collection: this.collection
       }));
-    });
-  },
-
-  editForm: function(e) {
-    var id = $(e.target).data('id');
-    var form = new Form({
-        id: id,
-        domain: this.model.get('domain'),
-        group: this.model.get('group'),
-      });
-    // console.log(id ? 'edit' : 'new', id, form);
-    if(id) {
-      form.fetch().done(function(){
-        hackdash.app.modals.show(new EditForm({
-          model: form
-        }));
-      });
-    } else {
-      hackdash.app.modals.show(new EditForm({
-        model: form
-      }));
+    } else if(this.model) {
+      // Render view
+      console.log('model',this.model);
     }
   },
+
 
 });

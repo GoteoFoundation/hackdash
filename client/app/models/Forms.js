@@ -24,15 +24,18 @@ var Forms = module.exports = BaseCollection.extend({
     else if (this.group){
       return hackdash.apiURL + '/collections/' + this.group + '/forms';
     }
-    return hackdash.apiURL + '/forms'; // Only in posts for Form.js
+    return hackdash.apiURL + '/forms'; // User forms
   },
 
   getActives: function(){
-    return new Forms(
+
+    var forms = new Forms(
       this.filter(function(forms){
         return forms.get("open");
       })
     );
+
+    return forms;
   }
 
 });
