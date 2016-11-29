@@ -64,6 +64,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     _.each(self.model.get('questions'), function(q){
         var $el = $('[name=el_' + q._id + ']', this.$el);
         var val = $el.val();
+        console.log('SAVE VAL',$el.val());
         if($el.is('input[type=checkbox]')) {
           val = $el.is(':checked');
         }

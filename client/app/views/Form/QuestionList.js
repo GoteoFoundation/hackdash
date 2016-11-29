@@ -6,6 +6,7 @@
 var Text = require('./Element/Text')
   , Email = require('./Element/Email')
   , Textarea = require('./Element/Textarea')
+  , Select = require('./Element/Select')
   , Bool = require('./Element/Boolean');
 
 var EmptyView = Backbone.Marionette.ItemView.extend({
@@ -24,6 +25,8 @@ module.exports = Backbone.Marionette.CollectionView.extend({
         return Email;
       case 'textarea':
         return Textarea;
+      case 'select':
+        return Select;
       case 'boolean':
         return Bool;
       default:

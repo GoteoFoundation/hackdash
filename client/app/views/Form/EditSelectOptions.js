@@ -1,3 +1,6 @@
+/**
+ * Optional fields for Form Editor field type 'Select'
+ */
 
 var template = require('./templates/questionOptionsSelect.hbs');
 
@@ -8,6 +11,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
     'options': 'textarea',
     'multiple': 'input[type=checkbox]',
   },
+
   templateHelpers: function() {
     var options = this.model.get('options') || {};
     return {
@@ -19,8 +23,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
       }
     };
   },
-  initialize: function() {
-  },
+
   getOptions: function() {
     var val = this.ui.options.val();
     var mult = this.ui.multiple.is(':checked');
