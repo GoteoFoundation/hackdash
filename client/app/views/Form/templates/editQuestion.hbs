@@ -21,9 +21,12 @@
     	<option value="" disabled{{typeSelected null}}>Question type (choose one)</option>
       <option value="text"{{typeSelected "text"}}>One line text</option>
     	<option value="textarea"{{typeSelected "textarea"}}>Multiline text</option>
-    	<option value="boolean"{{typeSelected "boolean"}}>Yes or no</option>
+      <option value="boolean"{{typeSelected "boolean"}}>Yes or no</option>
+    	<option value="select"{{typeSelected "select"}}>Select list</option>
     </select>
   </div>
+
+  <div class="question-options"></div>
 
   <a id="save" class="btn btn-success">Save</a>
 

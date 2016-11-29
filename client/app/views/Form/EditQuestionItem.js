@@ -17,8 +17,10 @@ module.exports = Backbone.Marionette.ItemView.extend({
 					return 'pencil';
 				case 'textarea':
 					return 'file-text-o';
-				case 'boolean':
-					return 'check-square-o';
+        case 'boolean':
+          return 'check-square-o';
+				case 'select':
+					return 'list';
 				default:
 					return 'edit';
 			}

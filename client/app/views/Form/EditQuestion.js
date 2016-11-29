@@ -4,9 +4,10 @@
  */
 
 var
-    template = require('./templates/editQuestion.hbs');
+    template = require('./templates/editQuestion.hbs')
+  , OptSelect = require('./EditSelectOptions');
 
-module.exports = Backbone.Marionette.ItemView.extend({
+module.exports = Backbone.Marionette.LayoutView.extend({
 
   className: "page-ctn form edition",
   template: template,
@@ -17,35 +18,36 @@ module.exports = Backbone.Marionette.ItemView.extend({
     'help' : 'input[name=help]'
   },
 
+  regions: {
+    optionsRegion: '.question-options'
+  },
+
   events: {
     "click #save": "save",
-    "click #delete": "delete"
+    "click #delete": "delete",
+    "change @ui.type": "changeType"
   },
 
   modelEvents: {
     "change": "render"
   },
 
-  templateHelpers: {
-    title: function() {
-      return this.current ? this.current.title : '';
-    },
-    type: function() {
-      return this.current ? this.current.type : null;
-    },
-    help: function() {
-      return this.current ? this.current.help : null;
-    },
-    typeSelected: function(type) {
-      var comp = this.current && this.current.type;
-      if(!comp) {
-        comp = '';
+  templateHelpers: function() {
+    var self = this;
+    return {
+      title: function() {
+        return this.current ? this.current.title : '';
+      },
+      type: function() {
+        return this.current ? this.current.type : null;
+      },
+      help: function() {
+        return this.current ? this.current.help : null;
+      },
+      typeSelected: function(type) {
+        return self.isType.call(this, type) ? ' selected' : '';
       }
-      if(!type) {
-        type = '';
-      }
-      return comp === type ? ' selected' : '';
-    }
+    };
   },
 
   errors: {
@@ -60,6 +62,30 @@ module.exports = Backbone.Marionette.ItemView.extend({
     }
   },
 
+  onRender: function() {
+    this.setOptions();
+  },
+
+  setOptions: function() {
+    var c = this.model.get('current') ? this.model.get('current') : {};
+    this.optionsRegion.reset();
+    this.subOptions = null;
+    if(c.type === 'select') {
+      var region = new OptSelect({
+        model: new Backbone.Model(c)
+      });
+      this.optionsRegion.show(region);
+      this.subOptions = region;
+    }
+  },
+
+  changeType: function(e) {
+    var c = this.model.get('current') ? this.model.get('current') : {};
+    c.type = $(e.target).val();
+    this.model.set({current: c});
+    this.setOptions();
+  },
+
   /**
    * Saves the question into model.questions and maintants the sub-ObjectID
    */
@@ -72,6 +98,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
       type: this.ui.type.val(),
       help: this.ui.help.val(),
     };
+    query.options = this.subOptions && this.subOptions.getOptions() || null;
     if(id) {
       toSave.questions = _.map(toSave.questions, function(q){
           if(q._id === id) {
@@ -146,4 +173,16 @@ module.exports = Backbone.Marionette.ItemView.extend({
     $(".error", this.$el).removeClass("error");
     $("span.help-inline", this.$el).remove();
   },
+
+  isType: function(type) {
+    var comp = this.current && this.current.type;
+    if(!comp) {
+      comp = '';
+    }
+    if(!type) {
+      type = '';
+    }
+    return comp === type;
+  },
+
 });
