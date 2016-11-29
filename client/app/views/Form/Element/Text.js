@@ -15,15 +15,11 @@ module.exports = Backbone.Marionette.ItemView.extend({
       return 'text';
     },
     name: function() {
-      return 'el_' + this.index;
+      return 'el_' + this._id;
     }
   },
 
-  initialize: function() {
-    // console.log('init',this.options.openedForm);
-    this.model.set({
-        index: this.options.index,
-        total: this.options.total
-      });
-  },
+  initialize: function(options) {
+    this.model.set({'value': options.response.value});
+  }
 });

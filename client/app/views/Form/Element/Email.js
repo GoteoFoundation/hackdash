@@ -13,7 +13,7 @@ module.exports = Text.extend({
         return 'email';
       },
       name: function() {
-        return 'el_' + this.index;
+        return 'el_' + this._id;
       },
       placeholder: function() {
         return 'email@example.com';

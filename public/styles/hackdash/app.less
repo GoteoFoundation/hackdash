@@ -342,6 +342,12 @@ footer {
 
   &.profile, &.forms {
 
+    .form-content {
+      .form-control {
+        text-transform: none;
+      }
+    }
+
     .header {
       background-color: @color-user;
 
@@ -386,13 +392,6 @@ footer {
         .email-info {
           float: left;
           margin: 5px 0 15px 10px;
-        }
-
-        .form-content {
-          .form-control {
-            text-transform: none;
-            border: none;
-          }
         }
 
         .form-actions {

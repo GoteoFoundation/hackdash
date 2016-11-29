@@ -13,7 +13,7 @@ module.exports = Text.extend({
 
   templateHelpers: {
     name: function() {
-      return 'el_' + this.index;
+      return 'el_' + this._id;
     }
   },
 
