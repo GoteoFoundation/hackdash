@@ -19,7 +19,8 @@
 
     <select name="type" class="form-control">
     	<option value="" disabled{{typeSelected null}}>Question type (choose one)</option>
-    	<option value="text"{{typeSelected "text"}}>One line text</option>
+      <option value="text"{{typeSelected "text"}}>One line text</option>
+    	<option value="textarea"{{typeSelected "textarea"}}>Multiline text</option>
     	<option value="boolean"{{typeSelected "boolean"}}>Yes or no</option>
     </select>
   </div>
