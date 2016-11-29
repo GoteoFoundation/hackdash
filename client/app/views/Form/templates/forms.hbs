@@ -10,6 +10,17 @@
 
   <div class="container">
 
+    {{#if showErrors}}
+      <div class="alert alert-danger" id="login-errors">
+        {{showErrors}}
+      </div>
+    {{/if}}
+
+    {{#if showMessages}}
+      <div class="alert alert-success" id="login-messages">
+        {{showMessages}}
+      </div>
+    {{/if}}
 
   	<div class="forms-content"></div>
 

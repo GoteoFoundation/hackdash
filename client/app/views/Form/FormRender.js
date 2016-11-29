@@ -5,8 +5,13 @@
 
 var
     template = require('./templates/formRender.hbs')
-  , QuestionList = require('./QuestionList');
+  , doneTemplate = require('./templates/formSent.hbs')
+  , QuestionList = require('./QuestionList')
+  ;
 
+var DoneView = Backbone.Marionette.ItemView.extend({
+  template: doneTemplate
+});
 
 module.exports = Backbone.Marionette.LayoutView.extend({
 
@@ -14,6 +19,12 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
   regions: {
     questionsList: ".questions-list",
+    formContent: ".form-content",
+    doneRegion: ".done",
+  },
+
+  ui: {
+    formContent: ".form-content",
   },
 
   events: {
@@ -29,13 +40,15 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     }
   },
 
-  modelEvents: {
-    "change": "render"
-  },
-
   onRender: function() {
     var form = this.model;
-    console.log(form);
+    if(form.get('done')) {
+      hackdash.app.project = null;
+      hackdash.app.type = 'forms_list';
+      return this.formContent.show(new DoneView({
+        model: this.model.get('project')
+      }));
+    }
     this.questionsList.show(new QuestionList({
       model: form,
       collection: form.getQuestions()
@@ -43,12 +56,12 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   sendForm: function() {
-    var model = this.model;
+    var self = this;
     var res = {
-        form: model.get('_id'),
+        form: self.model.get('_id'),
         responses: []
       };
-    _.each(model.get('questions'), function(q){
+    _.each(self.model.get('questions'), function(q){
         var $el = $('[name=el_' + q._id + ']', this.$el);
         var val = $el.val();
         if($el.is('input[type=checkbox]')) {
@@ -59,12 +72,11 @@ module.exports = Backbone.Marionette.LayoutView.extend({
           value: val
         });
       });
-    model.sendResponse(res, function(err) {
+    self.model.sendResponse(res, function(err) {
       if(err) {
-        return model.set('errors', err);
+        return self.model.set({'errors': err});
       }
-      window.hackdash.flashMessage = 'Data successfully saved!';
-      window.location = '/forms';
+      self.model.set({done:true, 'messages': 'Data successfully saved!'});
     });
   }
 });

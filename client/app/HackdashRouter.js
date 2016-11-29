@@ -325,6 +325,7 @@ module.exports = Backbone.Marionette.AppRouter.extend({
 
   showForms: function (fid, pid) {
     var app = window.hackdash.app;
+
     function showView(model, collection) {
       app.header.show(new Header());
       app.main.show(new FormView({

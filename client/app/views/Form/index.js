@@ -7,6 +7,7 @@ var
     template = require('./templates/forms.hbs')
   , FormRender = require('./FormRender')
   , FormList = require('./FormList')
+  , FormItem = require('./FormItem')
   ;
 
 module.exports = Backbone.Marionette.LayoutView.extend({
@@ -25,7 +26,16 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     "change": "render"
   },
 
-  templateHelpers: {
+  templateHelpers: function() {
+    var flashError = this.flashError;
+    var flashMessage = this.flashMessage;
+    return {
+      showErrors: function(){
+        return flashError;
+      },
+      showMessages: function(){
+        return flashMessage;
+      },
       formDesc: function() {
         switch(hackdash.app.type) {
           case 'forms_project':
@@ -36,21 +46,29 @@ module.exports = Backbone.Marionette.LayoutView.extend({
         }
         return 'List of your forms';
       }
+    };
   },
 
   initialize: function() {
-    this.model.set({'project': hackdash.app.project});
+    if(hackdash.app.project) {
+      this.model.set({'project': hackdash.app.project});
+    }
   },
 
   onRender: function(){
+    var project = hackdash.app.project;
     if(this.collection) {
       // Render list
       this.formContent.show(new FormList({
         collection: this.collection
       }));
-    } else if(this.model) {
+    } else if(this.model && project) {
       // Render view
       this.formContent.show(new FormRender({
+        model: this.model
+      }));
+    } else {
+      this.formContent.show(new FormItem({
         model: this.model
       }));
     }

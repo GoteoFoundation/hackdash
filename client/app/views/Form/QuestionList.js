@@ -18,7 +18,6 @@ module.exports = Backbone.Marionette.CollectionView.extend({
   emptyView: EmptyView,
 
   getChildView: function(item) {
-    console.log(item.get('title'), item.get('type'));
     switch(item.get('type')) {
       case 'email':
         return Email;
@@ -35,8 +34,8 @@ module.exports = Backbone.Marionette.CollectionView.extend({
     var forms = project ? project.get('forms') : [];
     var responses = _.find(forms, function(e) { return e.form === form.get('_id'); });
     responses = responses.responses ? responses.responses : [];
-    var response = _.find(responses, function(e) { console.log('E',e);return e.question === model.get('_id'); });
-    console.log('child', forms, 'responses =>', responses, model.get('_id'), 'response =>', response);
+    var response = _.find(responses, function(e) { return e.question === model.get('_id'); });
+    // console.log('child', forms, 'responses =>', responses, model.get('_id'), 'response =>', response);
     return {
       index: this.collection.indexOf(model) + 1,
       total: this.collection.length,
