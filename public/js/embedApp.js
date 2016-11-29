@@ -233,6 +233,9 @@ Handlebars.registerHelper('markdown', function(md) {
 
 Handlebars.registerHelper('formatLocation', function(loc) {
   var t = '';
+  if(!loc) {
+    return t;
+  }
   if(loc.city) {
     t += loc.city;
   }
