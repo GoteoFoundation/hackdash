@@ -1,21 +1,26 @@
-<div class="media">
-  <div class="media-body">
-    <h4 class="media-heading">{{title}}</h4>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4 class="panel-heading">{{title}}</h4>
     {{{markdown description}}}
+  </div>
+
+  <div class="panel-body">
 
     {{#if projects}}
+      <ul class="list-group">
       {{#each projects}}
-      <div class="media">
-        <div class="media-left">
-          <a href="/forms/{{../_id}}/{{_id}}">
-            <img class="media-object" style="max-height: 100px;max-width: 100px" src="{{cover}}" alt="Project cover">
-          </a>
-        </div>
-        <div class="media-body">
-          <h4 class="media-heading">{{title}}</h4>
-        </div>
-      </div>
+        <li class="list-group-item">
+          <img class="media-object" style="max-height: 50px;max-width: 50px;display:inline-block" src="{{cover}}" alt="Project cover">
+            {{title}}
+          {{#if ../open}}
+            <a href="/forms/{{../../_id}}/{{_id}}" class="btn btn-info pull-right">Reply this form</a>
+          {{else}}
+            <span class="badge">Closed</span>
+          {{/if}}
+          <div class="clearfix"></div>
+        </li>
       {{/each}}
+      </ul>
     {{/if}}
 
   </div>

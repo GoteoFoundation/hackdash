@@ -33,7 +33,8 @@ module.exports = Backbone.Marionette.CollectionView.extend({
     var form = this.model;
     var forms = project ? project.get('forms') : [];
     var responses = _.find(forms, function(e) { return e.form === form.get('_id'); });
-    responses = responses.responses ? responses.responses : [];
+
+    responses = responses && responses.responses ? responses.responses : [];
     var response = _.find(responses, function(e) { return e.question === model.get('_id'); });
     // console.log('child', forms, 'responses =>', responses, model.get('_id'), 'response =>', response);
     return {

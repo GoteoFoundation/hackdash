@@ -21,6 +21,13 @@ module.exports = Backbone.Model.extend({
     //   }));
   },
 
+  getMyProjects: function() {
+    var projects = this.get('projects') || [];
+    return _.filter(projects, function(p) {
+      return p.leader._id === hackdash.user._id;
+    });
+  },
+
   sendResponse: function(res, callback) {
     if(typeof callback !== 'function') {
       callback = function(){};

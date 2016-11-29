@@ -20,6 +20,8 @@ module.exports = Backbone.Marionette.ItemView.extend({
   },
 
   initialize: function(options) {
-    this.model.set({'value': options.response.value});
+    if(options.response) {
+      this.model.set({'value': options.response.value});
+    }
   }
 });

@@ -12,7 +12,6 @@ var EmptyView = Backbone.Marionette.ItemView.extend({
 module.exports = Backbone.Marionette.CollectionView.extend({
 
   tagName: 'div',
-  className: 'panel-group',
 
   childView: FormItem,
 

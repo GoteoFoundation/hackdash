@@ -1118,6 +1118,13 @@ module.exports = Backbone.Model.extend({
     //   }));
   },
 
+  getMyProjects: function() {
+    var projects = this.get('projects') || [];
+    return _.filter(projects, function(p) {
+      return p.leader._id === hackdash.user._id;
+    });
+  },
+
   sendResponse: function(res, callback) {
     if(typeof callback !== 'function') {
       callback = function(){};
@@ -3772,7 +3779,9 @@ module.exports = Backbone.Marionette.ItemView.extend({
   },
 
   initialize: function(options) {
-    this.model.set({'value': options.response.value});
+    if(options.response) {
+      this.model.set({'value': options.response.value});
+    }
   }
 });
 
@@ -3845,6 +3854,9 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     "change": "render"
   },
 
+  initialize: function() {
+    this.model.set({projects: this.model.getMyProjects()});
+  }
 });
 
 },{"./templates/formItem.hbs":66}],57:[function(require,module,exports){
@@ -3862,7 +3874,6 @@ var EmptyView = Backbone.Marionette.ItemView.extend({
 module.exports = Backbone.Marionette.CollectionView.extend({
 
   tagName: 'div',
-  className: 'panel-group',
 
   childView: FormItem,
 
@@ -3990,7 +4001,8 @@ module.exports = Backbone.Marionette.CollectionView.extend({
     var form = this.model;
     var forms = project ? project.get('forms') : [];
     var responses = _.find(forms, function(e) { return e.form === form.get('_id'); });
-    responses = responses.responses ? responses.responses : [];
+
+    responses = responses && responses.responses ? responses.responses : [];
     var response = _.find(responses, function(e) { return e.question === model.get('_id'); });
     // console.log('child', forms, 'responses =>', responses, model.get('_id'), 'response =>', response);
     return {
@@ -4222,28 +4234,35 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partials,data,depths) {
-  var stack1, buffer = "";
+  var stack1, buffer = "      <ul class=\"list-group\">\n";
   stack1 = helpers.each.call(depth0, (depth0 != null ? depth0.projects : depth0), {"name":"each","hash":{},"fn":this.program(2, data, depths),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
-  return buffer;
+  return buffer + "      </ul>\n";
 },"2":function(depth0,helpers,partials,data,depths) {
+  var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "        <li class=\"list-group-item\">\n          <img class=\"media-object\" style=\"max-height: 50px;max-width: 50px;display:inline-block\" src=\""
+    + escapeExpression(((helper = (helper = helpers.cover || (depth0 != null ? depth0.cover : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"cover","hash":{},"data":data}) : helper)))
+    + "\" alt=\"Project cover\">\n            "
+    + escapeExpression(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"title","hash":{},"data":data}) : helper)))
+    + "\n";
+  stack1 = helpers['if'].call(depth0, (depths[1] != null ? depths[1].open : depths[1]), {"name":"if","hash":{},"fn":this.program(3, data, depths),"inverse":this.program(5, data, depths),"data":data});
+  if (stack1 != null) { buffer += stack1; }
+  return buffer + "          <div class=\"clearfix\"></div>\n        </li>\n";
+},"3":function(depth0,helpers,partials,data,depths) {
   var helper, lambda=this.lambda, escapeExpression=this.escapeExpression, functionType="function", helperMissing=helpers.helperMissing;
-  return "      <div class=\"media\">\n        <div class=\"media-left\">\n          <a href=\"/forms/"
-    + escapeExpression(lambda((depths[1] != null ? depths[1]._id : depths[1]), depth0))
+  return "            <a href=\"/forms/"
+    + escapeExpression(lambda((depths[2] != null ? depths[2]._id : depths[2]), depth0))
     + "/"
     + escapeExpression(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"_id","hash":{},"data":data}) : helper)))
-    + "\">\n            <img class=\"media-object\" style=\"max-height: 100px;max-width: 100px\" src=\""
-    + escapeExpression(((helper = (helper = helpers.cover || (depth0 != null ? depth0.cover : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"cover","hash":{},"data":data}) : helper)))
-    + "\" alt=\"Project cover\">\n          </a>\n        </div>\n        <div class=\"media-body\">\n          <h4 class=\"media-heading\">"
-    + escapeExpression(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"title","hash":{},"data":data}) : helper)))
-    + "</h4>\n        </div>\n      </div>\n";
-},"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data,depths) {
-  var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "<div class=\"media\">\n  <div class=\"media-body\">\n    <h4 class=\"media-heading\">"
+    + "\" class=\"btn btn-info pull-right\">Reply this form</a>\n";
+},"5":function(depth0,helpers,partials,data) {
+  return "            <span class=\"badge\">Closed</span>\n";
+  },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data,depths) {
+  var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "<div class=\"panel panel-default\">\n  <div class=\"panel-heading\">\n    <h4 class=\"panel-heading\">"
     + escapeExpression(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"title","hash":{},"data":data}) : helper)))
     + "</h4>\n    ";
   stack1 = ((helpers.markdown || (depth0 && depth0.markdown) || helperMissing).call(depth0, (depth0 != null ? depth0.description : depth0), {"name":"markdown","hash":{},"data":data}));
   if (stack1 != null) { buffer += stack1; }
-  buffer += "\n\n";
+  buffer += "\n  </div>\n\n  <div class=\"panel-body\">\n\n";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.projects : depth0), {"name":"if","hash":{},"fn":this.program(1, data, depths),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
   return buffer + "\n  </div>\n</div>\n";

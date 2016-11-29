@@ -21,4 +21,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     "change": "render"
   },
 
+  initialize: function() {
+    this.model.set({projects: this.model.getMyProjects()});
+  }
 });
