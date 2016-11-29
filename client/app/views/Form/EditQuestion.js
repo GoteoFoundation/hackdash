@@ -13,7 +13,8 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
   ui: {
     'title' : 'input[name=title]',
-    'type' : 'select[name=type]'
+    'type' : 'select[name=type]',
+    'help' : 'input[name=help]'
   },
 
   events: {
@@ -31,6 +32,9 @@ module.exports = Backbone.Marionette.ItemView.extend({
     },
     type: function() {
       return this.current ? this.current.type : null;
+    },
+    help: function() {
+      return this.current ? this.current.help : null;
     },
     typeSelected: function(type) {
       var comp = this.current && this.current.type;
@@ -66,6 +70,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
     var query = {
       title: this.ui.title.val(),
       type: this.ui.type.val(),
+      help: this.ui.help.val(),
     };
     if(id) {
       toSave.questions = _.map(toSave.questions, function(q){

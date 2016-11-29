@@ -3477,7 +3477,8 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
   ui: {
     'title' : 'input[name=title]',
-    'type' : 'select[name=type]'
+    'type' : 'select[name=type]',
+    'help' : 'input[name=help]'
   },
 
   events: {
@@ -3495,6 +3496,9 @@ module.exports = Backbone.Marionette.ItemView.extend({
     },
     type: function() {
       return this.current ? this.current.type : null;
+    },
+    help: function() {
+      return this.current ? this.current.help : null;
     },
     typeSelected: function(type) {
       var comp = this.current && this.current.type;
@@ -3530,6 +3534,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
     var query = {
       title: this.ui.title.val(),
       type: this.ui.type.val(),
+      help: this.ui.help.val(),
     };
     if(id) {
       toSave.questions = _.map(toSave.questions, function(q){
@@ -3811,6 +3816,11 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
   return " placeholder=\""
     + escapeExpression(((helper = (helper = helpers.placeholder || (depth0 != null ? depth0.placeholder : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"placeholder","hash":{},"data":data}) : helper)))
     + "\"";
+},"3":function(depth0,helpers,partials,data) {
+  var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+  return "    <p class=\"help-block\">"
+    + escapeExpression(((helper = (helper = helpers.help || (depth0 != null ? depth0.help : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"help","hash":{},"data":data}) : helper)))
+    + "</p>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "<div class=\"form-group\">\n  <label for=\"q-"
     + escapeExpression(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"_id","hash":{},"data":data}) : helper)))
@@ -3827,7 +3837,10 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
     + "\"";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.placeholder : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
-  return buffer + ">\n</div>\n";
+  buffer += ">\n";
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.help : depth0), {"name":"if","hash":{},"fn":this.program(3, data),"inverse":this.noop,"data":data});
+  if (stack1 != null) { buffer += stack1; }
+  return buffer + "</div>\n";
 },"useData":true});
 
 },{"hbsfy/runtime":134}],56:[function(require,module,exports){
@@ -4205,9 +4218,11 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
   var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "<div class=\"modal-header\">\n  <button type=\"button\" class=\"close\" data-dismiss=\"modal\">\n    <i class=\"fa fa-close\"></i>\n  </button>\n  <h2 class=\"modal-title\">";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0._id : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.program(3, data),"data":data});
   if (stack1 != null) { buffer += stack1; }
-  return buffer + "</h2>\n</div>\n\n<div class=\"modal-body\">\n\n<div class=\"form-content\">\n\n  <div class=\"form-group\">\n    <input type=\"text\" class=\"form-control\" name=\"title\" id=\"newQuestion\" placeholder=\"Question to respond\" value=\""
+  return buffer + "</h2>\n</div>\n\n<div class=\"modal-body\">\n\n<div class=\"form-content\">\n\n  <div class=\"form-group\">\n    <input type=\"text\" class=\"form-control\" name=\"title\" placeholder=\"Question to respond\" value=\""
     + escapeExpression(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"title","hash":{},"data":data}) : helper)))
-    + "\">\n  </div>\n  <div class=\"form-group\">\n\n    <select name=\"type\" class=\"form-control\" id=\"newQuestionType\">\n    	<option value=\"\" disabled"
+    + "\">\n  </div>\n  <div class=\"form-group\">\n    <input type=\"text\" class=\"form-control\" name=\"help\" placeholder=\"Help text (if any)\" value=\""
+    + escapeExpression(((helper = (helper = helpers.help || (depth0 != null ? depth0.help : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"help","hash":{},"data":data}) : helper)))
+    + "\">\n  </div>\n  <div class=\"form-group\">\n\n    <select name=\"type\" class=\"form-control\">\n    	<option value=\"\" disabled"
     + escapeExpression(((helpers.typeSelected || (depth0 && depth0.typeSelected) || helperMissing).call(depth0, (depth0 != null ? depth0.null : depth0), {"name":"typeSelected","hash":{},"data":data})))
     + ">Question type (choose one)</option>\n    	<option value=\"text\""
     + escapeExpression(((helpers.typeSelected || (depth0 && depth0.typeSelected) || helperMissing).call(depth0, "text", {"name":"typeSelected","hash":{},"data":data})))
@@ -4285,6 +4300,9 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
   var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "<h3>"
     + escapeExpression(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"title","hash":{},"data":data}) : helper)))
     + "</h3>\n\n";
+  stack1 = ((helpers.markdown || (depth0 && depth0.markdown) || helperMissing).call(depth0, (depth0 != null ? depth0.description : depth0), {"name":"markdown","hash":{},"data":data}));
+  if (stack1 != null) { buffer += stack1; }
+  buffer += "\n\n";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.showErrors : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
   buffer += "\n";

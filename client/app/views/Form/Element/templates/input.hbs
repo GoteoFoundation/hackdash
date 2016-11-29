@@ -1,4 +1,7 @@
 <div class="form-group">
   <label for="q-{{_id}}">{{title}}</label>
   <input type="{{type}}" name="{{name}}" class="form-control" value="{{value}}" id="q-{{_id}}"{{#if placeholder}} placeholder="{{placeholder}}"{{/if}}>
+  {{#if help}}
+    <p class="help-block">{{help}}</p>
+  {{/if}}
 </div>
