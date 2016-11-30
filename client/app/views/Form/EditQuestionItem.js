@@ -16,15 +16,17 @@ module.exports = Backbone.Marionette.ItemView.extend({
 				case 'text':
 					return 'pencil';
 				case 'textarea':
-					return 'file-text-o';
+					return 'align-left';
         case 'boolean':
           return 'check-square-o';
         case 'select':
           return 'list';
         case 'range':
           return 'sliders';
-				case 'geocoder':
-					return 'globe';
+        case 'geocoder':
+          return 'globe';
+				case 'file':
+					return 'file-o';
 				default:
 					return 'edit';
 			}
