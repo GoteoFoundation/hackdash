@@ -11,10 +11,19 @@ module.exports = Text.extend({
 
   template: template,
 
-  templateHelpers: {
-    name: function() {
-      return 'el_' + this._id;
-    }
+  templateHelpers: function() {
+    var self = this;
+    return {
+      name: function() {
+        return 'el_' + self._id;
+      },
+      // background: function() {
+      //   if(self.file.type.indexOf('image') === 0) {
+      //     return self.file.url;
+      //   }
+      //   return null;
+      // }
+    };
   },
 
   ui: {
@@ -29,11 +38,14 @@ module.exports = Text.extend({
     this.maxSize = 8;
     this.formId = this.form ? this.form.get('_id') : null;
     this.projectId = this.project ? this.project.get('_id') : null;
-    this.uploadURL = hackdash.apiURL + '/forms/upload/' + this.formId + '/' + this.projectId + '/' + this.model.get('_id');
-    this.imagesOnly = this.model.get('options') && this.model.get('options').images;
     if(this.imagesOnly) {
       this.text = 'Drop Image here';
       this.invalidText = 'Only jpg, png and gif are allowed';
+    }
+    if(this.model) {
+      this.imagesOnly = this.model.get('options') && this.model.get('options').images;
+      this.file = this.model.get('value');
+      this.uploadURL = hackdash.apiURL + '/forms/upload/' + this.formId + '/' + this.projectId + '/' + this.model.get('_id');
     }
     this.initImageDrop();
   },
@@ -57,10 +69,27 @@ module.exports = Text.extend({
       acceptedFiles: self.acceptedFiles().join(','),
       uploadMultiple: false,
       clickable: true,
+      addRemoveLinks: true,
       dictDefaultMessage: self.text,
       dictFileTooBig: 'File is too big, ' + self.maxSize + ' Mb is the max',
       dictInvalidFileType: self.invalidText
     });
+
+    // Create the mock file:
+    if(self.file) {
+      var mockFile = { name: self.file.name, size: self.file.size, accepted: true };
+      // Call the default addedfile event handler
+      zone.files.push(mockFile);
+      zone.emit("addedfile", mockFile);
+
+      // And optionally show the thumbnail of the file:
+      if(self.file.type.indexOf('image') === 0) {
+        zone.emit("thumbnail", mockFile, self.file.path);
+      }
+      // zone.emit("maxfilesreached", mockFile);
+      zone.emit("complete", mockFile);
+    }
+
 
     zone.on("error", function(file, message) {
       self.ui.errorFile.removeClass('hidden').text(message);
@@ -74,12 +103,13 @@ module.exports = Text.extend({
 
       self.ui.errorFile.addClass('hidden').text('');
 
-      var url = JSON.parse(file.xhr.response).href;
+      // var url = JSON.parse(file.xhr.response).href;
 
-      zone.removeFile(file);
-
-      $dragdrop
-        .css('background-image', 'url(' + url + ')');
+      // if(self.file.type.indexOf('image') === 0) {
+      //   zone.removeFile(file);
+      //   $dragdrop
+      //     .css('background-image', 'url(' + url + ')');
+      // }
 
       $('.dz-message span', $dragdrop).css('opacity', '0.6');
 

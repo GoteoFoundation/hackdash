@@ -4003,10 +4003,19 @@ module.exports = Text.extend({
 
   template: template,
 
-  templateHelpers: {
-    name: function() {
-      return 'el_' + this._id;
-    }
+  templateHelpers: function() {
+    var self = this;
+    return {
+      name: function() {
+        return 'el_' + self._id;
+      },
+      // background: function() {
+      //   if(self.file.type.indexOf('image') === 0) {
+      //     return self.file.url;
+      //   }
+      //   return null;
+      // }
+    };
   },
 
   ui: {
@@ -4021,11 +4030,14 @@ module.exports = Text.extend({
     this.maxSize = 8;
     this.formId = this.form ? this.form.get('_id') : null;
     this.projectId = this.project ? this.project.get('_id') : null;
-    this.uploadURL = hackdash.apiURL + '/forms/upload/' + this.formId + '/' + this.projectId + '/' + this.model.get('_id');
-    this.imagesOnly = this.model.get('options') && this.model.get('options').images;
     if(this.imagesOnly) {
       this.text = 'Drop Image here';
       this.invalidText = 'Only jpg, png and gif are allowed';
+    }
+    if(this.model) {
+      this.imagesOnly = this.model.get('options') && this.model.get('options').images;
+      this.file = this.model.get('value');
+      this.uploadURL = hackdash.apiURL + '/forms/upload/' + this.formId + '/' + this.projectId + '/' + this.model.get('_id');
     }
     this.initImageDrop();
   },
@@ -4049,10 +4061,27 @@ module.exports = Text.extend({
       acceptedFiles: self.acceptedFiles().join(','),
       uploadMultiple: false,
       clickable: true,
+      addRemoveLinks: true,
       dictDefaultMessage: self.text,
       dictFileTooBig: 'File is too big, ' + self.maxSize + ' Mb is the max',
       dictInvalidFileType: self.invalidText
     });
+
+    // Create the mock file:
+    if(self.file) {
+      var mockFile = { name: self.file.name, size: self.file.size, accepted: true };
+      // Call the default addedfile event handler
+      zone.files.push(mockFile);
+      zone.emit("addedfile", mockFile);
+
+      // And optionally show the thumbnail of the file:
+      if(self.file.type.indexOf('image') === 0) {
+        zone.emit("thumbnail", mockFile, self.file.path);
+      }
+      // zone.emit("maxfilesreached", mockFile);
+      zone.emit("complete", mockFile);
+    }
+
 
     zone.on("error", function(file, message) {
       self.ui.errorFile.removeClass('hidden').text(message);
@@ -4066,12 +4095,13 @@ module.exports = Text.extend({
 
       self.ui.errorFile.addClass('hidden').text('');
 
-      var url = JSON.parse(file.xhr.response).href;
+      // var url = JSON.parse(file.xhr.response).href;
 
-      zone.removeFile(file);
-
-      $dragdrop
-        .css('background-image', 'url(' + url + ')');
+      // if(self.file.type.indexOf('image') === 0) {
+      //   zone.removeFile(file);
+      //   $dragdrop
+      //     .css('background-image', 'url(' + url + ')');
+      // }
 
       $('.dz-message span', $dragdrop).css('opacity', '0.6');
 
@@ -4422,7 +4452,7 @@ var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partials,data) {
   var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
   return "    style=\"background-image: url("
-    + escapeExpression(((helper = (helper = helpers.value || (depth0 != null ? depth0.value : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"value","hash":{},"data":data}) : helper)))
+    + escapeExpression(((helper = (helper = helpers.background || (depth0 != null ? depth0.background : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"background","hash":{},"data":data}) : helper)))
     + ");\"\n    ";
 },"3":function(depth0,helpers,partials,data) {
   var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
@@ -4434,8 +4464,8 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
     + escapeExpression(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"_id","hash":{},"data":data}) : helper)))
     + "\">"
     + escapeExpression(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"title","hash":{},"data":data}) : helper)))
-    + "</label>\n\n\n  <div class=\"dropzone item-file\"\n";
-  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.value : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
+    + "</label>\n\n  <div class=\"dropzone item-file\"\n";
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.background : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
   buffer += ">\n  </div>\n  <p class=\"error-file bg-danger text-danger hidden\"></p>\n\n";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.help : depth0), {"name":"if","hash":{},"fn":this.program(3, data),"inverse":this.noop,"data":data});

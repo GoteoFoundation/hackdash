@@ -1,11 +1,9 @@
 <div class="form-group">
   <label for="q-{{_id}}">{{title}}</label>
 
-  {{!-- <input type="file" name="{{name}}" value="{{value}}" id="q-{{_id}}"> --}}
-
   <div class="dropzone item-file"
-    {{#if value}}
-    style="background-image: url({{value}});"
+    {{#if background}}
+    style="background-image: url({{background}});"
     {{/if}}>
   </div>
   <p class="error-file bg-danger text-danger hidden"></p>
