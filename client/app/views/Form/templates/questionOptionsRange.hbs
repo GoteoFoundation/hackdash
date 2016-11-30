@@ -1,0 +1,20 @@
+<p>This is numeric field using a slider to change values</p>
+
+<div class="form-inline">
+<div class="form-group" style="width:40%">
+  <label>Min</label>
+  <input type="number" class="form-control" style="width: 100px" name="min" value="{{min}}">
+</div>
+<div class="form-group" style="width:40%">
+  <label>Max</label>
+  <input type="number" class="form-control" style="width: 100px" name="max" value="{{max}}">
+</div>
+</div>
+
+<p class="text-danger" style="margin-top: 10px">Or add discrete values (then the <b>min/max</b> values are ignored). First line is <b>0</b>, second <b>1</b>, etc:</p>
+
+<div class="form-group">
+  <label>Add one option per line (make it short!)</label>
+  <textarea class="form-control" name="options">{{options}}</textarea>
+</div>
+

@@ -19,8 +19,10 @@ module.exports = Backbone.Marionette.ItemView.extend({
 					return 'file-text-o';
         case 'boolean':
           return 'check-square-o';
-				case 'select':
-					return 'list';
+        case 'select':
+          return 'list';
+				case 'range':
+					return 'ellipsis-h';
 				default:
 					return 'edit';
 			}

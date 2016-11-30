@@ -5,7 +5,8 @@
 
 var
     template = require('./templates/editQuestion.hbs')
-  , OptSelect = require('./EditSelectOptions');
+  , OptSelect = require('./EditSelectOptions')
+  , OptRange = require('./EditRangeOptions');
 
 module.exports = Backbone.Marionette.LayoutView.extend({
 
@@ -70,10 +71,14 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     var c = this.model.get('current') ? this.model.get('current') : {};
     this.optionsRegion.reset();
     this.subOptions = null;
+    var region = null;
     if(c.type === 'select') {
-      var region = new OptSelect({
-        model: new Backbone.Model(c)
-      });
+      region = new OptSelect({ model: new Backbone.Model(c) });
+    }
+    if(c.type === 'range') {
+      region = new OptRange({ model: new Backbone.Model(c) });
+    }
+    if(region) {
       this.optionsRegion.show(region);
       this.subOptions = region;
     }
