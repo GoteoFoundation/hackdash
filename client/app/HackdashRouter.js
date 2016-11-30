@@ -403,7 +403,9 @@ module.exports = Backbone.Marionette.AppRouter.extend({
   },
 
   canEditDashboard: function(user, dash) {
-    return user && dash && dash.owner && user._id === dash.owner._id;
+    var owner = user && dash && dash.owner && user._id === dash.owner._id;
+    var admin = user && dash && _.indexOf(user.admin_in, dash.domain) > -1;
+    return owner || admin;
   },
 
   canEditCollection: function(user, col) {

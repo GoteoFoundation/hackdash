@@ -79,9 +79,11 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     }
   },
 
-  changeType: function(e) {
+  changeType: function() {
     var c = this.model.get('current') ? this.model.get('current') : {};
-    c.type = $(e.target).val();
+    c.type = this.ui.type.val();
+    c.title = this.ui.title.val();
+    c.help = this.ui.help.val();
     this.model.set({current: c});
     this.setOptions();
   },
