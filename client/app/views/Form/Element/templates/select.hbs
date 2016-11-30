@@ -1,7 +1,7 @@
 <div class="form-group">
   <label for="q-{{_id}}">{{title}}</label>
 
-  <select name="{{name}}" class="form-control"{{#if multiple}} multiple{{/if}} id="q-{{_id}}">
+  <select name="{{name}}" class="form-control" style="width: 100%" {{#if multiple}} multiple{{/if}} id="q-{{_id}}">
   {{#each values}}
     <option{{../selected this}}>{{this}}</option>
   {{/each}}

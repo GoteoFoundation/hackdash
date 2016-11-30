@@ -38,7 +38,10 @@ module.exports = Text.extend({
   },
 
   onRender: function() {
-    this.ui.select.select2();
+    this.ui.select.select2({
+      // theme: "bootstrap",
+      minimumResultsForSearch: 10
+    });
   }
 
 });

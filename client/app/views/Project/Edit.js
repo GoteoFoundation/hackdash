@@ -19,7 +19,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
     "description": "textarea[name=description]",
     "whatif": "textarea[name=whatif]",
     "link": "input[name=link]",
-    "tags": "input[name=tags]",
+    "tags": "select[name=tags]",
     "status": "select[name=status]",
     "errorCover": ".error-cover"
   },
@@ -33,10 +33,9 @@ module.exports = Backbone.Marionette.ItemView.extend({
   },
 
   templateHelpers: {
-    getTags: function(){
-      if (this.tags){
-        return this.tags.join(',');
-      }
+    selected: function(val) {
+      console.log(this.tags, val);
+      return this.tags && _.indexOf(this.tags, val) > -1 ? ' selected' : '';
     },
     statuses: function(){
       return window.hackdash.statuses;
@@ -111,7 +110,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
       description: this.ui.description.val(),
       whatif: this.ui.whatif.val(),
       link: this.ui.link.val(),
-      tags: this.ui.tags.val().split(','),
+      tags: this.ui.tags.val(),
       status: this.ui.status.val(),
       cover: this.model.get('cover')
     };
@@ -175,6 +174,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
     }
 
     this.ui.status.select2({
+      // theme: 'bootstrap',
       minimumResultsForSearch: 10
     });
 
@@ -182,9 +182,10 @@ module.exports = Backbone.Marionette.ItemView.extend({
     $('a.select2-choice').attr('href', null);
 
     this.ui.tags.select2({
-      tags:[],
-      formatNoMatches: function(){ return ''; },
-      maximumInputLength: 20,
+      tags: true,
+      // tags:[],
+      // formatNoMatches: function(){ return ''; },
+      // maximumInputLength: 20,
       tokenSeparators: [","]
     });
   },

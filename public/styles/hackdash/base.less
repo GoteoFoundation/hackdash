@@ -157,6 +157,14 @@ h6 { font-size: @fsize-12; }
   height: 44px;
 }
 
+.form-content {
+  .form-control {
+    text-transform: none;
+    font-family: @primary-font;
+    font-size: @fsize-14;
+  }
+}
+
 .my-profile {
   margin: 10px 0;
   float: right;
@@ -472,25 +480,29 @@ h6 { font-size: @fsize-12; }
   }
 }
 
-.select2-search-field {
-  background: inherit;
+.select2-search {
+  width: auto;
+  background: inherit !important;
 }
+// .select2-search-field {
+//   background: inherit;
+// }
 
-.select2-choices {
-  background: none;
-}
+// .select2-choices {
+//   background: none;
+// }
 
-.select2-search-field,
-.select2-input .select2-default {
-  .form-control;
+// .select2-search-field,
+// .select2-input .select2-default {
+//   .form-control;
 
-  label {
-    .form-control;
-    font-size: @fsize-15!important;
-  }
+//   label {
+//     .form-control;
+//     font-size: @fsize-15!important;
+//   }
 
-  font-size: @fsize-15!important;
-}
+//   font-size: @fsize-15!important;
+// }
 
 a.login {
   cursor: pointer;

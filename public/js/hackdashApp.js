@@ -3908,7 +3908,10 @@ module.exports = Text.extend({
   },
 
   onRender: function() {
-    this.ui.select.select2();
+    this.ui.select.select2({
+      // theme: "bootstrap",
+      minimumResultsForSearch: 10
+    });
   }
 
 });
@@ -4041,7 +4044,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
     + escapeExpression(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"title","hash":{},"data":data}) : helper)))
     + "</label>\n\n  <select name=\""
     + escapeExpression(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"name","hash":{},"data":data}) : helper)))
-    + "\" class=\"form-control\"";
+    + "\" class=\"form-control\" style=\"width: 100%\" ";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.multiple : depth0), {"name":"if","hash":{},"fn":this.program(1, data, depths),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
   buffer += " id=\"q-"
@@ -7514,7 +7517,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
     "description": "textarea[name=description]",
     "whatif": "textarea[name=whatif]",
     "link": "input[name=link]",
-    "tags": "input[name=tags]",
+    "tags": "select[name=tags]",
     "status": "select[name=status]",
     "errorCover": ".error-cover"
   },
@@ -7528,10 +7531,9 @@ module.exports = Backbone.Marionette.ItemView.extend({
   },
 
   templateHelpers: {
-    getTags: function(){
-      if (this.tags){
-        return this.tags.join(',');
-      }
+    selected: function(val) {
+      console.log(this.tags, val);
+      return this.tags && _.indexOf(this.tags, val) > -1 ? ' selected' : '';
     },
     statuses: function(){
       return window.hackdash.statuses;
@@ -7606,7 +7608,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
       description: this.ui.description.val(),
       whatif: this.ui.whatif.val(),
       link: this.ui.link.val(),
-      tags: this.ui.tags.val().split(','),
+      tags: this.ui.tags.val(),
       status: this.ui.status.val(),
       cover: this.model.get('cover')
     };
@@ -7670,6 +7672,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
     }
 
     this.ui.status.select2({
+      // theme: 'bootstrap',
       minimumResultsForSearch: 10
     });
 
@@ -7677,9 +7680,10 @@ module.exports = Backbone.Marionette.ItemView.extend({
     $('a.select2-choice').attr('href', null);
 
     this.ui.tags.select2({
-      tags:[],
-      formatNoMatches: function(){ return ''; },
-      maximumInputLength: 20,
+      tags: true,
+      // tags:[],
+      // formatNoMatches: function(){ return ''; },
+      // maximumInputLength: 20,
       tokenSeparators: [","]
     });
   },
@@ -7738,6 +7742,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
   }
 
 });
+
 },{"./templates/edit.hbs":123}],120:[function(require,module,exports){
 /**
  * VIEW: Full Project view
@@ -8163,11 +8168,16 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
     + escapeExpression(((helper = (helper = helpers.cover || (depth0 != null ? depth0.cover : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"cover","hash":{},"data":data}) : helper)))
     + ");\"\n          ";
 },"7":function(depth0,helpers,partials,data) {
+  var lambda=this.lambda, escapeExpression=this.escapeExpression;
+  return "          <option selected>"
+    + escapeExpression(lambda(depth0, depth0))
+    + "</option>\n";
+},"9":function(depth0,helpers,partials,data) {
   var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
   return "          href=\"/projects/"
     + escapeExpression(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"_id","hash":{},"data":data}) : helper)))
     + "\"\n";
-},"9":function(depth0,helpers,partials,data) {
+},"11":function(depth0,helpers,partials,data) {
   var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
   return "          href=\"/dashboards/"
     + escapeExpression(((helper = (helper = helpers.domain || (depth0 != null ? depth0.domain : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"domain","hash":{},"data":data}) : helper)))
@@ -8196,12 +8206,13 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
     + escapeExpression(((helper = (helper = helpers.description || (depth0 != null ? depth0.description : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"description","hash":{},"data":data}) : helper)))
     + "</textarea>\n      </div>\n      <div class=\"whatif\">\n        <textarea id=\"whatif\" name=\"whatif\" placeholder=\"[What if as a <type of user>]\n      [I could <specific action>]\n      [with <open content / tool>]\n      [so <benefit / goal>]\">"
     + escapeExpression(((helper = (helper = helpers.whatif || (depth0 != null ? depth0.whatif : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"whatif","hash":{},"data":data}) : helper)))
-    + "</textarea>\n      </div>\n      <div class=\"tags\">\n        <input id=\"tags\" type=\"text\" name=\"tags\" placeholder=\"Tags ( comma separated values )\" class=\"form-control\" value=\""
-    + escapeExpression(((helper = (helper = helpers.getTags || (depth0 != null ? depth0.getTags : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"getTags","hash":{},"data":data}) : helper)))
-    + "\"/>\n      </div>\n      <div class=\"link\">\n        <input id=\"link\" type=\"text\" name=\"link\" placeholder=\"Project URL Demo\" class=\"form-control\" value=\""
+    + "</textarea>\n      </div>\n      <div class=\"tags\">\n        <select id=\"tags\" name=\"tags\" multiple placeholder=\"Tags ( comma separated values )\" class=\"form-control\">\n";
+  stack1 = helpers.each.call(depth0, (depth0 != null ? depth0.tags : depth0), {"name":"each","hash":{},"fn":this.program(7, data),"inverse":this.noop,"data":data});
+  if (stack1 != null) { buffer += stack1; }
+  buffer += "        </select>\n      </div>\n      <div class=\"link\">\n        <input id=\"link\" type=\"text\" name=\"link\" placeholder=\"Project URL Demo\" class=\"form-control\" value=\""
     + escapeExpression(((helper = (helper = helpers.link || (depth0 != null ? depth0.link : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"link","hash":{},"data":data}) : helper)))
     + "\"/>\n      </div>\n    </div>\n\n    <div class=\"col-md-8 buttons-panel\">\n\n      <div class=\"pull-right save\">\n        <a id=\"save\" class=\"btn btn-success\">Save</a>\n      </div>\n\n      <div class=\"pull-right cancel\">\n        <a id=\"cancel\" class=\"btn btn-danger\"\n";
-  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0._id : depth0), {"name":"if","hash":{},"fn":this.program(7, data),"inverse":this.program(9, data),"data":data});
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0._id : depth0), {"name":"if","hash":{},"fn":this.program(9, data),"inverse":this.program(11, data),"data":data});
   if (stack1 != null) { buffer += stack1; }
   return buffer + "        >Cancel</a>\n      </div>\n\n    </div>\n\n  </div>\n\n</div>\n";
 },"useData":true});

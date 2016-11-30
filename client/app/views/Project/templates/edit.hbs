@@ -75,7 +75,11 @@
       [so <benefit / goal>]">{{whatif}}</textarea>
       </div>
       <div class="tags">
-        <input id="tags" type="text" name="tags" placeholder="Tags ( comma separated values )" class="form-control" value="{{getTags}}"/>
+        <select id="tags" name="tags" multiple placeholder="Tags ( comma separated values )" class="form-control">
+        {{#each tags}}
+          <option selected>{{this}}</option>
+        {{/each}}
+        </select>
       </div>
       <div class="link">
         <input id="link" type="text" name="link" placeholder="Project URL Demo" class="form-control" value="{{link}}"/>
