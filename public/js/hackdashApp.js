@@ -3313,7 +3313,8 @@ var
     template = require('./templates/editFormItem.hbs')
   , Form = require('./../../models/Form')
   , EditQuestion = require('./EditQuestion')
-  , QuestionList = require('./EditQuestionList');
+  , QuestionList = require('./EditQuestionList')
+  , FormRender = require('./FormRender');
 
 module.exports = Backbone.Marionette.LayoutView.extend({
 
@@ -3325,6 +3326,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
   events: {
     'click .new-question': 'editQuestion',
+    'click .preview-form': 'previewForm',
     'click .edit-question': 'editQuestion',
     "click .public-btn": 'onClickSwitcher'
   },
@@ -3376,6 +3378,25 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       model: form,
       collection: form.getQuestions()
     }));
+  },
+
+  previewForm: function() {
+    var form = new Form({
+      id: this.model.get('_id'),
+      domain: this.model.get('domain'),
+      group: this.model.get('group'),
+      questions: this.model.get('questions')
+    });
+    // Make a bigger modal
+    form.fetch().done(function(){
+      $('.modal .modal-dialog').addClass('modal-lg');
+      hackdash.app.modals.show(new FormRender({
+        model: form
+      }));
+      $('.modal').one('hide.bs.modal', function() {
+        $('.modal .modal-dialog').removeClass('modal-lg');
+      });
+    });
   },
 
   editQuestion: function(e) {
@@ -3430,7 +3451,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
 });
 
-},{"./../../models/Form":14,"./EditQuestion":48,"./EditQuestionList":50,"./templates/editFormItem.hbs":67}],47:[function(require,module,exports){
+},{"./../../models/Form":14,"./EditQuestion":48,"./EditQuestionList":50,"./FormRender":63,"./templates/editFormItem.hbs":67}],47:[function(require,module,exports){
 /**
  * VIEW: Form List
  *
@@ -3875,7 +3896,7 @@ module.exports = Text.extend({
       },
       selected: function(val) {
         var value = self.model.get('value');
-        if(value.length) {
+        if(value && value.length) {
           return _.indexOf(value, val) > -1 ? ' selected' : '';
         }
         return value === val ? ' selected' : '';
@@ -4137,6 +4158,7 @@ var DoneView = Backbone.Marionette.ItemView.extend({
 module.exports = Backbone.Marionette.LayoutView.extend({
 
   template: template,
+  className: 'form-render',
 
   regions: {
     questionsList: ".questions-list",
@@ -4163,7 +4185,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
   onRender: function() {
     var form = this.model;
-    if(form.get('done')) {
+    if(form && form.get('done')) {
       hackdash.app.project = null;
       hackdash.app.type = 'forms_list';
       return this.formContent.show(new DoneView({
@@ -4406,7 +4428,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
     + "\">\n      <div class=\"panel-body\">\n\n      ";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.description : depth0), {"name":"if","hash":{},"fn":this.program(5, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
-  buffer += "\n\n\n      <div class=\"questions-list\"></div>\n\n      <button class=\"btn btn-sm btn-success new-question\">Create a new question</button>\n\n      <a data-placement=\"top\" data-original-title=\""
+  buffer += "\n\n\n      <div class=\"questions-list\"></div>\n\n      <button class=\"btn btn-sm btn-success new-question\">Create a new question</button>\n\n      <button class=\"btn btn-sm btn-info preview-form\">Preview form</button>\n\n      <a data-placement=\"top\" data-original-title=\""
     + escapeExpression(((helper = (helper = helpers.switcherMsg || (depth0 != null ? depth0.switcherMsg : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"switcherMsg","hash":{},"data":data}) : helper)))
     + "\" data-id=\""
     + escapeExpression(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"_id","hash":{},"data":data}) : helper)))

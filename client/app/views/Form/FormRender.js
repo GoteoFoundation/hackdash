@@ -16,6 +16,7 @@ var DoneView = Backbone.Marionette.ItemView.extend({
 module.exports = Backbone.Marionette.LayoutView.extend({
 
   template: template,
+  className: 'form-render',
 
   regions: {
     questionsList: ".questions-list",
@@ -42,7 +43,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
   onRender: function() {
     var form = this.model;
-    if(form.get('done')) {
+    if(form && form.get('done')) {
       hackdash.app.project = null;
       hackdash.app.type = 'forms_list';
       return this.formContent.show(new DoneView({

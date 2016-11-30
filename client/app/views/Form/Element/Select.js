@@ -26,7 +26,7 @@ module.exports = Text.extend({
       },
       selected: function(val) {
         var value = self.model.get('value');
-        if(value.length) {
+        if(value && value.length) {
           return _.indexOf(value, val) > -1 ? ' selected' : '';
         }
         return value === val ? ' selected' : '';
