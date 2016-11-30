@@ -31,7 +31,7 @@
     "mongodb": "^2.2.11",
     "mongoose": "^4.6.8",
     "morgan": "1.5.3",
-    "multer": "0.1.8",
+    "multer": "^1.2.0",
     "nodemailer": "^2.6.4",
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",

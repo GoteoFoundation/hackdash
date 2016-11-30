@@ -4009,6 +4009,76 @@ module.exports = Text.extend({
     }
   },
 
+  ui: {
+    errorFile: '.error-file',
+    dragdrop: '.dropzone'
+  },
+
+
+  onRender: function() {
+    this.text = 'Drop File here';
+    this.invalidText = 'Only file type is not allowed';
+    this.maxSize = 8;
+    this.formId = this.form ? this.form.get('_id') : null;
+    this.projectId = this.project ? this.project.get('_id') : null;
+    this.uploadURL = hackdash.apiURL + '/forms/upload/' + this.formId + '/' + this.projectId + '/' + this.model.get('_id');
+    this.imagesOnly = this.model.get('options') && this.model.get('options').images;
+    if(this.imagesOnly) {
+      this.text = 'Drop Image here';
+      this.invalidText = 'Only jpg, png and gif are allowed';
+    }
+    this.initImageDrop();
+  },
+
+  acceptedFiles: function() {
+    if(this.imagesOnly) {
+      return ['image/jpeg', 'image/png', 'image/gif'];
+    }
+    return [];
+  },
+
+  initImageDrop: function() {
+    var self = this;
+    var $dragdrop = $('.dropzone', this.$el);
+
+    var zone = new Dropzone(this.ui.dragdrop.get(0), {
+      url: this.uploadURL,
+      paramName: 'file',
+      maxFiles: 1,
+      maxFilesize: self.maxSize, // MB
+      acceptedFiles: self.acceptedFiles().join(','),
+      uploadMultiple: false,
+      clickable: true,
+      dictDefaultMessage: self.text,
+      dictFileTooBig: 'File is too big, ' + self.maxSize + ' Mb is the max',
+      dictInvalidFileType: self.invalidText
+    });
+
+    zone.on("error", function(file, message) {
+      self.ui.errorFile.removeClass('hidden').text(message);
+    });
+
+    zone.on("complete", function(file) {
+      if (!file.accepted){
+        zone.removeFile(file);
+        return;
+      }
+
+      self.ui.errorFile.addClass('hidden').text('');
+
+      var url = JSON.parse(file.xhr.response).href;
+
+      zone.removeFile(file);
+
+      $dragdrop
+        .css('background-image', 'url(' + url + ')');
+
+      $('.dz-message span', $dragdrop).css('opacity', '0.6');
+
+    });
+
+  }
+
 });
 
 },{"./Text":61,"./templates/file.hbs":64}],58:[function(require,module,exports){
@@ -4076,7 +4146,6 @@ module.exports = Text.extend({
 
   onRender: function(){
     var value = this.model.get('value');
-    console.log('value', value);
     this.autocomplete = null;
     this.initGoogleAutocomplete(this.ui.location.get(0));
     this.browser = this.model.get('options') && this.model.get('options').browser;
@@ -4096,7 +4165,7 @@ module.exports = Text.extend({
       zip: this.ui.zip.val(),
     };
     this.ui.element.get(0).rawData = ob;
-    console.log('VALOBJ', this.ui.element.get(0).rawData);
+    // console.log('VALOBJ', this.ui.element.get(0).rawData);
   },
 
   initGoogleAutocomplete: function(el) {
@@ -4302,6 +4371,8 @@ module.exports = Backbone.Marionette.ItemView.extend({
     if(options.response) {
       this.model.set({'value': options.response.value});
     }
+    this.form = options.form;
+    this.project = options.project;
   }
 });
 
@@ -4350,6 +4421,11 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partials,data) {
   var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+  return "    style=\"background-image: url("
+    + escapeExpression(((helper = (helper = helpers.value || (depth0 != null ? depth0.value : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"value","hash":{},"data":data}) : helper)))
+    + ");\"\n    ";
+},"3":function(depth0,helpers,partials,data) {
+  var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
   return "    <p class=\"help-block\">"
     + escapeExpression(((helper = (helper = helpers.help || (depth0 != null ? depth0.help : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"help","hash":{},"data":data}) : helper)))
     + "</p>\n";
@@ -4358,14 +4434,11 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
     + escapeExpression(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"_id","hash":{},"data":data}) : helper)))
     + "\">"
     + escapeExpression(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"title","hash":{},"data":data}) : helper)))
-    + "</label>\n  <input type=\"file\" name=\""
-    + escapeExpression(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"name","hash":{},"data":data}) : helper)))
-    + "\" value=\""
-    + escapeExpression(((helper = (helper = helpers.value || (depth0 != null ? depth0.value : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"value","hash":{},"data":data}) : helper)))
-    + "\" id=\"q-"
-    + escapeExpression(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"_id","hash":{},"data":data}) : helper)))
-    + "\">\n";
-  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.help : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
+    + "</label>\n\n\n  <div class=\"dropzone item-file\"\n";
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.value : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
+  if (stack1 != null) { buffer += stack1; }
+  buffer += ">\n  </div>\n  <p class=\"error-file bg-danger text-danger hidden\"></p>\n\n";
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.help : depth0), {"name":"if","hash":{},"fn":this.program(3, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
   return buffer + "</div>\n";
 },"useData":true});
@@ -4751,7 +4824,9 @@ module.exports = Backbone.Marionette.CollectionView.extend({
       index: this.collection.indexOf(model) + 1,
       total: this.collection.length,
       responses: responses, // If form element need info about other values
-      response: response
+      response: response,
+      form: form,
+      project: project
     };
   },
 

@@ -23,5 +23,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
     if(options.response) {
       this.model.set({'value': options.response.value});
     }
+    this.form = options.form;
+    this.project = options.project;
   }
 });

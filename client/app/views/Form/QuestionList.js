@@ -56,7 +56,9 @@ module.exports = Backbone.Marionette.CollectionView.extend({
       index: this.collection.indexOf(model) + 1,
       total: this.collection.length,
       responses: responses, // If form element need info about other values
-      response: response
+      response: response,
+      form: form,
+      project: project
     };
   },
 

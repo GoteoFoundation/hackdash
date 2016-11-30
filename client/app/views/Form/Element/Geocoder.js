@@ -62,7 +62,6 @@ module.exports = Text.extend({
 
   onRender: function(){
     var value = this.model.get('value');
-    console.log('value', value);
     this.autocomplete = null;
     this.initGoogleAutocomplete(this.ui.location.get(0));
     this.browser = this.model.get('options') && this.model.get('options').browser;
@@ -82,7 +81,7 @@ module.exports = Text.extend({
       zip: this.ui.zip.val(),
     };
     this.ui.element.get(0).rawData = ob;
-    console.log('VALOBJ', this.ui.element.get(0).rawData);
+    // console.log('VALOBJ', this.ui.element.get(0).rawData);
   },
 
   initGoogleAutocomplete: function(el) {
