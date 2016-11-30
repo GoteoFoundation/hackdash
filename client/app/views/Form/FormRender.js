@@ -65,10 +65,15 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     _.each(self.model.get('questions'), function(q){
         var $el = $('[name=el_' + q._id + ']', this.$el);
         var val = $el.val();
-        console.log('SAVE VAL',$el.val());
+        // If is a checkbox, convert to boolean
         if($el.is('input[type=checkbox]')) {
           val = $el.is(':checked');
         }
+        // Try rawData if exists
+        if($el[0] && $el[0].hasOwnProperty('rawData')) {
+          val = $el[0].rawData;
+        }
+        console.log('SAVE VAL',val);
         res.responses.push({
           question: q._id,
           value: val

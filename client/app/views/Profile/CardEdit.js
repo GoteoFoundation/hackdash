@@ -164,18 +164,16 @@ module.exports = Backbone.Marionette.ItemView.extend({
   },
 
   initGoogleAutocomplete: function(el) {
-    var autocomplete;
-    var fillInAddress = this.fillInAddress;
     if(window.google) {
-      this.autocomplete = autocomplete = new window.google.maps.places.Autocomplete(el, {types: ['geocode']});
-      autocomplete.addListener('place_changed', function(){fillInAddress(autocomplete);});
+      this.autocomplete = new window.google.maps.places.Autocomplete(el, {types: ['geocode']});
+      this.autocomplete.addListener('place_changed', this.fillInAddress.bind(this));
     }
   },
 
-  fillInAddress: function(autocomplete) {
-    var place = autocomplete.getPlace();
-    $('input[name="lat"]').val(place.geometry.location.lat());
-    $('input[name="lng"]').val(place.geometry.location.lng());
+  fillInAddress: function() {
+    var place = this.autocomplete.getPlace();
+    this.ui.lat.val(place.geometry.location.lat());
+    this.ui.lng.val(place.geometry.location.lng());
 
     // Get each component of the address from the place details
     // and fill the corresponding field on the form.
@@ -185,16 +183,16 @@ module.exports = Backbone.Marionette.ItemView.extend({
       var long = place.address_components[i].long_name;
       // console.log(addressType, short, long);
       if(addressType === 'country') {
-        $('input[name="country"]').val(short);
+        this.ui.country.val(short);
       }
       else if(addressType === 'locality') {
-        $('input[name="city"]').val(long);
+        this.ui.city.val(long);
       }
       else if(addressType === 'administrative_area_level_2') {
-        $('input[name="region"]').val(short);
+        this.ui.region.val(short);
       }
       else if(addressType === 'postal_code') {
-        $('input[name="zip"]').val(short);
+        this.ui.zip.val(short);
       }
     }
   },
@@ -207,20 +205,20 @@ module.exports = Backbone.Marionette.ItemView.extend({
         return;
       }
       this.geolocateAsked = true;
-      var autocomplete = this.autocomplete;
+      var self = this;
       window.navigator.geolocation.getCurrentPosition(function(position) {
         var geolocation = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
-        $('input[name="lat"]').val(geolocation.lat);
-        $('input[name="lng"]').val(geolocation.lng);
+        self.ui.lat.val(geolocation.lat);
+        self.ui.lng.val(geolocation.lng);
         var circle = new window.google.maps.Circle({
           center: geolocation,
           radius: position.coords.accuracy
         });
 
-        autocomplete.setBounds(circle.getBounds());
+        self.autocomplete.setBounds(circle.getBounds());
       });
     }
   }

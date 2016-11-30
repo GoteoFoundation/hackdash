@@ -1,0 +1,14 @@
+<div class="form-group">
+  <label for="q-{{_id}}">{{title}}</label>
+  <input type="text" name="location" class="form-control" value="{{location}}" id="q-{{_id}}"{{#if placeholder}} placeholder="{{placeholder}}"{{/if}}>
+  {{#if help}}
+    <p class="help-block">{{help}}</p>
+  {{/if}}
+  <input type="hidden" name="lat" value="{{lat}}">
+  <input type="hidden" name="lng" value="{{lng}}">
+  <input type="hidden" name="country" value="{{country}}">
+  <input type="hidden" name="city" value="{{city}}">
+  <input type="hidden" name="region" value="{{region}}">
+  <input type="hidden" name="zip" value="{{zip}}">
+  <input type="hidden" name="{{name}}" class="element" value="{{location}}">
+</div>

@@ -8,6 +8,7 @@ var Text = require('./Element/Text')
   , Textarea = require('./Element/Textarea')
   , Select = require('./Element/Select')
   , Range = require('./Element/Range')
+  , Geocoder = require('./Element/Geocoder')
   , Bool = require('./Element/Boolean');
 
 var EmptyView = Backbone.Marionette.ItemView.extend({
@@ -30,6 +31,8 @@ module.exports = Backbone.Marionette.CollectionView.extend({
         return Select;
       case 'range':
         return Range;
+      case 'geocoder':
+        return Geocoder;
       case 'boolean':
         return Bool;
       default:

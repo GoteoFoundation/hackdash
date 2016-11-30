@@ -16,7 +16,14 @@ module.exports = Text.extend({
   },
 
   templateHelpers: function() {
+    var self = this;
     return {
+      labelMin: function() {
+        return self.values.length ? '' : self.min;
+      },
+      labelMax: function() {
+        return self.values.length ? '' : self.max;
+      },
       name: function() {
         return 'el_' + this._id;
       }
@@ -38,7 +45,7 @@ module.exports = Text.extend({
     this.ui.range.slider({
       min: this.min,
       max: this.max,
-      tooltip: this.values.length ? 'hide' : 'always',
+      tooltip: this.values.length ? 'hide' : 'show',
       ticks: this.keys,
       ticks_labels: this.values,
       value: this.model.get('value') ? this.model.get('value') : 0

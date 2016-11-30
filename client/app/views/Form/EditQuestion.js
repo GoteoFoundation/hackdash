@@ -6,6 +6,7 @@
 var
     template = require('./templates/editQuestion.hbs')
   , OptSelect = require('./EditSelectOptions')
+  , OptGeocoder = require('./EditGeocoderOptions')
   , OptRange = require('./EditRangeOptions');
 
 module.exports = Backbone.Marionette.LayoutView.extend({
@@ -77,6 +78,9 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     }
     if(c.type === 'range') {
       region = new OptRange({ model: new Backbone.Model(c) });
+    }
+    if(c.type === 'geocoder') {
+      region = new OptGeocoder({ model: new Backbone.Model(c) });
     }
     if(region) {
       this.optionsRegion.show(region);
