@@ -35,11 +35,15 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
     return {
       showTemplates: function() {
-        console.log('templates', this.templates);
         return this.templates && this.templates.length;
       },
       getTemplates: function() {
-        return this.templates;
+        return _.map(this.templates, function(t) {
+          return {
+            id: t._id,
+            desc: t.title + ' - From ' + (t.group ? 'Collection [' + t.group.title + ']' : 'Dashboard [' + t.domain + ']')
+          };
+        });
       }
     };
   },
@@ -86,7 +90,13 @@ module.exports = Backbone.Marionette.ItemView.extend({
   },
 
   createFromTemplate: function() {
-    console.log('Create from template');
+    var template = _.findWhere(this.model.get('templates'), {_id: this.ui.fromTemplate.val()});
+    var sanitized = _.omit(template, ['_id', 'created_at', 'creator', 'domain', 'group']);
+    sanitized.title = '[COPY] ' + sanitized.title;
+    // console.log('Create from template', template, sanitized);
+    this.model.save(sanitized, { patch: true, silent: true })
+      .success(this.destroyModal.bind(this))
+      .error(this.showError.bind(this));
   },
 
   destroyModal: function(){

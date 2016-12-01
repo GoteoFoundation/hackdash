@@ -302,6 +302,7 @@ module.exports = Backbone.Marionette.AppRouter.extend({
       app.main.show(new FormEditView({
         model: app.collection
       }));
+
       app.footer.show(new Footer({
         model: app.collection
       }));
@@ -3297,11 +3298,15 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
     return {
       showTemplates: function() {
-        console.log('templates', this.templates);
         return this.templates && this.templates.length;
       },
       getTemplates: function() {
-        return this.templates;
+        return _.map(this.templates, function(t) {
+          return {
+            id: t._id,
+            desc: t.title + ' - From ' + (t.group ? 'Collection [' + t.group.title + ']' : 'Dashboard [' + t.domain + ']')
+          };
+        });
       }
     };
   },
@@ -3348,7 +3353,13 @@ module.exports = Backbone.Marionette.ItemView.extend({
   },
 
   createFromTemplate: function() {
-    console.log('Create from template');
+    var template = _.findWhere(this.model.get('templates'), {_id: this.ui.fromTemplate.val()});
+    var sanitized = _.omit(template, ['_id', 'created_at', 'creator', 'domain', 'group']);
+    sanitized.title = '[COPY] ' + sanitized.title;
+    // console.log('Create from template', template, sanitized);
+    this.model.save(sanitized, { patch: true, silent: true })
+      .success(this.destroyModal.bind(this))
+      .error(this.showError.bind(this));
   },
 
   destroyModal: function(){
@@ -5026,13 +5037,13 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
   var stack1, buffer = "      <div class=\"form-group\">\n        <label>Feeling lazy? Create from template:</label>\n        <select class=\"form-control from-template\">\n          <option>Choose one</option>\n";
   stack1 = helpers.each.call(depth0, (depth0 != null ? depth0.getTemplates : depth0), {"name":"each","hash":{},"fn":this.program(6, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
-  return buffer + "        </select>\n\n        <p class=\"help-block\">No questions ask! Content will be copied right away!</p>\n      </div>\n\n      <h3>Naah, a brand new one:</h3>\n\n";
+  return buffer + "        </select>\n\n        <p class=\"help-block\">No questions asked! Content will be copied right away!</p>\n      </div>\n\n      <h3>Naah, a brand new one:</h3>\n\n";
 },"6":function(depth0,helpers,partials,data) {
   var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
   return "          <option value=\""
-    + escapeExpression(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"_id","hash":{},"data":data}) : helper)))
+    + escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"id","hash":{},"data":data}) : helper)))
     + "\">"
-    + escapeExpression(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"title","hash":{},"data":data}) : helper)))
+    + escapeExpression(((helper = (helper = helpers.desc || (depth0 != null ? depth0.desc : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"desc","hash":{},"data":data}) : helper)))
     + "</option>\n";
 },"8":function(depth0,helpers,partials,data) {
   return " checked=\"true\"";
