@@ -26,6 +26,12 @@ module.exports = Backbone.Marionette.ItemView.extend({
     "zip": "input[name=zip]",
     "lat": "input[name=lat]",
     "lng": "input[name=lng]",
+    "facebook": "input[name=facebook]",
+    "twitter": "input[name=twitter]",
+    "linkedin": "input[name=linkedin]",
+    "instagram": "input[name=instagram]",
+    "google": "input[name=google]",
+    "github": "input[name=github]",
   },
 
   events: {
@@ -65,7 +71,15 @@ module.exports = Backbone.Marionette.ItemView.extend({
     var toSave = {
       name: this.ui.name.val(),
       email: this.ui.email.val(),
-      bio: this.ui.bio.val()
+      bio: this.ui.bio.val(),
+      social: {
+        facebook: this.ui.facebook.val(),
+        twitter: this.ui.twitter.val(),
+        linkedin: this.ui.linkedin.val(),
+        instagram: this.ui.instagram.val(),
+        google: this.ui.google.val(),
+        github: this.ui.github.val(),
+      }
     };
     // Optional
     if(this.ui.birthdate.val()) {

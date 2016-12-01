@@ -5221,7 +5221,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + escapeExpression(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"_id","hash":{},"data":data}) : helper)))
     + "\">\n	<i class=\"fa fa-"
     + escapeExpression(((helpers.fa || (depth0 && depth0.fa) || helperMissing).call(depth0, (depth0 != null ? depth0.type : depth0), {"name":"fa","hash":{},"data":data})))
-    + " fa-ws\"></i>\n	"
+    + " fa-fw\"></i>\n	"
     + escapeExpression(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"title","hash":{},"data":data}) : helper)))
     + "\n</a>\n";
 },"useData":true});
@@ -7299,6 +7299,12 @@ module.exports = Backbone.Marionette.ItemView.extend({
     "zip": "input[name=zip]",
     "lat": "input[name=lat]",
     "lng": "input[name=lng]",
+    "facebook": "input[name=facebook]",
+    "twitter": "input[name=twitter]",
+    "linkedin": "input[name=linkedin]",
+    "instagram": "input[name=instagram]",
+    "google": "input[name=google]",
+    "github": "input[name=github]",
   },
 
   events: {
@@ -7338,7 +7344,15 @@ module.exports = Backbone.Marionette.ItemView.extend({
     var toSave = {
       name: this.ui.name.val(),
       email: this.ui.email.val(),
-      bio: this.ui.bio.val()
+      bio: this.ui.bio.val(),
+      social: {
+        facebook: this.ui.facebook.val(),
+        twitter: this.ui.twitter.val(),
+        linkedin: this.ui.linkedin.val(),
+        instagram: this.ui.instagram.val(),
+        google: this.ui.google.val(),
+        github: this.ui.github.val(),
+      }
     };
     // Optional
     if(this.ui.birthdate.val()) {
@@ -7818,7 +7832,19 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
   if (stack1 != null) { buffer += stack1; }
   buffer += "    </div>\n    <div class=\"form-group\">\n      <textarea name=\"bio\" placeholder=\"Some about you\" class=\"form-control\" rows=\"4\">"
     + escapeExpression(((helper = (helper = helpers.bio || (depth0 != null ? depth0.bio : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"bio","hash":{},"data":data}) : helper)))
-    + "</textarea>\n    </div>\n    <div class=\"form-group\">\n      <p class=\"form-control-static\">This data is for statistics purposes and it is not public:</p>\n    </div>\n    <div class=\"form-group\">\n      <input name=\"birthdate\" type=\"text\" data-provide=\"datepicker\" data-date-format=\"dd/mm/yyyy\" placeholder=\"Date of birth\" value=\""
+    + "</textarea>\n    </div>\n    <div class=\"form-group\">\n      <div class=\"input-group\">\n        <div class=\"input-group-addon\"><i class=\"fa fa-fw fa-facebook\"></i></div>\n        <input name=\"facebook\" type=\"text\" placeholder=\"Facebook profile URL\" value=\""
+    + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.social : depth0)) != null ? stack1.facebook : stack1), depth0))
+    + "\" class=\"form-control\"/>\n      </div>\n    </div>\n    <div class=\"form-group\">\n      <div class=\"input-group\">\n        <div class=\"input-group-addon\"><i class=\"fa fa-fw fa-twitter\"></i></div>\n        <input name=\"twitter\" type=\"text\" placeholder=\"Twitter profile URL\" value=\""
+    + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.social : depth0)) != null ? stack1.twitter : stack1), depth0))
+    + "\" class=\"form-control\"/>\n      </div>\n    </div>\n    <div class=\"form-group\">\n      <div class=\"input-group\">\n        <div class=\"input-group-addon\"><i class=\"fa fa-fw fa-instagram\"></i></div>\n        <input name=\"instagram\" type=\"text\" placeholder=\"Instagram profile URL\" value=\""
+    + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.social : depth0)) != null ? stack1.instagram : stack1), depth0))
+    + "\" class=\"form-control\"/>\n      </div>\n    </div>\n    <div class=\"form-group\">\n      <div class=\"input-group\">\n        <div class=\"input-group-addon\"><i class=\"fa fa-fw fa-linkedin\"></i></div>\n        <input name=\"linkedin\" type=\"text\" placeholder=\"LinkedIn profile URL\" value=\""
+    + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.social : depth0)) != null ? stack1.linkedin : stack1), depth0))
+    + "\" class=\"form-control\"/>\n      </div>\n    </div>\n    <div class=\"form-group\">\n      <div class=\"input-group\">\n        <div class=\"input-group-addon\"><i class=\"fa fa-fw fa-github\"></i></div>\n        <input name=\"github\" type=\"text\" placeholder=\"LinkedIn profile URL\" value=\""
+    + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.social : depth0)) != null ? stack1.github : stack1), depth0))
+    + "\" class=\"form-control\"/>\n      </div>\n    </div>\n    <div class=\"form-group\">\n      <div class=\"input-group\">\n        <div class=\"input-group-addon\"><i class=\"fa fa-fw fa-google-plus\"></i></div>\n        <input name=\"google\" type=\"text\" placeholder=\"Google+ profile URL\" value=\""
+    + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.social : depth0)) != null ? stack1.google : stack1), depth0))
+    + "\" class=\"form-control\"/>\n      </div>\n    </div>\n    <div class=\"form-group\">\n      <p class=\"form-control-static\">This data is for statistics purposes and it is not public:</p>\n    </div>\n    <div class=\"form-group\">\n      <input name=\"birthdate\" type=\"text\" data-provide=\"datepicker\" data-date-format=\"dd/mm/yyyy\" placeholder=\"Date of birth\" value=\""
     + escapeExpression(((helpers.formatDateLocal || (depth0 && depth0.formatDateLocal) || helperMissing).call(depth0, (depth0 != null ? depth0.birthdate : depth0), {"name":"formatDateLocal","hash":{},"data":data})))
     + "\" class=\"form-control\"/>\n    </div>\n    <div class=\"form-group\">\n      <select name=\"gender\" class=\"form-control\">\n        <option value=\"\">Gender</option>\n        <option value=\"M\""
     + escapeExpression(((helpers.selected || (depth0 && depth0.selected) || helperMissing).call(depth0, (depth0 != null ? depth0.gender : depth0), "M", {"name":"selected","hash":{},"data":data})))
@@ -7840,10 +7866,10 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
     + escapeExpression(lambda(((stack1 = ((stack1 = (depth0 != null ? depth0.location : depth0)) != null ? stack1.coordinates : stack1)) != null ? stack1['0'] : stack1), depth0))
     + "\"/>\n      <input name=\"lng\" type=\"hidden\" value=\""
     + escapeExpression(lambda(((stack1 = ((stack1 = (depth0 != null ? depth0.location : depth0)) != null ? stack1.coordinates : stack1)) != null ? stack1['1'] : stack1), depth0))
-    + "\"/>\n\n  </div>\n  <div class=\"form-actions\">\n    <input id=\"save\" type=\"button\" data-loading-text=\"saving..\" value=\"Save profile\" class=\"btn-primary pull-right\"/>\n    <label class=\"saved pull-left hidden\">Profile saved, going back to business ...</label>\n";
+    + "\"/>\n\n  </div>\n  <div class=\"form-actions\">\n    <input id=\"save\" type=\"button\" data-loading-text=\"saving..\" value=\"Save profile URL\" class=\"btn-primary pull-right\"/>\n    <label class=\"saved pull-left hidden\">Profile saved, going back to business ...</label>\n";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.email : depth0), {"name":"if","hash":{},"fn":this.program(3, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
-  return buffer + "  </div>\n</form>";
+  return buffer + "  </div>\n</form>\n";
 },"useData":true});
 
 },{"hbsfy/runtime":152}],127:[function(require,module,exports){

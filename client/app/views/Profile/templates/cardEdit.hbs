@@ -18,6 +18,42 @@
       <textarea name="bio" placeholder="Some about you" class="form-control" rows="4">{{bio}}</textarea>
     </div>
     <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-addon"><i class="fa fa-fw fa-facebook"></i></div>
+        <input name="facebook" type="text" placeholder="Facebook profile URL" value="{{social.facebook}}" class="form-control"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-addon"><i class="fa fa-fw fa-twitter"></i></div>
+        <input name="twitter" type="text" placeholder="Twitter profile URL" value="{{social.twitter}}" class="form-control"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-addon"><i class="fa fa-fw fa-instagram"></i></div>
+        <input name="instagram" type="text" placeholder="Instagram profile URL" value="{{social.instagram}}" class="form-control"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-addon"><i class="fa fa-fw fa-linkedin"></i></div>
+        <input name="linkedin" type="text" placeholder="LinkedIn profile URL" value="{{social.linkedin}}" class="form-control"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-addon"><i class="fa fa-fw fa-github"></i></div>
+        <input name="github" type="text" placeholder="LinkedIn profile URL" value="{{social.github}}" class="form-control"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-addon"><i class="fa fa-fw fa-google-plus"></i></div>
+        <input name="google" type="text" placeholder="Google+ profile URL" value="{{social.google}}" class="form-control"/>
+      </div>
+    </div>
+    <div class="form-group">
       <p class="form-control-static">This data is for statistics purposes and it is not public:</p>
     </div>
     <div class="form-group">
@@ -44,7 +80,7 @@
 
   </div>
   <div class="form-actions">
-    <input id="save" type="button" data-loading-text="saving.." value="Save profile" class="btn-primary pull-right"/>
+    <input id="save" type="button" data-loading-text="saving.." value="Save profile URL" class="btn-primary pull-right"/>
     <label class="saved pull-left hidden">Profile saved, going back to business ...</label>
     {{#if email}}
     <a id="cancel" class="btn-cancel pull-left">cancel</a>
