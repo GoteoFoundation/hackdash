@@ -65,6 +65,7 @@ module.exports = Text.extend({
       url: this.uploadURL,
       paramName: 'file',
       maxFiles: 1,
+      thumbnailWidth: 200,
       maxFilesize: self.maxSize, // MB
       acceptedFiles: self.acceptedFiles().join(','),
       uploadMultiple: false,
@@ -81,10 +82,9 @@ module.exports = Text.extend({
       // Call the default addedfile event handler
       zone.files.push(mockFile);
       zone.emit("addedfile", mockFile);
-
       // And optionally show the thumbnail of the file:
       if(self.file.type.indexOf('image') === 0) {
-        zone.emit("thumbnail", mockFile, self.file.path);
+        zone.createThumbnailFromUrl(mockFile, self.file.path);
       }
       // zone.emit("maxfilesreached", mockFile);
       zone.emit("complete", mockFile);
@@ -115,6 +115,19 @@ module.exports = Text.extend({
 
     });
 
+    zone.on("removedfile", function(file) {
+      console.log('del', file, self.file);
+      $.ajax({
+        url: self.uploadURL,
+        type: 'DELETE',
+        data: JSON.stringify({file:self.file}),
+        contentType: 'application/json; charset=utf-8',
+        context: self
+      })
+      .fail(function(jqXHR) {
+        self.ui.errorFile.removeClass('hidden').text(jqXHR.responseText);
+      });
+    });
   }
 
 });
