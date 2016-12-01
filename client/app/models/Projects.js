@@ -119,7 +119,7 @@ var Projects = module.exports = BaseCollection.extend({
   },
 
   getStatusCount: function(){
-    var statuses = Object.keys(window.hackdash.statuses);
+    var statuses = _.pluck(window.hackdash.statuses, 'status');
     var statusCount = {};
 
     _.each(statuses, function(status){

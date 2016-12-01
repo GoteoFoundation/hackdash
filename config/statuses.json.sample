@@ -1,22 +1,27 @@
-{
-  "brainstorming": {
+[
+  {
+    "status": "brainstorming",
     "text": "brainstorming",
     "active": true
   },
-  "wireframing": {
+  {
+    "status": "wireframing",
     "text": "wireframing",
     "active": true
   },
-  "building": {
+  {
+    "status": "building",
     "text": "building",
     "active": true
   },
-  "prototyping": {
+  {
+    "status": "prototyping",
     "text": "prototyping",
     "active": true
   },
-  "releasing": {
+  {
+    "status": "releasing",
     "text": "releasing",
     "active": true
   }
-}
+]

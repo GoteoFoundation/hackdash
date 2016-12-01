@@ -7,7 +7,7 @@ var Handlebars = require("hbsfy/runtime");
 
 Handlebars.registerHelper('embedCode', function() {
   var embedUrl = window.location.protocol + "//" + window.location.host;
-  var template = _.template('<iframe src="<%= embedUrl %>" width="100%" height="500" frameborder="0" allowtransparency="true" title="Hackdash"></iframe>');
+  var template = _.template('<iframe src="<%= embedUrl %>" width="100%" height="500" frameborder="0" allowtransparency="true" title="' + hackdash.title + '"></iframe>');
 
   return template({
     embedUrl: embedUrl
@@ -15,10 +15,9 @@ Handlebars.registerHelper('embedCode', function() {
 });
 
 Handlebars.registerHelper('statusesText', function(status) {
-  if(hackdash.statuses && hackdash.statuses[status] && hackdash.statuses[status].text) {
-    return hackdash.statuses[status].text;
-  }
-  return status;
+  var text = _.findWhere(hackdash.statuses, {'status' : status});
+
+  return text && text.text ? text.text : status;
 });
 
 Handlebars.registerHelper('firstUpper', function(text) {

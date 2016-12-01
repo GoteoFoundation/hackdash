@@ -34,11 +34,12 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
   templateHelpers: {
     selected: function(val) {
-      console.log(this.tags, val);
       return this.tags && _.indexOf(this.tags, val) > -1 ? ' selected' : '';
     },
     statuses: function(){
-      return Object.keys(window.hackdash.statuses);
+      return _.pluck(_.filter(window.hackdash.statuses, function(v){
+        return v.active;
+      }), 'status');
     }
   },
 
