@@ -72,6 +72,10 @@ module.exports = Backbone.Marionette.ItemView.extend({
       forceSync: true,
       spellChecker: false
     });
+    this.ui.fromTemplate.select2({
+      theme: 'bootstrap',
+      dropdownParent: this.$el
+    });
   },
 
   save: function(){
