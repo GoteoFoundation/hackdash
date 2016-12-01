@@ -19,11 +19,24 @@ module.exports = Backbone.Marionette.ItemView.extend({
     }
   },
 
+  ui: {
+    input: '.form-control:first'
+  },
+
+  events: {
+    'change @ui.input': 'setValue'
+  },
+
   initialize: function(options) {
     if(options.response) {
       this.model.set({'value': options.response.value});
     }
     this.form = options.form;
     this.project = options.project;
+  },
+
+  setValue: function() {
+    console.log('setValue', this.ui.input.val());
+    this.model.set({'value' : this.ui.input.val()});
   }
 });

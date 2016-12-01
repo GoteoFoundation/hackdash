@@ -62,5 +62,17 @@ module.exports = Backbone.Marionette.CollectionView.extend({
     };
   },
 
+  getValues: function() {
+    var values = [];
+    this.collection.each(function(c){
+      if(!_.isUndefined(c.get('value'))) {
+        values.push({
+          question: c.get('_id'),
+          value: c.get('value')
+        });
+      }
+    });
+    return values;
+  }
 
 });

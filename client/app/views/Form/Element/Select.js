@@ -12,7 +12,7 @@ module.exports = Text.extend({
   template: template,
 
   ui: {
-    select: 'select'
+    input: 'select'
   },
 
   templateHelpers: function() {
@@ -26,9 +26,10 @@ module.exports = Text.extend({
       },
       selected: function(val) {
         var value = self.model.get('value');
-        if(value && value.length) {
+        if(_.isArray(value) && value.length) {
           return _.indexOf(value, val) > -1 ? ' selected' : '';
         }
+
         return value === val ? ' selected' : '';
       },
       multiple: function() {
@@ -38,7 +39,7 @@ module.exports = Text.extend({
   },
 
   onRender: function() {
-    this.ui.select.select2({
+    this.ui.input.select2({
       // theme: "bootstrap",
       minimumResultsForSearch: 10
     });

@@ -48,6 +48,8 @@ module.exports = Text.extend({
       this.uploadURL = hackdash.apiURL + '/forms/upload/' + this.formId + '/' + this.projectId + '/' + this.model.get('_id');
     }
     this.initImageDrop();
+    // Remove value as it has his own API endpoint
+    this.model.unset('value');
   },
 
   acceptedFiles: function() {

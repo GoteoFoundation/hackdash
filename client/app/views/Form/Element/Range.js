@@ -12,7 +12,7 @@ module.exports = Text.extend({
   template: template,
 
   ui: {
-    range: 'input'
+    input: 'input'
   },
 
   templateHelpers: function() {
@@ -42,7 +42,7 @@ module.exports = Text.extend({
   },
 
   onRender: function() {
-    this.ui.range.slider({
+    this.ui.input.slider({
       min: this.min,
       max: this.max,
       tooltip: this.values.length ? 'hide' : 'show',
@@ -56,7 +56,7 @@ module.exports = Text.extend({
   onShow:function() {
     var self = this;
     window.setTimeout(function(){
-      self.ui.range.slider('relayout');
+      self.ui.input.slider('relayout');
     },10);
   }
 

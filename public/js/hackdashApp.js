@@ -4045,11 +4045,24 @@ module.exports = Text.extend({
 
   template: template,
 
+  ui: {
+    input: 'input[type=checkbox]'
+  },
+
   templateHelpers: {
     name: function() {
       return 'el_' + this._id;
     }
   },
+
+
+  onRender: function() {
+    this.model.set({'value' : !!this.model.get('value')});
+  },
+
+  setValue: function () {
+    this.model.set({'value' : this.ui.input.is(':checked')});
+  }
 
 });
 
@@ -4129,6 +4142,8 @@ module.exports = Text.extend({
       this.uploadURL = hackdash.apiURL + '/forms/upload/' + this.formId + '/' + this.projectId + '/' + this.model.get('_id');
     }
     this.initImageDrop();
+    // Remove value as it has his own API endpoint
+    this.model.unset('value');
   },
 
   acceptedFiles: function() {
@@ -4296,8 +4311,7 @@ module.exports = Text.extend({
       region: this.ui.region.val(),
       zip: this.ui.zip.val(),
     };
-    this.ui.element.get(0).rawData = ob;
-    // console.log('VALOBJ', this.ui.element.get(0).rawData);
+    this.model.set({'value': ob});
   },
 
   initGoogleAutocomplete: function(el) {
@@ -4378,7 +4392,7 @@ module.exports = Text.extend({
   template: template,
 
   ui: {
-    range: 'input'
+    input: 'input'
   },
 
   templateHelpers: function() {
@@ -4408,7 +4422,7 @@ module.exports = Text.extend({
   },
 
   onRender: function() {
-    this.ui.range.slider({
+    this.ui.input.slider({
       min: this.min,
       max: this.max,
       tooltip: this.values.length ? 'hide' : 'show',
@@ -4422,7 +4436,7 @@ module.exports = Text.extend({
   onShow:function() {
     var self = this;
     window.setTimeout(function(){
-      self.ui.range.slider('relayout');
+      self.ui.input.slider('relayout');
     },10);
   }
 
@@ -4443,7 +4457,7 @@ module.exports = Text.extend({
   template: template,
 
   ui: {
-    select: 'select'
+    input: 'select'
   },
 
   templateHelpers: function() {
@@ -4457,9 +4471,10 @@ module.exports = Text.extend({
       },
       selected: function(val) {
         var value = self.model.get('value');
-        if(value && value.length) {
+        if(_.isArray(value) && value.length) {
           return _.indexOf(value, val) > -1 ? ' selected' : '';
         }
+
         return value === val ? ' selected' : '';
       },
       multiple: function() {
@@ -4469,7 +4484,7 @@ module.exports = Text.extend({
   },
 
   onRender: function() {
-    this.ui.select.select2({
+    this.ui.input.select2({
       // theme: "bootstrap",
       minimumResultsForSearch: 10
     });
@@ -4499,12 +4514,25 @@ module.exports = Backbone.Marionette.ItemView.extend({
     }
   },
 
+  ui: {
+    input: '.form-control:first'
+  },
+
+  events: {
+    'change @ui.input': 'setValue'
+  },
+
   initialize: function(options) {
     if(options.response) {
       this.model.set({'value': options.response.value});
     }
     this.form = options.form;
     this.project = options.project;
+  },
+
+  setValue: function() {
+    console.log('setValue', this.ui.input.val());
+    this.model.set({'value' : this.ui.input.val()});
   }
 });
 
@@ -4876,28 +4904,13 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   sendForm: function() {
+    var values = this.questionsList.currentView.getValues();
     var self = this;
     var res = {
         form: self.model.get('_id'),
-        responses: []
+        responses: values
       };
-    _.each(self.model.get('questions'), function(q){
-        var $el = $('[name=el_' + q._id + ']', this.$el);
-        var val = $el.val();
-        // If is a checkbox, convert to boolean
-        if($el.is('input[type=checkbox]')) {
-          val = $el.is(':checked');
-        }
-        // Try rawData if exists
-        if($el[0] && $el[0].hasOwnProperty('rawData')) {
-          val = $el[0].rawData;
-        }
-        console.log('SAVE VAL',val);
-        res.responses.push({
-          question: q._id,
-          value: val
-        });
-      });
+
     self.model.sendResponse(res, function(err) {
       if(err) {
         return self.model.set({'errors': err});
@@ -4972,6 +4985,18 @@ module.exports = Backbone.Marionette.CollectionView.extend({
     };
   },
 
+  getValues: function() {
+    var values = [];
+    this.collection.each(function(c){
+      if(!_.isUndefined(c.get('value'))) {
+        values.push({
+          question: c.get('_id'),
+          value: c.get('value')
+        });
+      }
+    });
+    return values;
+  }
 
 });
 

@@ -80,8 +80,7 @@ module.exports = Text.extend({
       region: this.ui.region.val(),
       zip: this.ui.zip.val(),
     };
-    this.ui.element.get(0).rawData = ob;
-    // console.log('VALOBJ', this.ui.element.get(0).rawData);
+    this.model.set({'value': ob});
   },
 
   initGoogleAutocomplete: function(el) {
