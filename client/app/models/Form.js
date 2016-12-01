@@ -47,14 +47,29 @@ module.exports = Backbone.Model.extend({
       contentType: 'application/json; charset=utf-8',
       context: this
     })
-    .fail(function(jqXHR, status) {
-      console.log('fail', status, jqXHR);
+    .fail(function(jqXHR) {
       callback(jqXHR.responseText);
     })
     .done(function(msg) {
-      console.log('done',msg);
       callback(null, msg);
     });
-  }
+  },
 
+  fetchTemplates: function(callback) {
+    if(typeof callback !== 'function') {
+      callback = function(){};
+    }
+    $.ajax({
+      url: this.urlRoot() + '/templates',
+      type: 'GET',
+      context: this
+    })
+    .fail(function(jqXHR) {
+      callback(jqXHR.responseText);
+    })
+    .done(function(templates) {
+      console.log(templates);
+      callback(null, templates);
+    });
+  }
 });

@@ -197,31 +197,32 @@ module.exports = Backbone.Marionette.AppRouter.extend({
 
   showCollectionFormsEdit: function(cid){
 
-      var app = window.hackdash.app;
-      var self = this;
-      app.type = "collection_form";
+    var app = window.hackdash.app;
+    var self = this;
+    app.type = "collection_form";
 
-      app.collection = new Collection({ _id: cid });
-      // Set group same as _id to allow choose from dashboard or collection in FormView
-      app.collection.set('group', cid);
-      app.collection.fetch().done(function(){
-        if(!self.canEditCollection(window.hackdash.user, app.collection.attributes)) {
-          window.location = "/collections/" + app.collection.attributes._id;
-        }
+    app.collection = new Collection({ _id: cid });
+    // Set group same as _id to allow choose from dashboard or collection in FormView
+    app.collection.set('group', cid);
+    app.collection.fetch().done(function(){
+      if(!self.canEditCollection(window.hackdash.user, app.collection.attributes)) {
+        window.location = "/collections/" + app.collection.attributes._id;
+      }
 
-        app.header.show(new Header());
+      app.header.show(new Header());
 
-        // here the forms editor
-        app.main.show(new FormView({
-          model: app.collection
-        }));
-        app.footer.show(new Footer({
-          model: app.collection
-        }));
-        app.setTitle('Edit forms for ' + app.collection.get('title'));
+      // here the forms editor
+      app.main.show(new FormEditView({
+        model: app.collection
+      }));
 
-      });
-    },
+      app.footer.show(new Footer({
+        model: app.collection
+      }));
+      app.setTitle('Edit forms for ' + app.collection.get('title'));
+
+    });
+  },
 
   showProjectCreate: function(dashboard){
 

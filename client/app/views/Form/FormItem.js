@@ -22,6 +22,8 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   initialize: function() {
-    this.model.set({projects: this.model.getMyProjects()});
+    if(this.model && this.hasOwnProperty('getMyProjects')) {
+      this.model.set({projects: this.model.getMyProjects()});
+    }
   }
 });

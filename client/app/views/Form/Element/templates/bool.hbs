@@ -4,4 +4,7 @@
         <input type="checkbox" name="{{name}}" id="q-{{_id}}" value="1"{{#if value}} checked="true"{{/if}}> {{title}}
       </label>
     </div>
+    {{#if help}}
+      <p class="help-block">{{help}}</p>
+    {{/if}}
 </div>

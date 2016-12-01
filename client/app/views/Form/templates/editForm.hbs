@@ -8,12 +8,43 @@
 <div class="modal-body">
 
   <div class="form-content">
+    {{#if showTemplates}}
+      <div class="form-group">
+        <label>Feeling lazy? Create from template:</label>
+        <select class="form-control from-template">
+          <option>Choose one</option>
+        {{#each getTemplates}}
+          <option value="{{_id}}">{{title}}</option>
+        {{/each}}
+        </select>
+
+        <p class="help-block">No questions ask! Content will be copied right away!</p>
+      </div>
+
+      <h3>Naah, a brand new one:</h3>
+
+    {{/if}}
+
     <div class="form-group">
       <input type="text" class="form-control" name="title" placeholder="Form title" value="{{title}}">
     </div>
+
     <div class="form-group">
       <textarea class="form-control" name="description" placeholder="Optional description/help">{{description}}</textarea>
     </div>
+
+    <div class="form-group">
+      <div class="checkbox">
+        <label>
+        <input type="checkbox" name="template" value="1"{{#if template}} checked="true"{{/if}}>
+        Available as template
+        </label>
+      </div>
+
+      <p class="help-block">Marking this option will allow to create new forms with this same configuration (as it is when it's copied).</p>
+
+    </div>
+
   </div>
 
   <a id="save" class="btn btn-success">Save</a>

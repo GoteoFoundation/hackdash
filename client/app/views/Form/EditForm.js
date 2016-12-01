@@ -14,10 +14,13 @@ module.exports = Backbone.Marionette.ItemView.extend({
   ui: {
     'title' : 'input[name=title]',
     'description' : 'textarea[name=description]',
+    'template' : 'input[name=template]',
+    'fromTemplate': '.from-template'
   },
 
   events: {
-    "click #save": "save"
+    "click #save": "save",
+    "change @ui.fromTemplate": 'createFromTemplate'
   },
 
   modelEvents: {
@@ -28,7 +31,33 @@ module.exports = Backbone.Marionette.ItemView.extend({
     "title_required": "Title is required"
   },
 
-  onShow: function() {
+  templateHelpers: function() {
+
+    return {
+      showTemplates: function() {
+        console.log('templates', this.templates);
+        return this.templates && this.templates.length;
+      },
+      getTemplates: function() {
+        return this.templates;
+      }
+    };
+  },
+
+  initialize: function() {
+    var self = this;
+    if(!self.model.get('_id')) {
+      // fetch templates
+      self.model.fetchTemplates(function(err, templates) {
+        if(err) {
+          return window.alert('Templates cannot be fetched! '+ err);
+        }
+        self.model.set({'templates': templates});
+      });
+    }
+  },
+
+  onRender: function() {
     this.simplemde = new window.SimpleMDE({
       element: this.ui.description.get(0),
       forceSync: true,
@@ -40,7 +69,8 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
     var toSave = {
       title: this.ui.title.val(),
-      description: this.ui.description.val()
+      description: this.ui.description.val(),
+      template: this.ui.template.is(':checked')
     };
 
     // console.log(toSave, this.model, this.model.isNew());
@@ -53,6 +83,10 @@ module.exports = Backbone.Marionette.ItemView.extend({
       .save(toSave, { patch: true, silent: true })
       .success(this.destroyModal.bind(this))
       .error(this.showError.bind(this));
+  },
+
+  createFromTemplate: function() {
+    console.log('Create from template');
   },
 
   destroyModal: function(){

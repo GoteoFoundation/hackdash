@@ -284,31 +284,31 @@ module.exports = Backbone.Marionette.AppRouter.extend({
 
   showCollectionFormsEdit: function(cid){
 
-      var app = window.hackdash.app;
-      var self = this;
-      app.type = "collection_form";
+    var app = window.hackdash.app;
+    var self = this;
+    app.type = "collection_form";
 
-      app.collection = new Collection({ _id: cid });
-      // Set group same as _id to allow choose from dashboard or collection in FormView
-      app.collection.set('group', cid);
-      app.collection.fetch().done(function(){
-        if(!self.canEditCollection(window.hackdash.user, app.collection.attributes)) {
-          window.location = "/collections/" + app.collection.attributes._id;
-        }
+    app.collection = new Collection({ _id: cid });
+    // Set group same as _id to allow choose from dashboard or collection in FormView
+    app.collection.set('group', cid);
+    app.collection.fetch().done(function(){
+      if(!self.canEditCollection(window.hackdash.user, app.collection.attributes)) {
+        window.location = "/collections/" + app.collection.attributes._id;
+      }
 
-        app.header.show(new Header());
+      app.header.show(new Header());
 
-        // here the forms editor
-        app.main.show(new FormView({
-          model: app.collection
-        }));
-        app.footer.show(new Footer({
-          model: app.collection
-        }));
-        app.setTitle('Edit forms for ' + app.collection.get('title'));
+      // here the forms editor
+      app.main.show(new FormEditView({
+        model: app.collection
+      }));
+      app.footer.show(new Footer({
+        model: app.collection
+      }));
+      app.setTitle('Edit forms for ' + app.collection.get('title'));
 
-      });
-    },
+    });
+  },
 
   showProjectCreate: function(dashboard){
 
@@ -1149,16 +1149,31 @@ module.exports = Backbone.Model.extend({
       contentType: 'application/json; charset=utf-8',
       context: this
     })
-    .fail(function(jqXHR, status) {
-      console.log('fail', status, jqXHR);
+    .fail(function(jqXHR) {
       callback(jqXHR.responseText);
     })
     .done(function(msg) {
-      console.log('done',msg);
       callback(null, msg);
     });
-  }
+  },
 
+  fetchTemplates: function(callback) {
+    if(typeof callback !== 'function') {
+      callback = function(){};
+    }
+    $.ajax({
+      url: this.urlRoot() + '/templates',
+      type: 'GET',
+      context: this
+    })
+    .fail(function(jqXHR) {
+      callback(jqXHR.responseText);
+    })
+    .done(function(templates) {
+      console.log(templates);
+      callback(null, templates);
+    });
+  }
 });
 
 },{}],15:[function(require,module,exports){
@@ -3261,10 +3276,13 @@ module.exports = Backbone.Marionette.ItemView.extend({
   ui: {
     'title' : 'input[name=title]',
     'description' : 'textarea[name=description]',
+    'template' : 'input[name=template]',
+    'fromTemplate': '.from-template'
   },
 
   events: {
-    "click #save": "save"
+    "click #save": "save",
+    "change @ui.fromTemplate": 'createFromTemplate'
   },
 
   modelEvents: {
@@ -3275,7 +3293,33 @@ module.exports = Backbone.Marionette.ItemView.extend({
     "title_required": "Title is required"
   },
 
-  onShow: function() {
+  templateHelpers: function() {
+
+    return {
+      showTemplates: function() {
+        console.log('templates', this.templates);
+        return this.templates && this.templates.length;
+      },
+      getTemplates: function() {
+        return this.templates;
+      }
+    };
+  },
+
+  initialize: function() {
+    var self = this;
+    if(!self.model.get('_id')) {
+      // fetch templates
+      self.model.fetchTemplates(function(err, templates) {
+        if(err) {
+          return window.alert('Templates cannot be fetched! '+ err);
+        }
+        self.model.set({'templates': templates});
+      });
+    }
+  },
+
+  onRender: function() {
     this.simplemde = new window.SimpleMDE({
       element: this.ui.description.get(0),
       forceSync: true,
@@ -3287,7 +3331,8 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
     var toSave = {
       title: this.ui.title.val(),
-      description: this.ui.description.val()
+      description: this.ui.description.val(),
+      template: this.ui.template.is(':checked')
     };
 
     // console.log(toSave, this.model, this.model.isNew());
@@ -3300,6 +3345,10 @@ module.exports = Backbone.Marionette.ItemView.extend({
       .save(toSave, { patch: true, silent: true })
       .success(this.destroyModal.bind(this))
       .error(this.showError.bind(this));
+  },
+
+  createFromTemplate: function() {
+    console.log('Create from template');
   },
 
   destroyModal: function(){
@@ -4446,7 +4495,12 @@ module.exports = Text.extend({
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partials,data) {
   return " checked=\"true\"";
-  },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+  },"3":function(depth0,helpers,partials,data) {
+  var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+  return "      <p class=\"help-block\">"
+    + escapeExpression(((helper = (helper = helpers.help || (depth0 != null ? depth0.help : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"help","hash":{},"data":data}) : helper)))
+    + "</p>\n";
+},"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "<div class=\"form-group\">\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\""
     + escapeExpression(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"name","hash":{},"data":data}) : helper)))
     + "\" id=\"q-"
@@ -4454,9 +4508,12 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
     + "\" value=\"1\"";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.value : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
-  return buffer + "> "
+  buffer += "> "
     + escapeExpression(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"title","hash":{},"data":data}) : helper)))
-    + "\n      </label>\n    </div>\n</div>\n";
+    + "\n      </label>\n    </div>\n";
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.help : depth0), {"name":"if","hash":{},"fn":this.program(3, data),"inverse":this.noop,"data":data});
+  if (stack1 != null) { buffer += stack1; }
+  return buffer + "</div>\n";
 },"useData":true});
 
 },{"hbsfy/runtime":152}],64:[function(require,module,exports){
@@ -4691,7 +4748,9 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   initialize: function() {
-    this.model.set({projects: this.model.getMyProjects()});
+    if(this.model && this.hasOwnProperty('getMyProjects')) {
+      this.model.set({projects: this.model.getMyProjects()});
+    }
   }
 });
 
@@ -4963,15 +5022,35 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
   return "Edit form";
   },"3":function(depth0,helpers,partials,data) {
   return "New form";
+  },"5":function(depth0,helpers,partials,data) {
+  var stack1, buffer = "      <div class=\"form-group\">\n        <label>Feeling lazy? Create from template:</label>\n        <select class=\"form-control from-template\">\n          <option>Choose one</option>\n";
+  stack1 = helpers.each.call(depth0, (depth0 != null ? depth0.getTemplates : depth0), {"name":"each","hash":{},"fn":this.program(6, data),"inverse":this.noop,"data":data});
+  if (stack1 != null) { buffer += stack1; }
+  return buffer + "        </select>\n\n        <p class=\"help-block\">No questions ask! Content will be copied right away!</p>\n      </div>\n\n      <h3>Naah, a brand new one:</h3>\n\n";
+},"6":function(depth0,helpers,partials,data) {
+  var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+  return "          <option value=\""
+    + escapeExpression(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"_id","hash":{},"data":data}) : helper)))
+    + "\">"
+    + escapeExpression(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"title","hash":{},"data":data}) : helper)))
+    + "</option>\n";
+},"8":function(depth0,helpers,partials,data) {
+  return " checked=\"true\"";
   },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "<div class=\"modal-header\">\n  <button type=\"button\" class=\"close\" data-dismiss=\"modal\">\n    <i class=\"fa fa-close\"></i>\n  </button>\n  <h2 class=\"modal-title\">";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.id : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.program(3, data),"data":data});
   if (stack1 != null) { buffer += stack1; }
-  return buffer + "</h2>\n</div>\n\n<div class=\"modal-body\">\n\n  <div class=\"form-content\">\n    <div class=\"form-group\">\n      <input type=\"text\" class=\"form-control\" name=\"title\" placeholder=\"Form title\" value=\""
+  buffer += "</h2>\n</div>\n\n<div class=\"modal-body\">\n\n  <div class=\"form-content\">\n";
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.showTemplates : depth0), {"name":"if","hash":{},"fn":this.program(5, data),"inverse":this.noop,"data":data});
+  if (stack1 != null) { buffer += stack1; }
+  buffer += "\n    <div class=\"form-group\">\n      <input type=\"text\" class=\"form-control\" name=\"title\" placeholder=\"Form title\" value=\""
     + escapeExpression(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"title","hash":{},"data":data}) : helper)))
-    + "\">\n    </div>\n    <div class=\"form-group\">\n      <textarea class=\"form-control\" name=\"description\" placeholder=\"Optional description/help\">"
+    + "\">\n    </div>\n\n    <div class=\"form-group\">\n      <textarea class=\"form-control\" name=\"description\" placeholder=\"Optional description/help\">"
     + escapeExpression(((helper = (helper = helpers.description || (depth0 != null ? depth0.description : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"description","hash":{},"data":data}) : helper)))
-    + "</textarea>\n    </div>\n  </div>\n\n  <a id=\"save\" class=\"btn btn-success\">Save</a>\n\n</div>";
+    + "</textarea>\n    </div>\n\n    <div class=\"form-group\">\n      <div class=\"checkbox\">\n        <label>\n        <input type=\"checkbox\" name=\"template\" value=\"1\"";
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.template : depth0), {"name":"if","hash":{},"fn":this.program(8, data),"inverse":this.noop,"data":data});
+  if (stack1 != null) { buffer += stack1; }
+  return buffer + ">\n        Available as template\n        </label>\n      </div>\n\n      <p class=\"help-block\">Marking this option will allow to create new forms with this same configuration (as it is when it's copied).</p>\n\n    </div>\n\n  </div>\n\n  <a id=\"save\" class=\"btn btn-success\">Save</a>\n\n</div>\n";
 },"useData":true});
 
 },{"hbsfy/runtime":152}],76:[function(require,module,exports){
