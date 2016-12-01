@@ -528,16 +528,6 @@ module.exports = function(){
     $.fn.editable.defaults.mode = 'inline';
   }
 
-  window.hackdash.statuses = [
-    'brainstorming',
-    'forecasting',
-    'prototyping',
-    'wireframing',
-    'tasklogging',
-    'building',
-    'releasing'
-  ];
-
   // Init Helpers
   require('./helpers/handlebars');
   require('./helpers/backboneOverrides');
@@ -597,15 +587,10 @@ Handlebars.registerHelper('embedCode', function() {
 });
 
 Handlebars.registerHelper('statusesText', function(status) {
-  var statusesText = { 'brainstorming' : 'brainstorming',
-    'forecasting' : 'scenario forecasting',
-    'prototyping' : 'prototyping',
-    'wireframing' : 'wireframing',
-    'tasklogging' : 'tasklogging',
-    'building' : 'building',
-    'releasing' : 'releasing'
-  };
-  return statusesText[status];
+  if(hackdash.statuses && hackdash.statuses[status] && hackdash.statuses[status].text) {
+    return hackdash.statuses[status].text;
+  }
+  return status;
 });
 
 Handlebars.registerHelper('firstUpper', function(text) {
@@ -1514,7 +1499,7 @@ var Projects = module.exports = BaseCollection.extend({
   },
 
   getStatusCount: function(){
-    var statuses = window.hackdash.statuses;
+    var statuses = Object.keys(window.hackdash.statuses);
     var statusCount = {};
 
     _.each(statuses, function(status){
@@ -8345,7 +8330,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
       return this.tags && _.indexOf(this.tags, val) > -1 ? ' selected' : '';
     },
     statuses: function(){
-      return window.hackdash.statuses;
+      return Object.keys(window.hackdash.statuses);
     }
   },
 

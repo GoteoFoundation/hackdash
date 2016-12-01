@@ -56,7 +56,6 @@ html
         subdomain: "!{subdomain}",
         baseURL: "!{host}",
         disqus_shortname: "!{disqus_shortname}",
-        statuses: "!{statuses}",
         providers: "!{providers}",
         publicDashboardCreation: !{publicDashboardCreation},
         useLocalLogin: !{useLocalLogin},
@@ -64,7 +63,8 @@ html
         homeToolsUrl: "!{homeToolsUrl}",
         fbAppId: "!{fbAppId}",
         flashError: "!{flashError}",
-        flashMessage: "!{flashMessage}"
+        flashMessage: "!{flashMessage}",
+        statuses: !{statuses}
       };
 
     if ("undefined" == typeof user)

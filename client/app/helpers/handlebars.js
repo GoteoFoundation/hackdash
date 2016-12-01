@@ -15,15 +15,10 @@ Handlebars.registerHelper('embedCode', function() {
 });
 
 Handlebars.registerHelper('statusesText', function(status) {
-  var statusesText = { 'brainstorming' : 'brainstorming',
-    'forecasting' : 'scenario forecasting',
-    'prototyping' : 'prototyping',
-    'wireframing' : 'wireframing',
-    'tasklogging' : 'tasklogging',
-    'building' : 'building',
-    'releasing' : 'releasing'
-  };
-  return statusesText[status];
+  if(hackdash.statuses && hackdash.statuses[status] && hackdash.statuses[status].text) {
+    return hackdash.statuses[status].text;
+  }
+  return status;
 });
 
 Handlebars.registerHelper('firstUpper', function(text) {

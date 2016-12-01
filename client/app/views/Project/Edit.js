@@ -38,7 +38,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
       return this.tags && _.indexOf(this.tags, val) > -1 ? ' selected' : '';
     },
     statuses: function(){
-      return window.hackdash.statuses;
+      return Object.keys(window.hackdash.statuses);
     }
   },
 
