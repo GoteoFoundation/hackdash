@@ -45,8 +45,10 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     // Listens 'edited' event fired in EditForm
     // to reload the list if changes
     hackdash.app.modals.on('form_edited', function(id){
-      // console.log('redraw form', id);
       self.drawFormList(id);
+    });
+    hackdash.app.modals.on('form_destroyed', function(){
+      self.drawFormList();
     });
 
   },

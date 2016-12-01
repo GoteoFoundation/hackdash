@@ -20,6 +20,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
   events: {
     "click #save": "save",
+    "click #delete": "delete",
     "change @ui.fromTemplate": 'createFromTemplate'
   },
 
@@ -34,6 +35,10 @@ module.exports = Backbone.Marionette.ItemView.extend({
   templateHelpers: function() {
 
     return {
+      isNew: function() {
+        return !this._id;
+      },
+
       showTemplates: function() {
         return this.templates && this.templates.length;
       },
@@ -94,20 +99,39 @@ module.exports = Backbone.Marionette.ItemView.extend({
     var sanitized = _.omit(template, ['_id', 'created_at', 'creator', 'domain', 'group']);
     sanitized.title = '[COPY] ' + sanitized.title;
     // console.log('Create from template', template, sanitized);
+
+    $("#save", this.$el).button('loading');
+
     this.model.save(sanitized, { patch: true, silent: true })
       .success(this.destroyModal.bind(this))
       .error(this.showError.bind(this));
   },
 
-  destroyModal: function(){
-    hackdash.app.modals.trigger('form_edited', this.model.get('id'));
+  delete: function() {
+    var id = this.model.get('_id');
+    if(!id) {
+      return this.destroy();
+    }
+    if(window.confirm("Are you sure? Kittens may (and will) die!\nForms already responded cannot be deleted.")) {
+      $("#delete", this.$el).button('loading');
+
+      this.model
+        .destroy({ silent: true })
+        .success(this.destroyModal.bind(this))
+        .error(this.showError.bind(this));
+    }
+  },
+
+  destroyModal: function() {
+    hackdash.app.modals.trigger('form_destroyed', this.model.get('id'));
     // TODO: update view
     this.destroy();
   },
 
 
-  showError: function(err){
+  showError: function(err) {
     $("#save", this.$el).button('reset');
+    $("#delete", this.$el).button('reset');
 
     if (err.responseText === "OK"){
       this.destroyModal();
@@ -120,7 +144,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
       this.ui[ctrl].parents('.control-group').addClass('error');
       this.ui[ctrl].after('<span class="help-inline">' + this.errors[error] + '</span>');
     } catch(e) {
-      window.alert(e + "\n" + err.responseText);
+      window.alert(err.responseText);
     }
 
   },

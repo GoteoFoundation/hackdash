@@ -68,7 +68,6 @@ module.exports = Backbone.Model.extend({
       callback(jqXHR.responseText);
     })
     .done(function(templates) {
-      console.log(templates);
       callback(null, templates);
     });
   }

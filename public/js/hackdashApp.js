@@ -1171,7 +1171,6 @@ module.exports = Backbone.Model.extend({
       callback(jqXHR.responseText);
     })
     .done(function(templates) {
-      console.log(templates);
       callback(null, templates);
     });
   }
@@ -3185,8 +3184,10 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     // Listens 'edited' event fired in EditForm
     // to reload the list if changes
     hackdash.app.modals.on('form_edited', function(id){
-      // console.log('redraw form', id);
       self.drawFormList(id);
+    });
+    hackdash.app.modals.on('form_destroyed', function(){
+      self.drawFormList();
     });
 
   },
@@ -3283,6 +3284,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
   events: {
     "click #save": "save",
+    "click #delete": "delete",
     "change @ui.fromTemplate": 'createFromTemplate'
   },
 
@@ -3297,6 +3299,10 @@ module.exports = Backbone.Marionette.ItemView.extend({
   templateHelpers: function() {
 
     return {
+      isNew: function() {
+        return !this._id;
+      },
+
       showTemplates: function() {
         return this.templates && this.templates.length;
       },
@@ -3357,20 +3363,39 @@ module.exports = Backbone.Marionette.ItemView.extend({
     var sanitized = _.omit(template, ['_id', 'created_at', 'creator', 'domain', 'group']);
     sanitized.title = '[COPY] ' + sanitized.title;
     // console.log('Create from template', template, sanitized);
+
+    $("#save", this.$el).button('loading');
+
     this.model.save(sanitized, { patch: true, silent: true })
       .success(this.destroyModal.bind(this))
       .error(this.showError.bind(this));
   },
 
-  destroyModal: function(){
-    hackdash.app.modals.trigger('form_edited', this.model.get('id'));
+  delete: function() {
+    var id = this.model.get('_id');
+    if(!id) {
+      return this.destroy();
+    }
+    if(window.confirm("Are you sure? Kittens may (and will) die!\nForms already responded cannot be deleted.")) {
+      $("#delete", this.$el).button('loading');
+
+      this.model
+        .destroy({ silent: true })
+        .success(this.destroyModal.bind(this))
+        .error(this.showError.bind(this));
+    }
+  },
+
+  destroyModal: function() {
+    hackdash.app.modals.trigger('form_destroyed', this.model.get('id'));
     // TODO: update view
     this.destroy();
   },
 
 
-  showError: function(err){
+  showError: function(err) {
     $("#save", this.$el).button('reset');
+    $("#delete", this.$el).button('reset');
 
     if (err.responseText === "OK"){
       this.destroyModal();
@@ -3383,7 +3408,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
       this.ui[ctrl].parents('.control-group').addClass('error');
       this.ui[ctrl].after('<span class="help-inline">' + this.errors[error] + '</span>');
     } catch(e) {
-      window.alert(e + "\n" + err.responseText);
+      window.alert(err.responseText);
     }
 
   },
@@ -5047,6 +5072,8 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
     + "</option>\n";
 },"8":function(depth0,helpers,partials,data) {
   return " checked=\"true\"";
+  },"10":function(depth0,helpers,partials,data) {
+  return "    <a id=\"delete\" class=\"btn btn-danger\">Delete</a>\n";
   },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "<div class=\"modal-header\">\n  <button type=\"button\" class=\"close\" data-dismiss=\"modal\">\n    <i class=\"fa fa-close\"></i>\n  </button>\n  <h2 class=\"modal-title\">";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.id : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.program(3, data),"data":data});
@@ -5061,7 +5088,10 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
     + "</textarea>\n    </div>\n\n    <div class=\"form-group\">\n      <div class=\"checkbox\">\n        <label>\n        <input type=\"checkbox\" name=\"template\" value=\"1\"";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.template : depth0), {"name":"if","hash":{},"fn":this.program(8, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
-  return buffer + ">\n        Available as template\n        </label>\n      </div>\n\n      <p class=\"help-block\">Marking this option will allow to create new forms with this same configuration (as it is when it's copied).</p>\n\n    </div>\n\n  </div>\n\n  <a id=\"save\" class=\"btn btn-success\">Save</a>\n\n</div>\n";
+  buffer += ">\n        Available as template\n        </label>\n      </div>\n\n      <p class=\"help-block\">Marking this option will allow to create new forms with this same configuration (as it is when it's copied).</p>\n\n    </div>\n\n  </div>\n\n  <a id=\"save\" class=\"btn btn-success\">Save</a>\n\n";
+  stack1 = helpers.unless.call(depth0, (depth0 != null ? depth0.isNew : depth0), {"name":"unless","hash":{},"fn":this.program(10, data),"inverse":this.noop,"data":data});
+  if (stack1 != null) { buffer += stack1; }
+  return buffer + "\n</div>\n";
 },"useData":true});
 
 },{"hbsfy/runtime":152}],76:[function(require,module,exports){
