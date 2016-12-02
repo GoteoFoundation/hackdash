@@ -8324,13 +8324,19 @@ module.exports = Backbone.Marionette.ItemView.extend({
   },
 
   templateHelpers: {
+    toolsUrl: function() {
+      var status = _.findWhere(hackdash.statuses, {status: this.status});
+      if(status) {
+        console.log(status, status.toolsUrl);
+        return status.toolsUrl;
+      }
+      return '';
+    },
     selected: function(val) {
       return this.tags && _.indexOf(this.tags, val) > -1 ? ' selected' : '';
     },
     statuses: function(){
-      return _.pluck(_.filter(window.hackdash.statuses, function(v){
-        return v.active;
-      }), 'status');
+      return window.hackdash.statuses;
     }
   },
 
@@ -8437,7 +8443,8 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
   errors: {
     "title_required": "Title is required",
-    "description_required": "Description is required"
+    "description_required": "Description is required",
+    "status_invalid": "Invalid status"
   },
 
   showError: function(err){
@@ -8560,6 +8567,14 @@ module.exports = Backbone.Marionette.ItemView.extend({
   template: template,
 
   templateHelpers: {
+    toolsUrl: function() {
+      var status = _.findWhere(hackdash.statuses, {status: this.status});
+      if(status) {
+        console.log(status, status.toolsUrl);
+        return status.toolsUrl;
+      }
+      return '';
+    },
     showActions: function(){
       if (hackdash.user && this.leader){
         return hackdash.user._id !== this.leader._id;
@@ -8661,6 +8676,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
   //--------------------------------------
 
 });
+
 },{"../Sharer":139,"./templates/full.hbs":136}],133:[function(require,module,exports){
 /**
  * VIEW: Login Modal
@@ -8950,28 +8966,37 @@ var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partials,data) {
   return "    <div id=\"ghImportHolder\" class=\"hidden-xs\">\n\n      <div class=\"project-link\">\n        <a id=\"ghImportBtn\" >\n          <label>Import Project</label>\n          <div>\n            <i class=\"fa fa-github\"></i>\n            <span class=\"github\">GitHub</span>\n          </div>\n        </a>\n      </div>\n\n      <div class=\"gh-import input-group col-md-4 hide\">\n        <input id=\"txt-repo\" type=\"text\" class=\"form-control\" placeholder=\"username / repository\">\n        <span class=\"input-group-btn\">\n          <button id=\"searchGh\" class=\"btn btn-blue\" type=\"button\" data-loading-text=\"LOADING\">\n            import\n          </button>\n        </span>\n      </div>\n\n    </div>\n";
   },"3":function(depth0,helpers,partials,data) {
-  var lambda=this.lambda, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing;
-  return "              <option value=\""
-    + escapeExpression(lambda(depth0, depth0))
-    + "\">"
-    + escapeExpression(((helpers.statusesText || (depth0 && depth0.statusesText) || helperMissing).call(depth0, depth0, {"name":"statusesText","hash":{},"data":data})))
+  var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "              <option value=\""
+    + escapeExpression(((helper = (helper = helpers.status || (depth0 != null ? depth0.status : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"status","hash":{},"data":data}) : helper)))
+    + "\"";
+  stack1 = helpers.unless.call(depth0, (depth0 != null ? depth0.active : depth0), {"name":"unless","hash":{},"fn":this.program(4, data),"inverse":this.noop,"data":data});
+  if (stack1 != null) { buffer += stack1; }
+  return buffer + ">"
+    + escapeExpression(((helpers.statusesText || (depth0 && depth0.statusesText) || helperMissing).call(depth0, (depth0 != null ? depth0.status : depth0), {"name":"statusesText","hash":{},"data":data})))
     + "</option>\n";
-},"5":function(depth0,helpers,partials,data) {
+},"4":function(depth0,helpers,partials,data) {
+  return " disabled";
+  },"6":function(depth0,helpers,partials,data) {
   var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
   return "          style=\"background-image: url("
     + escapeExpression(((helper = (helper = helpers.cover || (depth0 != null ? depth0.cover : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"cover","hash":{},"data":data}) : helper)))
     + ");\"\n          ";
-},"7":function(depth0,helpers,partials,data) {
+},"8":function(depth0,helpers,partials,data) {
   var lambda=this.lambda, escapeExpression=this.escapeExpression;
   return "          <option selected>"
     + escapeExpression(lambda(depth0, depth0))
     + "</option>\n";
-},"9":function(depth0,helpers,partials,data) {
+},"10":function(depth0,helpers,partials,data) {
+  var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+  return "          <a class=\"btn btn-primary bnt-red\" href=\""
+    + escapeExpression(((helper = (helper = helpers.toolsUrl || (depth0 != null ? depth0.toolsUrl : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"toolsUrl","hash":{},"data":data}) : helper)))
+    + "\" target=\"_blank\" data-bypass>Tools for this stage</a>\n";
+},"12":function(depth0,helpers,partials,data) {
   var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
   return "          href=\"/projects/"
     + escapeExpression(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"_id","hash":{},"data":data}) : helper)))
     + "\"\n";
-},"11":function(depth0,helpers,partials,data) {
+},"14":function(depth0,helpers,partials,data) {
   var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
   return "          href=\"/dashboards/"
     + escapeExpression(((helper = (helper = helpers.domain || (depth0 != null ? depth0.domain : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"domain","hash":{},"data":data}) : helper)))
@@ -8994,19 +9019,22 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
   stack1 = helpers.each.call(depth0, (depth0 != null ? depth0.statuses : depth0), {"name":"each","hash":{},"fn":this.program(3, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
   buffer += "            </select>\n          </div>\n        </div>\n\n        <div id=\"dragdrop\" class=\"dropzone item-cover\"\n";
-  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.cover : depth0), {"name":"if","hash":{},"fn":this.program(5, data),"inverse":this.noop,"data":data});
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.cover : depth0), {"name":"if","hash":{},"fn":this.program(6, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
   buffer += ">\n        </div>\n        <p class=\"error-cover bg-danger text-danger hidden\"></p>\n\n      </div>\n\n    </div>\n\n    <div class=\"col-md-8\">\n      <div class=\"description\">\n        <textarea id=\"description\" name=\"description\" placeholder=\"Description\">"
     + escapeExpression(((helper = (helper = helpers.description || (depth0 != null ? depth0.description : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"description","hash":{},"data":data}) : helper)))
     + "</textarea>\n      </div>\n      <div class=\"whatif\">\n        <textarea id=\"whatif\" name=\"whatif\" placeholder=\"[What if as a <type of user>]\n      [I could <specific action>]\n      [with <open content / tool>]\n      [so <benefit / goal>]\">"
     + escapeExpression(((helper = (helper = helpers.whatif || (depth0 != null ? depth0.whatif : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"whatif","hash":{},"data":data}) : helper)))
     + "</textarea>\n      </div>\n      <div class=\"tags\">\n        <select id=\"tags\" name=\"tags\" multiple placeholder=\"Tags ( comma separated values )\" class=\"form-control\">\n";
-  stack1 = helpers.each.call(depth0, (depth0 != null ? depth0.tags : depth0), {"name":"each","hash":{},"fn":this.program(7, data),"inverse":this.noop,"data":data});
+  stack1 = helpers.each.call(depth0, (depth0 != null ? depth0.tags : depth0), {"name":"each","hash":{},"fn":this.program(8, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
   buffer += "        </select>\n      </div>\n      <div class=\"link\">\n        <input id=\"link\" type=\"text\" name=\"link\" placeholder=\"Project URL Demo\" class=\"form-control\" value=\""
     + escapeExpression(((helper = (helper = helpers.link || (depth0 != null ? depth0.link : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"link","hash":{},"data":data}) : helper)))
-    + "\"/>\n      </div>\n    </div>\n\n    <div class=\"col-md-8 buttons-panel\">\n\n      <div class=\"pull-right save\">\n        <a id=\"save\" class=\"btn btn-success\">Save</a>\n      </div>\n\n      <div class=\"pull-right cancel\">\n        <a id=\"cancel\" class=\"btn btn-danger\"\n";
-  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0._id : depth0), {"name":"if","hash":{},"fn":this.program(9, data),"inverse":this.program(11, data),"data":data});
+    + "\"/>\n      </div>\n    </div>\n\n    <div class=\"col-md-8 buttons-panel\">\n\n      <div class=\"pull-right save\">\n        <a id=\"save\" class=\"btn btn-success\">Save</a>\n      </div>\n\n      <div class=\"pull-right cancel\">\n";
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.toolsUrl : depth0), {"name":"if","hash":{},"fn":this.program(10, data),"inverse":this.noop,"data":data});
+  if (stack1 != null) { buffer += stack1; }
+  buffer += "\n        <a id=\"cancel\" class=\"btn btn-danger\"\n";
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0._id : depth0), {"name":"if","hash":{},"fn":this.program(12, data),"inverse":this.program(14, data),"data":data});
   if (stack1 != null) { buffer += stack1; }
   return buffer + "        >Cancel</a>\n      </div>\n\n    </div>\n\n  </div>\n\n</div>\n";
 },"useData":true});
@@ -9078,31 +9106,38 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.isAdminOrLeader : depth0), {"name":"if","hash":{},"fn":this.program(27, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
   buffer += "\n";
-  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.showActions : depth0), {"name":"if","hash":{},"fn":this.program(29, data),"inverse":this.noop,"data":data});
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.showActions : depth0), {"name":"if","hash":{},"fn":this.program(30, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
   return buffer + "\n";
 },"27":function(depth0,helpers,partials,data) {
-  var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
-  return "      <div class=\"pull-right remove\">\n        <a class=\"btn btn-danger\">Remove</a>\n      </div>\n      <div class=\"pull-right edit\">\n        <a class=\"btn btn-info\" href=\"/forms\" data-bypass>Forms</a>\n        <a class=\"btn btn-success\" href=\"/projects/"
+  var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "      <div class=\"pull-right remove\">\n        <a class=\"btn btn-danger\">Remove</a>\n      </div>\n      <div class=\"pull-right edit\">\n";
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.toolsUrl : depth0), {"name":"if","hash":{},"fn":this.program(28, data),"inverse":this.noop,"data":data});
+  if (stack1 != null) { buffer += stack1; }
+  return buffer + "        <a class=\"btn btn-info\" href=\"/forms\" data-bypass>Forms</a>\n        <a class=\"btn btn-success\" href=\"/projects/"
     + escapeExpression(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"_id","hash":{},"data":data}) : helper)))
     + "/edit\">Edit</a>\n      </div>\n";
-},"29":function(depth0,helpers,partials,data) {
+},"28":function(depth0,helpers,partials,data) {
+  var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+  return "          <a class=\"btn btn-primary bnt-red\" href=\""
+    + escapeExpression(((helper = (helper = helpers.toolsUrl || (depth0 != null ? depth0.toolsUrl : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"toolsUrl","hash":{},"data":data}) : helper)))
+    + "\" target=\"_blank\" data-bypass>Tools for this stage</a>\n";
+},"30":function(depth0,helpers,partials,data) {
   var stack1, buffer = "\n      <div class=\"pull-left bottom-buttons\">\n\n        <div class=\"pull-left contributor\">\n";
-  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.contributing : depth0), {"name":"if","hash":{},"fn":this.program(30, data),"inverse":this.program(32, data),"data":data});
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.contributing : depth0), {"name":"if","hash":{},"fn":this.program(31, data),"inverse":this.program(33, data),"data":data});
   if (stack1 != null) { buffer += stack1; }
   buffer += "        </div>\n        <div class=\"pull-left follower\">\n";
-  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.following : depth0), {"name":"if","hash":{},"fn":this.program(34, data),"inverse":this.program(36, data),"data":data});
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.following : depth0), {"name":"if","hash":{},"fn":this.program(35, data),"inverse":this.program(37, data),"data":data});
   if (stack1 != null) { buffer += stack1; }
   return buffer + "        </div>\n\n      </div>\n";
-},"30":function(depth0,helpers,partials,data) {
+},"31":function(depth0,helpers,partials,data) {
   return "          <a data-loading-text=\"leaving...\" class=\"btn btn-default leave\">Leave</a>\n";
-  },"32":function(depth0,helpers,partials,data) {
+  },"33":function(depth0,helpers,partials,data) {
   return "          <a data-loading-text=\"joining...\" class=\"btn btn-default join\">Join</a>\n";
-  },"34":function(depth0,helpers,partials,data) {
+  },"35":function(depth0,helpers,partials,data) {
   return "          <a data-loading-text=\"unfollowing...\" class=\"btn btn-default unfollow\">Unfollow</a>\n";
-  },"36":function(depth0,helpers,partials,data) {
+  },"37":function(depth0,helpers,partials,data) {
   return "          <a data-loading-text=\"following...\" class=\"btn btn-default follow\">Follow</a>\n";
-  },"38":function(depth0,helpers,partials,data) {
+  },"39":function(depth0,helpers,partials,data) {
   return "\n      <div class=\"pull-left bottom-buttons\">\n        <a class=\"btn btn-default login\">Follow</a>\n        <a class=\"btn btn-default login\">Join</a>\n      </div>\n\n";
   },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   var stack1, helper, options, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, blockHelperMissing=helpers.blockHelperMissing, lambda=this.lambda, buffer = "\n<div class=\"header\">\n  <div class=\"container\">\n    <h1>"
@@ -9153,7 +9188,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.link : depth0), {"name":"if","hash":{},"fn":this.program(24, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
   buffer += "\n";
-  stack1 = ((helper = (helper = helpers.isLoggedIn || (depth0 != null ? depth0.isLoggedIn : depth0)) != null ? helper : helperMissing),(options={"name":"isLoggedIn","hash":{},"fn":this.program(26, data),"inverse":this.program(38, data),"data":data}),(typeof helper === functionType ? helper.call(depth0, options) : helper));
+  stack1 = ((helper = (helper = helpers.isLoggedIn || (depth0 != null ? depth0.isLoggedIn : depth0)) != null ? helper : helperMissing),(options={"name":"isLoggedIn","hash":{},"fn":this.program(26, data),"inverse":this.program(39, data),"data":data}),(typeof helper === functionType ? helper.call(depth0, options) : helper));
   if (!helpers.isLoggedIn) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if (stack1 != null) { buffer += stack1; }
   return buffer + "    </div>\n\n  </div>\n\n  <div class=\"container disqus-ctn\">\n    <div id=\"disqus_thread\" class=\"col-md-12\"></div>\n  </div>\n\n</div>\n";

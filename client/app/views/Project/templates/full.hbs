@@ -132,6 +132,9 @@
         <a class="btn btn-danger">Remove</a>
       </div>
       <div class="pull-right edit">
+        {{#if toolsUrl}}
+          <a class="btn btn-primary bnt-red" href="{{toolsUrl}}" target="_blank" data-bypass>Tools for this stage</a>
+        {{/if}}
         <a class="btn btn-info" href="/forms" data-bypass>Forms</a>
         <a class="btn btn-success" href="/projects/{{_id}}/edit">Edit</a>
       </div>

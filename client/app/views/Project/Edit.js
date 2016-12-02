@@ -33,13 +33,19 @@ module.exports = Backbone.Marionette.ItemView.extend({
   },
 
   templateHelpers: {
+    toolsUrl: function() {
+      var status = _.findWhere(hackdash.statuses, {status: this.status});
+      if(status) {
+        console.log(status, status.toolsUrl);
+        return status.toolsUrl;
+      }
+      return '';
+    },
     selected: function(val) {
       return this.tags && _.indexOf(this.tags, val) > -1 ? ' selected' : '';
     },
     statuses: function(){
-      return _.pluck(_.filter(window.hackdash.statuses, function(v){
-        return v.active;
-      }), 'status');
+      return window.hackdash.statuses;
     }
   },
 
@@ -146,7 +152,8 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
   errors: {
     "title_required": "Title is required",
-    "description_required": "Description is required"
+    "description_required": "Description is required",
+    "status_invalid": "Invalid status"
   },
 
   showError: function(err){

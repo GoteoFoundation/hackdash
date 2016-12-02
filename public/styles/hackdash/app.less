@@ -735,13 +735,13 @@ footer {
 
           .progress {
             .entity .progress;
-            height: 20px;
-            top: -2px;
-
+            min-height: 20px;
+            // top: -2px;
+            position: relative;
             .status {
-              height: 20px;
+              height: auto;
               width: 100%;
-              position: absolute;
+              position: relative;
               top: 0;
               left: 0;
               z-index: 3;
@@ -883,13 +883,19 @@ footer {
             background-color: transparent;
 
             .progress {
-              position: inherit;
-              height: 30px;
+              position: relative;
+              height: auto;
+              min-height: 30px;
               box-shadow: none;
               background: none;
 
               .form-control {
                 border: none;
+              }
+              .status .help-inline {
+                color:@color-action;
+                font-family: @primary-font;
+                text-transform: none;
               }
             }
 

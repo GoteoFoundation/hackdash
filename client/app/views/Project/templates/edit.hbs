@@ -47,7 +47,7 @@
           <div class="status">
             <select name="status" id="status" class="form-control" value="{{status}}">
               {{#each statuses}}
-              <option value="{{.}}">{{statusesText .}}</option>
+              <option value="{{status}}"{{#unless active}} disabled{{/unless}}>{{statusesText status}}</option>
               {{/each}}
             </select>
           </div>
@@ -93,6 +93,10 @@
       </div>
 
       <div class="pull-right cancel">
+        {{#if toolsUrl}}
+          <a class="btn btn-primary bnt-red" href="{{toolsUrl}}" target="_blank" data-bypass>Tools for this stage</a>
+        {{/if}}
+
         <a id="cancel" class="btn btn-danger"
           {{#if _id}}
           href="/projects/{{_id}}"

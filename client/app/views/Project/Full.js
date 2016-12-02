@@ -20,6 +20,14 @@ module.exports = Backbone.Marionette.ItemView.extend({
   template: template,
 
   templateHelpers: {
+    toolsUrl: function() {
+      var status = _.findWhere(hackdash.statuses, {status: this.status});
+      if(status) {
+        console.log(status, status.toolsUrl);
+        return status.toolsUrl;
+      }
+      return '';
+    },
     showActions: function(){
       if (hackdash.user && this.leader){
         return hackdash.user._id !== this.leader._id;
