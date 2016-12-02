@@ -1,7 +1,7 @@
 
 var
     template = require('./templates/footer.hbs')
-  , Dashboard = require('../../models/Dashboard');
+  , AdminFooter = require('./AdminFooter');
 
 module.exports = Backbone.Marionette.LayoutView.extend({
 
@@ -13,49 +13,21 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   template: template,
 
   ui: {
-    "switcher": ".dashboard-btn",
-    "showcaseMode": ".btn-showcase-mode",
-    "createShowcase": ".btn-new-project",
-    "footerToggle": ".footer-toggle-ctn",
     "up": ".up-button"
   },
 
+  regions: {
+    'adminRegion': '.admin-footer'
+  },
+
   events: {
-    "click .dashboard-btn": "onClickSwitcher",
-    "click .btn-showcase-mode": "changeShowcaseMode",
     "click @ui.up": "goTop"
   },
 
-  templateHelpers: {
-    isAdmin: function(){
-      var user = hackdash.user;
-      if(user) {
-        var admin1 = user.admin_in.indexOf(this.domain) >= 0;
-        // If it has owner property its a collection
-        var admin2 = this.owner && user._id === this.owner._id;
-        return admin1 || admin2;
-      }
-      return false;
-    },
-    isDashboardForm: function(){
-      return (hackdash.app.type === "dashboard_form");
-    },
-    isCollectionForm: function(){
-      return (hackdash.app.type === "collection_form");
-    },
-    isForm: function(){
-      return (hackdash.app.type.indexOf("form") > 0 );
-    },
-    isDashboard: function(){
-      return (hackdash.app.type === "dashboard");
-    },
-    isCollection: function(){
-      return (hackdash.app.type === "collection");
-    }
-  },
-
-  modelEvents: {
-    "change": "render"
+  templateHelpers: function() {
+    return {
+      isAdmin: this.isAnyAdmin.apply(this)
+    };
   },
 
   //--------------------------------------
@@ -63,31 +35,17 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   //--------------------------------------
 
   onRender: function(){
-    $('.tooltips', this.$el).tooltip({});
     this.setStatics();
+    if(this.isAnyAdmin()) {
+      this.adminRegion.show(new AdminFooter({
+        model: this.model
+      }));
+    }
 /*
     if (hackdash.app.type !== "dashboard"){
       this.$el.addClass('unlocked');
     }
 */
-  },
-
-  serializeData: function(){
-
-    if (this.model && this.model instanceof Dashboard){
-
-      var msg = "This Dashboard is open: click to close";
-
-      if (!this.model.get("open")) {
-        msg = "This Dashboard is closed: click to reopen";
-      }
-
-      return _.extend({
-        switcherMsg: msg
-      }, this.model.toJSON());
-    }
-
-    return (this.model && this.model.toJSON()) || {};
   },
 
   //--------------------------------------
@@ -97,19 +55,6 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   //--------------------------------------
   //+ EVENT HANDLERS
   //--------------------------------------
-
-  onClickSwitcher:function(){
-    var open = true;
-
-    if (this.ui.switcher.hasClass("dash-open")){
-      open = false;
-    }
-
-    $('.tooltips', this.$el).tooltip('hide');
-
-    this.model.set({ "open": open }, { trigger: false });
-    this.model.save({ wait: true });
-  },
 
   upBlocked: false,
   goTop: function(){
@@ -128,32 +73,18 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   //+ PRIVATE AND PROTECTED METHODS
   //--------------------------------------
 
-  changeShowcaseMode: function(){
-    if (this.ui.showcaseMode.hasClass("on")){
+  isAnyAdmin: function() {
+    var user = hackdash.user;
 
-      this.model.trigger("save:showcase");
-      this.model.trigger("end:showcase");
-
-      this.model.isShowcaseMode = false;
-
-      this.ui.showcaseMode
-        .html("<i class='btn-danger txt'>off</i><div>Edit Showcase</div>")
-        .removeClass("on");
-
-      this.ui.createShowcase.removeClass("hide");
-      this.ui.footerToggle.removeClass("hide");
+    if(user && this.model) {
+      var domain = this.model.get('domain');
+      var owner = this.model.get('owner');
+      var admin1 = user.admin_in.indexOf(domain) >= 0;
+      // If it has owner property its a collection
+      var admin2 = owner && user._id === owner._id;
+      return admin1 || admin2;
     }
-    else {
-      this.model.isShowcaseMode = true;
-      this.model.trigger("edit:showcase");
-
-      this.ui.showcaseMode
-        .text("Save Showcase")
-        .addClass("btn btn-success on");
-
-      this.ui.createShowcase.addClass("hide");
-      this.ui.footerToggle.addClass("hide");
-    }
+    return false;
   },
 
   setStatics: function(){

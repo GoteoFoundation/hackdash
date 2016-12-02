@@ -5,58 +5,7 @@
   <span class="logo-hackdash" title="Powered by Hackdash">Powered by Hackdash</span>
 </a>
 
-{{#if isAdmin}}
-  <div class="footer-dash-ctn">
-
-    {{#if isDashboard}}
-
-    <div class="footer-toggle-ctn">
-
-      <a href="/api/v2/dashboards/{{domain}}/csv" target="_blank" data-bypass>
-        <i class="fa fa-download"></i>
-        <div>Export .CSV File</div>
-      </a>
-
-      <a class="btn-admin-forms" href="/dashboards/{{domain}}/forms">
-        <i class="fa fa-file-text-o"></i><div>Admin forms</div>
-      </a>
-
-      <a data-placement="top" data-original-title="{{switcherMsg}}"
-        class="tooltips dashboard-btn {{#if open}}dash-open{{else}}dash-close{{/if}}">
-        <i class="txt {{#if open}}btn-success{{else}}btn-danger{{/if}}">{{#if open}}Open{{else}}Close{{/if}}</i>
-        <div>Board Status</div>
-      </a>
-
-    </div>
-
-    <a class="btn-showcase-mode">
-      <i class="btn-danger txt">off</i><div>Edit Showcase</div>
-    </a>
-
-  </div>
-  {{/if}}
-
-  {{#if isCollection}}
-      <a class="btn-admin-forms" href="/collections/{{_id}}/forms">
-        <i class="fa fa-file-text-o"></i><div>Admin forms</div>
-      </a>
-  {{/if}}
-
-  {{#if isForm}}
-    {{#if isDashboardForm}}
-      <a href="/dashboards/{{domain}}">
-        <i class="fa fa-dashboard"></i>
-        <div>Back to dashboard</div>
-      </a>
-    {{else}}
-      <a href="/collections/{{_id}}">
-        <i class="fa fa-object-group"></i>
-        <div>Back to collection</div>
-      </a>
-    {{/if}}
-  {{/if}}
-
-{{/if}}
+<div class="admin-footer"></div>
 
 <a class="up-button">
   <i class="fa fa-long-arrow-up"></i>
