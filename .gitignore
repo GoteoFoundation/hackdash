@@ -8,7 +8,6 @@ config/keys.json
 config/config.json
 config/statuses.json
 config/config.test.json
-public/uploads/*
 npm-debug.log
 sync.sh
 public/styles/app.css
