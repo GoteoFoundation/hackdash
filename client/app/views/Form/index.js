@@ -50,7 +50,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   initialize: function() {
-    if(hackdash.app.project) {
+    if(this.model && hackdash.app.project) {
       this.model.set({'project': hackdash.app.project});
     }
   },

@@ -5121,7 +5121,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   initialize: function() {
-    if(hackdash.app.project) {
+    if(this.model && hackdash.app.project) {
       this.model.set({'project': hackdash.app.project});
     }
   },
@@ -5371,7 +5371,7 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
     + escapeExpression(((helper = (helper = helpers.showMessages || (depth0 != null ? depth0.showMessages : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"showMessages","hash":{},"data":data}) : helper)))
     + "\n    </div>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-  var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "<h3>"
+  var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, lambda=this.lambda, buffer = "<h3>"
     + escapeExpression(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"title","hash":{},"data":data}) : helper)))
     + "</h3>\n\n";
   stack1 = ((helpers.markdown || (depth0 && depth0.markdown) || helperMissing).call(depth0, (depth0 != null ? depth0.description : depth0), {"name":"markdown","hash":{},"data":data}));
@@ -5382,7 +5382,9 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
   buffer += "\n";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.showMessages : depth0), {"name":"if","hash":{},"fn":this.program(3, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
-  return buffer + "\n<div class=\"form-content\">\n\n  <div class=\"questions-list\"></div>\n\n  <a class=\"btn btn-success send-form\">Send</a>\n\n</div>\n\n<div class=\"done\"></div>\n";
+  return buffer + "\n<div class=\"form-content\">\n\n  <div class=\"questions-list\"></div>\n\n  <a class=\"btn btn-success send-form\">Send</a>\n\n  <div class=\"pull-right\">\n    <a class=\"btn btn-info\" href=\"/forms\">Go back to forms</a>\n    <a class=\"btn btn-danger\" href=\"/projects/"
+    + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.project : depth0)) != null ? stack1.id : stack1), depth0))
+    + "\">Go back to project</a>\n  </div>\n\n</div>\n\n<div class=\"done\"></div>\n";
 },"useData":true});
 
 },{"hbsfy/runtime":154}],84:[function(require,module,exports){
@@ -5392,7 +5394,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
   var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
   return "\n<a href=\"/forms\" class=\"btn btn-info\">Back to my forms</a>\n<a href=\"/projects/"
     + escapeExpression(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"_id","hash":{},"data":data}) : helper)))
-    + "\" class=\"btn btn-success\">Back to project</a>\n";
+    + "\" class=\"btn btn-danger\">Back to project</a>\n";
 },"useData":true});
 
 },{"hbsfy/runtime":154}],85:[function(require,module,exports){
