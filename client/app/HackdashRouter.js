@@ -257,10 +257,10 @@ module.exports = Backbone.Marionette.AppRouter.extend({
     app.header.show(new Header());
 
     app.project.fetch().done(function(){
-      if(!self.canEditProject(window.hackdash.user, app.project.attributes)) {
+      if(!self.canEditProject(window.hackdash.user, app.project)) {
         // console.log('kickout', console.log(app.project));
         // window.alert('Not allowed to edit this project');
-        window.location = "/projects/" + app.project.attributes._id;
+        window.location = "/projects/" + app.project.get('_id');
       }
       app.main.show(new ProjectEditView({
         model: app.project
@@ -414,8 +414,11 @@ module.exports = Backbone.Marionette.AppRouter.extend({
   },
 
   canEditProject: function(user, project) {
-    var isLeader = user && project && project.leader && (user._id === project.leader._id);
-    // var isAdmin = user && project && project.domain && project.admin_in && (user.admin_in.indexOf(project.domain) >= 0);
-    return isLeader ;//|| isAdmin;
+    if(user && project) {
+      var isLeader = project.get('leader') && (user._id === project.get('leader')._id);
+      var isAdmin = user.admin_in.indexOf(project.get('domain')) >= 0;
+      return isLeader || isAdmin;
+    }
+    return false;
   }
 });
