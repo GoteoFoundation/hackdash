@@ -100,9 +100,9 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
     $('.tooltips', this.$el).tooltip('hide');
 
-    console.log('switcher', this.model);
+    // console.log('switcher', this.model);
     this.model.set({ "open": open }, { trigger: false });
-    // this.model.save({ wait: true });
+    this.model.save({ wait: true });
   },
 
   //--------------------------------------

@@ -1076,13 +1076,22 @@ module.exports = Backbone.Model.extend({
 
 var BaseCollection = require('./BaseCollection');
 
-module.exports = BaseCollection.extend({
+var Dashboards = module.exports = BaseCollection.extend({
 
   url: function(){
-    return hackdash.apiURL + "/dashboards"; 
+    return hackdash.apiURL + "/dashboards";
   },
 
-  idAttribute: "_id", 
+  idAttribute: "_id",
+
+
+  getOpened: function(){
+    return new Dashboards(
+      this.filter(function(dash){
+        return dash.get("open");
+      })
+    );
+  },
 
 });
 
@@ -2909,9 +2918,9 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
     $('.tooltips', this.$el).tooltip('hide');
 
-    console.log('switcher', this.model);
+    // console.log('switcher', this.model);
     this.model.set({ "open": open }, { trigger: false });
-    // this.model.save({ wait: true });
+    this.model.save({ wait: true });
   },
 
   //--------------------------------------
@@ -6907,14 +6916,14 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       this.ui.createProject
         .html('Where to?');
 
-      // Load dashboards if not loaded
+      // Load opened dashboards
       this.lists.dashboards =
         this.lists.dashboards || this.getNewList('dashboards');
 
       // console.log(this.lists.dashboards);
 
       this.dashboardList.show(new DashboardListView({
-        collection: this.lists.dashboards
+        collection: this.lists.dashboards.getOpened()
       }));
       this.ui.dashboardList.addClass('open');
 

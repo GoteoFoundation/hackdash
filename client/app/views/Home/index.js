@@ -281,14 +281,14 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       this.ui.createProject
         .html('Where to?');
 
-      // Load dashboards if not loaded
+      // Load opened dashboards
       this.lists.dashboards =
         this.lists.dashboards || this.getNewList('dashboards');
 
       // console.log(this.lists.dashboards);
 
       this.dashboardList.show(new DashboardListView({
-        collection: this.lists.dashboards
+        collection: this.lists.dashboards.getOpened()
       }));
       this.ui.dashboardList.addClass('open');
 
