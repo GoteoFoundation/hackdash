@@ -86,11 +86,17 @@ cd client
 grunt
 ```
 
+For convenience, both can be started at the same time:
+
+```bash
+npm run devel
+```
+
 Generating collections
 =================
 
 ```bash
-NODE_PATH=. node scripts/collections.js
+node scripts/collections.js
 ```
 
 Managing users
@@ -101,7 +107,7 @@ Superadmin has been introduced, currently landing page only show the create dash
 Create superadmins with:
 
 ```bash
-NODE_PATH=. node scripts/users.js
+node scripts/users.js
 ```
 
 Contribute
