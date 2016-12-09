@@ -10,8 +10,10 @@
       <ul class="list-group">
       {{#each projects}}
         <li class="list-group-item">
+          <a href="/projects/{{_id}}">
           <img class="media-object" style="max-height: 50px;max-width: 50px;display:inline-block" src="{{cover}}" alt="Project cover">
             {{title}}
+          </a>
           {{#if ../open}}
             <a href="/forms/{{../../_id}}/{{_id}}" class="btn btn-info pull-right">Reply this form</a>
           {{else}}

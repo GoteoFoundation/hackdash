@@ -229,19 +229,22 @@ module.exports = Backbone.Marionette.AppRouter.extend({
     var app = window.hackdash.app;
     app.type = "project";
 
-    app.project = new Project({
-      domain: dashboard
-    });
-
     app.header.show(new Header());
 
-    app.main.show(new ProjectEditView({
-      model: app.project
-    }));
+    var dash = new Dashboard({
+      domain: dashboard
+    });
+    dash.fetch().done(function() {
+      app.project = new Project({
+        domain: dashboard,
+        dashboard: dash
+      });
+      app.main.show(new ProjectEditView({
+        model: app.project
+      }));
+    });
 
-    app.footer.show(new Footer({
-      model: app.dashboard
-    }));
+    app.footer.show(new Footer());
 
     app.setTitle('Create a project');
   },
@@ -262,16 +265,19 @@ module.exports = Backbone.Marionette.AppRouter.extend({
         // window.alert('Not allowed to edit this project');
         window.location = "/projects/" + app.project.get('_id');
       }
-      app.main.show(new ProjectEditView({
-        model: app.project
-      }));
-
-      app.setTitle('Edit project');
+      var dash = new Dashboard({
+        domain: app.project.get('domain')
+      });
+      dash.fetch().done(function() {
+        app.project.set({'dashboard': dash});
+        app.main.show(new ProjectEditView({
+          model: app.project
+        }));
+      });
     });
 
-    app.footer.show(new Footer({
-      model: app.dashboard
-    }));
+    app.footer.show(new Footer());
+    app.setTitle('Edit project');
   },
 
   showProjectFull: function(pid){
@@ -292,9 +298,7 @@ module.exports = Backbone.Marionette.AppRouter.extend({
       app.setTitle(app.project.get('title') || 'Project');
     });
 
-    app.footer.show(new Footer({
-      model: app.dashboard
-    }));
+    app.footer.show(new Footer());
   },
 
   showCollection: function(collectionId) {
@@ -326,6 +330,9 @@ module.exports = Backbone.Marionette.AppRouter.extend({
 
   showForms: function (fid, pid) {
     var app = window.hackdash.app;
+    if (!window.hackdash.user) {
+      window.location = "/";
+    }
 
     function showView(model, collection) {
       app.header.show(new Header());

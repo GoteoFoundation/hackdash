@@ -5,6 +5,14 @@
 
   <div class="footer-toggle-ctn">
 
+    <div class="box"><label>Active statuses</label>
+      <select class="active-statuses" multiple>
+      {{#each statuses}}
+        <option value="{{status}}"{{selected active true}}>{{text}}</option>
+      {{/each}}
+      </select>
+    </div>
+
     <a href="/api/v2/dashboards/{{domain}}/csv" target="_blank" data-bypass>
       <i class="fa fa-download"></i>
       <div>Export .CSV File</div>

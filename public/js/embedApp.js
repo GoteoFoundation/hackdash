@@ -545,6 +545,16 @@ module.exports = Backbone.Model.extend({
     return (user && user._id === owner) || false;
   },
 
+  getStatuses: function() {
+    var inactive = this.get('inactiveStatuses') || [];
+    return _.map(hackdash.statuses, function(s) {
+      if(inactive.indexOf(s.status) !== -1) {
+        s.active = false;
+      }
+      return s;
+    });
+  }
+
 }, {
 
   isAdmin: function(dashboard){

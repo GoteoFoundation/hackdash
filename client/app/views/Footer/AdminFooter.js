@@ -8,33 +8,43 @@ module.exports = Backbone.Marionette.ItemView.extend({
   template: template,
   className: 'admin-footer-wrapper',
 
-  templateHelpers: {
-    isAdmin: function() {
-      var user = hackdash.user;
-      if(user) {
-        var admin1 = user.admin_in.indexOf(this.domain) >= 0;
-        // If it has owner property its a collection
-        var admin2 = this.owner && user._id === this.owner._id;
-        return admin1 || admin2;
+  templateHelpers: function() {
+    var self = this;
+    return {
+      isAdmin: function() {
+        var user = hackdash.user;
+        if(user) {
+          var admin1 = user.admin_in.indexOf(this.domain) >= 0;
+          // If it has owner property its a collection
+          var admin2 = this.owner && user._id === this.owner._id;
+          return admin1 || admin2;
+        }
+        return false;
+      },
+      isDashboardForm: function() {
+        return (hackdash.app.type === "dashboard_form");
+      },
+      isCollectionForm: function() {
+        return (hackdash.app.type === "collection_form");
+      },
+      isForm: function() {
+        return (hackdash.app.type.indexOf("form") > 0 );
+      },
+      isDashboard: function() {
+        return (hackdash.app.type === "dashboard");
+      },
+      isCollection: function() {
+        return (hackdash.app.type === "collection");
+      },
+      statuses: function() {
+        if(self.model && self.model.getStatuses) {
+          return self.model.getStatuses();
+        }
+        return hackdash.statuses;
       }
-      return false;
-    },
-    isDashboardForm: function() {
-      return (hackdash.app.type === "dashboard_form");
-    },
-    isCollectionForm: function() {
-      return (hackdash.app.type === "collection_form");
-    },
-    isForm: function() {
-      return (hackdash.app.type.indexOf("form") > 0 );
-    },
-    isDashboard: function() {
-      return (hackdash.app.type === "dashboard");
-    },
-    isCollection: function() {
-      return (hackdash.app.type === "collection");
-    }
-  },
+    };
+  }
+  ,
 
   ui: {
     "switcher": ".dashboard-btn",
@@ -42,13 +52,15 @@ module.exports = Backbone.Marionette.ItemView.extend({
     "createShowcase": ".btn-new-project",
     "footerToggle": ".footer-toggle-ctn",
     "openAdmin": ".btn-open-admin",
-    "adminContainer": '.footer-dash-ctn'
+    "adminContainer": '.footer-dash-ctn',
+    "activeStatuses": '.active-statuses'
   },
 
   events: {
     "click .dashboard-btn": "onClickSwitcher",
     "click .btn-showcase-mode": "changeShowcaseMode",
-    "click @ui.openAdmin": "onOpenAdmin"
+    "click @ui.openAdmin": "onOpenAdmin",
+    "change @ui.activeStatuses": "onSelectStatus"
   },
 
 
@@ -58,6 +70,10 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
   onRender: function() {
     $('.tooltips', this.$el).tooltip({});
+    this.ui.activeStatuses.select2({
+      // theme: "bootstrap",
+      // minimumResultsForSearch: 10
+    });
 
   },
 
@@ -136,5 +152,18 @@ module.exports = Backbone.Marionette.ItemView.extend({
       this.ui.footerToggle.addClass("hide");
     }
   },
+
+  onSelectStatus: function() {
+    var activeStatuses = this.ui.activeStatuses.val() || [];
+    var inactiveStatuses = _.filter(hackdash.statuses, function(s) {
+        return activeStatuses.indexOf(s.status) === -1;
+      });
+
+    console.log(activeStatuses, _.pluck(inactiveStatuses, 'status'));
+    this.model.set({
+       "inactiveStatuses": _.pluck(inactiveStatuses, 'status')
+     }, { trigger: false });
+    this.model.save({ wait: true });
+  }
 
 });

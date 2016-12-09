@@ -3,7 +3,9 @@
  *
  */
 
-var template = require('./templates/edit.hbs');
+var template = require('./templates/edit.hbs')
+  // , Dashboard = require('../models/dashboard.js')
+  ;
 
 module.exports = Backbone.Marionette.ItemView.extend({
 
@@ -45,7 +47,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
       return this.tags && _.indexOf(this.tags, val) > -1 ? ' selected' : '';
     },
     statuses: function(){
-      return window.hackdash.statuses;
+      return this.dashboard.getStatuses();
     }
   },
 
@@ -164,11 +166,17 @@ module.exports = Backbone.Marionette.ItemView.extend({
       return;
     }
 
-    var error = JSON.parse(err.responseText).error;
+    var error;
+    try {
+      error = JSON.parse(err.responseText).error;
+    } catch (e) {
+      error = err.responseText;
+    }
 
     var ctrl = error.split("_")[0];
-    this.ui[ctrl].parents('.control-group').addClass('error');
-    this.ui[ctrl].after('<span class="help-inline">' + this.errors[error] + '</span>');
+    var el = this.ui[ctrl] ? this.ui[ctrl] : this.ui.status;
+    el.parents('.control-group').addClass('error');
+    el.after('<span class="help-inline">' + (this.errors[error] ? this.errors[error] : error) + '</span>');
   },
 
   cleanErrors: function(){
