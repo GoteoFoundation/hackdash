@@ -48,6 +48,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
   ui: {
     "switcher": ".dashboard-btn",
+    "private": ".dashboard-private",
     "showcaseMode": ".btn-showcase-mode",
     "createShowcase": ".btn-new-project",
     "footerToggle": ".footer-toggle-ctn",
@@ -57,7 +58,8 @@ module.exports = Backbone.Marionette.ItemView.extend({
   },
 
   events: {
-    "click .dashboard-btn": "onClickSwitcher",
+    "click @ui.switcher": "onClickSwitcher",
+    "click @ui.private": "onClickPrivate",
     "click .btn-showcase-mode": "changeShowcaseMode",
     "click @ui.openAdmin": "onOpenAdmin",
     "change @ui.activeStatuses": "onSelectStatus"
@@ -74,21 +76,25 @@ module.exports = Backbone.Marionette.ItemView.extend({
       // theme: "bootstrap",
       // minimumResultsForSearch: 10
     });
-
+    // Fix for select2
+    $('.select2-container', this.$el).css({width: 'auto'});
   },
 
   serializeData: function() {
 
     if (this.model && this.model instanceof Dashboard) {
 
-      var msg = "This Dashboard is open: click to close";
+      var msg1 = "This Dashboard is open: click to close";
+      var msg2 = "Anyone can see the projects in this Dashboard: click to privatize";
 
       if (!this.model.get("open")) {
-        msg = "This Dashboard is closed: click to reopen";
+        msg1 = "This Dashboard is closed: click to reopen";
+        msg1 = "Nobody can see the projects in this Dashboard: click to publish";
       }
 
       return _.extend({
-        switcherMsg: msg
+        switcherMsg: msg1,
+        privateMsg: msg2
       }, this.model.toJSON());
     }
 
@@ -104,7 +110,9 @@ module.exports = Backbone.Marionette.ItemView.extend({
   //--------------------------------------
 
   onOpenAdmin: function() {
-    this.ui.adminContainer.slideToggle('fast');
+    if(this.model) {
+      this.model.set({adminOpened: !this.model.get('adminOpened')});
+    }
   },
 
   onClickSwitcher: function() {
@@ -118,6 +126,20 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
     // console.log('switcher', this.model);
     this.model.set({ "open": open }, { trigger: false });
+    this.model.save({ wait: true });
+  },
+
+  onClickPrivate: function() {
+    var private = true;
+
+    if (this.ui.private.hasClass("dash-private")) {
+      private = false;
+    }
+
+    $('.tooltips', this.$el).tooltip('hide');
+
+    console.log('private', this.model);
+    this.model.set({ "private": private }, { trigger: false });
     this.model.save({ wait: true });
   },
 

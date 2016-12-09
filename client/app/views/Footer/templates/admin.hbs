@@ -1,17 +1,9 @@
 
-<div class="footer-dash-ctn">
+<div class="footer-dash-ctn{{#unless adminOpened}} hidden{{/unless}}">
 
   {{#if isDashboard}}
 
   <div class="footer-toggle-ctn">
-
-    <div class="box"><label>Active statuses</label>
-      <select class="active-statuses" multiple>
-      {{#each statuses}}
-        <option value="{{status}}"{{selected active true}}>{{text}}</option>
-      {{/each}}
-      </select>
-    </div>
 
     <a href="/api/v2/dashboards/{{domain}}/csv" target="_blank" data-bypass>
       <i class="fa fa-download"></i>
@@ -21,6 +13,20 @@
     <a class="btn-admin-forms" href="/dashboards/{{domain}}/forms">
       <i class="fa fa-file-text-o"></i><div>Admin forms</div>
     </a>
+
+    <a data-placement="top" data-original-title="{{privateMsg}}"
+      class="tooltips dashboard-private {{#if private}}dash-private{{else}}dash-public{{/if}}">
+      <i class="txt {{#if private}}btn-danger{{else}}btn-success{{/if}}">{{#if private}}Private{{else}}Public{{/if}}</i>
+      <div>Visibility</div>
+    </a>
+
+    <div class="box"><label>Active statuses</label>
+      <select class="active-statuses" multiple>
+      {{#each statuses}}
+        <option value="{{status}}"{{selected active true}}>{{text}}</option>
+      {{/each}}
+      </select>
+    </div>
 
   </div>
 
