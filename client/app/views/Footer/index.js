@@ -1,4 +1,3 @@
-
 var
     template = require('./templates/footer.hbs')
   , AdminFooter = require('./AdminFooter');

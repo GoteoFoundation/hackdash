@@ -17,6 +17,8 @@ var template = require("./templates/home.hbs")
   , Collections = require("../../models/Collections")
   , Team = require("../../models/Team");
 
+console.log("DIRNAME", __dirname, "FILENAME", __filename);
+
 module.exports = Backbone.Marionette.LayoutView.extend({
 
   //--------------------------------------

@@ -1,8 +1,8 @@
 {
-  "author": "Hackdash",
-  "name": "hackdash-embed",
+  "author": "Wotify",
+  "name": "wotify-embed",
   "description": "",
-  "homepage": "http://hackdash.org",
+  "homepage": "http://wotify.co",
   "version": "1.0.0",
   "engines": {
     "node": "0.8.x"

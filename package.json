@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "NODE_PATH=. DEBUG=hackdash:* nodemon index",
-    "devel": "`cd client && grunt watch` & NODE_PATH=. DEBUG=hackdash:* nodemon index",
+    "devel": "cd client && grunt watch & NODE_PATH=. DEBUG=hackdash:* nodemon index",
     "test": "NODE_PATH=. DEBUG=hackdash:* PORT=9999 NODE_ENV=test node_modules/mocha/bin/mocha test/bootstrap.test.js test/index.js -u bdd -R spec -b"
   },
   "dependencies": {
@@ -24,7 +24,7 @@
     "express-session": "^1.14.2",
     "gravatar": "1.1.1",
     "jade": "1.1.5",
-    "less-middleware": "1.0.4",
+    "less-middleware": "^2.2.0",
     "markdown": "0.4.0",
     "marked": "^0.3.6",
     "method-override": "2.3.3",

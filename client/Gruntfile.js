@@ -149,6 +149,8 @@ module.exports = function(grunt) {
             ,jQuery: true
             ,$: true
             ,_: true
+            ,__filename: true
+            ,__dirname: true
             ,require: true
             ,module: true
             ,Backbone: true

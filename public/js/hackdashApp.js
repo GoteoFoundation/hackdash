@@ -1,5 +1,5 @@
 /*! 
-* wotify-hackdash - v0.13.0
+* wotify-hackdash - v0.14.0
 * Copyright (c) 2016 Platoniq 
 *  
 */ 
@@ -3026,7 +3026,6 @@ module.exports = Backbone.Marionette.ItemView.extend({
 });
 
 },{"../../models/Dashboard":12,"./templates/admin.hbs":43}],42:[function(require,module,exports){
-
 var
     template = require('./templates/footer.hbs')
   , AdminFooter = require('./AdminFooter');
@@ -6738,6 +6737,7 @@ module.exports = ItemView.extend({
 
 });
 },{"./Item.js":99,"./templates/user.hbs":118}],107:[function(require,module,exports){
+(function (__filename,__dirname){
 
 var template = require("./templates/home.hbs")
   , TabContent = require("./TabContent")
@@ -6756,6 +6756,8 @@ var template = require("./templates/home.hbs")
   , Users = require("../../models/Users")
   , Collections = require("../../models/Collections")
   , Team = require("../../models/Team");
+
+console.log("DIRNAME", __dirname, "FILENAME", __filename);
 
 module.exports = Backbone.Marionette.LayoutView.extend({
 
@@ -7112,6 +7114,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
 });
 
+}).call(this,"/app/views/Home/index.js","/app/views/Home")
 },{"../../models/Collections":10,"../../models/Dashboards":13,"../../models/Projects":18,"../../models/Team":19,"../../models/Users":21,"../Forgot":45,"../Login":119,"../Register":140,"./DashboardList":96,"./Footer":98,"./Partners":100,"./Stats":102,"./TabContent":103,"./Team":104,"./templates/home.hbs":112}],108:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
