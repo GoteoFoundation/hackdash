@@ -1,5 +1,5 @@
 
-var template = require("./templates/home.hbs")
+var template = require("Home/templates/home.hbs") // Required as absolute to allow themes
   , TabContent = require("./TabContent")
   , LoginView = require("../Login")
   , RegisterView = require("../Register")
@@ -16,8 +16,6 @@ var template = require("./templates/home.hbs")
   , Users = require("../../models/Users")
   , Collections = require("../../models/Collections")
   , Team = require("../../models/Team");
-
-console.log("DIRNAME", __dirname, "FILENAME", __filename);
 
 module.exports = Backbone.Marionette.LayoutView.extend({
 

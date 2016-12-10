@@ -12,7 +12,15 @@ Special version suited for the [Europeana Wotify Dashboards](https://wotify.co)
 Install
 ===========
 
-I wrote a [blog post](http://zajdband.com/installing-hackdash) explaining the installation process. Also check the [wiki](https://github.com/danzajdband/hackdash/wiki) for more info and docs
+This is heavily modified fork of [hackdash](https://github.com/danzajdband/hackdash) to convert this originally showcase style web to a workin tool.
+
+Some of the changes introduced are:
+
+- Allowing different themes by overwriting **.hbs** or **.less** files.
+- Added a complex Form creator tool by the dashboards admins to make leaders respond questions during the hackaton.
+- Login by email and google added.
+- Added more configuration options for dashboards (for example a private mode prevents projects in that dashboard to appear publicly in the web).
+- Notifications by email works.
 
 Config
 ======
@@ -23,6 +31,11 @@ You can copy the sample data and edit your values:
 cp config/config.json.sample config/config.json
 ```
 
+In this copy of hackdash, **statuses** can be customized, you need to create a copy of statuses.json inside the config folder as well. Use the sample as default:
+
+```bash
+cp config/config.json.sample config/config.json
+```
 
 In your `config/config.json`:
 
@@ -53,7 +66,7 @@ Added vars for Wotify Dashboards:
 * `homeCreateProject` : Set it to true in order to show a button in the front page to create projects
 * `homeToolsUrl` : Set it to some URL ("http://...") in order to show a button in the front page with a link to it
 * `seLocalLogin`: Set to true if you want to allow username/password registration
-
+* `theme`: This allows to apply a custom themes to hackdash. Just put a `theme_name` with the same folder name inside `themes/theme_name`. Styles or hbs templates can be overwritten. (Look at the code inside themes for an example).
 
 Login keys setup
 =================

@@ -1,0 +1,104 @@
+<div class="landing-header">
+
+  <div class="my-profile hidden-xs">
+    <div class="pull-right">
+    {{#isLoggedIn}}
+      <a class="btn-profile">
+        {{getMyProfileImageHex}}
+      </a>
+      <a class="logout" href="/logout" data-bypass>Log out</a>
+    {{else}}
+    <a class="login">Log in</a>
+    {{/isLoggedIn}}
+    </div>
+  </div>
+
+  <div class="text-vcenter call-action">
+
+    <div class="logo"></div>
+
+    <h1>Ideacamp for <span class="highlight">co-creation</span></h1>
+
+    <div class="container-fluid">
+
+      <div class="row">
+        <div class="col-xs-12">
+          <a class="continue">
+            <i class="fa fa-angle-down"></i>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 text-center">
+
+      <a class="btn btn-default mobile-menu visible-xs">
+        <i class="fa fa-align-justify"></i>
+      </a>
+
+      <ul class="nav nav-tabs landing" role="tablist">
+
+        <li id="collection" class="collection">
+          <a href="#collections" role="tab" data-toggle="tab">Collections</a>
+        </li>
+        <li id="dashboard" class="dashboard">
+          <a href="#dashboards" role="tab" data-toggle="tab">Event boards</a>
+        </li>
+        <li id="project" class="project">
+          <a href="#projects" role="tab" data-toggle="tab">Projects</a>
+        </li>
+        <li id="user" class="user">
+          <a href="#users" role="tab" data-toggle="tab">People</a>
+        </li>
+        {{#isLoggedIn}}
+        <li class="visible-xs">
+          <a class="logout" href="/logout" data-bypass>Log out</a>
+        </li>
+        {{else}}
+        <li>
+          <a class="login">Log in</a>
+        </li>
+        {{/isLoggedIn}}
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+<div class="tab-content">
+  <div role="tabpanel" class="tab-pane" id="dashboards"></div>
+  <div role="tabpanel" class="tab-pane" id="projects"></div>
+  <div role="tabpanel" class="tab-pane" id="users"></div>
+  <div role="tabpanel" class="tab-pane" id="collections"></div>
+</div>
+
+<div class="col-md-12 stats-ctn"></div>
+
+<h3 class="team-tab visible-xs">team</h3>
+<div class="col-md-12 team-ctn"></div>
+
+<div class="team-partners hidden-xs">
+  <div class="col-sm-5 col-sm-offset-1 col-md-3 col-md-offset-3 col-lg-2 col-lg-offset-4 partners-tab">
+    <h3>partners</h3>
+  </div>
+  <div class="col-sm-5 col-md-3 col-lg-2 team-tab">
+    <h3>team</h3>
+  </div>
+</div>
+
+<h3 class="partners-tab visible-xs">partners</h3>
+<div class="col-md-12 partners-ctn"></div>
+
+<div class="col-md-12 about-ctn">
+Wotify Dashboard is a repository of events and projects where the "Co-creation made Agile" methodology is applied (developed by <a href="http://platoniq.net/" data-bypass="true" target="__blank">Platoniq</a> as part of the Europeana Creative project). Wotify Dashboard is built with <a href="http://hackdash.org/" data-bypass="true" target="__blank">Hackdash</a>.
+</p>
+
+</div>
+<div class="col-md-12 footer-ctn"></div>

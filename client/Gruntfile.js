@@ -3,6 +3,7 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    config: grunt.file.readJSON('../config/config.json'),
 
     banner: '/*! \n* <%= pkg.title || pkg.name %> - v<%= pkg.version %>' +
             '\n* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %> ' +
@@ -11,7 +12,8 @@ module.exports = function(grunt) {
 
     paths: {
       app: {
-        root: "app/"
+        root: "app/",
+        theme: "../themes/<%= config.theme %>"
       },
       vendor: {
         js: "vendor/scripts/",
@@ -45,7 +47,10 @@ module.exports = function(grunt) {
           banner: '<%= banner %>',
           extension: [ '.js', '.hbs' ],
           transform: [ 'hbsfy' ],
-          //debug: true
+          browserifyOptions: {
+            paths: [ './node_modules', '<%= paths.app.theme %>/views', './app/views' ]
+          },
+          debug: true
         },
         src: ['<%= paths.app.root %>index.js'],
         dest: '<%= paths.dist.root %><%= paths.dist.appName %>'
@@ -55,6 +60,9 @@ module.exports = function(grunt) {
           banner: '<%= banner %>',
           extension: [ '.js', '.hbs' ],
           transform: [ 'hbsfy' ],
+          browserifyOptions: {
+            paths: [ './node_modules', '<%= paths.app.theme %>/views', './app/views' ]
+          },
           //debug: true
         },
         src: ['<%= paths.app.root %>indexEmbed.js'],
@@ -116,7 +124,7 @@ module.exports = function(grunt) {
 
     watch: {
       local: {
-        files: ["<%= paths.app.root %>**/*"],
+        files: ["<%= paths.app.root %>**/*", '<%= paths.app.theme %>/views/**/*'],
         tasks: ['default'],
         options: {
           atBegin: true
@@ -152,6 +160,7 @@ module.exports = function(grunt) {
             ,__filename: true
             ,__dirname: true
             ,require: true
+            ,requireTemplate: true
             ,module: true
             ,Backbone: true
             ,Handlebars: true

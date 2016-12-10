@@ -32,5 +32,6 @@
   "googleAnalytics": "UA-XXXXXXXX-X",
   "facebookAppId": "YYYYYYYYYYYY",
   "googleApiKey": "",
-  "useLocalLogin": true
+  "useLocalLogin": true,
+  "theme": ""
 }
