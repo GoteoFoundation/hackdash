@@ -65,7 +65,7 @@ Added vars for Wotify Dashboards:
 * `publicDashboardCreation` : a boolean to specify if dashboards can be created by anyone or just the users marked as "superadmin"
 * `homeCreateProject` : Set it to true in order to show a button in the front page to create projects
 * `homeToolsUrl` : Set it to some URL ("http://...") in order to show a button in the front page with a link to it
-* `seLocalLogin`: Set to true if you want to allow username/password registration
+* `useLocalLogin`: Set to true if you want to allow username/password registration
 * `theme`: This allows to apply a custom themes to hackdash. Just put a `theme_name` with the same folder name inside `themes/theme_name`. Styles or hbs templates can be overwritten. (Look at the code inside themes for an example).
 
 Login keys setup

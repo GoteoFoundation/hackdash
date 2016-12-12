@@ -11038,9 +11038,9 @@ module.exports={
     "host": "localhost",
     "url": "mongodb://localhost:27017/hackdash2"
   },
-  "host": "wotify.dev",
+  "host": "ideacamp.wotify.dev",
   "port": 3000,
-  "publicHost": "http://wotify.dev:3000",
+  "publicHost": "http://ideacamp.wotify.dev:3000",
   "session": "wefewfef",
   "disqus_shortname": "whatif",
   "title": "Wotify",

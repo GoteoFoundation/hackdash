@@ -1,9 +1,11 @@
 
 module.exports = function(grunt) {
 
+  var target = grunt.option('config') || __dirname + '/../config/config.json';
+
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    config: grunt.file.readJSON('../config/config.json'),
+    config: grunt.file.readJSON(target),
 
     banner: '/*! \n* <%= pkg.title || pkg.name %> - v<%= pkg.version %>' +
             '\n* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %> ' +
@@ -187,6 +189,7 @@ module.exports = function(grunt) {
       }
     }
   });
+
 
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-concat');

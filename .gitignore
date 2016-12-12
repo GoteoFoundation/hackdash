@@ -9,7 +9,6 @@ config/config.json
 config/statuses.json
 config/config.test.json
 npm-debug.log
-sync.sh
 public/styles/app.css
 public/styles/embed.css
 public/styles/landing.css
