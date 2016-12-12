@@ -24,22 +24,21 @@
       <div class="row">
 
 
-
-    {{#if homeCreateProject}}
-        <div class="col-xs-12">
-          <div class="input-group">
-            {{#if homeToolsUrl}}
-              <div class="pull-left">
-                <button id="goto-tools" class="btn btn-primary btn-red" type="button">Our tools</button>
-              </div>
-            {{/if}}
-              <div class="pull-right">
-                <button id="create-project" class="btn btn-primary btn-blue" type="button">Create project</button>
-                <div class="dropdown-project dropdown" id="dashboard-list"></div>
-              </div>
-          </div>
+      <div class="col-xs-12">
+        <div class="input-group">
+          {{#if homeToolsUrl}}
+            <div class="pull-left">
+              <button id="goto-tools" class="btn btn-primary btn-red" type="button">Our tools</button>
+            </div>
+          {{/if}}
+          {{#if homeCreateProject}}
+            <div class="pull-right">
+              <button id="create-project" class="btn btn-primary btn-blue" type="button">Create project</button>
+              <div class="dropdown-project dropdown" id="dashboard-list"></div>
+            </div>
+          {{/if}}
         </div>
-    {{/if}}
+      </div>
 
 
     {{#if canCreateDashboard}}
@@ -134,7 +133,7 @@
 <div class="col-md-12 partners-ctn"></div>
 
 <div class="col-md-12 about-ctn">
-Wotify Dashboard is a repository of events and projects where the "Co-creation made Agile" methodology is applied (developed by <a href="http://platoniq.net/" data-bypass="true" target="__blank">Platoniq</a> as part of the Europeana Creative project). Wotify Dashboard is built with <a href="http://hackdash.org/" data-bypass="true" target="__blank">Hackdash</a>.
+Wotify Dashboard is a repository of events and projects where the "Co-creation made Agile" methodology is applied (developed by <a href="http://platoniq.net/" data-bypass="true" target="__blank">Platoniq</a> as part of the Europeana Creative project). Wotify Dashboard is a fork of <a href="https://github.com/GoteoFoundation/hackdash" data-bypass="true" target="__blank">Hackdash</a>.
 </p>
 
 </div>
