@@ -2,9 +2,10 @@
  * Module dependencies.
  */
 
-require('babel/register');
+require("babel-core/register");
+require("babel-polyfill");
 
-var app = require('lib/server');
+var app = require('lib/server').default;
 var debug = require('debug')('hackdash:server');
 var http = require('http');
 var config = require('./config/config.json');
@@ -12,12 +13,6 @@ var live = require('lib/live');
 //Listener for mail sending on events
 require('lib/notifications/listener.js');
 
-/**
- * Get port from environment and store in Express.
- */
-
-var port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
 
 /**
  * Create HTTP server.
@@ -29,7 +24,7 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
+server.listen(app.get('port'));
 server.on('error', onError);
 server.on('listening', onListening);
 
@@ -40,26 +35,6 @@ server.on('listening', onListening);
 
 if(config.live) {
 	live(app, server);
-}
-
-/**
- * Normalize a port into a number, string, or false.
- */
-
-function normalizePort(val) {
-  var port = parseInt(val, 10);
-
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-  }
-
-  if (port >= 0) {
-    // port number
-    return port;
-  }
-
-  return false;
 }
 
 /**

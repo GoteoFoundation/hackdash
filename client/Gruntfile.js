@@ -50,7 +50,7 @@ module.exports = function(grunt) {
           extension: [ '.js', '.hbs' ],
           transform: [ 'hbsfy' ],
           browserifyOptions: {
-            paths: [ './node_modules', '<%= paths.app.theme %>/views', './app/views' ]
+            paths: [ './node_modules', '<%= paths.app.theme %>/client', './app/views' ]
           },
           debug: true
         },
@@ -63,7 +63,7 @@ module.exports = function(grunt) {
           extension: [ '.js', '.hbs' ],
           transform: [ 'hbsfy' ],
           browserifyOptions: {
-            paths: [ './node_modules', '<%= paths.app.theme %>/views', './app/views' ]
+            paths: [ './node_modules', '<%= paths.app.theme %>/client', './app/views' ]
           },
           //debug: true
         },

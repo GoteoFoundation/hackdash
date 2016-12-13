@@ -23,9 +23,10 @@ html
     link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
     link(rel="icon", href="/favicon.ico", type="image/x-icon")
 
-    link(rel='stylesheet', href='//fonts.googleapis.com/css?family=Oswald:400,700,300|Montserrat:400,700')
+    block styles_default
+        link(rel='stylesheet', href='//fonts.googleapis.com/css?family=Oswald:400,700,300|Montserrat:400,700')
 
-    link(rel='stylesheet', href='/styles/vendor.css?v=' + version)
+        link(rel='stylesheet', href='/styles/vendor.css?v=' + version)
 
     block styles
 
