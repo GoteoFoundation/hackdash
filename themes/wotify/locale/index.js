@@ -19,5 +19,9 @@ module.exports = {
     "The HackDash was born": "Wotify Dashboard is a repository of events and projects where the \"Co-creation made Agile\" methodology is applied (developed by <a href=\"http://platoniq.net/\" data-bypass=\"true\" target=\"__blank\">Platoniq</a> as part of the Europeana Creative project). Wotify Dashboard is a fork of <a href=\"https://github.com/GoteoFoundation/hackdash\" data-bypass=\"true\" target=\"__blank\">Hackdash</a>.",
 
     "File is too big, 500 Kb is the max": "File is too big, 8 Mb is the max",
+
+    "template_email_wrapper": "[Wotify] <%= subject %>",
+    "template_email_wrapper_body": "### Wotify message:\n\n<%= content %>\n\n*Please do no reply this email, this is an automated response from [<%= host_name %>]({<%= host %>)*\n\n![Wotify](<%= host %>/images/mini-logo-wotify.png)",
+
   }
 }

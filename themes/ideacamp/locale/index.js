@@ -48,5 +48,9 @@ module.exports = {
 
     "This project is going to be deleted. Are you sure?":"This idea is going to be deleted. Are you sure?",
 
+
+    "template_email_wrapper": "[IdeaCamp2017] <%= subject %>",
+    "template_email_wrapper_body": "### IdeaCamp2017 message:\n\n<%= content %>\n\n*Please do no reply this email, this is an automated response from [<%= host_name %>]({<%= host %>)*\n\n![IdeaCamp2017](<%= host %>/images/mini-logo-ideacamp.png)",
+
   }
 }
