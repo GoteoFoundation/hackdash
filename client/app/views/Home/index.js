@@ -274,12 +274,12 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       if(this.ui.dashboardList.hasClass('open')) {
         this.ui.dashboardList.removeClass('open');
         this.ui.createProject
-          .html('Create project');
+          .html(__('Create project'));
         return;
       }
 
       this.ui.createProject
-        .html('Where to?');
+        .html(__('Where to?'));
 
       // Load opened dashboards, without minimun 2 projects restriction
       var self = this;

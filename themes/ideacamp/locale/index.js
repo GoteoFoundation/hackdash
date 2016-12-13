@@ -3,6 +3,7 @@ module.exports = {
   en: {
     "Dashboards": "Event boards",
     "Projects":"Ideas",
+    "create now":"create event",
 
     "partners": "Co-Producers",
 

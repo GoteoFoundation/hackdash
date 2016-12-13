@@ -246,7 +246,7 @@ module.exports = Backbone.Marionette.AppRouter.extend({
 
     app.footer.show(new Footer());
 
-    app.setTitle('Create a project');
+    app.setTitle(__('Create Project'));
   },
 
   showProjectEdit: function(pid){
@@ -295,7 +295,7 @@ module.exports = Backbone.Marionette.AppRouter.extend({
         model: app.project
       }));
 
-      app.setTitle(app.project.get('title') || 'Project');
+      app.setTitle(app.project.get('title') || __('Projects'));
     });
 
     app.footer.show(new Footer());
@@ -324,7 +324,7 @@ module.exports = Backbone.Marionette.AppRouter.extend({
           model: app.collection
         }));
 
-        app.setTitle(app.collection.get('title') || 'Collection');
+        app.setTitle(app.collection.get('title') || __('Collections'));
       });
   },
 
@@ -341,7 +341,7 @@ module.exports = Backbone.Marionette.AppRouter.extend({
         collection: collection
       }));
       app.footer.show(new Footer());
-      app.setTitle('Forms: ' + (model ? model.get('title') : 'Your forms'));
+      app.setTitle((model ? model.get('title') : __('Forms')));
     }
 
     app.type = 'forms_list';
@@ -405,7 +405,7 @@ module.exports = Backbone.Marionette.AppRouter.extend({
 
       app.footer.show(new Footer());
 
-      app.setTitle(app.profile.get('name') || 'Profile');
+      app.setTitle(app.profile.get('name') || __('Profile'));
     });
 
   },
