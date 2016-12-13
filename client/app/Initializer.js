@@ -18,13 +18,17 @@ module.exports = function(){
     $.fn.editable.defaults.mode = 'inline';
   }
 
-  var lan =
-    window.navigator.languages ?
-      window.navigator.languages[0] :
-      (window.navigator.language || window.navigator.userLanguage || 'en-US');
+  var lan = window.hackdash.language;
+  if(!window.hackdash.language) {
+    lan =
+      window.navigator.languages ?
+        window.navigator.languages[0] :
+        (window.navigator.language || window.navigator.userLanguage || 'en-US');
+  }
 
   var locales = require('./locale');
   locales.setLocale(lan);
+  locales.addLocales(window.hackdash.themeLocales);
 
   window.__ = hackdash.i18n = locales.__;
 

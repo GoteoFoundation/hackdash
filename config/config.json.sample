@@ -34,5 +34,6 @@
   "facebookAppId": "YYYYYYYYYYYY",
   "googleApiKey": "",
   "useLocalLogin": true,
-  "theme": ""
+  "language": null,
+  "theme": null
 }

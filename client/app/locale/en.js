@@ -41,6 +41,7 @@ module.exports = {
 
 /* search.hbs */
 
+"enter keywords": "Enter keywords",
 "Inform Progress to community.":"Inform Progress to community.",
 "Upload your project to the platform.":"Upload your project to the platform.",
 "find it":"find it",

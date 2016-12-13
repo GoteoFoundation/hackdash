@@ -9,6 +9,14 @@ var _lan = 'en';
 
 module.exports = {
 
+  /**
+   * Method to dynamically add locales (ie: from themes)
+   * @param {en:{...}, es:{...}} addons an object with all the locales to add/substitute
+   */
+  addLocales: function(addons) {
+    _.extend(locales, addons);
+  },
+
   setLocale: function(lan) {
     //console.log(`i18n: setting Language [${lan}]`);
     if (!locales.hasOwnProperty(lan)){

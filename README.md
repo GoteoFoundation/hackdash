@@ -67,6 +67,8 @@ Added vars for Wotify Dashboards:
 * `homeToolsUrl` : Set it to some URL ("http://...") in order to show a button in the front page with a link to it
 * `useLocalLogin`: Set to true if you want to allow username/password registration
 * `theme`: This allows to apply a custom themes to hackdash. Just put a `theme_name` with the same folder name inside `themes/theme_name`. Styles or hbs templates can be overwritten. (Look at the code inside themes for an example).
+* `language`: If `null` autodetects from user's browser settings. Otherwise specify a valid lang to force Hackdash to that lang (ie: `en`, `es`)
+
 
 Login keys setup
 =================
