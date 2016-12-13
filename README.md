@@ -47,6 +47,7 @@ In your `config/config.json`:
 * `port`: Your port (i.e. 3000)
 * `session`: Your session key (it must be a secret string)
 * `title`: Instance title used in the html title tag and other headings.
+* `image`: Url for the default image in metas properties. Leave null for default.
 * `live`: Boolean (true, false) that enable/disable the live feed feature in yourdomain.com/live.
 * `mailer`: SMTP mail info to enable email notifications using nodemailer. Check out the [options](https://github.com/andris9/Nodemailer#setting-up-smtp)
 * `mailerFrom`: "Some name <noreply@example.com>" REQUIRED if mailer is used, this is the default from used in email comunications

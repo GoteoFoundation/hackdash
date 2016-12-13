@@ -3,6 +3,7 @@ module.exports = {
   en: {
     "title_default": "Scenarios for Co-Creation",
     "description_default": "Scenarios for Co-Creation. Co-creation workshops by Platoniq.",
+    "site_name": "Wotify",
 
     "Dashboards": "Event boards",
     "dashboard name (5-10 chars)": "event name (5-10 chars)",
