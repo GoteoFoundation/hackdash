@@ -1,11 +1,7 @@
 <div class="header">
   <div class="container">
-	  <h1>Forms for <small>{{itemTitle}}</small></h1>
-	  {{#if isDashboard}}
-	  	<p>This forms will have to be aswered by the leaders of projects in this dashboard</p>
-	  {{else}}
-	  	<p>This forms will have to be aswered by the leaders of projects in this collection</p>
-  	{{/if}}
+	  <h1>{{__ "Forms for"}} <small>{{itemTitle}}</small></h1>
+  	<p>{{__ "These forms must be filled by the project leader"}}</p>
   </div>
 
 </div>
@@ -14,10 +10,10 @@
 
   <div class="container">
 
-    <h3>Current forms:</h3>
+    <h3>{{__ "Current forms:"}}</h3>
   	<div class="forms-list"></div>
 
-  	<button class="btn btn-primary new-form">Create a new form</button>
+  	<button class="btn btn-primary new-form">{{__ "Create a new form"}}</button>
 
   </div>
 

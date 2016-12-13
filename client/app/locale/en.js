@@ -291,4 +291,9 @@ module.exports = {
 "Picture":"Picture",
 "Title":"Title",
 
+/* editForms.hbs */
+"Forms for": "Forms for",
+"Current forms:": "Current forms:",
+"Create a new form": "Create a new Form",
+"These forms must be filled by the project leader": "These forms must be filled by the project leader"
 };

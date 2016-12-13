@@ -52,5 +52,6 @@ module.exports = {
     "template_email_wrapper": "[IdeaCamp2017] <%= subject %>",
     "template_email_wrapper_body": "### IdeaCamp2017 message:\n\n<%= content %>\n\n*Please do no reply this email, this is an automated response from [<%= host_name %>]({<%= host %>)*\n\n![IdeaCamp2017](<%= host %>/images/mini-logo-ideacamp.png)",
 
+    "These forms must be filled by the project leader": "These forms must be filled by the idea maker",
   }
 }
