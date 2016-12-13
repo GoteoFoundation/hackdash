@@ -178,6 +178,7 @@ module.exports = {
 "Share this Project":"Share this Project",
 "Managed by":"Managed by",
 "Contributors":"Contributors",
+"Followers": "Followers",
 "Edit":"Edit",
 "Forms":"Forms",
 

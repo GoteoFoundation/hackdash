@@ -169,6 +169,7 @@ module.exports = {
 "Share this Project":"Comparte este proyecto",
 "Managed by":"Administrado por",
 "Contributors":"Colaboradores",
+"Followers": "Followers",
 "Edit":"Editar",
 
 
