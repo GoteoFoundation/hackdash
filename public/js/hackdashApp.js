@@ -6046,6 +6046,7 @@ module.exports = Backbone.Marionette.CollectionView.extend({
   },
 
 });
+
 },{"./templates/dashboardItemSimple.hbs":109}],96:[function(require,module,exports){
 /**
  * VIEW: A collection of Items for a Home Search
@@ -6112,7 +6113,6 @@ module.exports = Backbone.Marionette.CollectionView.extend({
   },
 
   updateGrid: function(){
-
     if (this.initialized && !this.destroyed){
       this.destroySlick();
     }
@@ -6178,6 +6178,7 @@ module.exports = Backbone.Marionette.CollectionView.extend({
   }
 
 });
+
 },{"./Item":98}],97:[function(require,module,exports){
 /**
  * VIEW: Footer
@@ -6405,7 +6406,10 @@ module.exports = Backbone.Marionette.ItemView.extend({
         }
         else {
           hackdash.app.router.navigate(fragment, { trigger: true, replace: true });
-          self.collection.fetch({ reset: true });
+          self.collection.fetch({
+            reset: true,
+            data: $.param({ minProjects: 2 })
+          });
         }
       }
 
@@ -6427,7 +6431,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
     }
 
     var pos = (top - offset >= 0 ? top - offset : 0);
-    
+
     $(window).scrollTop(pos);
   }
 
@@ -6615,6 +6619,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
     if (!this.header.currentView){
 
+      // Fetching data from collection
       this.header.show(new Search({
         collection: this.collection
       }));
@@ -6654,6 +6659,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   //--------------------------------------
 
 });
+
 },{"../../models/Collections":10,"../../models/Dashboards":13,"../../models/Projects":18,"../../models/Users":21,"../Dashboard/Card":27,"../Project/Card":127,"./Collection":93,"./EntityList":96,"./Search":100,"./User":105,"./templates/tabContent.hbs":113}],103:[function(require,module,exports){
 /**
  * VIEW: A Team for Home
@@ -7045,16 +7051,24 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       this.ui.createProject
         .html('Where to?');
 
-      // Load opened dashboards
-      this.lists.dashboards =
-        this.lists.dashboards || this.getNewList('dashboards');
+      // Load opened dashboards, without minimun 2 projects restriction
+      var self = this;
+      self.project_dashboards =
+        self.project_dashboards || new Dashboards();
 
-      // console.log(this.lists.dashboards);
-
-      this.dashboardList.show(new DashboardListView({
-        collection: this.lists.dashboards.getOpened()
-      }));
-      this.ui.dashboardList.addClass('open');
+      if(self.project_dashboards.length === 0) {
+        self.project_dashboards.fetch().done(function() {
+          self.dashboardList.show(new DashboardListView({
+            collection: self.project_dashboards.getOpened()
+          }));
+          self.ui.dashboardList.addClass('open');
+        });
+      } else {
+        self.dashboardList.show(new DashboardListView({
+          collection: self.project_dashboards.getOpened()
+        }));
+        self.ui.dashboardList.addClass('open');
+      }
 
     }
   },
@@ -11098,7 +11112,7 @@ module.exports = HandlebarsCompiler.template({"1":function(container,depth0,help
   stack1 = ((helper = (helper = helpers.isLoggedIn || (depth0 != null ? depth0.isLoggedIn : depth0)) != null ? helper : alias2),(options={"name":"isLoggedIn","hash":{},"fn":container.program(7, data, 0),"inverse":container.program(9, data, 0),"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.isLoggedIn) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  return buffer + "      </ul>\n\n    </div>\n  </div>\n</div>\n\n<div class=\"tab-content\">\n  <div role=\"tabpanel\" class=\"tab-pane\" id=\"dashboards\"></div>\n  <div role=\"tabpanel\" class=\"tab-pane\" id=\"projects\"></div>\n  <div role=\"tabpanel\" class=\"tab-pane\" id=\"users\"></div>\n  <div role=\"tabpanel\" class=\"tab-pane\" id=\"collections\"></div>\n</div>\n\n<div class=\"col-md-12 stats-ctn\"></div>\n\n<div class=\"row\">\n  <div class=\"col-md-12 team-wrapper\">\n    <h3 class=\"team-tab\">team</h3>\n    <div class=\"team-ctn\"></div>\n  </div>\n\n  <div class=\"col-md-12 partners-wrapper\">\n    <h3 class=\"partners-tab\">Co-Producers</h3>\n    <div class=\"partners-ctn\"></div>\n  </div>\n\n  <div class=\"col-md-12 network-wrapper\">\n    <h3 class=\"network-tab\">IdeaCamp Network</h3>\n    <div class=\"network-ctn\">\n\n      <ul>\n        <li class=\"clubture\"></li>\n        <li class=\"pravonagrad\"></li>\n        <li class=\"operacija-grad\"></li>\n        <li class=\"tetes-art\"></li>\n        <li class=\"goteo\"></li>\n        <li class=\"oberliht\"></li>\n        <li class=\"critica-politica\"></li>\n        <li class=\"subtopia\"></li>\n      </ul>\n\n    </div>\n  </div>\n\n</div>\n\n<div class=\"landing-footer\">\n  <div class=\"text-vcenter call-action\">\n\n    <div class=\"container-fluid\">\n\n      <div class=\"row\">\n\n\n"
+  return buffer + "      </ul>\n\n    </div>\n  </div>\n</div>\n\n<div class=\"tab-content\">\n  <div role=\"tabpanel\" class=\"tab-pane\" id=\"dashboards\"></div>\n  <div role=\"tabpanel\" class=\"tab-pane\" id=\"projects\"></div>\n  <div role=\"tabpanel\" class=\"tab-pane\" id=\"users\"></div>\n  <div role=\"tabpanel\" class=\"tab-pane\" id=\"collections\"></div>\n</div>\n\n<div class=\"col-md-12 stats-ctn\"></div>\n\n<div class=\"col-md-12 team-wrapper\">\n  <h3 class=\"team-tab\">team</h3>\n  <div class=\"team-ctn\"></div>\n</div>\n\n<div class=\"col-md-12 partners-wrapper\">\n  <h3 class=\"partners-tab\">Co-Producers</h3>\n  <div class=\"partners-ctn\"></div>\n</div>\n\n<div class=\"col-md-12 network-wrapper\">\n  <h3 class=\"network-tab\">IdeaCamp Network</h3>\n  <div class=\"network-ctn\">\n\n    <ul>\n      <li class=\"clubture\"></li>\n      <li class=\"pravonagrad\"></li>\n      <li class=\"operacija-grad\"></li>\n      <li class=\"tetes-art\"></li>\n      <li class=\"goteo\"></li>\n      <li class=\"oberliht\"></li>\n      <li class=\"critica-politica\"></li>\n      <li class=\"subtopia\"></li>\n    </ul>\n\n  </div>\n</div>\n\n<div class=\"landing-footer\">\n  <div class=\"text-vcenter call-action\">\n\n    <div class=\"container-fluid\">\n\n      <div class=\"row\">\n\n\n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.homeToolsUrl : depth0),{"name":"if","hash":{},"fn":container.program(11, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\n\n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.canCreateDashboard : depth0),{"name":"if","hash":{},"fn":container.program(13, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")

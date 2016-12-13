@@ -63,7 +63,6 @@ module.exports = Backbone.Marionette.CollectionView.extend({
   },
 
   updateGrid: function(){
-
     if (this.initialized && !this.destroyed){
       this.destroySlick();
     }

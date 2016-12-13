@@ -281,16 +281,24 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       this.ui.createProject
         .html('Where to?');
 
-      // Load opened dashboards
-      this.lists.dashboards =
-        this.lists.dashboards || this.getNewList('dashboards');
+      // Load opened dashboards, without minimun 2 projects restriction
+      var self = this;
+      self.project_dashboards =
+        self.project_dashboards || new Dashboards();
 
-      // console.log(this.lists.dashboards);
-
-      this.dashboardList.show(new DashboardListView({
-        collection: this.lists.dashboards.getOpened()
-      }));
-      this.ui.dashboardList.addClass('open');
+      if(self.project_dashboards.length === 0) {
+        self.project_dashboards.fetch().done(function() {
+          self.dashboardList.show(new DashboardListView({
+            collection: self.project_dashboards.getOpened()
+          }));
+          self.ui.dashboardList.addClass('open');
+        });
+      } else {
+        self.dashboardList.show(new DashboardListView({
+          collection: self.project_dashboards.getOpened()
+        }));
+        self.ui.dashboardList.addClass('open');
+      }
 
     }
   },

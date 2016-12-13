@@ -1313,7 +1313,6 @@ module.exports = Backbone.Marionette.CollectionView.extend({
   },
 
   updateGrid: function(){
-
     if (this.initialized && !this.destroyed){
       this.destroySlick();
     }
@@ -1379,6 +1378,7 @@ module.exports = Backbone.Marionette.CollectionView.extend({
   }
 
 });
+
 },{"./Item":19}],19:[function(require,module,exports){
 /**
  * VIEW: An Item of HOME Search

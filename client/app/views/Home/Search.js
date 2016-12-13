@@ -76,7 +76,10 @@ module.exports = Backbone.Marionette.ItemView.extend({
         }
         else {
           hackdash.app.router.navigate(fragment, { trigger: true, replace: true });
-          self.collection.fetch({ reset: true });
+          self.collection.fetch({
+            reset: true,
+            data: $.param({ minProjects: 2 })
+          });
         }
       }
 
@@ -98,7 +101,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
     }
 
     var pos = (top - offset >= 0 ? top - offset : 0);
-    
+
     $(window).scrollTop(pos);
   }
 

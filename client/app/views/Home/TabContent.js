@@ -68,6 +68,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
     if (!this.header.currentView){
 
+      // Fetching data from collection
       this.header.show(new Search({
         collection: this.collection
       }));
