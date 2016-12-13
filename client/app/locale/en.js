@@ -7,6 +7,8 @@ module.exports = {
   "datetime_format": "MM\/DD\/YYYY HH:mm",
   "colloquial_date_format": "ddd Do MMMM YYYY",
 
+  "title_default": "HackDash: Ideas for a hackathon",
+  "description_default": "Ideas for a hackathon. Upload your project. Add colaborators. Inform status. Share your app.",
 
 /* Home Directory */
 

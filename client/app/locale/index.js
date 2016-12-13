@@ -3,6 +3,10 @@ var locales = {
   en: require('./en'),
   es: require('./es')
 };
+// Compatibilize underscore to use in server-side
+if(!_) {
+  var _ = require('underscore');
+}
 
 var current = locales.en;
 var _lan = 'en';
@@ -14,11 +18,13 @@ module.exports = {
    * @param {en:{...}, es:{...}} addons an object with all the locales to add/substitute
    */
   addLocales: function(addons) {
+    console.log('addLocales1',addons);
     for(var l in addons) {
       if(locales.hasOwnProperty(l)) {
         _.extend(locales[l], addons[l]);
       }
     }
+    console.log('addLocales2',locales);
   },
 
   setLocale: function(lan) {
