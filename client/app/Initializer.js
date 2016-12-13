@@ -26,11 +26,11 @@ module.exports = function(){
         (window.navigator.language || window.navigator.userLanguage || 'en-US');
   }
 
-  var locales = require('./locale');
-  locales.setLocale(lan);
-  locales.addLocales(window.hackdash.themeLocales);
+  var i18n = require('./locale');
+  i18n.setLocale(lan);
+  i18n.addLocales(window.hackdash.themeLocales);
 
-  window.__ = hackdash.i18n = locales.__;
+  window.__ = hackdash.i18n = i18n.__;
 
   // Init Helpers
   require('./helpers/handlebars');

@@ -126,7 +126,7 @@ module.exports = function(grunt) {
 
     watch: {
       local: {
-        files: ["<%= paths.app.root %>**/*", '<%= paths.app.theme %>/views/**/*'],
+        files: ["<%= paths.app.root %>**/*", '<%= paths.app.theme %>/client/**/*'],
         tasks: ['default'],
         options: {
           atBegin: true

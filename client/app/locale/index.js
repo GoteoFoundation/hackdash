@@ -14,7 +14,11 @@ module.exports = {
    * @param {en:{...}, es:{...}} addons an object with all the locales to add/substitute
    */
   addLocales: function(addons) {
-    _.extend(locales, addons);
+    for(var l in addons) {
+      if(locales.hasOwnProperty(l)) {
+        _.extend(locales[l], addons[l]);
+      }
+    }
   },
 
   setLocale: function(lan) {
