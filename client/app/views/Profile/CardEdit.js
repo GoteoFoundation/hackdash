@@ -124,7 +124,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
   errors: {
     "name_required": __("Name is required"),
     "email_required": __("Email is required"),
-    "email_invalid": __("Invalid Email")
+    "email_invalid": __("Invalid Email"),
     "email_existing": __("Already registered Email")
   },
 

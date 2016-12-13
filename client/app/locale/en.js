@@ -168,6 +168,7 @@ module.exports = {
 "Managed by":"Managed by",
 "Contributors":"Contributors",
 "Edit":"Edit",
+"Forms":"Forms",
 
 
 /* share.hbs */

@@ -12,3 +12,6 @@ npm-debug.log
 public/styles/app.css
 public/styles/embed.css
 public/styles/landing.css
+public/js/hackdashApp.js
+public/js/embedApp.js
+public/js/vendor.js

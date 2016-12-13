@@ -183,7 +183,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
   errors: {
     "subdomain_invalid": __("5 to 10 chars, no spaces or special"),
-    "subdomain_inuse": __("Sorry, that one is in use. Try another one.")
+    "subdomain_inuse": __("Sorry, that one is in use. Try another one."),
     "sudomain_create_permission": __("Sorry, you don't have permissions to create a dashboard.")
   },
 
