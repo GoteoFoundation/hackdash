@@ -131,7 +131,11 @@ module.exports = {
 "saving...":"saving...",
 "Save profile":"Save profile",
 "Profile saved, going back to business ...":"Profile saved, going back to business ...",
-
+"non_public_data": "This data is for statistics purposes and it is not public",
+"Gender": "Gender",
+"Male": "Male",
+"Female": "Female",
+"Other": "Other",
 /* listItem.hbs */
 
 "Remove":"Remove",
@@ -139,7 +143,7 @@ module.exports = {
 /* profile.hbs */
 
 "Contributions":"Contributions",
-"following":"Following",
+"Following":"Following",
 
 /* Project directory */
 

@@ -1,4 +1,4 @@
-﻿/*eslint-disable */
+/*eslint-disable */
 module.exports = {
   "code": "es-ES",
   "time_format": "HH:mm",
@@ -12,7 +12,7 @@ module.exports = {
 
 /* home.hbs */
 
- 
+
   "dashboard name (5-10 chars)":"nombre del tablero (corto)",
   "Dashboards": "Tableros",
   "create now": "crear ahora",
@@ -136,7 +136,7 @@ module.exports = {
 /* profile.hbs */
 
 "Contributions":"Colaboraciones",
-"following":"Siguiendo",
+"Following":"Siguiendo",
 
 /* Project directory */
 
