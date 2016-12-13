@@ -1,5 +1,5 @@
 var
-    template = require('./templates/footer.hbs')
+    template = require('Footer/templates/footer.hbs')
   , AdminFooter = require('./AdminFooter');
 
 module.exports = Backbone.Marionette.LayoutView.extend({

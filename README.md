@@ -105,6 +105,16 @@ For convenience, both can be started at the same time:
 npm run devel
 ```
 
+If using themes, theme must be compiled in grunt as well. Theme is readed from
+configuration `config/config.json`. Grunt task also accepts a `--config` option
+to compile using a different config file (useful if you are working in more than
+one theme).
+
+```bash
+cd client
+grunt --config ../config/config.json
+```
+
 Generating collections
 =================
 

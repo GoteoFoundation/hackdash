@@ -6,6 +6,14 @@
     height: 280px;
 }
 
+.logo {
+  margin: 5px 0 0 10px;
+  &.logo-wotify {
+    margin: 10px 0 0 10px;
+    background-image: url(@logo-wotify-url);
+  }
+}
+
 .my-profile  {
   float:none;
   position: absolute;
@@ -52,8 +60,7 @@
 }
 
 .landing-header {
-  // background: url(@landing-photo-url) no-repeat center center fixed;
-  background: #d5bb0c;
+  background: url(@landing-ideacamp-url) no-repeat center center fixed;
   height: 65%;
   .logo-roadbook {
     background: url(@logo-roadbook-url) no-repeat;
@@ -136,7 +143,60 @@
       }
 
       &.madrid {
-        background-image: url('../images/partners/madrid.png');
+        background-image: url('../images/partners/logo-madrid.png');
+      }
+    }
+  }
+}
+
+.network-ctn {
+  min-height: 50px;
+
+  ul {
+    list-style: none;
+    // padding: 20px;
+    margin: 20px 10px 10px 10px;
+    text-align: center;
+
+    li {
+      display: inline-block;
+      width: 150px;
+      height: 80px;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+      margin: 0 10px;
+
+      &.clubture {
+        background-image: url('../images/network/clubture.svg');
+      }
+
+      &.pravonagrad {
+        background-image: url('../images/network/pravonagrad.png');
+      }
+
+      &.operacija-grad {
+        background-image: url('../images/network/operacija-grad.png');
+      }
+
+      &.tetes-art {
+        background-image: url('../images/network/tetes-art.png');
+      }
+
+      &.goteo {
+        background-image: url('../images/network/goteo.png');
+      }
+
+      &.oberliht {
+        background-image: url('../images/network/oberliht.png');
+      }
+
+      &.critica-politica {
+        background-image: url('../images/network/critica-politica.png');
+      }
+
+      &.subtopia {
+        background-image: url('../images/network/subtopia.png');
       }
     }
   }
