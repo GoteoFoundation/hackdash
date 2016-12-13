@@ -6,7 +6,7 @@
 
     {{#if homeCreateProject}}
       <div class="profile-btn">
-        <button id="create-project" class="btn btn-primary btn-blue" type="button">Create project</button>
+        <button id="create-project" class="btn btn-primary btn-blue" type="button">{{__ "Create Project"}}</button>
         <div class="dropdown-project dropdown" id="dashboard-list"></div>
       </div>
     {{/if}}
@@ -16,9 +16,9 @@
       <a class="btn-profile">
         {{getMyProfileImageHex}}
       </a>
-      <a class="logout" href="/logout" data-bypass>Log out</a>
+      <a class="logout" href="/logout" data-bypass>{{__ "Log out"}}</a>
     {{else}}
-      <a class="login">Log in</a>
+      <a class="login">{{__ "Log in"}}</a>
     {{/isLoggedIn}}
     </div>
 
@@ -57,11 +57,11 @@
         </li>
         {{#isLoggedIn}}
         <li class="visible-xs">
-          <a class="logout" href="/logout" data-bypass>Log out</a>
+          <a class="logout" href="/logout" data-bypass>{{__ "Log out"}}</a>
         </li>
         {{else}}
         <li>
-          <a class="login">Log in</a>
+          <a class="login">{{__ "Log in"}}</a>
         </li>
         {{/isLoggedIn}}
       </ul>
@@ -80,12 +80,12 @@
 <div class="col-md-12 stats-ctn"></div>
 
 <div class="col-md-12 team-wrapper">
-  <h3 class="team-tab">team</h3>
+  <h3 class="team-tab">{{__ "team"}}</h3>
   <div class="team-ctn"></div>
 </div>
 
 <div class="col-md-12 partners-wrapper">
-  <h3 class="partners-tab">Co-Producers</h3>
+  <h3 class="partners-tab">{{__ "partners"}}</h3>
   <div class="partners-ctn"></div>
 </div>
 
@@ -119,7 +119,7 @@
         <div class="col-xs-12">
           <div class="input-group">
               <div class="pull-left">
-                <button id="goto-tools" class="btn btn-primary btn-red" type="button">Our tools</button>
+                <button id="goto-tools" class="btn btn-primary btn-red" type="button">{{__ "Our tools"}}</button>
               </div>
           </div>
         </div>
@@ -131,10 +131,10 @@
           <div class="input-group">
             <input id="domain" type="text" class="form-control" placeholder="event name (5-20 chars)">
             <span class="input-group-btn">
-              <button id="create-dashboard" class="btn btn-primary" type="button">create event</button>
+              <button id="create-dashboard" class="btn btn-primary" type="button">{{__ "create now"}}</button>
             </span>
           </div>
-          <p id="new-dashboard-error" class="text-center text-danger hidden">ERROR</p>
+          <p id="new-dashboard-error" class="text-center text-danger hidden">{{__ "ERROR"}}</p>
         </div>
       {{/if}}
 

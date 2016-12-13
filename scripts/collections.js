@@ -1,5 +1,5 @@
 
-require('babel/register');
+require('babel-core/register');
 var
     config = require('../config/config.json')
   , async = require('async')

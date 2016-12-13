@@ -7,9 +7,9 @@
       <a class="btn-profile">
         {{getMyProfileImageHex}}
       </a>
-      <a class="logout" href="/logout" data-bypass>Log out</a>
+      <a class="logout" href="/logout" data-bypass>{{__ "Log out"}}</a>
     {{else}}
-    <a class="login">Log in</a>
+    <a class="login">{{__ "Log in"}}</a>
     {{/isLoggedIn}}
     </div>
   </div>
@@ -29,12 +29,12 @@
         <div class="input-group">
           {{#if homeToolsUrl}}
             <div class="pull-left">
-              <button id="goto-tools" class="btn btn-primary btn-red" type="button">Our tools</button>
+              <button id="goto-tools" class="btn btn-primary btn-red" type="button">{{__ "Our tools"}}</button>
             </div>
           {{/if}}
           {{#if homeCreateProject}}
             <div class="pull-right">
-              <button id="create-project" class="btn btn-primary btn-blue" type="button">Create project</button>
+              <button id="create-project" class="btn btn-primary btn-blue" type="button">{{__ "Create Project"}}</button>
               <div class="dropdown-project dropdown" id="dashboard-list"></div>
             </div>
           {{/if}}
@@ -96,11 +96,11 @@
         </li>
         {{#isLoggedIn}}
         <li class="visible-xs">
-          <a class="logout" href="/logout" data-bypass>Log out</a>
+          <a class="logout" href="/logout" data-bypass>{{__ "Log out"}}</a>
         </li>
         {{else}}
         <li>
-          <a class="login">Log in</a>
+          <a class="login">{{__ "Log in"}}</a>
         </li>
         {{/isLoggedIn}}
       </ul>

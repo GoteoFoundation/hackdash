@@ -4,6 +4,10 @@ module.exports = {
     "Dashboards": "Event boards",
     "Projects":"Ideas",
 
+    "partners": "Co-Producers",
+
+    "Create Project": "Upload idea",
+
     "projects": "ideas",
 
     "dashboard name (5-10 chars)": "event name (5-10 chars)",

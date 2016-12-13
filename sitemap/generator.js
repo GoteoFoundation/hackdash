@@ -1,4 +1,4 @@
-require('babel/register');
+require('babel-core/register');
 
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema,
