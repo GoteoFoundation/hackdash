@@ -12,7 +12,7 @@ Special version suited for the [Europeana Wotify Dashboards](https://wotify.co)
 Install
 ===========
 
-This is heavily modified fork of [hackdash](https://github.com/danzajdband/hackdash) to convert this originally showcase style web to a workin tool.
+This is a heavily modified fork of [hackdash](https://github.com/danzajdband/hackdash) to convert this originally showcase style web to a workin tool.
 
 Some of the changes introduced are:
 

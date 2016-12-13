@@ -1,13 +1,12 @@
 
-<a class="brand {{#if isAdmin}}dashboard-footer{{/if}}">
-  <span class="logo" title="Wotify"></span>
-  <span class="logo-platoniq" title="Developed by Platoniq">Platoniq.net</span>
-  <span class="logo-hackdash" title="Powered by Hackdash">Powered by Hackdash</span>
+<a class="brand {{#if isDashboard}}{{#if isAdmin}}dashboard-footer{{/if}}{{/if}}">
+  <div class="logo"></div>
+  <h3>hackdash.org</h3>
 </a>
 
 <div class="admin-footer"></div>
 
 <a class="up-button">
   <i class="fa fa-long-arrow-up"></i>
-  <span>up</span>
+  <span>{{__ "up"}}</span>
 </a>

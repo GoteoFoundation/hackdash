@@ -61,6 +61,10 @@ Handlebars.registerHelper('formatLocation', function(loc) {
   return t;
 });
 
+Handlebars.registerHelper('discourseUrl', function() {
+  return window.hackdash.discourseUrl;
+});
+
 Handlebars.registerHelper('disqus_shortname', function() {
   return window.hackdash.disqus_shortname;
 });
@@ -231,6 +235,10 @@ Handlebars.registerHelper('getMyProfileImageHex', function() {
   return getProfileImageHex(window.hackdash.user);
 });
 
+Handlebars.registerHelper('__', function(key) {
+  return window.__(key);
+});
+
 Handlebars.registerHelper('each_upto', function(ary, max, options) {
     if(!ary || ary.length === 0) {
       return options.inverse(this);
@@ -266,4 +274,3 @@ Handlebars.registerHelper('each_upto_rnd', function(ary, max, options) {
 
     return result.join('');
 });
-

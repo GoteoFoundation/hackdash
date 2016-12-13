@@ -18,6 +18,16 @@ module.exports = function(){
     $.fn.editable.defaults.mode = 'inline';
   }
 
+  var lan =
+    window.navigator.languages ?
+      window.navigator.languages[0] :
+      (window.navigator.language || window.navigator.userLanguage || 'en-US');
+
+  var locales = require('./locale');
+  locales.setLocale(lan);
+
+  window.__ = hackdash.i18n = locales.__;
+
   // Init Helpers
   require('./helpers/handlebars');
   require('./helpers/backboneOverrides');

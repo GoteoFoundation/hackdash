@@ -12,7 +12,7 @@ html
     meta(property='og:title', content= meta.title)
     meta(property='og:description', content= meta.description)
     meta(property='og:url', content= meta.url)
-    meta(property='og:site_name', content='Wotify')
+    meta(property='og:site_name', content='HackDash')
     meta(property='og:type', content='website')
 
     meta(property='twitter:card', content='summary')
@@ -23,8 +23,7 @@ html
     link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
     link(rel="icon", href="/favicon.ico", type="image/x-icon")
 
-    //- link(rel='stylesheet', href='//fonts.googleapis.com/css?family=Oswald:400,700,300|Montserrat:400,700')
-    link(rel='stylesheet', href='//fonts.googleapis.com/css?family=Oswald:400,700,300|Roboto:400,700')
+    link(rel='stylesheet', href='//fonts.googleapis.com/css?family=Oswald:400,700,300|Montserrat:400,700')
 
     link(rel='stylesheet', href='/styles/vendor.css?v=' + version)
 
@@ -56,6 +55,7 @@ html
         subdomain: "!{subdomain}",
         baseURL: "!{host}",
         title: "!{title}",
+        discourseUrl: "!{discourseUrl}",
         disqus_shortname: "!{disqus_shortname}",
         providers: "!{providers}",
         publicDashboardCreation: !{publicDashboardCreation},

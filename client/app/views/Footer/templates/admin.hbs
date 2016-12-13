@@ -7,7 +7,7 @@
 
     <a href="/api/v2/dashboards/{{domain}}/csv" target="_blank" data-bypass>
       <i class="fa fa-download"></i>
-      <div>Export .CSV File</div>
+      <div>{{__ "Export .CSV File"}}</div>
     </a>
 
     <a class="btn-admin-forms" href="/dashboards/{{domain}}/forms">
@@ -45,13 +45,12 @@
   <a data-placement="top" data-original-title="{{switcherMsg}}"
     class="tooltips dashboard-btn footer-toggle-ctn {{#if open}}dash-open{{else}}dash-close{{/if}}">
     <i class="txt {{#if open}}btn-success{{else}}btn-danger{{/if}}">{{#if open}}Open{{else}}Close{{/if}}</i>
-    <div>Board Status</div>
+    <div>{{__ "Dashboard Status"}}</div>
   </a>
 
   <a class="btn-showcase-mode">
-    <i class="btn-danger txt">off</i><div>Edit Showcase</div>
+    <i class="btn-danger txt">{{__ "off"}}</i><div>{{__ "Edit Showcase"}}</div>
   </a>
-
 {{/if}}
 
 {{#if isForm}}

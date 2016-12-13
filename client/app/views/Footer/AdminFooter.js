@@ -84,12 +84,12 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
     if (this.model && this.model instanceof Dashboard) {
 
-      var msg1 = "This Dashboard is open: click to close";
-      var msg2 = "Anyone can see the projects in this Dashboard: click to privatize";
+      var msg1 = __("This Dashboard is open: click to close");
+      var msg2 = __("Anyone can see the projects in this Dashboard: click to privatize");
 
       if (!this.model.get("open")) {
-        msg1 = "This Dashboard is closed: click to reopen";
-        msg1 = "Nobody can see the projects in this Dashboard: click to publish";
+        msg1 = __("This Dashboard is closed: click to reopen");
+        msg1 = __("Nobody can see the projects in this Dashboard: click to publish");
       }
 
       return _.extend({
@@ -147,8 +147,8 @@ module.exports = Backbone.Marionette.ItemView.extend({
   //+ PRIVATE AND PROTECTED METHODS
   //--------------------------------------
 
-  changeShowcaseMode: function() {
-    if (this.ui.showcaseMode.hasClass("on")) {
+  changeShowcaseMode: function(){
+    if (this.ui.showcaseMode.hasClass("on")){
 
       this.model.trigger("save:showcase");
       this.model.trigger("end:showcase");
@@ -156,7 +156,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
       this.model.isShowcaseMode = false;
 
       this.ui.showcaseMode
-        .html("<i class='btn-danger txt'>off</i><div>Edit Showcase</div>")
+        .html("<i class='btn-danger txt'>" + __("turned_off") + "</i><div>" + __("Edit Showcase") + "</div>")
         .removeClass("on");
 
       this.ui.createShowcase.removeClass("hide");
@@ -167,7 +167,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
       this.model.trigger("edit:showcase");
 
       this.ui.showcaseMode
-        .text("Save Showcase")
+        .text(__("Save Showcase"))
         .addClass("btn btn-success on");
 
       this.ui.createShowcase.addClass("hide");
