@@ -22,8 +22,6 @@ module.exports = {
 
     "dashboard name (5-10 chars)": "event name (5-10 chars)",
 
-    "Create Project":"Create Idea",
-
     "Project Title":"Idea Title",
     "Import Project":"Import Idea",
     "Project URL Demo":"Idea URL Demo",
