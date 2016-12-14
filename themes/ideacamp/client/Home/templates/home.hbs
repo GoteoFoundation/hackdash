@@ -7,7 +7,7 @@
     {{#if homeCreateProject}}
       <div class="profile-btn">
         {{!-- <button id="create-project" class="btn btn-primary btn-blue" type="button">{{__ "Create Project"}}</button> --}}
-        <a id="create-project" class="btn btn-primary btn-blue" href="/dashboards/ideacamp17/create">{{__ 'Create Project'}}</a>
+        <a id="create-project" class="btn btn-primary btn-blue" href="/dashboards/ideacamp17/create" data-bypass>{{__ 'Create Project'}}</a>
         <div class="dropdown-project dropdown" id="dashboard-list"></div>
       </div>
     {{/if}}
@@ -92,11 +92,6 @@
 
 <div class="col-md-12 stats-ctn"></div>
 
-<div class="col-md-12 team-wrapper">
-  <h3 class="team-tab">{{__ "team"}}</h3>
-  <div class="team-ctn"></div>
-</div>
-
 <div class="col-md-12 partners-wrapper">
   <h3 class="partners-tab">{{__ "partners"}}</h3>
   <div class="partners-ctn"></div>
@@ -129,28 +124,28 @@
 
       <div class="row">
 
-      <div class="col-xs-6 col-md-4">
+      <div class="step col-xxs-12 col-xs-6 col-sm-4">
         <a class="btn btn1 login"><i>1.</i> {{__ 'Log in'}}</a>
       </div>
-      <div class="col-xs-6 col-md-4">
+      <div class="step col-xxs-12 col-xs-6 col-sm-4">
         <a class="btn btn2 btn-profile"><i>2.</i> {{__ 'Create your profile'}}</a>
       </div>
-      <div class="col-xs-6 col-md-4">
-        <a class="btn btn3" href="/dashboards/ideacamp17/create"><i>3.</i> {{__ 'Publish your idea'}}</a>
+      <div class="step col-xxs-12 col-xs-6 col-sm-4">
+        <a class="btn btn3" href="/dashboards/ideacamp17/create" data-bypass><i>3.</i> {{__ 'Publish your idea'}}</a>
         <br>
         <span>({{__ "In ideacamp2017 board"}})</span>
       </div>
-      <div class="col-xs-6 col-md-4">
-        <a class="btn btn4" href="/dashboards/ideacamp17"><i>4.</i> {{__ 'Synthesize your idea'}}</a>
+      <div class="step col-xxs-12 col-xs-6 col-sm-4">
+        <a class="btn btn4" href="/dashboards/ideacamp17" data-bypass><i>4.</i> {{__ 'Synthesize your idea'}}</a>
         <br>
         <span>({{__ "Starting with a simple question what if..."}})</span>
       </div>
-      <div class="col-xs-6 col-md-4">
-        <a class="btn btn5" href="/forms"><i>5.</i> {{__ 'Answer questionnaires'}}</a>
+      <div class="step col-xxs-12 col-xs-6 col-sm-4">
+        <a class="btn btn5" href="/forms" data-bypass><i>5.</i> {{__ 'Answer questionnaires'}}</a>
         <br>
         <span>({{__ "Your context, state of your idea"}})</span>
       </div>
-      <div class="col-xs-6 col-md-4">
+      <div class="step col-xxs-12 col-xs-6 col-sm-4">
         <a class="btn btn6" href="https://twitter.com/platoniq">{{__ 'Need Help'}} <i>{{__ 'Contact us'}}</i></a>
       </div>
 
@@ -159,6 +154,11 @@
     </div>
 
   </div>
+</div>
+
+<div class="col-md-12 team-wrapper">
+  <h3 class="team-tab">{{__ "team"}}</h3>
+  <div class="team-ctn"></div>
 </div>
 
 <div class="col-md-12 about-ctn">

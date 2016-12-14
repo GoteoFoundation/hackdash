@@ -231,19 +231,19 @@
       width: 100%;
       padding:70px 30px;
     }
-    @media (min-width: 992px) {
-      .col-xs-6:nth-child(3n+0) {
+    @media (min-width: 768px) {
+      .step:nth-child(3n+0) {
         text-align: left;
       }
-      .col-xs-6:nth-child(3n+1) {
+      .step:nth-child(3n+1) {
         text-align: right;
       }
     }
-    @media (max-width: 991px) {
-      .col-xs-6:nth-child(even) {
+    @media (min-width: 480px) and (max-width: 767px) {
+      .step:nth-child(even) {
         text-align: left;
       }
-      .col-xs-6:nth-child(odd) {
+      .step:nth-child(odd) {
         text-align: right;
       }
     }

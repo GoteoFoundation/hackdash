@@ -5,6 +5,8 @@ module.exports = {
     "description_default": "Ideacamp Roadbook. Co-creation workshops by Platoniq.",
     "site_name": "IdeaCamp2017",
 
+    "team": "Roadbook Team",
+
     "Dashboards": "Event boards",
     "Projects":"Ideas",
     "create now":"create event",
@@ -37,7 +39,7 @@ module.exports = {
 
     "The HackDash was born": "IdeaCamp’s Digital Roadbook is a platform for all Idea Makers to publish, improve and keep track of their idea development. The Roadbook is also an opportunity for the Idea Camp learning community to connect through time and to foster connection during and after the event. It will be the digital log book connected with what will happen through this journey of activities. The tool is based on the <a href=\"https://wotify.co\" data-bypass=\"true\" target=\"__blank\">Wotify-co</a> platform developed by <a href=\"http://platoniq.net/\" data-bypass=\"true\" target=\"__blank\">Platoniq</a>, forked from <a href=\"https://github.com/GoteoFoundation/hackdash\" data-bypass=\"true\" target=\"__blank\">Hackdash</a>. Licensed under the MIT license",
 
-    "File is too big, 500 Kb is the max": "File is too big, 8 Mb is the max",
+    "File is too big, 500 Kb is the max": "File is too big, 16 Mb is the max",
 
     "Anyone can see the projects in this Dashboard: click to privatize": "Anyone can see the ideas in this Dashboard: click to privatize",
     "Nobody can see the projects in this Dashboard: click to publish": "Nobody can see the ideas in this Dashboard: click to publish",

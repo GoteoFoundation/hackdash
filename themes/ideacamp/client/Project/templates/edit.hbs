@@ -1,0 +1,91 @@
+
+<div class="header">
+  <div class="container">
+    <h1>
+      <input name="title" type="text" placeholder='{{__ "Project Title"}}' value="{{title}}" class="form-control"/>
+    </h1>
+    <h3 class="page-link-left">
+      <a href="/dashboards/{{domain}}">{{domain}}</a>
+    </h3>
+  </div>
+</div>
+
+<div class="body">
+  <div class="bg-body-entity"></div>
+  <div class="container">
+
+    <div class="col-md-4">
+
+      <div class="cover">
+
+        <div class="progress" title="{{statusesText status}}">
+          <div class="status">
+            <select name="status" id="status" class="form-control" value="{{status}}">
+              {{#each statuses}}
+              <option value="{{status}}"{{#unless active}} disabled{{/unless}}>{{statusesText status}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </div>
+
+        <div id="dragdrop" class="dropzone item-cover"
+          {{#if cover}}
+          style="background-image: url({{cover}});"
+          {{/if}}>
+        </div>
+        <p class="error-cover bg-danger text-danger hidden"></p>
+
+      </div>
+
+    </div>
+
+    <div class="col-md-8">
+
+      <div class="whatif">
+        <textarea id="whatif" name="whatif" placeholder="[What if as a <type of user>]
+      [I could <specific action>]
+      [with <open content / tool>]
+      [so <benefit / goal>]">{{whatif}}</textarea>
+      </div>
+
+      <div class="description">
+        <textarea id="description" name="description" placeholder="Description">{{description}}</textarea>
+      </div>
+
+      <div class="tags">
+        <select id="tags" name="tags" multiple placeholder="{{__ "Tags" }}" class="form-control">
+        {{#each tags}}
+          <option selected>{{this}}</option>
+        {{/each}}
+        </select>
+      </div>
+      <div class="link">
+        <input id="link" type="text" name="link" placeholder='{{__ "Project URL Demo"}}' class="form-control" value="{{link}}"/>
+      </div>
+    </div>
+
+    <div class="col-md-8 buttons-panel">
+
+      <div class="pull-right save">
+        <a id="save" class="btn btn-success">{{__ "Save"}}</a>
+      </div>
+
+      <div class="pull-right cancel">
+        {{#if toolsUrl}}
+          <a class="btn btn-primary bnt-red" href="{{toolsUrl}}" target="_blank" data-bypass>Tools for this stage</a>
+        {{/if}}
+
+        <a id="cancel" class="btn btn-danger"
+          {{#if _id}}
+          href="/projects/{{_id}}"
+          {{else}}
+          href="/dashboards/{{domain}}"
+          {{/if}}
+        >{{__ "Cancel"}}</a>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

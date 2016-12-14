@@ -69,6 +69,7 @@ Added vars for Wotify Dashboards:
 * `useLocalLogin`: Set to true if you want to allow username/password registration
 * `theme`: This allows to apply a custom themes to hackdash. Just put a `theme_name` with the same folder name inside `themes/theme_name`. Styles or hbs templates can be overwritten. (Look at the code inside themes for an example).
 * `language`: If `null` autodetects from user's browser settings. Otherwise specify a valid lang to force Hackdash to that lang (ie: `en`, `es`)
+* `maxUploadSize`: Max upload size for file uploads (defaults to 2M),
 
 
 Login keys setup

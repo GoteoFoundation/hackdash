@@ -3,7 +3,7 @@
  *
  */
 
-var template = require('./templates/edit.hbs')
+var template = require('Project/templates/edit.hbs')
   // , Dashboard = require('../models/dashboard.js')
   ;
 

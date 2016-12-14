@@ -93,11 +93,19 @@ module.exports = Text.extend({
     }
 
 
+    zone.on("success", function(file, response) {
+      // console.log('success', file, response.href);
+      self.file.path = response.href;
+    });
+
     zone.on("error", function(file, message) {
-      self.ui.errorFile.removeClass('hidden').text(message);
+      // console.log('ERROR',message);
+      file.accepted = false;
+      self.ui.errorFile.removeClass('hidden').text(__(message));
     });
 
     zone.on("complete", function(file) {
+      // console.log('complete', file);
       if (!file.accepted){
         zone.removeFile(file);
         return;
@@ -105,24 +113,19 @@ module.exports = Text.extend({
 
       self.ui.errorFile.addClass('hidden').text('');
 
-      // var url = JSON.parse(file.xhr.response).href;
-
-      // if(self.file.type.indexOf('image') === 0) {
-      //   zone.removeFile(file);
-      //   $dragdrop
-      //     .css('background-image', 'url(' + url + ')');
-      // }
-
       $('.dz-message span', $dragdrop).css('opacity', '0.6');
 
     });
 
     zone.on("removedfile", function(file) {
-      console.log('del', file, self.file);
+      // console.log('del', file, self.file);
+      if (file.status && file.status === 'error'){
+        return;
+      }
       $.ajax({
         url: self.uploadURL,
         type: 'DELETE',
-        data: JSON.stringify({file:self.file}),
+        data: JSON.stringify({file: self.file}),
         contentType: 'application/json; charset=utf-8',
         context: self
       })
