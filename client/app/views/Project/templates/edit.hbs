@@ -2,7 +2,9 @@
 <div class="header">
   <div class="container">
     <h1>
-      <input name="title" type="text" placeholder='{{__ "Project Title"}}' value="{{title}}" class="form-control"/>
+      <div class="control-group">
+          <input name="title" type="text" placeholder='{{__ "Project Title"}}' value="{{title}}" class="form-control"/>
+      </div>
     </h1>
     <h3 class="page-link-left">
       <a href="/dashboards/{{domain}}">{{domain}}</a>
@@ -68,14 +70,9 @@
       <div class="description">
         <textarea id="description" name="description" placeholder="Description">{{description}}</textarea>
       </div>
-      <div class="whatif">
-        <textarea id="whatif" name="whatif" placeholder="[What if as a <type of user>]
-      [I could <specific action>]
-      [with <open content / tool>]
-      [so <benefit / goal>]">{{whatif}}</textarea>
-      </div>
+
       <div class="tags">
-        <select id="tags" name="tags" multiple placeholder="{{__ "Tags" }}" class="form-control">
+        <select id="tags" name="tags" multiple data-placeholder="{{__ "Tags" }}" class="form-control">
         {{#each tags}}
           <option selected>{{this}}</option>
         {{/each}}

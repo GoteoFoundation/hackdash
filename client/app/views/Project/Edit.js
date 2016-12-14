@@ -19,7 +19,6 @@ module.exports = Backbone.Marionette.ItemView.extend({
   ui: {
     "title": "input[name=title]",
     "description": "textarea[name=description]",
-    "whatif": "textarea[name=whatif]",
     "link": "input[name=link]",
     "tags": "select[name=tags]",
     "status": "select[name=status]",
@@ -117,7 +116,6 @@ module.exports = Backbone.Marionette.ItemView.extend({
     var toSave = {
       title: this.ui.title.val(),
       description: this.ui.description.val(),
-      whatif: this.ui.whatif.val(),
       link: this.ui.link.val(),
       tags: this.ui.tags.val(),
       status: this.ui.status.val(),
@@ -175,13 +173,13 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
     var ctrl = error.split("_")[0];
     var el = this.ui[ctrl] ? this.ui[ctrl] : this.ui.status;
-    el.parents('.control-group').addClass('error');
-    el.after('<span class="help-inline">' + (this.errors[error] ? this.errors[error] : error) + '</span>');
+    el.parents('.control-group').addClass('has-error');
+    el.after('<span class="help-block">' + (this.errors[error] ? this.errors[error] : error) + '</span>');
   },
 
   cleanErrors: function(){
-    $(".error", this.$el).removeClass("error");
-    $("span.help-inline", this.$el).remove();
+    $(".has-error", this.$el).removeClass("error");
+    $("span.help-block", this.$el).remove();
   },
 
   initSelect2: function(){

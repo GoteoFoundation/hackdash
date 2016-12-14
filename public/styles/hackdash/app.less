@@ -318,6 +318,11 @@ footer {
     max-width: 900px;
   }
 
+  .help-block {
+    padding:5px;
+    background: #f2dede;
+    color:@color-danger;
+  }
   .header {
 
     .container {
@@ -330,6 +335,13 @@ footer {
         font-size: @fsize-50;
         text-transform: none;
         letter-spacing: -@fsize-12/17;
+        .help-block {
+          padding:5px;
+          background: #f2dede;
+          font-size: @fsize-50/8;
+          letter-spacing: @fsize-12/17;
+        }
+
       }
 
       .page-link-left,
@@ -749,6 +761,7 @@ footer {
           display: inline-block;
 
           height: 250px;
+          margin-bottom:60px;
           width: 100%;
 
           .error-cover {

@@ -2,7 +2,7 @@
 module.exports = {
   en: {
     "title_default": "Ideacamp Roadbook",
-    "description_default": "Ideacamp Roadbook. Co-creation workshops by Platoniq.",
+    "description_default": "The digital roadbook enhance the visualisation of the Idea Camp process and facilitate the matchmaking between participants",
     "site_name": "IdeaCamp2017",
 
     "team": "Roadbook Team",
@@ -24,7 +24,7 @@ module.exports = {
 
     "dashboard name (5-10 chars)": "event name (5-10 chars)",
 
-    "Project Title":"Idea Title",
+    "Project Title": "Name of your Idea",
     "Import Project":"Import Idea",
     "Project URL Demo":"Idea URL Demo",
 
@@ -37,7 +37,7 @@ module.exports = {
     "embed this project":"embed this idea",
     "Add this project to your website by coping this code below":"Add this idea to your website by coping this code below",
 
-    "The HackDash was born": "IdeaCamp’s Digital Roadbook is a platform for all Idea Makers to publish, improve and keep track of their idea development. The Roadbook is also an opportunity for the Idea Camp learning community to connect through time and to foster connection during and after the event. It will be the digital log book connected with what will happen through this journey of activities. The tool is based on the <a href=\"https://wotify.co\" data-bypass=\"true\" target=\"__blank\">Wotify-co</a> platform developed by <a href=\"http://platoniq.net/\" data-bypass=\"true\" target=\"__blank\">Platoniq</a>, forked from <a href=\"https://github.com/GoteoFoundation/hackdash\" data-bypass=\"true\" target=\"__blank\">Hackdash</a>. Licensed under the MIT license",
+    "The HackDash was born": "IdeaCamp's Digital Roadbook is a platform for all Idea Makers to publish, improve and keep track of their idea development. The Roadbook is also an opportunity for the Idea Camp learning community to connect through time and to foster connection during and after the event. It will be the digital log book connected with what will happen through this journey of activities. The tool is based on the <a href=\"https://wotify.co\" data-bypass=\"true\" target=\"__blank\">Wotify-co</a> platform developed by <a href=\"http://platoniq.net/\" data-bypass=\"true\" target=\"__blank\">Platoniq</a>, forked from <a href=\"https://github.com/GoteoFoundation/hackdash\" data-bypass=\"true\" target=\"__blank\">Hackdash</a>. Licensed under the MIT license",
 
     "File is too big, 500 Kb is the max": "File is too big, 16 Mb is the max",
 
@@ -48,10 +48,15 @@ module.exports = {
 
     "This project is going to be deleted. Are you sure?":"This idea is going to be deleted. Are you sure?",
 
+    "These forms must be filled by the project leader": "These forms must be filled by the idea maker",
 
     "template_email_wrapper": "[IdeaCamp2017] <%= subject %>",
     "template_email_wrapper_body": "### IdeaCamp2017 message:\n\n<%= content %>\n\n*Please do no reply this email, this is an automated response from [<%= host_name %>]({<%= host %>)*\n\n![IdeaCamp2017](<%= host %>/images/mini-logo-ideacamp.png)",
 
-    "These forms must be filled by the project leader": "These forms must be filled by the idea maker",
+    "template_user_welcome": "Your Idea Camp journey starts here!",
+    "template_user_welcome_body": "Hi! Thanks for creating your user profile  in Idea Camp 2017's Digital Roadbook. Make sure you formulate your Idea by creating a project. The more projects gathered, the sooner we'll learn about the rest of Idea Makers coming to Madrid! As soon as you will have uploaded your idea, you'll get another mail with a link to 2 Questionnaires. These will be crucial to the development of the program. IdeaCamp's Digital Roadbook is a platform for all Idea Makers to upload, improve and keep track of their idea development. The Roadbook is also an opportunity for the Idea Camp learning community to connect through time and to foster connection during and after the event. If you've got any trouble using the platform, drop us an email roadbook@platoniq.net For any inquiries about the event itself please write to ideacamp@culturalfoundation.eu",
+
+    "template_project_created": "Your Idea looks great!",
+    "template_project_created_body": "Wow! The Idea you just formulated in Idea Camp 2017’s Digital Roadbook looks just amazing. If you need to rework it in the following weeks, upload an image or boost it a little more, you will always find it following this link: https://roadbook.ideacamp2017.eu/projects/XXXXX Now that you’ve got your Idea created, don’t forget to answer the questionnaires that you’ll find here: https://roadbook.ideacamp2017.eu/forms  They’ve been prepared carefully to feed the program of activities in Madrid and help you out developing your project further. Deadline to fill them: 9th January 2017 at 10am. Should you have any trouble using the platform, drop us an email For any inquiries about the event itself please write to ideacamp@culturalfoundation.eu With warm wishes",
   }
 }
