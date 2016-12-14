@@ -224,7 +224,8 @@ module.exports = Backbone.Marionette.ItemView.extend({
     });
 
     coverZone.on("error", function(file, message) {
-      self.ui.errorCover.removeClass('hidden').text(message);
+      self.ui.errorCover.removeClass('hidden').text(__(message));
+      file.accepted = false;
     });
 
     coverZone.on("complete", function(file) {
