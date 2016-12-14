@@ -68,7 +68,8 @@
     background: none;
     .logo-ideacamp {
       background-image: url(@logo-ideacamp-url);
-      margin: -40px auto 40px auto;
+      // margin: -40px auto 40px auto;
+      margin: -5% auto 0 auto;
 
       @media (max-width: 500px) {
         margin: 0 auto;
@@ -76,6 +77,14 @@
         height: 173px;
       }
     }
+  }
+
+  #create-project.btn-primary {
+    font-size: @fsize-25;
+    line-height: 1em;
+    background-image: url(../images/pencil.svg);
+    background-repeat: no-repeat;
+    padding-left:50px;
   }
 }
 
@@ -129,7 +138,7 @@
     li {
 
       &.europeana {
-        background-image: url('../images/partners/ecf.jpg');
+        background-image: url('../images/partners/ecf.png');
       }
 
       &.platoniq {
@@ -213,45 +222,77 @@
     height: 100%;
     color: @color-white;
     display: table-cell;
-    background-color: rgba(0,0,0,0.65);
+    padding-bottom: 50px;
+    background-color: rgba(0,0,0,0.1);
 
-    .input-group {
-
-      font-family: @secondary-font;
-      margin: 20px auto;
-      max-width: 500px;
-
-      .form-control,
-      .btn {
-        text-transform: uppercase;
-        font-size: @fsize-25;
+    h3 {
+      font-size: @fsize-50;
+      font-weight: bold;
+      width: 100%;
+      padding:70px 30px;
+    }
+    @media (min-width: 992px) {
+      .col-xs-6:nth-child(3n+0) {
+        text-align: left;
       }
-
-      .form-control {
-        font-size: @fsize-25;
-        height: 60px;
-        border: solid 2px @color-whiteC;
-
-        @media (max-width: 500px) {
-          font-size: @fsize-20;
-          height: 45px;
-        }
+      .col-xs-6:nth-child(3n+1) {
+        text-align: right;
       }
-
-      .input-group-btn {
-        font-size: inherit;
-
-        .btn-primary {
-          height: 60px;
-          z-index: 2;
-          @media (max-width: 500px) {
-            font-size: @fsize-20;
-            height: 45px;
-          }
-        }
+    }
+    @media (max-width: 991px) {
+      .col-xs-6:nth-child(even) {
+        text-align: left;
+      }
+      .col-xs-6:nth-child(odd) {
+        text-align: right;
       }
     }
 
+    a.btn {
+      color: @color-white;
+      font-size: @fsize-17;
+      line-height: @fsize-17;
+      font-weight: 400;
+      width: 195px;
+      min-height: 69px;
+      padding:38px 20px 0 20px;
+      white-space: normal;
+      margin:10px 0;
+      background: url(../images/guideline/btn_1.svg) no-repeat;
+      &.btn2 {
+        background-image: url(../images/guideline/btn_2.svg);
+        padding:25px 50px 0 50px;
+      }
+      &.btn3 {
+        background-image: url(../images/guideline/btn_3.svg);
+      }
+      &.btn4 {
+        background-image: url(../images/guideline/btn_4.svg);
+        padding:25px 40px 0 40px;
+      }
+      &.btn5 {
+        background-image: url(../images/guideline/btn_5.svg);
+        padding-top:25px;
+      }
+      &.btn6 {
+        background-image: url(../images/guideline/btn_6.svg);
+        padding:25px 40px 0 40px;
+      }
+      i {
+        font-style: normal;
+        color: @color-black;
+      }
+    }
+    span {
+      font-size: @fsize-15;
+      line-height: @fsize-15;
+      color: @color-white;
+      text-transform: uppercase;
+      font-family: @secondary-font;
+      display: inline-block;
+      width: 195px;
+      text-align: center;
+    }
   }
 
   button#goto-tools.btn-primary {

@@ -6,7 +6,8 @@
 
     {{#if homeCreateProject}}
       <div class="profile-btn">
-        <button id="create-project" class="btn btn-primary btn-blue" type="button">{{__ "Create Project"}}</button>
+        {{!-- <button id="create-project" class="btn btn-primary btn-blue" type="button">{{__ "Create Project"}}</button> --}}
+        <a id="create-project" class="btn btn-primary btn-blue" href="/dashboards/ideacamp17/create">{{__ 'Create Project'}}</a>
         <div class="dropdown-project dropdown" id="dashboard-list"></div>
       </div>
     {{/if}}
@@ -28,6 +29,18 @@
   <div class="text-vcenter call-action">
 
     <div class="logo logo-ideacamp" title="2017 Moving communities"></div>
+
+    {{#if canCreateDashboard}}
+      <div class="col-xs-12">
+        <div class="input-group">
+          <input id="domain" type="text" class="form-control" placeholder="{{__ "event name (5-20 chars)"}}">
+          <span class="input-group-btn">
+            <button id="create-dashboard" class="btn btn-primary" type="button">{{__ "create now"}}</button>
+          </span>
+        </div>
+        <p id="new-dashboard-error" class="text-center text-danger hidden">{{__ "ERROR"}}</p>
+      </div>
+    {{/if}}
 
   </div>
 
@@ -90,7 +103,7 @@
 </div>
 
 <div class="col-md-12 network-wrapper">
-  <h3 class="network-tab">IdeaCamp Network</h3>
+  <h3 class="network-tab">CONNECTED ACTION FOR THE COMMONS NETWORK</h3>
   <div class="network-ctn">
 
     <ul>
@@ -112,19 +125,34 @@
 
     <div class="container-fluid">
 
+      <h3>{{__ 'Guidelines for your idea on the run to Idea Camp'}}</h3>
+
       <div class="row">
 
-      {{#if canCreateDashboard}}
-        <div class="col-xs-12">
-          <div class="input-group">
-            <input id="domain" type="text" class="form-control" placeholder="event name (5-20 chars)">
-            <span class="input-group-btn">
-              <button id="create-dashboard" class="btn btn-primary" type="button">{{__ "create now"}}</button>
-            </span>
-          </div>
-          <p id="new-dashboard-error" class="text-center text-danger hidden">{{__ "ERROR"}}</p>
-        </div>
-      {{/if}}
+      <div class="col-xs-6 col-md-4">
+        <a class="btn btn1 login"><i>1.</i> {{__ 'Log in'}}</a>
+      </div>
+      <div class="col-xs-6 col-md-4">
+        <a class="btn btn2 btn-profile"><i>2.</i> {{__ 'Create your profile'}}</a>
+      </div>
+      <div class="col-xs-6 col-md-4">
+        <a class="btn btn3" href="/dashboards/ideacamp17/create"><i>3.</i> {{__ 'Publish your idea'}}</a>
+        <br>
+        <span>({{__ "In ideacamp2017 board"}})</span>
+      </div>
+      <div class="col-xs-6 col-md-4">
+        <a class="btn btn4" href="/dashboards/ideacamp17"><i>4.</i> {{__ 'Synthesize your idea'}}</a>
+        <br>
+        <span>({{__ "Starting with a simple question what if..."}})</span>
+      </div>
+      <div class="col-xs-6 col-md-4">
+        <a class="btn btn5" href="/forms"><i>5.</i> {{__ 'Answer questionnaires'}}</a>
+        <br>
+        <span>({{__ "Your context, state of your idea"}})</span>
+      </div>
+      <div class="col-xs-6 col-md-4">
+        <a class="btn btn6" href="https://twitter.com/platoniq">{{__ 'Need Help'}} <i>{{__ 'Contact us'}}</i></a>
+      </div>
 
       </div>
 
