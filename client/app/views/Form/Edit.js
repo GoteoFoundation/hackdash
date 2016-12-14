@@ -70,6 +70,9 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
   editForm: function(e) {
     var id = $(e.target).data('id');
+    if(!$(e.target).is('[data-id]')) {
+      id = $(e.target).closest('button').data('id');
+    }
     var form = new Form({
         id: id,
         domain: this.model.get('domain'),
