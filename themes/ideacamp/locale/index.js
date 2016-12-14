@@ -1,8 +1,8 @@
 /*eslint-disable */
 module.exports = {
   en: {
-    "title_default": "Scenarios for Co-Creation",
-    "description_default": "Scenarios for Co-Creation. Co-creation workshops by Platoniq.",
+    "title_default": "Ideacamp Roadbook",
+    "description_default": "Ideacamp Roadbook. Co-creation workshops by Platoniq.",
     "site_name": "IdeaCamp2017",
 
     "Dashboards": "Event boards",

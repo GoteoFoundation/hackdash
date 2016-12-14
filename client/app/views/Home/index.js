@@ -94,7 +94,8 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   //--------------------------------------
 
   initialize: function(options){
-    this.section = (options && options.section) || "dashboards";
+    var def = window.hackdash.defaultHomeTab || "dashboards";
+    this.section = (options && options.section) || def;
 
     this.hdTeam = new Team();
     this.hdTeam.fetch();
