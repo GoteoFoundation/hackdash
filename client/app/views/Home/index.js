@@ -73,9 +73,6 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     homeCreateProject: function(){
       return window.hackdash.homeCreateProject;
     },
-    homeToolsUrl: function(){
-      return window.hackdash.homeToolsUrl;
-    },
     canCreateDashboard: function(){
       // return true;
       if(window.hackdash.publicDashboardCreation) {
@@ -263,10 +260,6 @@ module.exports = Backbone.Marionette.LayoutView.extend({
           .text(this.errors.subdomain_invalid + ' [' + name +']');
       }
     }
-  },
-
-  gotoTools: function(){
-    window.location = window.hackdash.homeToolsUrl;
   },
 
   createProject: function(){

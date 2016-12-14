@@ -7,6 +7,7 @@ module.exports = {
 
     "Dashboards": "Event boards",
     "dashboard name (5-10 chars)": "event name (5-10 chars)",
+    "Our tools": "Our tools",
 
     "Ideas for a": "Scenarios for",
 
