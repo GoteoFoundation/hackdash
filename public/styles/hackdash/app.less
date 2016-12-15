@@ -780,6 +780,7 @@ footer {
             min-height: 20px;
             // top: -2px;
             position: relative;
+            // margin-bottom: 20px;
             .status {
               height: auto;
               width: 100%;
@@ -807,14 +808,12 @@ footer {
           }
         }
 
-        .description, .whatif {
+        .description {
           font-family: @primary-font;
           font-size: @fsize-15;
           text-transform: none;
         }
-        .whatif {
-          margin: 20px 0;
-        }
+
         .tags {
           list-style: none;
           padding: 0;
@@ -935,7 +934,7 @@ footer {
               min-height: 30px;
               box-shadow: none;
               background: none;
-
+              margin-bottom: 10px;
               .form-control {
                 border: none;
               }
@@ -967,7 +966,18 @@ footer {
             }
           }
 
-          .description, .whatif {
+          .control-group {
+            margin-bottom: 20px;
+          }
+          textarea {
+            height: 100%;
+            font-family: @primary-font;
+            text-transform: none;
+            font-size: @fsize-15;
+            color:@color-black;
+          }
+
+          .description {
 
             textarea {
               width: 100%;
@@ -975,11 +985,6 @@ footer {
               border: none;
               background: @color-whiteB;
               resize: none;
-            }
-          }
-          .whatif {
-            textarea {
-              height: 100px;
             }
           }
         }

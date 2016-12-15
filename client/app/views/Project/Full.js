@@ -3,7 +3,7 @@
  *
  */
 
-var template = require("./templates/full.hbs")
+var template = require("Project/templates/full.hbs")
   , Sharer = require("../Sharer");
 
 module.exports = Backbone.Marionette.ItemView.extend({

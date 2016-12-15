@@ -1,0 +1,11 @@
+{{#each fields}}
+  {{#if help}}
+    {{{markdown help}}}
+  {{/if}}
+  <div class="control-group">
+    {{#if title}}
+      <label for="{{id}}">{{title}}</label>
+    {{/if}}
+    <textarea class="form-control" id="{{id}}" name="{{id}}" placeholder="{{placeholder}}">{{value}}</textarea>
+  </div>
+{{/each}}

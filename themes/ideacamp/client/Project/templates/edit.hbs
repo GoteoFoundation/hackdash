@@ -16,31 +16,6 @@
   <div class="bg-body-entity"></div>
   <div class="container">
 
-    {{#unless _id}}
-    <div id="ghImportHolder" class="hidden-xs">
-
-      <div class="project-link">
-        <a id="ghImportBtn" >
-          <label>{{__ "Import Project"}}</label>
-          <div>
-            <i class="fa fa-github"></i>
-            <span class="github">{{__ "GitHub"}}</span>
-          </div>
-        </a>
-      </div>
-
-      <div class="gh-import input-group col-md-4 hide">
-        <input id="txt-repo" type="text" class="form-control" placeholder="username / repository">
-        <span class="input-group-btn">
-          <button id="searchGh" class="btn btn-blue" type="button" data-loading-text='{{__ "LOADING"}}'>
-            {{__ "import"}}
-          </button>
-        </span>
-      </div>
-
-    </div>
-    {{/unless}}
-
     <div class="col-md-4">
 
       <div class="cover">
@@ -70,18 +45,21 @@
 
       <div class="extra-fields-top"></div>
 
-      <div class="description">
-        <textarea id="description" name="description" placeholder="{{__ "Description"}}">{{description}}</textarea>
+      <div class="description control-group">
+        <label for="description">{{__ "Short Description"}}</label>
+        <textarea class="form-control" id="description" name="description" placeholder="{{__ "description_placeholder"}}">{{description}}</textarea>
       </div>
 
-      <div class="tags">
+      <div class="tags control-group">
+        <label for="tags">{{__ "Keywords"}}</label>
         <select id="tags" name="tags" multiple data-placeholder="{{__ "Tags" }}" class="form-control">
         {{#each tags}}
           <option selected>{{this}}</option>
         {{/each}}
         </select>
       </div>
-      <div class="link">
+      <div class="link control-group">
+        <label for="link">{{__ "Project URL Demo"}}</label>
         <input id="link" type="text" name="link" placeholder='{{__ "Project URL Demo"}}' class="form-control" value="{{link}}"/>
       </div>
     </div>

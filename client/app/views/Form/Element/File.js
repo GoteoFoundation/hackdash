@@ -33,14 +33,14 @@ module.exports = Text.extend({
 
 
   onRender: function() {
-    this.text = 'Drop File here';
-    this.invalidText = 'Only file type is not allowed';
-    this.maxSize = 8;
+    this.text = __('Drop File here');
+    this.invalidText = __('Only file type is not allowed');
+    this.maxSize = 16;
     this.formId = this.form ? this.form.get('_id') : null;
     this.projectId = this.project ? this.project.get('_id') : null;
     if(this.imagesOnly) {
-      this.text = 'Drop Image here';
-      this.invalidText = 'Only jpg, png and gif are allowed';
+      this.text = __('Drop Image Here');
+      this.invalidText = __('Only jpg, png and gif are allowed');
     }
     if(this.model) {
       this.imagesOnly = this.model.get('options') && this.model.get('options').images;
@@ -74,7 +74,7 @@ module.exports = Text.extend({
       clickable: true,
       addRemoveLinks: true,
       dictDefaultMessage: self.text,
-      dictFileTooBig: 'File is too big, ' + self.maxSize + ' Mb is the max',
+      dictFileTooBig: __('File is too big, 500 Kb is the max'),
       dictInvalidFileType: self.invalidText
     });
 

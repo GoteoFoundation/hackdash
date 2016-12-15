@@ -25,8 +25,11 @@ module.exports = {
     "dashboard name (5-10 chars)": "event name (5-10 chars)",
 
     "Project Title": "Name of your Idea",
+    "Short Description": "Short description",
+    "description_placeholder": "Summarise your idea and explain what do you want to achieve through it.",
     "Import Project":"Import Idea",
-    "Project URL Demo":"Idea URL Demo",
+    "Tags":"Add keywords separated with a coma",
+    "Project URL Demo":"URL Demo",
 
     "Open dashboard website": "Open events website",
     "Share this Dashboard": "Share this Event board",

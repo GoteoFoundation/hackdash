@@ -4,10 +4,10 @@
  */
 
 var template = require('Project/templates/edit.hbs')
-  // , Dashboard = require('../models/dashboard.js')
+  , ExtraFields = require('./ExtraFields')
   ;
 
-module.exports = Backbone.Marionette.ItemView.extend({
+module.exports = Backbone.Marionette.LayoutView.extend({
 
   //--------------------------------------
   //+ PUBLIC PROPERTIES / CONSTANTS
@@ -16,32 +16,31 @@ module.exports = Backbone.Marionette.ItemView.extend({
   className: "page-ctn project edition",
   template: template,
 
+  regions:{
+    "extraFieldsTop": ".extra-fields-top",
+  },
+
   ui: {
     "title": "input[name=title]",
     "description": "textarea[name=description]",
     "link": "input[name=link]",
     "tags": "select[name=tags]",
     "status": "select[name=status]",
-    "errorCover": ".error-cover"
+    "errorCover": ".error-cover",
+    "toolsUrl": ".tools-url"
   },
 
   events: {
     "click #ghImportBtn": "showGhImport",
     "click #searchGh": "searchRepo",
 
+    "click @ui.toolsUrl": "toolsUrl",
+
     "click #save": "save",
     "click #cancel": "cancel"
   },
 
   templateHelpers: {
-    toolsUrl: function() {
-      var status = _.findWhere(hackdash.statuses, {status: this.status});
-      if(status) {
-        console.log(status, status.toolsUrl);
-        return status.toolsUrl;
-      }
-      return '';
-    },
     selected: function(val) {
       return this.tags && _.indexOf(this.tags, val) > -1 ? ' selected' : '';
     },
@@ -57,6 +56,12 @@ module.exports = Backbone.Marionette.ItemView.extend({
   //--------------------------------------
   //+ INHERITED / OVERRIDES
   //--------------------------------------
+
+  onRender: function() {
+    if(this.model) {
+      this.setModelStatus(this.model.get('status') || hackdash.statuses[0].status);
+    }
+  },
 
   onShow: function(){
     this.initSelect2();
@@ -124,6 +129,13 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
     this.cleanErrors();
 
+    var s = this.extraFields[this.ui.status.val()];
+    if(s) {
+      var model = s.model;
+      console.log("extra", model.get('extra'));
+      toSave.extra = model.get('extra');
+    }
+
     $("#save", this.$el).button('loading');
 
     this.model
@@ -182,20 +194,58 @@ module.exports = Backbone.Marionette.ItemView.extend({
     $("span.help-block", this.$el).remove();
   },
 
+  extraFields: {},
+
+  setModelStatus: function(status) {
+    if(this.model) {
+      if(status) {
+        this.model.set({status: status}, {silent: true});
+      }
+      this.currentStatus = _.findWhere(hackdash.statuses, {status: this.model.get('status')});
+      if(this.currentStatus.toolsUrl) {
+        this.ui.toolsUrl.removeClass('hidden');
+      } else {
+        this.ui.toolsUrl.addClass('hidden');
+      }
+      if(this.currentStatus.fields && this.currentStatus.fields.length) {
+        console.log('extra fields',this.currentStatus.fields);
+        // if(!this.extraFieldsValues[this.currentStatus.status]) {
+        //   this.extraFieldsValues[this.currentStatus.status] =
+        // }
+        this.extraFields[this.currentStatus.status] = new ExtraFields({
+            model: this.model,
+            status: this.currentStatus.status,
+            fields: this.currentStatus.fields
+          });
+        this.extraFieldsTop.show(this.extraFields[this.currentStatus.status]);
+      } else {
+        this.extraFieldsTop.empty();
+      }
+    }
+  },
+
+  toolsUrl: function() {
+    window.open(this.currentStatus.toolsUrl);
+  },
+
   initSelect2: function(){
-    if (this.model.get('status')){
-      this.ui.status.val(this.model.get('status'));
+    var self = this;
+    if (self.model && self.model.get('status')){
+      self.ui.status.val(self.model.get('status'));
     }
 
-    this.ui.status.select2({
+    self.ui.status.select2({
       // theme: 'bootstrap',
       minimumResultsForSearch: 10
     });
 
+    self.ui.status.on('change',  function() {
+      self.setModelStatus(self.ui.status.val());
+    });
 
     $('a.select2-choice').attr('href', null);
 
-    this.ui.tags.select2({
+    self.ui.tags.select2({
       tags: true,
       // tags:[],
       // formatNoMatches: function(){ return ''; },
