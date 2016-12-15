@@ -116,7 +116,9 @@
     margin: 10px 0;
     padding: 0;
     font-size: @fsize-20;
-
+    a {
+      color:@color-black;
+    }
     @media (max-width: 768px) {
       margin: 10px 0;
       padding: 0;
@@ -125,9 +127,10 @@
   }
 }
 .team-wrapper {
-  border-bottom:#ff7c1c solid 4px;
+  // border-bottom:#ff7c1c solid 4px;
 }
 .partners-wrapper {
+  margin-top: -20px;
   .partners-ctn {
     border-bottom:#febd91 solid 4px;
     margin-right: 15px;
@@ -137,7 +140,13 @@
   }
 }
 
-
+.partners-ctn, .network-ctn {
+  ul li a {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+  }
+}
 .partners-ctn {
   ul {
     li {
