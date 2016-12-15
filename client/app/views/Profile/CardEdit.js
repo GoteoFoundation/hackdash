@@ -128,10 +128,18 @@ module.exports = Backbone.Marionette.ItemView.extend({
     "email_existing": __("Already registered Email")
   },
 
+  /**
+   * Landing routes have different styles (uses different jade/pug layouts)
+   * router.navigate will mess the dom,
+   * Quick fix is to redirect location for home views
+   */
   exit: function(){
-    window.fromURL = window.fromURL || window.hackdash.getQueryVariable('from') || '';
-
-    if (window.fromURL){
+    var homeViews = ['/', '/collections', '/login', '/register', '/lost-password', '/dashboars', '/projects', '/users'];
+    window.fromURL = window.fromURL || window.hackdash.getQueryVariable('from') || '/';
+    if(window.fromURL.charAt(0) !== '/') {
+      window.fromURL = '/' + window.fromURL;
+    }
+    if (window.fromURL && homeViews.indexOf(window.fromURL) === -1){
       hackdash.app.router.navigate(window.fromURL, {
         trigger: true,
         replace: true
@@ -141,7 +149,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
       return;
     }
 
-    window.location = "/";
+    window.location = window.fromURL;
   },
 
   showError: function(err){
