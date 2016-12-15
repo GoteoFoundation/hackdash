@@ -57,6 +57,15 @@ module.exports = {
 
 "HEAD":"HEAD",
 
+"No collections available yet": "No collections available yet!",
+"No dashboards available yet": "No dashboards available yet!",
+"No projects available yet": "No projects available yet!",
+"No users available yet": "No users available yet!",
+"No collections found": "No collections found for these keywords!",
+"No dashboards found": "No dashboards found for these keywords!",
+"No projects found": "No projects found for these keywords!",
+"No users found": "No users found for these keywords!",
+
 /* Collections directory */
 
 /* list.hbs */

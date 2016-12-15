@@ -24,6 +24,16 @@ module.exports = {
 
     "dashboard name (5-10 chars)": "event name (5-10 chars)",
 
+    "No collections available yet": "Hold on! Collections of boards are not visible yet. They will be disclosed once there’s a significant number of ideas to be collected ;) !",
+    "No dashboards available yet": "Hold on! Event boards are not visible yet. They will be formed and disclosed once there’s a significant number of matching ideas to be featured together. Don’t forget to upload yours!",
+    "No projects available yet": "Ideas are not visible yet. The 50 ideas will be revealed to the rest of Idea Makers and Idea Camp community later on. Make sure to start working on yours!",
+    "No users available yet": "No users available yet!",
+    "No collections found": "No collections for these keywords!",
+    "No dashboards found": "No dashboards for these keywords!",
+    "No projects found": "No ideas for these keywords!",
+    "No users found": "No users for these keywords!",
+
+
     "Project Title": "Name of your Idea",
     "Short Description": "Short description",
     "description_placeholder": "Summarise your idea and explain what do you want to achieve through it.",

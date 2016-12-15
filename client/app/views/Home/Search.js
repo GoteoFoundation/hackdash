@@ -26,6 +26,10 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
   lastSearch: null,
 
+  initialize: function(options) {
+    this.type = options && options.type;
+  },
+
   onRender: function(){
     var query = hackdash.getQueryVariable("q");
     if (query && query.length > 0){
@@ -62,23 +66,28 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
       if (keyword !== self.lastSearch) {
         self.lastSearch = keyword;
-
+        var data;
         if (keyword.length > 0) {
           fragment = (!fragment.length ? "dashboards" : fragment);
           hackdash.app.router.navigate(fragment + "?q=" + keyword, { trigger: true });
-
+          data = { q: keyword };
           self.collection.fetch({
             reset: true,
-            data: $.param({ q: keyword })
+            data: $.param(data)
+          }).done(function() {
+            self.trigger('collection:fetched:search', self.collection, self.type, data);
           });
 
           window._gaq.push(['_trackEvent', 'HomeSearch', fragment, keyword]);
         }
         else {
           hackdash.app.router.navigate(fragment, { trigger: true, replace: true });
+          data = { minProjects: 2 };
           self.collection.fetch({
             reset: true,
-            data: $.param({ minProjects: 2 })
+            data: $.param(data)
+          }).done(function() {
+            self.trigger('collection:fetched:init', self.collection, self.type, data);
           });
         }
       }

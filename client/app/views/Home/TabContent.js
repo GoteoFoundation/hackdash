@@ -3,7 +3,8 @@
  *
  */
 
-var template = require("./templates/tabContent.hbs");
+var template = require("./templates/tabContent.hbs")
+  , emptyTemplate = require('./templates/emptyView.hbs');
 
 // Main Views
 var
@@ -27,6 +28,23 @@ var
   , Dashboards = require('../../models/Dashboards')
   , Collections = require('../../models/Collections')
   , Users = require('../../models/Users');
+
+var EmptyView = Backbone.Marionette.ItemView.extend({
+  template: emptyTemplate,
+
+  templateHelpers: function() {
+    var self = this;
+    return {
+      text: function() {
+        return self.text;
+      }
+    };
+  },
+
+  initialize: function(options) {
+    this.text = options && options.text;
+  }
+});
 
 module.exports = Backbone.Marionette.LayoutView.extend({
 
@@ -67,25 +85,52 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   onRender: function(){
 
     if (!this.header.currentView){
-
-      // Fetching data from collection
-      this.header.show(new Search({
-        collection: this.collection
-      }));
-
-      var ListView;
+      var self = this;
+      var ListView, type;
       if(this.collection instanceof Projects){
         ListView = ProjectList;
+        type = 'projects';
       }
       else if(this.collection instanceof Dashboards){
         ListView = DashboardList;
+        type = 'dashboards';
       }
       else if(this.collection instanceof Collections){
         ListView = CollectionList;
+        type = 'collections';
       }
       else if(this.collection instanceof Users){
         ListView = UserList;
+        type = 'users';
       }
+
+      // Fetching data from collection
+      var search = new Search({
+        collection: this.collection,
+        type: type
+      });
+
+      this.header.show(search);
+      // Event for fetch without a search
+      search.on('collection:fetched:init', function(col, type, data) {
+        console.log('initial fetched collection', col, type, data);
+        if(col.length === 0) {
+          console.log('initial empty collection');
+          self.content.show(new EmptyView({
+            text: __('No ' + type + ' available yet')
+          }));
+        }
+      });
+      // Event for fetch by a search
+      search.on('collection:fetched:search', function(col, type, data) {
+        console.log('search fetched collection', col, type, data);
+        if(col.length === 0) {
+          console.log('search empty collection');
+          self.content.show(new EmptyView({
+            text: __('No ' + type + ' found')
+          }));
+        }
+      });
 
       this.content.show(new ListView({
         collection: this.collection
