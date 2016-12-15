@@ -27,7 +27,8 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     "tags": "select[name=tags]",
     "status": "select[name=status]",
     "errorCover": ".error-cover",
-    "toolsUrl": ".tools-url"
+    "toolsUrl": ".tools-url",
+    "save": "#save"
   },
 
   events: {
@@ -36,7 +37,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
     "click @ui.toolsUrl": "toolsUrl",
 
-    "click #save": "save",
+    "click @ui.save": "save",
     "click #cancel": "cancel"
   },
 
@@ -184,7 +185,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     }
 
     var ctrl = error.split("_")[0];
-    var el = this.ui[ctrl] ? this.ui[ctrl] : this.ui.status;
+    var el = this.ui[ctrl] ? this.ui[ctrl] : this.ui.save;
     el.parents('.control-group').addClass('has-error');
     el.after('<span class="help-block">' + (this.errors[error] ? this.errors[error] : error) + '</span>');
   },

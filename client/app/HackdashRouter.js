@@ -226,6 +226,11 @@ module.exports = Backbone.Marionette.AppRouter.extend({
 
   showProjectCreate: function(dashboard){
 
+    if(!window.hackdash.user) {
+      hackdash.app.previousURL = window.location.pathname;
+      hackdash.app.showLogin();
+    }
+
     var app = window.hackdash.app;
     app.type = "project";
 
