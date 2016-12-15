@@ -39,7 +39,7 @@ module.exports = {
     "description_placeholder": "Summarise your idea and explain what do you want to achieve through it.",
     "Import Project":"Import Idea",
     "Tags":"Add keywords separated with a coma",
-    "Project URL Demo":"URL Demo",
+    "Project URL Demo":"Your project page",
 
     "Open dashboard website": "Open events website",
     "Share this Dashboard": "Share this Event board",
