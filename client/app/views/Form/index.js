@@ -10,6 +10,10 @@ var
   , FormItem = require('./FormItem')
   ;
 
+var EmptyView = Backbone.Marionette.ItemView.extend({
+  template: _.template('<p class="text-danger">Sorry, this form is not for you!</p>')
+});
+
 module.exports = Backbone.Marionette.LayoutView.extend({
 
   className: "page-ctn forms",
@@ -59,18 +63,23 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     var project = hackdash.app.project;
     if(this.collection) {
       // Render list
+      console.log('Render form collection', this.collection);
       this.formContent.show(new FormList({
         collection: this.collection
       }));
     } else if(this.model && project) {
       // Render view
+      console.log('Render form model for project', this.model, project);
       this.formContent.show(new FormRender({
         model: this.model
       }));
-    } else {
+    } else if(this.model) {
+      console.log('Render form model', this.model);
       this.formContent.show(new FormItem({
         model: this.model
       }));
+    } else {
+      this.formContent.show(new EmptyView());
     }
   },
 

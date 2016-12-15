@@ -23,6 +23,10 @@ var Dashboard = require("./models/Dashboard")
   , CollectionView = require("./views/Collection")
   ;
 
+var EmptyView = Backbone.Marionette.ItemView.extend({
+  template: _.template('<h1 class="text-center text-danger">' + __('Please login to view this page') + '</h1>'),
+});
+
 module.exports = Backbone.Marionette.AppRouter.extend({
 
   routes : {
@@ -171,6 +175,18 @@ module.exports = Backbone.Marionette.AppRouter.extend({
   showDashboardFormsEdit: function(dashboard){
 
     var app = window.hackdash.app;
+
+
+    if(!window.hackdash.user) {
+      app.previousURL = window.location.pathname;
+      app.header.show(new Header());
+      app.main.show(new EmptyView());
+      app.footer.show(new Footer());
+      app.showLogin();
+      return;
+    }
+
+
     var self = this;
     app.type = "dashboard_form";
 
@@ -198,6 +214,17 @@ module.exports = Backbone.Marionette.AppRouter.extend({
   showCollectionFormsEdit: function(cid){
 
     var app = window.hackdash.app;
+
+    if(!window.hackdash.user) {
+      app.previousURL = window.location.pathname;
+      app.header.show(new Header());
+      app.main.show(new EmptyView());
+      app.footer.show(new Footer());
+      app.showLogin();
+      return;
+    }
+
+
     var self = this;
     app.type = "collection_form";
 
@@ -226,12 +253,12 @@ module.exports = Backbone.Marionette.AppRouter.extend({
 
   showProjectCreate: function(dashboard){
 
+    var app = window.hackdash.app;
     if(!window.hackdash.user) {
-      hackdash.app.previousURL = window.location.pathname;
-      hackdash.app.showLogin();
+      app.previousURL = window.location.pathname;
+      app.showLogin();
     }
 
-    var app = window.hackdash.app;
     app.type = "project";
 
     app.header.show(new Header());
@@ -257,6 +284,11 @@ module.exports = Backbone.Marionette.AppRouter.extend({
   showProjectEdit: function(pid){
 
     var app = window.hackdash.app;
+    if(!window.hackdash.user) {
+      app.previousURL = window.location.pathname;
+      app.showLogin();
+    }
+
     var self = this;
     app.type = "project";
 
@@ -335,8 +367,14 @@ module.exports = Backbone.Marionette.AppRouter.extend({
 
   showForms: function (fid, pid) {
     var app = window.hackdash.app;
-    if (!window.hackdash.user) {
-      window.location = "/";
+
+
+    if(!window.hackdash.user) {
+      app.previousURL = window.location.pathname;
+      app.header.show(new Header());
+      app.main.show(new EmptyView());
+      app.footer.show(new Footer());
+      app.showLogin();
     }
 
     function showView(model, collection) {
@@ -357,11 +395,13 @@ module.exports = Backbone.Marionette.AppRouter.extend({
         id: fid
       });
       form.fetch().done(function(){
+        // Form project specified
         if(pid) {
           var project = new Project({
             _id: pid
           });
           project.fetch().done(function(){
+
             app.type = 'forms_project';
             app.project = project;
             showView(form);
@@ -369,6 +409,8 @@ module.exports = Backbone.Marionette.AppRouter.extend({
         } else {
           showView(form);
         }
+      }).error(function(){
+        app.main.show(new FormView()); // Shows no permissions form
       });
     } else {
       var forms = new Forms();
