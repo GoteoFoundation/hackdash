@@ -1,5 +1,5 @@
 /**
- * VIEW: Question List
+ * VIEW: Question List for form Editor, shows icons and title
  *
  */
 
@@ -8,6 +8,8 @@ var
 
 module.exports = Backbone.Marionette.ItemView.extend({
 
+  className: 'list-group-item edit-question',
+  tagName: 'a',
 	template: template,
 
 	templateHelpers: {

@@ -1,5 +1,5 @@
 /**
- * VIEW: addQuestion
+ * VIEW: Edit question modals for form editor (Admin)
  *
  */
 
@@ -122,9 +122,14 @@ module.exports = Backbone.Marionette.LayoutView.extend({
           return q;
         });
     } else {
-      toSave.questions.push(query);
+      var last = _.last(toSave.questions);
+      if(last._id) {
+        toSave.questions.push(query);
+      } else {
+        toSave.questions[toSave.questions.length - 1] = query;
+      }
     }
-    // console.log(toSave, model, model.isNew());
+    // console.log(toSave, model, id);
 
     this.cleanErrors();
 

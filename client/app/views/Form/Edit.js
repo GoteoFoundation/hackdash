@@ -1,5 +1,5 @@
 /**
- * VIEW: Form Layout
+ * VIEW: Form Editor Main Layout (Admin)
  *
  */
 

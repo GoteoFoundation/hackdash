@@ -1,5 +1,5 @@
 /**
- * VIEW: addQuestion
+ * VIEW: Modal view for edit Form title/description (Admin)
  *
  */
 

@@ -1,5 +1,5 @@
 /**
- * VIEW: Form Layout
+ * VIEW: User Forms views Layout
  *
  */
 

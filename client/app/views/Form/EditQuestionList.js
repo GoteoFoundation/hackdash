@@ -1,5 +1,5 @@
 /**
- * VIEW: Question List
+ * VIEW: Question List for form editor
  *
  */
 
@@ -21,6 +21,7 @@ module.exports = Backbone.Marionette.CollectionView.extend({
 
   onRender: function() {
     this.$el.sortable({
+      handle: '.drag-handle',
       onEnd: this.endSortable.bind(this)
     });
   },
@@ -63,6 +64,7 @@ module.exports = Backbone.Marionette.CollectionView.extend({
       self.model = form;
       self.$el.css({'opacity': 1});
       self.$el.sortable({
+        handle: '.drag-handle',
         onEnd: self.endSortable.bind(self)
       });
     });

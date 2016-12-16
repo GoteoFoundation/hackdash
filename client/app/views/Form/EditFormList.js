@@ -1,5 +1,5 @@
 /**
- * VIEW: Form List
+ * VIEW: Form Editor List (Admin)
  *
  */
 
@@ -18,8 +18,8 @@ module.exports = Backbone.Marionette.CollectionView.extend({
 
   emptyView: EmptyView,
 
-  initialize: function() {
-    this.openedForm = this.options.openedForm;
+  initialize: function(options) {
+    this.openedForm = options && options.openedForm;
   },
 
   childViewOptions: function (model) {

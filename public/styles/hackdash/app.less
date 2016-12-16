@@ -383,6 +383,18 @@ footer {
     }
   }
 
+  .list-group {
+    .list-group-item {
+      border:none;
+      border-bottom: 1px solid #ddd;
+      margin:0;
+      padding-top:10px;
+      padding-bottom:10px;
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
   &.profile, &.forms {
     .forms-content {
       margin-top:20px;
@@ -613,6 +625,13 @@ footer {
 
       }
 
+    }
+
+    .questions-list {
+      .drag-handle {
+        cursor: move;
+        font-size:1.5em;
+      }
     }
 
   }
