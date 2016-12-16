@@ -5,6 +5,14 @@
 
   <div class="footer-toggle-ctn">
 
+    <div class="box control-group"><label>Active statuses</label>
+      <select class="active-statuses form-control" multiple>
+      {{#each statuses}}
+        <option value="{{status}}"{{selected active true}}>{{text}}</option>
+      {{/each}}
+      </select>
+    </div>
+
     <a href="/api/v2/dashboards/{{domain}}/csv" target="_blank" data-bypass>
       <i class="fa fa-download"></i>
       <div>{{__ "Export .CSV File"}}</div>
@@ -19,14 +27,6 @@
       <i class="txt {{#if private}}btn-danger{{else}}btn-success{{/if}}">{{#if private}}Private{{else}}Public{{/if}}</i>
       <div>Visibility</div>
     </a>
-
-    <div class="box"><label>Active statuses</label>
-      <select class="active-statuses" multiple>
-      {{#each statuses}}
-        <option value="{{status}}"{{selected active true}}>{{text}}</option>
-      {{/each}}
-      </select>
-    </div>
 
   </div>
 

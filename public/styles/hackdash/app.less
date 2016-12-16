@@ -211,6 +211,14 @@ footer {
         font-size: @fsize-32;
         margin: 10px auto 10px auto;
       }
+      @media(max-width:767px) {
+        width: 50px;
+        right:0;
+        top:10px;
+        .fa {
+          font-size: 1em;
+        }
+      }
     }
 
     .admin-footer {
@@ -220,17 +228,23 @@ footer {
       padding:10px;
       // width: 200px;
       background: @color-blackB;
+      background: rgba(0, 0, 0, 0.8);
       text-align: right;
-
+      @media(max-width:767px) {
+        right:none;
+        left:0;
+        width: 100%;
+        bottom: 60px;
+      }
       .box {
         font-size: @fsize-12;
-        margin: 15px 5px;
+        margin: 0 0 5px 0;
         font-family: @primary-font;
         text-transform: uppercase;
         font-weight: bold;
           // display: inline-block;
         padding: 12px;
-        background-color: @color-blackB2;
+        // background-color: @color-blackB2;
         label {
           color: @color-white;
           margin-left: -5px;
@@ -240,8 +254,8 @@ footer {
       a {
         color: @color-white;
         // float: right;
-        margin: 15px 5px;
-
+        margin: 0px 0 5px 5px;
+        display: inline-block;
         &:hover {
           color: @color-white;
           text-decoration: none;
@@ -288,8 +302,7 @@ footer {
       // width: 60%;
       // float: right;
       // margin: 0 10% 0 0;
-      padding:10px;
-
+      // padding:10px;
     }
 
     &.static {
