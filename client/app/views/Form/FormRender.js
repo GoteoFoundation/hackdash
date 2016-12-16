@@ -32,13 +32,23 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     'click .send-form': 'sendForm'
   },
 
-  templateHelpers: {
-    showErrors: function() {
-      return this.errors;
-    },
-    showMessages: function() {
-      return this.messages;
-    }
+  templateHelpers: function() {
+    var self = this;
+    return {
+      showErrors: function() {
+        return this.errors;
+      },
+      showMessages: function() {
+        return this.messages;
+      },
+      isDummy: function() {
+        return !!self.dummy;
+      }
+    };
+  },
+
+  initialize: function(options) {
+    this.dummy = options && options.dummy;
   },
 
   onRender: function() {
@@ -57,6 +67,10 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   sendForm: function() {
+    if(this.dummy) {
+      this.destroy();
+      return;
+    }
     var values = this.questionsList.currentView.getValues();
     var self = this;
     var res = {

@@ -85,7 +85,8 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     form.fetch().done(function(){
       $('.modal .modal-dialog').addClass('modal-lg');
       hackdash.app.modals.show(new FormRender({
-        model: form
+        model: form,
+        dummy: true
       }));
       $('.modal').one('hide.bs.modal', function() {
         $('.modal .modal-dialog').removeClass('modal-lg');
