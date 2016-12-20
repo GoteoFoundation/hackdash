@@ -121,17 +121,21 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
   onClickSwitcher: function(e) {
     var $e = $(e.target).is('[data-id]') ? $(e.target) : $(e.target).closest('.public-btn');
+    var open = true;
+
+    if ($e.hasClass("form-open")){
+      open = false;
+    }
+    if(open && !window.confirm(__('Are you sure to publish this form?'))) {
+      return;
+    }
+
     var self = this;
     var form = new Form({
       id: this.model.get('_id'),
       domain: this.model.get('domain'),
       group: this.model.get('group')
     });
-    var open = true;
-
-    if ($e.hasClass("form-open")){
-      open = false;
-    }
 
     form.fetch().done(function(){
 
