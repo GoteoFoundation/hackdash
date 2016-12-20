@@ -54,9 +54,6 @@ module.exports = {
 
     "File is too big, 500 Kb is the max": "File is too big, 16 Mb is the max",
 
-    "Anyone can see the projects in this Dashboard: click to privatize": "Anyone can see the ideas in this Dashboard: click to privatize",
-    "Nobody can see the projects in this Dashboard: click to publish": "Nobody can see the ideas in this Dashboard: click to publish",
-
     "Only Dashboards without Projects can be removed.":"Only Dashboards without Ideas can be removed.",
 
     "This project is going to be deleted. Are you sure?":"This idea is going to be deleted. Are you sure?",

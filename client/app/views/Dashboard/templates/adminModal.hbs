@@ -1,0 +1,46 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal">
+    <i class="fa fa-close"></i>
+  </button>
+  <h3 class="modal-title">Admin {{title}}</h3>
+</div>
+
+<div class="modal-body">
+
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" name="open"{{#if open}} checked{{/if}}> {{__ "Open Dashboard Status"}}
+    </label>
+  </div>
+
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" name="private"{{#if private}} checked{{/if}}> {{__ "Private Dashboard"}}
+    </label>
+    <span class="help-block">{{__ 'private-dashboards-description'}}</span>
+  </div>
+
+  <div class="control-group"><label>Active statuses</label>
+    <select class="active-statuses form-control" multiple>
+    <option></option>
+    {{#each statuses}}
+      <option value="{{status}}"{{selected active true}}>{{text}}</option>
+    {{/each}}
+    </select>
+  </div>
+
+  <hr>
+
+  <button type="submit" class="btn btn-success save-changes">Save changes</button>
+
+  <a class="btn btn-warning" href="/api/v2/dashboards/{{domain}}/csv" target="_blank" data-bypass>
+    <i class="fa fa-download"></i>
+    {{__ "Export .CSV File"}}
+  </a>
+
+  <a class="btn btn-info goto-forms" href="/dashboards/{{domain}}/forms">
+    <i class="fa fa-file-text-o"></i>
+    Admin forms
+  </a>
+
+</div>

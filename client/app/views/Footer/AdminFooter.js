@@ -1,48 +1,41 @@
 
 var
     template = require('./templates/admin.hbs')
-  , Dashboard = require('../../models/Dashboard');
+  , AdminModal = require('../Dashboard/AdminModal')
+  , Dashboard = require('../../models/Dashboard')
+  ;
 
 module.exports = Backbone.Marionette.ItemView.extend({
 
   template: template,
   className: 'admin-footer-wrapper',
 
-  templateHelpers: function() {
-    var self = this;
-    return {
-      isAdmin: function() {
-        var user = hackdash.user;
-        if(user) {
-          var admin1 = user.admin_in.indexOf(this.domain) >= 0;
-          // If it has owner property its a collection
-          var admin2 = this.owner && user._id === this.owner._id;
-          return admin1 || admin2;
-        }
-        return false;
-      },
-      isDashboardForm: function() {
-        return (hackdash.app.type === "dashboard_form");
-      },
-      isCollectionForm: function() {
-        return (hackdash.app.type === "collection_form");
-      },
-      isForm: function() {
-        return (hackdash.app.type.indexOf("form") > 0 );
-      },
-      isDashboard: function() {
-        return (hackdash.app.type === "dashboard");
-      },
-      isCollection: function() {
-        return (hackdash.app.type === "collection");
-      },
-      statuses: function() {
-        if(self.model && self.model.getStatuses) {
-          return self.model.getStatuses();
-        }
-        return hackdash.statuses;
+  templateHelpers: {
+    isAdmin: function() {
+      var user = hackdash.user;
+      if(user) {
+        var admin1 = user.admin_in.indexOf(this.domain) >= 0;
+        // If it has owner property its a collection
+        var admin2 = this.owner && user._id === this.owner._id;
+        return admin1 || admin2;
       }
-    };
+      return false;
+    },
+    isDashboardForm: function() {
+      return (hackdash.app.type === "dashboard_form");
+    },
+    isCollectionForm: function() {
+      return (hackdash.app.type === "collection_form");
+    },
+    isForm: function() {
+      return (hackdash.app.type.indexOf("form") > 0 );
+    },
+    isDashboard: function() {
+      return (hackdash.app.type === "dashboard");
+    },
+    isCollection: function() {
+      return (hackdash.app.type === "collection");
+    }
   }
   ,
 
@@ -61,8 +54,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
     "click @ui.switcher": "onClickSwitcher",
     "click @ui.private": "onClickPrivate",
     "click .btn-showcase-mode": "changeShowcaseMode",
-    "click @ui.openAdmin": "onOpenAdmin",
-    "change @ui.activeStatuses": "onSelectStatus"
+    "click @ui.openAdmin": "onOpenAdmin"
   },
 
 
@@ -72,29 +64,21 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
   onRender: function() {
     $('.tooltips', this.$el).tooltip({});
-    this.ui.activeStatuses.select2({
-      // theme: "bootstrap",
-      // minimumResultsForSearch: 10
-    });
-    // Fix for select2
-    $('.select2-container', this.$el).css({width: 'auto'});
   },
+
 
   serializeData: function() {
 
     if (this.model && this.model instanceof Dashboard) {
 
-      var msg1 = __("This Dashboard is open: click to close");
-      var msg2 = __("Anyone can see the projects in this Dashboard: click to privatize");
+      var msg = __("This Dashboard is open: click to close");
 
       if (!this.model.get("open")) {
-        msg1 = __("This Dashboard is closed: click to reopen");
-        msg1 = __("Nobody can see the projects in this Dashboard: click to publish");
+        msg = __("This Dashboard is closed: click to reopen");
       }
 
       return _.extend({
-        switcherMsg: msg1,
-        privateMsg: msg2
+        switcherMsg: msg
       }, this.model.toJSON());
     }
 
@@ -110,9 +94,9 @@ module.exports = Backbone.Marionette.ItemView.extend({
   //--------------------------------------
 
   onOpenAdmin: function() {
-    if(this.model) {
-      this.model.set({adminOpened: !this.model.get('adminOpened')});
-    }
+    hackdash.app.modals.show(new AdminModal({
+      model: this.model
+    }));
   },
 
   onClickSwitcher: function() {
@@ -126,20 +110,6 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
     // console.log('switcher', this.model);
     this.model.set({ "open": open }, { trigger: false });
-    this.model.save({ wait: true });
-  },
-
-  onClickPrivate: function() {
-    var private = true;
-
-    if (this.ui.private.hasClass("dash-private")) {
-      private = false;
-    }
-
-    $('.tooltips', this.$el).tooltip('hide');
-
-    console.log('private', this.model);
-    this.model.set({ "private": private }, { trigger: false });
     this.model.save({ wait: true });
   },
 
@@ -173,19 +143,6 @@ module.exports = Backbone.Marionette.ItemView.extend({
       this.ui.createShowcase.addClass("hide");
       this.ui.footerToggle.addClass("hide");
     }
-  },
-
-  onSelectStatus: function() {
-    var activeStatuses = this.ui.activeStatuses.val() || [];
-    var inactiveStatuses = _.filter(hackdash.statuses, function(s) {
-        return activeStatuses.indexOf(s.status) === -1;
-      });
-
-    console.log(activeStatuses, _.pluck(inactiveStatuses, 'status'));
-    this.model.set({
-       "inactiveStatuses": _.pluck(inactiveStatuses, 'status')
-     }, { trigger: false });
-    this.model.save({ wait: true });
   }
 
 });

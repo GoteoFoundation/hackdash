@@ -1,45 +1,3 @@
-
-<div class="footer-dash-ctn{{#unless adminOpened}} hidden{{/unless}}">
-
-  {{#if isDashboard}}
-
-  <div class="footer-toggle-ctn">
-
-    <div class="box control-group"><label>Active statuses</label>
-      <select class="active-statuses form-control" multiple>
-      {{#each statuses}}
-        <option value="{{status}}"{{selected active true}}>{{text}}</option>
-      {{/each}}
-      </select>
-    </div>
-
-    <a href="/api/v2/dashboards/{{domain}}/csv" target="_blank" data-bypass>
-      <i class="fa fa-download"></i>
-      <div>{{__ "Export .CSV File"}}</div>
-    </a>
-
-    <a class="btn-admin-forms" href="/dashboards/{{domain}}/forms">
-      <i class="fa fa-file-text-o"></i><div>Admin forms</div>
-    </a>
-
-    <a data-placement="top" data-original-title="{{privateMsg}}"
-      class="tooltips dashboard-private {{#if private}}dash-private{{else}}dash-public{{/if}}">
-      <i class="txt {{#if private}}btn-danger{{else}}btn-success{{/if}}">{{#if private}}Private{{else}}Public{{/if}}</i>
-      <div>Visibility</div>
-    </a>
-
-  </div>
-
-  {{/if}}
-
-  {{#if isCollection}}
-      <a class="btn-admin-forms" href="/collections/{{_id}}/forms">
-        <i class="fa fa-file-text-o"></i><div>Admin forms</div>
-      </a>
-  {{/if}}
-
-</div>
-
 {{#if isDashboard}}
 
   <a data-placement="top" data-original-title="{{switcherMsg}}"
@@ -66,8 +24,16 @@
     </a>
   {{/if}}
 {{else}}
-  <a class="btn-open-admin footer-toggle-ctn">
-    <i class="fa fa-cogs"></i><div>Admin stuff</div>
-  </a>
+
+  {{#if isCollection}}
+      <a class="btn-admin-forms" href="/collections/{{_id}}/forms">
+        <i class="fa fa-file-text-o"></i><div>Admin forms</div>
+      </a>
+  {{else}}
+    <a class="btn-open-admin footer-toggle-ctn">
+      <i class="fa fa-cogs"></i><div>Admin stuff</div>
+    </a>
+  {{/if}}
+
 {{/if}}
 

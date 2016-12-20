@@ -50,9 +50,7 @@ module.exports = Backbone.Model.extend({
   getStatuses: function() {
     var inactive = this.get('inactiveStatuses') || [];
     return _.map(hackdash.statuses, function(s) {
-      if(inactive.indexOf(s.status) !== -1) {
-        s.active = false;
-      }
+      s.active = inactive.indexOf(s.status) === -1;
       return s;
     });
   }

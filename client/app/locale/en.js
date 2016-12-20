@@ -243,8 +243,7 @@ module.exports = {
 
 "This Dashboard is open: click to close":"This Dashboard is open: click to close",
 "This Dashboard is closed: click to reopen":"This Dashboard is closed: click to reopen",
-"Anyone can see the projects in this Dashboard: click to privatize": "Anyone can see the projects in this Dashboard: click to privatize",
-"Nobody can see the projects in this Dashboard: click to publish": "Nobody can see the projects in this Dashboard: click to publish",
+"private-dashboards-description": "Private dashboards does not show listed projects to anybody but admins or leaders",
 "turned_off":"off",
 "Edit Showcase":"Edit Showcase",
 "Save Showcase":"Save Showcase",
