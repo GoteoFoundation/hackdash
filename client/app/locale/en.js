@@ -10,6 +10,7 @@ module.exports = {
   "title_default": "HackDash: Ideas for a hackathon",
   "description_default": "Ideas for a hackathon. Upload your project. Add colaborators. Inform status. Share your app.",
   "site_name": "HackDash",
+  "Please login to view this page": "Please login to view this page",
 
 /* Home Directory */
 

@@ -21,6 +21,24 @@ module.exports = Backbone.Model.extend({
     //   }));
   },
 
+  // Get responses as a generic Model
+  fetchResponses: function(callback){
+    if(typeof callback !== 'function') {
+      callback = function(){};
+    }
+    $.ajax({
+      url: this.url() + '/responses',
+      type: 'GET',
+      context: this
+    })
+    .fail(function(jqXHR) {
+      callback(jqXHR.responseText);
+    })
+    .done(function(responses) {
+      callback(null, new Backbone.Collection(responses));
+    });
+  },
+
   getMyProjects: function() {
     var projects = this.get('projects') || [];
     return _.filter(projects, function(p) {
