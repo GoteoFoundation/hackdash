@@ -35,4 +35,8 @@ module.exports = Backbone.Marionette.ItemView.extend({
 		}
 	},
 
+  onRender: function() {
+    this.$el.attr('id', this.model && this.model.get('_id'));
+  }
+
 });

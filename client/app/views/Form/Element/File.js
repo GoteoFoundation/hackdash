@@ -33,8 +33,8 @@ module.exports = Text.extend({
 
 
   onRender: function() {
-    this.text = __('Drop File here');
-    this.invalidText = __('Only file type is not allowed');
+    this.text = __('Drop File Here');
+    this.invalidText = __('This file type is not allowed');
     this.maxSize = 16;
     this.formId = this.form ? this.form.get('_id') : null;
     this.projectId = this.project ? this.project.get('_id') : null;
@@ -85,7 +85,7 @@ module.exports = Text.extend({
       zone.files.push(mockFile);
       zone.emit("addedfile", mockFile);
       // And optionally show the thumbnail of the file:
-      if(self.file.type.indexOf('image') === 0) {
+      if(self.file && self.file.type && self.file.type.indexOf('image') === 0) {
         zone.createThumbnailFromUrl(mockFile, self.file.path);
       }
       // zone.emit("maxfilesreached", mockFile);

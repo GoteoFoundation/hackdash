@@ -314,4 +314,8 @@ module.exports = {
 
 /* formResponses.hbs */
 "Form Responses": "Form Responses",
+
+/* Other forms values */
+"Drop File Here": "Drop File Here",
+"This file type is not allowed": "This file type is not allowed",
 };
