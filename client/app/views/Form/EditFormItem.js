@@ -8,7 +8,8 @@ var
   , Form = require('./../../models/Form')
   , EditQuestion = require('./EditQuestion')
   , QuestionList = require('./EditQuestionList')
-  , FormRender = require('./FormRender');
+  , FormRender = require('./FormRender')
+  , FormResponses = require('./FormResponses');
 
 module.exports = Backbone.Marionette.LayoutView.extend({
 
@@ -21,6 +22,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   events: {
     'click .new-question': 'editQuestion',
     'click .preview-form': 'previewForm',
+    'click .view-responses': 'viewResponses',
     'click .edit-question': 'editQuestion',
     "click .public-btn": 'onClickSwitcher'
   },
@@ -87,6 +89,25 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       hackdash.app.modals.show(new FormRender({
         model: form,
         dummy: true
+      }));
+      $('.modal').one('hide.bs.modal', function() {
+        $('.modal .modal-dialog').removeClass('modal-lg');
+      });
+    });
+  },
+
+  viewResponses: function() {
+    var form = new Form({
+      id: this.model.get('_id'),
+      domain: this.model.get('domain'),
+      group: this.model.get('group'),
+      questions: this.model.get('questions')
+    });
+    // Make a bigger modal
+    form.fetch().done(function(){
+      $('.modal .modal-dialog').addClass('modal-lg');
+      hackdash.app.modals.show(new FormResponses({
+        model: form
       }));
       $('.modal').one('hide.bs.modal', function() {
         $('.modal .modal-dialog').removeClass('modal-lg');

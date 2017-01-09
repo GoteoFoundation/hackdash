@@ -303,5 +303,14 @@ module.exports = {
 "Current forms:": "Current forms:",
 "Create a new form": "Create a new Form",
 "These forms must be filled by the project leader": "These forms must be filled by the project leader",
-"Are you sure to publish this form?": "Are you sure to publish this form?\nAll project leader will receive a notification about this form (only if not already received)."
+"Are you sure to publish this form?": "Are you sure to publish this form?\nAll project leader will receive a notification about this form (only if not already received).",
+
+/* editFormItem.hbs */
+"Create a new question": "Create a new question",
+"View responses": "View responses",
+"Preview form": "Preview form",
+"Form Status": "Form Status",
+
+/* formResponses.hbs */
+"Form Responses": "Form Responses",
 };

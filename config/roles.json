@@ -1,0 +1,37 @@
+[
+  {
+    "id": "user",
+    "scope": "global",
+    "name": "Idea Maker",
+    "perms": [
+      "create_project",
+      "follow_project"
+    ]
+  },
+  {
+    "id": "supervisor",
+    "scope": "dashboard",
+    "name": "Idea Feeder",
+    "perms": [
+      "join_project",
+      "private_boards"
+    ]
+  },
+  {
+    "id": "admin",
+    "scope": "dashboard",
+    "name": "Idea Feeder",
+    "perms": [
+      "create_dashboard",
+      "private_boards"
+    ]
+  },
+  {
+    "id": "superadmin",
+    "scope": "global",
+    "name": "Platoniq",
+    "perms": [
+      "create_dashboard"
+    ]
+  }
+]
