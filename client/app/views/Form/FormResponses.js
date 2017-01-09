@@ -17,6 +17,10 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     responsesList: ".responses-list",
   },
 
+  events: {
+    "click .export-csv": 'exportCSV'
+  },
+
   onRender: function() {
     var form = this.model;
     var self = this;
@@ -33,5 +37,9 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
     });
   },
+
+  exportCSV: function() {
+    window.location = this.model.url() + '/responses?csv';
+  }
 
 });
