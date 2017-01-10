@@ -1,7 +1,9 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <h4 class="panel-heading">{{title}}</h4>
+    <div>
     {{{markdown description}}}
+    </div>
   </div>
 
   <div class="panel-body">
@@ -11,15 +13,20 @@
       {{#each projects}}
         <li class="list-group-item">
           <a href="/projects/{{_id}}">
-          <img class="media-object" style="max-height: 50px;max-width: 50px;display:inline-block" src="{{cover}}" alt="Project cover">
+          <img class="media-object" style="max-height: 100px;max-width: 100px;display:inline-block" src="{{cover}}" alt="Project cover">
             {{title}}
           </a>
-          {{#if ../open}}
-            <a href="/forms/{{../_id}}/{{_id}}" class="btn btn-info pull-right">Reply this form</a>
-          {{else}}
-            <span class="badge">Closed</span>
-          {{/if}}
-          <div class="clearfix"></div>
+
+          <span class="pull-right">
+            {{ ../respondedLabel .. .}}
+            <br>
+            {{#if ../open}}
+              <a href="/forms/{{../_id}}/{{_id}}" class="btn btn-info">{{ __ "Reply this form"}}</a>
+            {{else}}
+              {{!-- <span class="badge">Closed</span> --}}
+              <a href="/forms/{{../_id}}/{{_id}}" class="btn btn-default">{{ __ "View responses"}}</a>
+            {{/if}}
+          </span>
         </li>
       {{/each}}
       </ul>

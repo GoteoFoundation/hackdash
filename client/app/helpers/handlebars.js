@@ -275,9 +275,13 @@ Handlebars.registerHelper('each_upto_rnd', function(ary, max, options) {
     return result.join('');
 });
 
-Handlebars.registerHelper('percentLabel', function(percent) {
+Handlebars.registerHelper('percentLabel', function(percent, options) {
+  var sufix = '%';
+  if(_.isString(options)) {
+    sufix = options;
+  }
+
   return new Handlebars.SafeString(
     '<span class="badge" style="min-width:3.5em;background-color:hsl(' + (120 * Math.pow(percent,3)) + ', 50%, 50%)">' +
-    Math.round(100 * percent) +
-    '%</span>');
+    Math.round(100 * percent) + sufix + '</span>');
 });

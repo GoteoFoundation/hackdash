@@ -318,4 +318,6 @@ module.exports = {
 /* Other forms values */
 "Drop File Here": "Drop File Here",
 "This file type is not allowed": "This file type is not allowed",
+"Answered": "Answered",
+"Reply this form": "Reply this form",
 };
