@@ -277,7 +277,7 @@ Handlebars.registerHelper('each_upto_rnd', function(ary, max, options) {
 
 Handlebars.registerHelper('percentLabel', function(percent) {
   return new Handlebars.SafeString(
-    '<span class="label label-default" style="background-color:hsl(' + (120 * percent) + ', 50%, 50%)">' +
+    '<span class="badge" style="min-width:3.5em;background-color:hsl(' + (120 * Math.pow(percent,3)) + ', 50%, 50%)">' +
     Math.round(100 * percent) +
     '%</span>');
 });

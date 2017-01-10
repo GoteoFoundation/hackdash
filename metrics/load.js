@@ -6,8 +6,8 @@ var mongoose = require('mongoose'),
   jf = require('jsonfile'),
   executing = false;
 
-var config = require('../config/config.json');
-var configM = require('./config.json');
+var config = require('../config/config');
+var configM = require('./config');
 
 jf.spaces = 2;
 
@@ -113,7 +113,7 @@ module.exports = function(done){
       console.log('Metrics NOT updated!');
     }
 
-/*
+
     console.log(" %s Users", data.users.total);
     console.log(" %s Projects", data.projects.total);
     console.log(" %s Dashboards", data.dashboards.total);
@@ -123,9 +123,9 @@ module.exports = function(done){
     console.dir(data.projects.data);
     console.dir(data.dashboards.data);
     console.dir(data.collections.data);
-*/
 
-    jf.writeFile('./' + configM.filename, data, function(err) {
+
+    jf.writeFile(__dirname + '/' + configM.filename, data, function(err) {
 
       if(err) {
         console.log("Metrics NOT updated!");
