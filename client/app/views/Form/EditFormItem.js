@@ -34,6 +34,9 @@ module.exports = Backbone.Marionette.LayoutView.extend({
         return this.openedForm === this._id;
       }
       return this.index === this.total;
+    },
+    domain: function() {
+      return window.hackdash.app.dashboard.get('domain');
     }
   },
 
@@ -96,6 +99,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     });
   },
 
+  // If responses in modal (not used)
   viewResponses: function() {
     var form = new Form({
       id: this.model.get('_id'),
@@ -116,7 +120,6 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   editQuestion: function(e) {
-    console.log(e);
     var id = $(e.target).is('[id]') ? $(e.target).attr('id') : null;
 
     var form = new Form({

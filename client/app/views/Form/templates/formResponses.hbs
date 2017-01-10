@@ -1,12 +1,28 @@
-<h3>{{ __ "Form Responses" }}</h3>
+<div class="header">
+  <div class="container">
+    <h1>{{ __ "Form Responses" }}</h1>
 
-<h4>{{title}}</h4>
+    <h4>{{title}}</h4>
+  </div>
+
+</div>
+
+<div class="body">
+
+  <div class="container">
+
+    <h3>{{__ "Responses"}}</h3>
+
+    <p>
+      <a class="btn btn-info" href="/dashboards/{{domain}}/forms">{{ __ "Back to forms" }}</a>
+      <a class="btn btn-success export-csv">{{ __ "Export .CSV File" }}</a>
+    </p>
+
+    <div class="responses-list">
+      <i class="fa fa-2x fa-spinner fa-pulse"></i>
+    </div>
 
 
-<div class="form-content">
-
-  <div class="responses-list"></div>
-
-  <a class="btn btn-success export-csv">{{ __ "Export .CSV File" }}</a>
+  </div>
 
 </div>

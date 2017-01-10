@@ -274,3 +274,10 @@ Handlebars.registerHelper('each_upto_rnd', function(ary, max, options) {
 
     return result.join('');
 });
+
+Handlebars.registerHelper('percentLabel', function(percent) {
+  return new Handlebars.SafeString(
+    '<span class="label label-default" style="background-color:hsl(' + (120 * percent) + ', 50%, 50%)">' +
+    Math.round(100 * percent) +
+    '%</span>');
+});

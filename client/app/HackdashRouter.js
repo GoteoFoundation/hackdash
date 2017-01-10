@@ -19,6 +19,7 @@ var Dashboard = require("./models/Dashboard")
   , ProjectEditView = require("./views/Project/Edit")
   , DashboardView = require("./views/Dashboard")
   , FormEditView = require("./views/Form/Edit")
+  , FormResponses = require("./views/Form/FormResponses")
   , FormView = require("./views/Form")
   , CollectionView = require("./views/Collection")
   ;
@@ -46,6 +47,7 @@ module.exports = Backbone.Marionette.AppRouter.extend({
     , "dashboards/:dash": "showDashboard"
     , "dashboards/:dash/create": "showProjectCreate"
     , "dashboards/:dash/forms": "showDashboardFormsEdit"
+    , "dashboards/:dash/forms/:form": "showDashboardFormsResponses"
 
     , "forms": "showForms"
     , "forms/:fid": "showForms"
@@ -208,6 +210,51 @@ module.exports = Backbone.Marionette.AppRouter.extend({
         model: app.dashboard
       }));
       app.setTitle('Edit forms for ' + (app.dashboard.get('title') || app.dashboard.get('domain')));
+    });
+  },
+
+  showDashboardFormsResponses: function(dashboard, idform){
+
+    var app = window.hackdash.app;
+
+
+    if(!window.hackdash.user) {
+      app.previousURL = window.location.pathname;
+      app.header.show(new Header());
+      app.main.show(new EmptyView());
+      app.footer.show(new Footer());
+      app.showLogin();
+      return;
+    }
+
+    console.log(dashboard, idform);
+    var self = this;
+    app.type = "dashboard_form";
+
+    var form = new Form({
+      id: idform,
+      domain: dashboard
+    });
+    app.dashboard = new Dashboard();
+    app.dashboard.set('domain', dashboard);
+    app.dashboard.fetch().done(function(){
+      if(!self.canEditDashboard(window.hackdash.user, app.dashboard.attributes)) {
+        window.location = "/dashboards/" + app.dashboard.attributes.domain;
+      }
+      form.fetch().done(function(){
+
+        app.header.show(new Header());
+
+        // here the forms editor
+        app.main.show(new FormResponses({
+          model: form
+        }));
+
+        app.footer.show(new Footer({
+          model: app.dashboard
+        }));
+        app.setTitle('Responses for form ' + form.get('title'));
+      });
     });
   },
 

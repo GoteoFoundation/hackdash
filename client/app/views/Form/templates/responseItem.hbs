@@ -1,6 +1,7 @@
 <div class="panel-heading" role="tab">
   <h4 class="panel-title">
-    <a role="button" data-toggle="collapse" href="#prj-{{ project._id }}">
+    <a role="button" data-toggle="collapse" href="#prj-{{ project._id }}" data-bypass>
+    {{percentLabel responded}}
     {{project.title}}
     -
     {{project.leader.name}}

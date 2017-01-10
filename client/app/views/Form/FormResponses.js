@@ -11,7 +11,7 @@ var
 module.exports = Backbone.Marionette.LayoutView.extend({
 
   template: template,
-  className: 'form-render',
+  className: "page-ctn forms",
 
   regions: {
     responsesList: ".responses-list",
@@ -19,6 +19,12 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
   events: {
     "click .export-csv": 'exportCSV'
+  },
+
+  templateHelpers: {
+    domain: function() {
+      return window.hackdash.app.dashboard.get('domain');
+    }
   },
 
   onRender: function() {

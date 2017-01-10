@@ -41,7 +41,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
       var value = Handlebars.Utils.escapeExpression(response.value);
       console.log(response);
       if(type === 'file') {
-        value = '<img style="max-height:100px" src="' + response.value.path + '" alt="' + response.value.name + '">';
+        value = '<a href="' + response.value.path + '" target="_blank" data-bypass><img style="max-height:100px" src="' + response.value.path + '" alt="' + response.value.name + '"></a>';
       }
       else if(type === 'textarea') {
         value = value.replace(/(?:\r\n|\r|\n)/g, '<br>');
