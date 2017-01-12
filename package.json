@@ -21,6 +21,7 @@
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "1.12.4",
     "colors": "^1.1.2",
+    "comma-separated-values": "^3.6.4",
     "commander": "1.1.1",
     "compression": "1.4.4",
     "connect-flash": "^0.1.1",

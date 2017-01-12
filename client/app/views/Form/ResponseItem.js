@@ -39,7 +39,6 @@ module.exports = Backbone.Marionette.ItemView.extend({
     format: function(response) {
       var type = response.question.type;
       var value = Handlebars.Utils.escapeExpression(response.value);
-      console.log(response);
       if(type === 'file') {
         value = '<a href="' + response.value.path + '" target="_blank" data-bypass><img style="max-height:100px" src="/image' + response.value.path + '?dim=0x200" alt="' + response.value.name + '"></a>';
       }
