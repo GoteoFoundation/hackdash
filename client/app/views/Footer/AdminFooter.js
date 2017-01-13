@@ -14,10 +14,10 @@ module.exports = Backbone.Marionette.ItemView.extend({
     isAdmin: function() {
       var user = hackdash.user;
       if(user) {
-        var admin1 = user.admin_in.indexOf(this.domain) >= 0;
-        // If it has owner property its a collection
-        var admin2 = this.owner && user._id === this.owner._id;
-        return admin1 || admin2;
+        if(this.domain) {
+          return user.admin_in.indexOf(this.domain) >= 0;
+        }
+        return user.group_admin_in && user.group_admin_in.indexOf(this._id) >= 0;
       }
       return false;
     },

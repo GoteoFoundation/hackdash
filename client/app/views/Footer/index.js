@@ -77,11 +77,10 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
     if(user && this.model) {
       var domain = this.model.get('domain');
-      var owner = this.model.get('owner');
-      var admin1 = user.admin_in.indexOf(domain) >= 0;
-      // If it has owner property its a collection
-      var admin2 = owner && user._id === owner._id;
-      return admin1 || admin2;
+      if(domain) {
+        return user.admin_in.indexOf(domain) >= 0;
+      }
+      return user.group_admin_in && user.group_admin_in.indexOf(this.model.get('_id')) >= 0;
     }
     return false;
   },

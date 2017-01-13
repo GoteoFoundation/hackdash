@@ -58,6 +58,7 @@ module.exports = Backbone.Marionette.AppRouter.extend({
 
     , "collections/:cid" : "showCollection"
     , "collections/:cid/forms" : "showCollectionFormsEdit"
+    , "collections/:cid/forms/:form": "showCollectionFormsResponses"
 
     , "users/profile": "showProfile"
     , "users/:user_id" : "showProfile"
@@ -252,6 +253,51 @@ module.exports = Backbone.Marionette.AppRouter.extend({
 
         app.footer.show(new Footer({
           model: app.dashboard
+        }));
+        app.setTitle('Responses for form ' + form.get('title'));
+      });
+    });
+  },
+
+  showCollectionFormsResponses: function(cid, idform){
+
+    var app = window.hackdash.app;
+
+
+    if(!window.hackdash.user) {
+      app.previousURL = window.location.pathname;
+      app.header.show(new Header());
+      app.main.show(new EmptyView());
+      app.footer.show(new Footer());
+      app.showLogin();
+      return;
+    }
+
+    console.log(cid, idform);
+    var self = this;
+    app.type = "col_form";
+
+    var form = new Form({
+      id: idform,
+      group: cid
+    });
+    app.collection = new Collection();
+    app.collection.set('_id', cid);
+    app.collection.fetch().done(function(){
+      if(!self.canEditDashboard(window.hackdash.user, app.collection.attributes)) {
+        window.location = "/collections/" + app.collection.attributes.domain;
+      }
+      form.fetch().done(function(){
+
+        app.header.show(new Header());
+
+        // here the forms editor
+        app.main.show(new FormResponses({
+          model: form
+        }));
+
+        app.footer.show(new Footer({
+          model: app.collection
         }));
         app.setTitle('Responses for form ' + form.get('title'));
       });
@@ -511,7 +557,9 @@ module.exports = Backbone.Marionette.AppRouter.extend({
   },
 
   canEditCollection: function(user, col) {
-    return user && col && col.owner && user._id === col.owner._id;
+    var owner = user && col && col.owner && user._id === col.owner._id;
+    var admin = user && col && _.indexOf(user.group_admin_in, col._id) > -1;
+    return owner || admin;
   },
 
   canEditProject: function(user, project) {

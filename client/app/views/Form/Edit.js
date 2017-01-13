@@ -59,6 +59,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
     forms.domain = this.model.get('domain'); //one of both will be empty
     forms.group = this.model.get('group');
+    console.log(forms.group);
     forms.fetch().done(function(){
       self.formList.show(new FormList({
         // collection: forms.getActives(),

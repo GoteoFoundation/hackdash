@@ -22,8 +22,13 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   templateHelpers: {
-    domain: function() {
-      return window.hackdash.app.dashboard.get('domain');
+    formsUrl: function() {
+      if(window.hackdash.app.dashboard) {
+        return '/dashboards/' + window.hackdash.app.dashboard.get('domain') + '/forms';
+      }
+      if(window.hackdash.app.collection) {
+        return '/collections/' + window.hackdash.app.collection.get('_id') + '/forms';
+      }
     }
   },
 

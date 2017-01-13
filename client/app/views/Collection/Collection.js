@@ -22,7 +22,10 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
   templateHelpers: {
     isAdmin: function(){
-      return hackdash.user && hackdash.user._id === this.owner._id;
+      var owner = hackdash.user && this.owner && hackdash.user._id === this.owner._id;
+      var admin = hackdash.user && _.indexOf(hackdash.user.group_admin_in, this._id) > -1;
+      return owner || admin;
+
     }
   },
 

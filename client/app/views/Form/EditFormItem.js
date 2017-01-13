@@ -35,15 +35,12 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       }
       return this.index === this.total;
     },
-    domain: function() {
-      return window.hackdash.app.dashboard && window.hackdash.app.dashboard.get('domain');
-    },
     responsesUrl: function() {
       if(this.domain) {
         return '/dashboards/' + this.domain + '/forms/' + this._id;
       }
       if(this.group) {
-        return '/collection/' + this.group + '/forms/' + this._id;
+        return '/collections/' + this.group + '/forms/' + this._id;
       }
     }
   },
