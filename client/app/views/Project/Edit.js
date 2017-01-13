@@ -21,6 +21,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   ui: {
+    "domain": "select[name=domain]",
     "title": "input[name=title]",
     "description": "textarea[name=description]",
     "link": "input[name=link]",
@@ -42,11 +43,22 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   templateHelpers: {
-    selected: function(val) {
+    selectedTag: function(val) {
       return this.tags && _.indexOf(this.tags, val) > -1 ? ' selected' : '';
     },
-    statuses: function(){
+    statuses: function() {
       return this.dashboard.getStatuses();
+    },
+    isAdmin: function() {
+      var user = hackdash.user;
+      return user &&  user.admin_in.indexOf(this.domain) >= 0;
+    },
+    domains: function() {
+      var user = hackdash.user;
+      if (user && user.admin_in.indexOf(this.domain) >= 0) {
+        return user.admin_in;
+      }
+      return null;
     }
   },
 
@@ -118,6 +130,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   save: function(){
+    var user = hackdash.user;
 
     var toSave = {
       title: this.ui.title.val(),
@@ -128,6 +141,9 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       cover: this.model.get('cover')
     };
 
+    if(user && user.admin_in.indexOf(this.ui.domain.val()) >= 0) {
+      toSave.domain = this.ui.domain.val();
+    }
     this.cleanErrors();
 
     var s = this.extraFields[this.ui.status.val()];
@@ -234,6 +250,14 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     if (self.model && self.model.get('status')){
       self.ui.status.val(self.model.get('status'));
     }
+    if (self.model && self.model.get('domain')){
+      self.ui.domain.val(self.model.get('domain'));
+    }
+
+    self.ui.domain.select2({
+      // theme: 'bootstrap',
+      minimumResultsForSearch: 10
+    });
 
     self.ui.status.select2({
       // theme: 'bootstrap',
