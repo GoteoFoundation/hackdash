@@ -50,6 +50,8 @@ function execute() {
     collection: program.collection
   }
 
+  var owner = null;
+
   async.waterfall([
 
     function (done){ // confirm collection
@@ -85,6 +87,7 @@ function execute() {
       User.findById(collection.owner).exec(function(err, user){
         if (err) return done(err);
         if (!user) return done(new Error("User with ID "+colors.green(collection.owner)+" was not found"));
+        owner = user;
         done(null, collection);
       });
     },
@@ -150,12 +153,20 @@ function execute() {
     else if (err){
       throw err;
     }
-    if(collection.col) {
-      console.log('Collection modified! Visit ' + colors.green(config.host + '/collections/' + collection._id));
-    } else {
-      console.log('Collection created! Visit ' + colors.green(config.host + '/collections/' + collection._id));
+    // Update user admin
+    owner.group_admin_in = owner.group_admin_in || [collection._id];
+    if(owner.group_admin_in.indexOf(collection._id) == -1) {
+      owner.group_admin_in.push(collection._id);
     }
-    process.exit(0);
+    owner.save(function(err){
+      if(err) return exit(err);
+      if(collection.col) {
+        console.log('Collection modified! Visit ' + colors.green(config.host + '/collections/' + collection._id));
+      } else {
+        console.log('Collection created! Visit ' + colors.green(config.host + '/collections/' + collection._id));
+      }
+      process.exit(0);
+    });
   });
 }
 

@@ -3,14 +3,26 @@
  *
  */
 
-var Dashboards = require('./Dashboards');
+var Dashboards = require('./Dashboards')
+  , Admins = require('./Admins');
 
 module.exports = Backbone.Model.extend({
 
   idAttribute: "_id",
 
   urlRoot: function(){
-    return hackdash.apiURL + '/collections'; 
+    return hackdash.apiURL + '/collections';
+  },
+
+  initialize: function(){
+    this.set("admins", new Admins());
+    this.setAdminCollections();
+  },
+
+  setAdminCollections: function(){
+    var admins = this.get("admins");
+    admins.group = this.get('_id');
+    this.set("admins", admins);
   },
 
   parse: function(response){
