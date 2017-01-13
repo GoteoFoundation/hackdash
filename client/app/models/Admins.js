@@ -13,7 +13,7 @@ module.exports = Users.extend({
   idAttribute: "_id",
 
   url: function(){
-    return hackdash.apiURL + '/' + (this.domain ? this.domain : this.group) + '/admins';
+    return hackdash.apiURL + '/admins/' + (this.domain ? 'dashboard/' + this.domain : 'collection/' + this.group);
   },
 
   addAdmin: function(userId){

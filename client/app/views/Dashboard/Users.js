@@ -25,7 +25,11 @@ module.exports = Backbone.Marionette.CompositeView.extend({
   templateHelpers: {
     isAdmin: function(){
       var user = hackdash.user;
-      return user && user.admin_in.indexOf(this.domain) >= 0 || false;
+      if(this.domain) {
+        return user && user.admin_in.indexOf(this.domain) >= 0 || false;
+      } else {
+        return user && user.group_admin_in.indexOf(this._id) >= 0 || false;
+      }
     }
   },
 
