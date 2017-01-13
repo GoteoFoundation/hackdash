@@ -38,9 +38,14 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
     format: function(response) {
       var type = response.question.type;
+      if(_.isEmpty(response.value)) {
+        return new Handlebars.SafeString('<span class="label label-danger">--EMPTY--</span>');
+      }
       var value = Handlebars.Utils.escapeExpression(response.value);
       if(type === 'file') {
-        value = '<a href="' + response.value.path + '" target="_blank" data-bypass><img style="max-height:100px" src="/image' + response.value.path + '?dim=0x200" alt="' + response.value.name + '"></a>';
+        var path = response.value && response.value.path;
+        var name = response.value && response.value.name;
+        value = '<a href="' + path + '" target="_blank" data-bypass><img style="max-height:100px" src="/image' + path + '?dim=0x200" alt="' + name + '"></a>';
       }
       else if(type === 'textarea') {
         value = value.replace(/(?:\r\n|\r|\n)/g, '<br>');

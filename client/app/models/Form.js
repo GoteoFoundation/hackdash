@@ -23,6 +23,7 @@ module.exports = Backbone.Model.extend({
 
   // Get responses as a generic Model
   fetchResponses: function(callback){
+    var questions = this.get('questions') || [];
     if(typeof callback !== 'function') {
       callback = function(){};
     }
@@ -35,7 +36,14 @@ module.exports = Backbone.Model.extend({
       callback(jqXHR.responseText);
     })
     .done(function(responses) {
-      callback(null, new Backbone.Collection(responses));
+      callback(null, new Backbone.Collection(_.map(responses, function(r){
+        r.responses = _.map(questions, function(q){
+          var res = _.findWhere(r.responses, {question: q._id}) || {};
+          res.question = q;
+          return res;
+        });
+        return r;
+      })));
     });
   },
 
