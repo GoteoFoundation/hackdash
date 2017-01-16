@@ -49,7 +49,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       this.ui[this.section].addClass("active");
     }
 
-    if (this.isMyProfile){
+    if (this.isMyProfile || (hackdash.user && hackdash.user.superadmin)){
       this.profileCard.show(new ProfileCardEdit({
         model: this.model
       }));

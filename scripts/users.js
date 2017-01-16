@@ -21,10 +21,10 @@ program
 var User = mongoose.model('User');
 
 if(program.list) {
-  User.find().select('_id name superadmin email').exec(function(err, users){
-    console.log('ID                       SUPERADMN NAME');
+  User.find().select('_id name superadmin email role').exec(function(err, users){
+    console.log('ID                       SUPERADMN ROLE NAME');
     for(var u in users) {
-      console.log(users[u]._id + ' ' + (users[u].superadmin ? 'YES' : 'NO ') + '       ' + users[u].name + ' <' + users[u].email +'>');
+      console.log(users[u]._id + ' ' + (users[u].superadmin ? 'YES' : 'NO ') + ' ' + users[u].role + '       ' + users[u].name + ' <' + users[u].email +'>');
     }
     process.exit(0);
   });
@@ -39,6 +39,7 @@ if(program.list) {
     console.log('Id: ' + user._id);
     console.log('Name: ' + user.name);
     console.log('Email: ' + user.email);
+    console.log('Role: ' + user.role);
     console.log('Superadmin: ' + (user.superadmin ? 'YES' : 'NO'));
     console.log('Admin in: ',user.admin_in);
     // for(p in user) {

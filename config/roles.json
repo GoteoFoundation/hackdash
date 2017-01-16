@@ -1,37 +1,53 @@
 [
   {
-    "id": "user",
-    "scope": "global",
+    "role": "user",
+    "name": "User",
+    "perms": [
+      "comment_project"
+    ]
+  },
+  {
+    "role": "maker",
     "name": "Idea Maker",
     "perms": [
+      "comment_project",
       "create_project",
       "follow_project"
     ]
   },
   {
-    "id": "supervisor",
-    "scope": "dashboard",
+    "role": "feeder",
     "name": "Idea Feeder",
     "perms": [
+      "comment_project",
+      "create_project",
+      "follow_project",
       "join_project",
       "private_boards"
     ]
   },
   {
-    "id": "admin",
-    "scope": "dashboard",
-    "name": "Idea Feeder",
+    "role": "taker",
+    "name": "Data Taker",
     "perms": [
+      "comment_project",
+      "create_project",
+      "follow_project",
+      "join_project",
       "create_dashboard",
       "private_boards"
     ]
   },
   {
-    "id": "superadmin",
-    "scope": "global",
-    "name": "Platoniq",
+    "role": "team",
+    "name": "Team",
     "perms": [
-      "create_dashboard"
+      "comment_project",
+      "create_project",
+      "follow_project",
+      "join_project",
+      "create_dashboard",
+      "private_boards"
     ]
   }
 ]

@@ -3,7 +3,8 @@
  *
  */
 
-var template = require('./templates/cardEdit.hbs');
+var template = require('./templates/cardEdit.hbs')
+  , roles = require('../../../../config/roles.json');
 
 module.exports = Backbone.Marionette.ItemView.extend({
 
@@ -15,6 +16,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
   ui: {
     "name": "input[name=name]",
+    "role": "select[name=role]",
     "email": "input[name=email]",
     "bio": "textarea[name=bio]",
     "birthdate": "input[name=birthdate]",
@@ -42,6 +44,25 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
   modelEvents:{
     "change": "render"
+  },
+
+  templateHelpers: {
+    isSuperadmin: function () {
+      return hackdash.user && hackdash.user.superadmin;
+    },
+    roles: function() {
+      return roles;
+    },
+    getRole: function() {
+      if(roles) {
+        var r = _.findWhere(roles, {role: this.role});
+        if(r) {
+          return r.name;
+        }
+        return this.role;
+      }
+      return null;
+    }
   },
 
   //--------------------------------------
@@ -81,6 +102,9 @@ module.exports = Backbone.Marionette.ItemView.extend({
         github: this.ui.github.val(),
       }
     };
+    if(hackdash.user.superadmin && this.ui.role.val()) {
+      toSave.role = this.ui.role.val();
+    }
     // Optional
     if(this.ui.birthdate.val()) {
       var d = this.ui.birthdate.val().split('/');
@@ -103,7 +127,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
       };
     }
 
-    console.log(toSave, this.model.attributes.location);
+    // console.log(toSave);
 
     this.cleanErrors();
     $("#save", this.$el).button('loading');
@@ -157,12 +181,14 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
     if (err.responseText === "OK"){
 
-      $('#cancel').addClass('hidden');
-      $('#save').addClass('hidden');
-      $(".saved", this.$el).removeClass('hidden').addClass('show');
+      if(!hackdash.user.superadmin) {
+        $('#cancel').addClass('hidden');
+        $('#save').addClass('hidden');
+        $(".saved", this.$el).removeClass('hidden').addClass('show');
 
-      window.clearTimeout(this.timer);
-      this.timer = window.setTimeout(this.exit.bind(this), 2000);
+        window.clearTimeout(this.timer);
+        this.timer = window.setTimeout(this.exit.bind(this), 2000);
+      }
 
       return;
     }

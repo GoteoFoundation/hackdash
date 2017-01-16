@@ -8,6 +8,21 @@
     <div class="form-group">
       <input name="name" type="text" placeholder="Name" value="{{name}}" class="form-control"/>
     </div>
+
+    {{#if isSuperadmin}}
+    <div class="form-group">
+      <select name="role" class="form-control">
+        <option value="">{{__ "Role"}}</option>
+        {{#each roles}}
+          <option value="{{role}}"{{selected role ../role}}>{{name}}</option>
+        {{/each}}
+      </select>
+    </div>
+    {{else}}
+    <div class="form-group">
+      <p>{{getRole}}</p>
+    </div>
+    {{/if}}
     <div class="form-group">
       <input name="email" type="text" placeholder="Email" value="{{email}}" class="form-control"/>
       {{#unless email}}
