@@ -74,11 +74,10 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       return window.hackdash.homeCreateProject;
     },
     canCreateDashboard: function(){
-      // return true;
       if(window.hackdash.publicDashboardCreation) {
         return true;
       }
-      return window.hackdash.user && window.hackdash.user.superadmin;
+      return window.hackdash.userHasPermission(window.hackdash.user, 'dashboard_create');
     }
   },
 

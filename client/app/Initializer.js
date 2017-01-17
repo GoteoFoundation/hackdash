@@ -1,3 +1,4 @@
+var roles = require('../../config/roles.json');
 
 module.exports = function(){
 
@@ -11,6 +12,15 @@ module.exports = function(){
       if(pair[0] === variable){return decodeURI(pair[1]);}
     }
     return(false);
+  };
+
+  // Check an atomic permissions from the user's role
+  window.hackdash.userHasPermission = function(user, perm) {
+    if(!user) {
+      return false;
+    }
+    var role = _.findWhere(roles, {role: user.role}) || {role: null, perms:[]};
+    return role.perms.indexOf(perm) >= 0;
   };
 
   if ($.fn.editable){

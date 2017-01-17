@@ -3,65 +3,66 @@
     "role": "user",
     "name": "User",
     "perms": [
-      "comment_project"
+      "project_comment"
     ]
   },
   {
     "role": "maker",
     "name": "Idea Maker",
     "perms": [
-      "comment_project",
-      "create_project",
-      "follow_project"
+      "project_comment",
+      "project_create",
+      "project_follow"
     ]
   },
   {
     "role": "feeder",
     "name": "Idea Feeder",
     "perms": [
-      "comment_project",
-      "create_project",
-      "follow_project",
-      "join_project",
-      "private_boards"
+      "project_comment",
+      "project_create",
+      "project_follow",
+      "project_join",
+      "dashboard_private_view"
     ]
   },
   {
     "role": "taker",
     "name": "Data Taker",
     "perms": [
-      "comment_project",
-      "create_project",
-      "follow_project",
-      "join_project",
-      "private_boards"
+      "project_comment",
+      "project_create",
+      "project_follow",
+      "project_join",
+      "dashboard_private_view"
     ]
   },
   {
     "role": "team",
     "name": "Team",
     "perms": [
-      "comment_project",
-      "create_project",
-      "follow_project",
-      "join_project",
-      "private_boards"
+      "project_comment",
+      "project_create",
+      "project_follow",
+      "project_join",
+      "dashboard_private_view"
     ]
   },
   {
     "role": "superadmin",
     "name": "Development team",
     "perms": [
-      "comment_project",
-      "create_project",
-      "follow_project",
-      "join_project",
-      "private_boards",
-      "create_dashboard",
-      "change_role",
-      "change_dashboard",
-      "change_status",
-      "open_close"
+      "user_update",
+      "user_change_role",
+      "project_comment",
+      "project_create",
+      "project_follow",
+      "project_join",
+      "project_change_dashboard",
+      "dashboard_create",
+      "dashboard_private_view",
+      "dashboard_change_status",
+      "dashboard_open_close"
     ]
   }
 ]
