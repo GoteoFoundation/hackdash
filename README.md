@@ -126,12 +126,12 @@ Generating collections
 node scripts/collections.js
 ```
 
-Managing users
-=================
+Managing users and roles
+========================
 
-Superadmin has been introduced, currently landing page only show the create dashboard to superadmins.
+Roles has been introduced, any number of roles can be defined. There are a collection of simple permissions.
 
-Create superadmins with:
+Change roles with:
 
 ```bash
 node scripts/users.js

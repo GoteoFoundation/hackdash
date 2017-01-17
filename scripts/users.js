@@ -15,16 +15,16 @@ program
   .usage('[options] -u MONGO_DB_USER_ID -s 1|0')
   .option('-l, --list', 'List user ids')
   .option('-u, --user <userid>', 'The user id to manipulate')
-  .option('-s, --superadmin <boolean>', 'sets the admin superadmin')
+  .option('-r, --role <string>', 'sets the user role')
   .parse(process.argv);
 
 var User = mongoose.model('User');
 
 if(program.list) {
-  User.find().select('_id name superadmin email role').exec(function(err, users){
-    console.log('ID                       SUPERADMN ROLE NAME');
+  User.find().select('_id name email role').exec(function(err, users){
+    console.log('ID                       ROLE     NAME');
     for(var u in users) {
-      console.log(users[u]._id + ' ' + (users[u].superadmin ? 'YES' : 'NO ') + ' ' + users[u].role + '       ' + users[u].name + ' <' + users[u].email +'>');
+      console.log(users[u]._id + ' ' + users[u].role + '       ' + users[u].name + ' <' + users[u].email +'>');
     }
     process.exit(0);
   });
@@ -40,20 +40,16 @@ if(program.list) {
     console.log('Name: ' + user.name);
     console.log('Email: ' + user.email);
     console.log('Role: ' + user.role);
-    console.log('Superadmin: ' + (user.superadmin ? 'YES' : 'NO'));
     console.log('Admin in: ',user.admin_in);
+    console.log('Collection admin in: ',user.group_admin_in);
     // for(p in user) {
     //   console.log(p + ': ' + typeof user[p]);
     // }
     //
-    if(program.superadmin) {
-      if(parseInt(program.superadmin)) {
-        console.log('Making user Superadmin!');
-        user.superadmin = true;
-      } else {
-        user.superadmin = false;
-        console.log('Removing superadmin power from user!');
-      }
+    if(program.role) {
+      console.log('Changing user role to ' + program.role);
+      user.role = program.role;
+
       user.save(function(err) {
         if(err) {
           console.log('ERROR saving object!');

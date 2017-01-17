@@ -34,7 +34,6 @@
       "create_project",
       "follow_project",
       "join_project",
-      "create_dashboard",
       "private_boards"
     ]
   },
@@ -46,8 +45,23 @@
       "create_project",
       "follow_project",
       "join_project",
-      "create_dashboard",
       "private_boards"
+    ]
+  },
+  {
+    "role": "superadmin",
+    "name": "Development team",
+    "perms": [
+      "comment_project",
+      "create_project",
+      "follow_project",
+      "join_project",
+      "private_boards",
+      "create_dashboard",
+      "change_role",
+      "change_dashboard",
+      "change_status",
+      "open_close"
     ]
   }
 ]
