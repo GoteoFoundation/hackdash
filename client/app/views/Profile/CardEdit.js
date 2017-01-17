@@ -47,8 +47,8 @@ module.exports = Backbone.Marionette.ItemView.extend({
   },
 
   templateHelpers: {
-    isSuperadmin: function () {
-      return hackdash.user && hackdash.user.superadmin;
+    canEditRole: function () {
+      return hackdash.userHasPermission(hackdash.user, 'user_change_role');
     },
     roles: function() {
       return roles;
@@ -102,7 +102,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
         github: this.ui.github.val(),
       }
     };
-    if(hackdash.user.superadmin && this.ui.role.val()) {
+    if(hackdash.userHasPermission(hackdash.user, 'user_change_role') && this.ui.role.val()) {
       toSave.role = this.ui.role.val();
     }
     // Optional
@@ -181,7 +181,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
     if (err.responseText === "OK"){
 
-      if(!hackdash.user.superadmin) {
+      if(!hackdash.userHasPermission(hackdash.user, 'user_update')) {
         $('#cancel').addClass('hidden');
         $('#save').addClass('hidden');
         $(".saved", this.$el).removeClass('hidden').addClass('show');

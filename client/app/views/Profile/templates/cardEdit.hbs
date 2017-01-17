@@ -9,7 +9,7 @@
       <input name="name" type="text" placeholder="Name" value="{{name}}" class="form-control"/>
     </div>
 
-    {{#if isSuperadmin}}
+    {{#if canEditRole}}
     <div class="form-group">
       <select name="role" class="form-control">
         <option value="">{{__ "Role"}}</option>

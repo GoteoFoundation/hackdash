@@ -1,84 +1,81 @@
-{ 
-    "_id" : ObjectId("570cbfa05c8f17f3469fb140"), 
-    "username" : "ivanverges", 
-    "name" : "Ivan Vergés", 
-    "picture" : "https://pbs.twimg.com/profile_images/540578053626150913/S6aK1zYd_bigger.jpeg", 
-    "provider_id" : NumberInt(15316353), 
-    "provider" : "twitter", 
-    "created_at" : ISODate("2016-04-12T09:28:00.747+0000"), 
+{
+    "_id" : ObjectId("570cbfa05c8f17f3469fb140"),
+    "username" : "ivanverges",
+    "name" : "Ivan Vergés",
+    "picture" : "https://pbs.twimg.com/profile_images/540578053626150913/S6aK1zYd_bigger.jpeg",
+    "provider_id" : NumberInt(15316353),
+    "provider" : "twitter",
+    "created_at" : ISODate("2016-04-12T09:28:00.747+0000"),
     "admin_in" : [
-        "testhack", 
-        "testdash", 
-        "another", 
-        "bestdash", 
-        "testboard", 
-        "testingb", 
-        "testingagaints", 
-        "asdfasdf", 
+        "testhack",
+        "testdash",
+        "another",
+        "bestdash",
+        "testboard",
+        "testingb",
+        "testingagaints",
+        "asdfasdf",
         "asadjdj"
-    ], 
-    "__v" : NumberInt(9), 
-    "bio" : "gtdxg", 
-    "email" : "microestudi@gmail.com", 
-    "superadmin" : true
+    ],
+    "__v" : NumberInt(9),
+    "bio" : "gtdxg",
+    "email" : "microestudi@gmail.com"
 }
-{ 
-    "_id" : ObjectId("570cd59894fc79ec6bc12461"), 
-    "username" : "Goteo", 
-    "name" : "Goteo", 
-    "picture" : "https://avatars.githubusercontent.com/u/1727585?v=3", 
-    "email" : "dev@goteo.org", 
-    "provider_id" : NumberInt(1727585), 
-    "provider" : "github", 
-    "created_at" : ISODate("2016-04-12T11:01:44.177+0000"), 
+{
+    "_id" : ObjectId("570cd59894fc79ec6bc12461"),
+    "username" : "Goteo",
+    "name" : "Goteo",
+    "picture" : "https://avatars.githubusercontent.com/u/1727585?v=3",
+    "email" : "dev@goteo.org",
+    "provider_id" : NumberInt(1727585),
+    "provider" : "github",
+    "created_at" : ISODate("2016-04-12T11:01:44.177+0000"),
     "admin_in" : [
 
-    ], 
+    ],
     "__v" : NumberInt(0)
 }
-{ 
-    "_id" : ObjectId("570cd61b94fc79ec6bc12462"), 
-    "username" : "microstudi", 
-    "name" : "Ivan Vergés", 
-    "picture" : "https://avatars.githubusercontent.com/u/1401520?v=3", 
-    "provider_id" : NumberInt(1401520), 
-    "provider" : "github", 
-    "created_at" : ISODate("2016-04-12T11:03:55.337+0000"), 
+{
+    "_id" : ObjectId("570cd61b94fc79ec6bc12462"),
+    "username" : "microstudi",
+    "name" : "Ivan Vergés",
+    "picture" : "https://avatars.githubusercontent.com/u/1401520?v=3",
+    "provider_id" : NumberInt(1401520),
+    "provider" : "github",
+    "created_at" : ISODate("2016-04-12T11:03:55.337+0000"),
     "admin_in" : [
         "newdash"
-    ], 
-    "__v" : NumberInt(1), 
-    "bio" : "test 2", 
-    "email" : "ivan@microstudi.net", 
-    "superadmin" : true
+    ],
+    "__v" : NumberInt(1),
+    "bio" : "test 2",
+    "email" : "ivan@microstudi.net"
 }
-{ 
-    "_id" : ObjectId("5714a21dc1e81ab4347cd51d"), 
-    "username" : "SchulbaumO", 
-    "name" : "Olivier Schulbaum", 
-    "picture" : "https://pbs.twimg.com/profile_images/677924555248246784/pbzeu15x_bigger.jpg", 
-    "provider_id" : 4527152596.0, 
-    "provider" : "twitter", 
-    "created_at" : ISODate("2016-04-18T09:00:13.403+0000"), 
+{
+    "_id" : ObjectId("5714a21dc1e81ab4347cd51d"),
+    "username" : "SchulbaumO",
+    "name" : "Olivier Schulbaum",
+    "picture" : "https://pbs.twimg.com/profile_images/677924555248246784/pbzeu15x_bigger.jpg",
+    "provider_id" : 4527152596.0,
+    "provider" : "twitter",
+    "created_at" : ISODate("2016-04-18T09:00:13.403+0000"),
     "admin_in" : [
 
-    ], 
-    "__v" : NumberInt(0), 
-    "bio" : "Digital #commons builder, #agile at @platoniq #digitalheritage #sharingadvocacy #crowdanthropy", 
+    ],
+    "__v" : NumberInt(0),
+    "bio" : "Digital #commons builder, #agile at @platoniq #digitalheritage #sharingadvocacy #crowdanthropy",
     "email" : "olivierschulbaum@platoniq.net"
 }
-{ 
-    "_id" : ObjectId("573df3aa21cceab515d109e6"), 
-    "username" : "Ivan Vergés", 
-    "name" : "Ivan Vergés", 
-    "picture" : "https://lh6.googleusercontent.com/-MKtSiCM9PPo/AAAAAAAAAAI/AAAAAAAADJw/tILvwId5UPA/photo.jpg?sz=50", 
-    "email" : "microestudi@gmail.com", 
-    "provider_id" : 105872229634982540000.0, 
-    "provider" : "google", 
-    "created_at" : ISODate("2016-05-19T17:11:06.115+0000"), 
+{
+    "_id" : ObjectId("573df3aa21cceab515d109e6"),
+    "username" : "Ivan Vergés",
+    "name" : "Ivan Vergés",
+    "picture" : "https://lh6.googleusercontent.com/-MKtSiCM9PPo/AAAAAAAAAAI/AAAAAAAADJw/tILvwId5UPA/photo.jpg?sz=50",
+    "email" : "microestudi@gmail.com",
+    "provider_id" : 105872229634982540000.0,
+    "provider" : "google",
+    "created_at" : ISODate("2016-05-19T17:11:06.115+0000"),
     "admin_in" : [
 
-    ], 
-    "superadmin" : false, 
+    ],
     "__v" : NumberInt(0)
 }

@@ -55,7 +55,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     },
     domains: function() {
       var user = hackdash.user;
-      if (user && user.admin_in.indexOf(this.domain) >= 0) {
+      if (hackdash.userHasPermission(user, 'project_change_dashboard') && user.admin_in.indexOf(this.domain) >= 0) {
         return user.admin_in;
       }
       return null;
@@ -141,7 +141,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       cover: this.model.get('cover')
     };
 
-    if(user && user.admin_in.indexOf(this.ui.domain.val()) >= 0) {
+    if(hackdash.userHasPermission(user, 'project_change_dashboard') && user.admin_in.indexOf(this.ui.domain.val()) >= 0) {
       toSave.domain = this.ui.domain.val();
     }
     this.cleanErrors();

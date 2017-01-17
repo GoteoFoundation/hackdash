@@ -64,7 +64,7 @@ Added vars for Wotify Dashboards:
 
 * `defaultHomeTab`: By default Hackdash takes the user to the "dashboards" tab in the homepage. This allows to change it by any of these values: "dashboards", "projects", "users", "collections".
 * `publicHost`: and alternative public host can be specified here (used in several links to return home, i.e: **wotify.co**). This is useful in case you run your node app behind a proxy in a different port than 80 (Please specify protocol (http://example.com or better https://example.com).
-* `publicDashboardCreation` : a boolean to specify if dashboards can be created by anyone or just the users marked as "superadmin"
+* `publicDashboardCreation` : a boolean to specify if dashboards can be created by anyone or just the users with permission "dashboard_create"
 * `homeCreateProject` : Set it to true in order to show a button in the front page to create projects
 * `useLocalLogin`: Set to true if you want to allow username/password registration
 * `theme`: This allows to apply a custom themes to hackdash. Just put a `theme_name` with the same folder name inside `themes/theme_name`. Styles or hbs templates can be overwritten. (Look at the code inside themes for an example).
@@ -136,6 +136,25 @@ Change roles with:
 ```bash
 node scripts/users.js
 ```
+
+Roles config
+------------
+
+Roles are collections of atomic permissions. Current permissions are:
+
+- `user_update`: Permission to update others users data (except role)
+- `user_change_role`: Permission to change user role
+- `project_comment`:
+- `project_create`:
+- `project_follow`:
+- `project_join`:
+- `project_update`: Permission to update others projects (except dashboard)
+- `project_delete`: Permission to delete others projects
+- `project_change_dashboard`: Permission to change project's dashboard (requires to be admin in that dashboard)
+- `dashboard_create`: Permission for creating dashboards
+- `dashboard_private_view`:
+- `dashboard_change_status`:
+- `dashboard_open_close`:
 
 Contribute
 ==========
