@@ -86,6 +86,16 @@ cp config/keys.json.sample config/keys.json
 
 Local login (traditional username/password) can be added by setting `"useLocalLogin": true` in `config.js`
 
+Roles setup
+===========
+
+Roles are introduced with atomic permissions (more on this later on this document)
+
+```bash
+cp config/roles.json.sample config/roles.json
+```
+
+
 Init test server
 =================
 
@@ -158,7 +168,7 @@ Roles are collections of atomic permissions. Current permissions are:
 - `dashboard_set_open`: Permission to change open/close dashboard availability (dashboard owner has this permission anyway). **Requires to be admin in that dashboard**
 - `dashboard_set_showcase`: Permission to edit the showcase dashboard (dashboard owner has this permission anyway). **Requires to be admin in that dashboard**
 
-Roles can be customized by editing `config/roles.json`.
+**Roles can be customized by editing `config/roles.json`.**
 
 Contribute
 ==========
