@@ -4,6 +4,7 @@
  */
 
 var Handlebars = require("hbsfy/runtime");
+var roles = require("../../../config/roles.json");
 
 Handlebars.registerHelper('embedCode', function() {
   var embedUrl = window.location.protocol + "//" + window.location.host;
@@ -223,8 +224,11 @@ function getProfileImageHex(user) {
     })
     .css('background-image', 'url(' + user.picture + ')')
     .addClass('hexagon');
-
-  div.append('<div class="hex-top"></div><div class="hex-bottom"></div>');
+  var role = _.findWhere(roles, {role: user.role});
+  if(role && role.name) {
+    role = role.name;
+  }
+  div.append('<div class="hex-top"></div><div class="hex-bottom"></div><div class="role role-' + user.role + '" title="' + role + '"></div>');
 
   return new Handlebars.SafeString(div[0].outerHTML);
 }

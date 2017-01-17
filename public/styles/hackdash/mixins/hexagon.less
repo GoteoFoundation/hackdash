@@ -113,4 +113,21 @@
     background: inherit;
   }
 
+  // Role
+  .role {
+    z-index: 10;
+    bottom:-@width/4;
+    right:-@width/4;
+    position: absolute;
+    width: @width/2;
+    height: @width/2;
+    border-radius:@width/2;
+
+    &.role-user {
+      background: url(../images/roles/user.svg) no-repeat 0 0 e('/') 100% 100%;
+    }
+    &.role-admin {
+      background: url(../images/roles/admin.svg) no-repeat 0 0 e('/') 100% 100%;
+    }
+  }
 }
