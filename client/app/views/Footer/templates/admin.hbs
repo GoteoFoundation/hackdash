@@ -6,9 +6,11 @@
     <div>{{__ "Dashboard Status"}}</div>
   </a>
 
-  <a class="btn-showcase-mode">
-    <i class="btn-danger txt">{{__ "off"}}</i><div>{{__ "Edit Showcase"}}</div>
-  </a>
+  {{#if isSetShowcase}}
+    <a class="btn-showcase-mode">
+      <i class="btn-danger txt">{{__ "off"}}</i><div>{{__ "Edit Showcase"}}</div>
+    </a>
+  {{/if}}
 {{/if}}
 
 {{#if isForm}}

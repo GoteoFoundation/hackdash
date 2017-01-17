@@ -33,12 +33,15 @@ module.exports = Backbone.Marionette.LayoutView.extend({
           return self.model.getStatuses();
         }
         return hackdash.statuses;
+      },
+      disabledIfNot: function(perm) {
+        return hackdash.userHasPermission(hackdash.user, perm) ? '' : ' disabled';
       }
     };
   },
 
   onRender: function() {
-    console.log(this.model.get('inactiveStatuses'), this.model.getStatuses());
+    // console.log(this.model.get('inactiveStatuses'), this.model.getStatuses());
     this.ui.activeStatuses.select2({
       placeholder: __("Non active statuses! Allow at least one!"),
       // theme: "bootstrap",
@@ -53,7 +56,6 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   saveChanges: function() {
-    console.log('save');
     var activeStatuses = this.ui.activeStatuses.val() || [];
     var inactiveStatuses = _.filter(hackdash.statuses, function(s) {
         return activeStatuses.indexOf(s.status) === -1;
@@ -64,8 +66,8 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       inactiveStatuses: _.pluck(inactiveStatuses, 'status')
     };
 
-    console.log('activeStatuses', activeStatuses);
-    console.log(toSave);
+    // console.log('activeStatuses', activeStatuses);
+    // console.log(toSave);
     this.model.set(toSave);
     this.model.save({ wait: true });
     this.destroy();

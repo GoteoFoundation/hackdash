@@ -9,19 +9,19 @@
 
   <div class="checkbox">
     <label>
-      <input type="checkbox" name="open"{{#if open}} checked{{/if}}> {{__ "Open Dashboard Status"}}
+      <input type="checkbox"{{disabledIfNot 'dashboard_set_open'}} name="open"{{#if open}} checked{{/if}}> {{__ "Open Dashboard Status"}}
     </label>
   </div>
 
   <div class="checkbox">
     <label>
-      <input type="checkbox" name="private"{{#if private}} checked{{/if}}> {{__ "Private Dashboard"}}
+      <input type="checkbox"{{disabledIfNot 'dashboard_set_private'}} name="private"{{#if private}} checked{{/if}}> {{__ "Private Dashboard"}}
     </label>
     <span class="help-block">{{__ 'private-dashboards-description'}}</span>
   </div>
 
   <div class="control-group"><label>Active statuses</label>
-    <select class="active-statuses form-control" multiple>
+    <select class="active-statuses form-control"{{disabledIfNot 'dashboard_set_status'}} multiple>
     <option></option>
     {{#each statuses}}
       <option value="{{status}}"{{selected active true}}>{{text}}</option>

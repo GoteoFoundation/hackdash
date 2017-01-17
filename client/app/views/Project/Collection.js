@@ -4,12 +4,17 @@
  */
 
 var Project = require('./Card');
+var EmptyView = Backbone.Marionette.ItemView.extend({
+  template: _.template('<h3 class="text-center">' + __('No projects available yet') + '</h3>')
+});
 
 module.exports = Backbone.Marionette.CollectionView.extend({
 
   //--------------------------------------
   //+ PUBLIC PROPERTIES / CONSTANTS
   //--------------------------------------
+
+  emptyView: EmptyView,
 
   className: "entities",
   childView: Project,
@@ -168,7 +173,11 @@ module.exports = Backbone.Marionette.CollectionView.extend({
   },
 
   fixSize: function(){
-    this.$el.height(this.$el.height() + this.gutter*4);
+    if(this.isEmpty()) {
+      this.$el.height('auto');
+    }else{
+      this.$el.height(this.$el.height() + this.gutter*4);
+    }
   },
 
 });

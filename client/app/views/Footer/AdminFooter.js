@@ -11,15 +11,9 @@ module.exports = Backbone.Marionette.ItemView.extend({
   className: 'admin-footer-wrapper',
 
   templateHelpers: {
-    isAdmin: function() {
+    isSetShowcase: function() {
       var user = hackdash.user;
-      if(user) {
-        if(this.domain) {
-          return user.admin_in.indexOf(this.domain) >= 0;
-        }
-        return user.group_admin_in && user.group_admin_in.indexOf(this._id) >= 0;
-      }
-      return false;
+      return this.domain && user.admin_in.indexOf(this.domain) >= 0 && hackdash.userHasPermission(user, 'dashboard_set_showcase');
     },
     isDashboardForm: function() {
       return (hackdash.app.type === "dashboard_form");

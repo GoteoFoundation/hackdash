@@ -144,17 +144,21 @@ Roles are collections of atomic permissions. Current permissions are:
 
 - `user_update`: Permission to update others users data (except role)
 - `user_change_role`: Permission to change user role
-- `project_comment`:
-- `project_create`:
-- `project_follow`:
-- `project_join`:
-- `project_update`: Permission to update others projects (except dashboard)
-- `project_delete`: Permission to delete others projects
-- `project_change_dashboard`: Permission to change project's dashboard (requires to be admin in that dashboard)
+- `project_comment`: TODO: when a custom comment forum
+- `project_create`: Permission to create a new project.
+- `project_follow`: Permission to follow other projects.
+- `project_join`: Permission to join other projects as contributor.
+- `project_update`: Permission to update others projects (except dashboard). **Requires to be admin in that dashboard**
+- `project_delete`: Permission to delete others projects. **Requires to be admin in that dashboard**
+- `project_change_dashboard`: Permission to change project's dashboard. **Requires to be admin in that dashboard**
 - `dashboard_create`: Permission for creating dashboards
-- `dashboard_private_view`:
-- `dashboard_change_status`:
-- `dashboard_open_close`:
+- `dashboard_view_private`: Permission to view projects in private dashboards (dashboard owner has this permission anyway). **Requires to be admin in that dashboard**
+- `dashboard_set_private`: Permission to change dashboard status. **Requires to be admin in that dashboard**
+- `dashboard_set_status`: Permission to change dashboard status. **Requires to be admin in that dashboard**
+- `dashboard_set_open`: Permission to change open/close dashboard availability (dashboard owner has this permission anyway). **Requires to be admin in that dashboard**
+- `dashboard_set_showcase`: Permission to edit the showcase dashboard (dashboard owner has this permission anyway). **Requires to be admin in that dashboard**
+
+Roles can be customized by editing `config/roles.json`.
 
 Contribute
 ==========

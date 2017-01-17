@@ -36,7 +36,7 @@
 
       {{#isLoggedIn}}
 
-        {{#if showActions}}
+        {{#if showActionContribute}}
 
           <div class="contributor">
             {{#if contributing}}
@@ -45,6 +45,9 @@
             <a data-loading-text="{{__ "joining..."}}" class="btn btn-default join">{{__ "Join"}}</a>
             {{/if}}
           </div>
+        {{/if}}
+
+        {{#if showActionFollow}}
           <div class="follower">
             {{#if following}}
             <a data-loading-text="{{__ "unfollowing..."}}" class="btn btn-default unfollow">{{__ "Unfollow"}}</a>
@@ -129,22 +132,28 @@
     {{#isLoggedIn}}
 
       {{#if isAdminOrLeader}}
-      <div class="pull-right remove">
-        <a class="btn btn-danger">{{__ "Remove"}}</a>
-      </div>
-      <div class="pull-right edit">
-        {{#if toolsUrl}}
-          <a class="btn btn-primary bnt-red" href="{{toolsUrl}}" target="_blank" data-bypass>Tools for this stage</a>
+
+        {{#if showActionDelete}}
+          <div class="pull-right remove">
+            <a class="btn btn-danger">{{__ "Remove"}}</a>
+          </div>
         {{/if}}
-        <a class="btn btn-info" href="/forms" data-bypass>{{__ "Forms"}}</a>
-        <a class="btn btn-success" href="/projects/{{_id}}/edit">{{__ "Edit"}}</a>
-      </div>
+
+        <div class="pull-right edit">
+          {{#if toolsUrl}}
+            <a class="btn btn-primary bnt-red" href="{{toolsUrl}}" target="_blank" data-bypass>Tools for this stage</a>
+          {{/if}}
+          <a class="btn btn-info" href="/forms" data-bypass>{{__ "Forms"}}</a>
+          {{#if showActionEdit}}
+            <a class="btn btn-success" href="/projects/{{_id}}/edit">{{__ "Edit"}}</a>
+          {{/if}}
+        </div>
       {{/if}}
 
-      {{#if showActions}}
 
       <div class="pull-left bottom-buttons">
 
+      {{#if showActionContribute}}
         <div class="pull-left contributor">
           {{#if contributing}}
           <a data-loading-text="{{__ "leaving..."}}" class="btn btn-default leave">{{__ "Leave"}}</a>
@@ -152,6 +161,9 @@
           <a data-loading-text="{{__ "joining..."}}" class="btn btn-default join">{{__ "Join"}}</a>
           {{/if}}
         </div>
+      {{/if}}
+
+      {{#if showActionFollow}}
         <div class="pull-left follower">
           {{#if following}}
           <a data-loading-text="{{__ "unfollowing..."}}" class="btn btn-default unfollow">{{__ "Unfollow"}}</a>
@@ -159,9 +171,9 @@
           <a data-loading-text="{{__ "following..."}}" class="btn btn-default follow">{{__ "Follow"}}</a>
           {{/if}}
         </div>
+      {{/if}}
 
       </div>
-      {{/if}}
 
     {{else}}
 
