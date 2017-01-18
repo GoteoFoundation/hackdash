@@ -55,6 +55,7 @@ module.exports = Backbone.Marionette.AppRouter.extend({
 
     , "projects/:pid/edit" : "showProjectEdit"
     , "projects/:pid" : "showProjectFull"
+    , "projects/:pid/forms": "showProjectForms"
 
     , "collections/:cid" : "showCollection"
     , "collections/:cid/forms" : "showCollectionFormsEdit"
@@ -175,22 +176,26 @@ module.exports = Backbone.Marionette.AppRouter.extend({
 
   },
 
+  showLoginModal:function() {
+    if(!window.hackdash.user) {
+      window.hackdash.app.previousURL = window.location.pathname;
+      window.hackdash.app.header.show(new Header());
+      window.hackdash.app.main.show(new EmptyView());
+      window.hackdash.app.footer.show(new Footer());
+      window.hackdash.app.showLogin();
+      return true;
+    }
+    return false;
+  },
+
   showDashboardFormsEdit: function(dashboard){
 
     var app = window.hackdash.app;
-
-
-    if(!window.hackdash.user) {
-      app.previousURL = window.location.pathname;
-      app.header.show(new Header());
-      app.main.show(new EmptyView());
-      app.footer.show(new Footer());
-      app.showLogin();
+    var self = this;
+    if(self.showLoginModal()) {
       return;
     }
 
-
-    var self = this;
     app.type = "dashboard_form";
 
     app.dashboard = new Dashboard();
@@ -217,19 +222,12 @@ module.exports = Backbone.Marionette.AppRouter.extend({
   showDashboardFormsResponses: function(dashboard, idform){
 
     var app = window.hackdash.app;
+    var self = this;
 
-
-    if(!window.hackdash.user) {
-      app.previousURL = window.location.pathname;
-      app.header.show(new Header());
-      app.main.show(new EmptyView());
-      app.footer.show(new Footer());
-      app.showLogin();
+    if(self.showLoginModal()) {
       return;
     }
 
-    console.log(dashboard, idform);
-    var self = this;
     app.type = "dashboard_form";
 
     var form = new Form({
@@ -262,19 +260,11 @@ module.exports = Backbone.Marionette.AppRouter.extend({
   showCollectionFormsResponses: function(cid, idform){
 
     var app = window.hackdash.app;
-
-
-    if(!window.hackdash.user) {
-      app.previousURL = window.location.pathname;
-      app.header.show(new Header());
-      app.main.show(new EmptyView());
-      app.footer.show(new Footer());
-      app.showLogin();
+    var self = this;
+    if(self.showLoginModal()) {
       return;
     }
 
-    console.log(cid, idform);
-    var self = this;
     app.type = "col_form";
 
     var form = new Form({
@@ -307,18 +297,11 @@ module.exports = Backbone.Marionette.AppRouter.extend({
   showCollectionFormsEdit: function(cid){
 
     var app = window.hackdash.app;
-
-    if(!window.hackdash.user) {
-      app.previousURL = window.location.pathname;
-      app.header.show(new Header());
-      app.main.show(new EmptyView());
-      app.footer.show(new Footer());
-      app.showLogin();
+    var self = this;
+    if(self.showLoginModal()) {
       return;
     }
 
-
-    var self = this;
     app.type = "collection_form";
 
     app.collection = new Collection({ _id: cid });
@@ -458,29 +441,24 @@ module.exports = Backbone.Marionette.AppRouter.extend({
       });
   },
 
+  showFormsView: function (model, collection) {
+    var app = window.hackdash.app;
+    app.header.show(new Header());
+    app.main.show(new FormView({
+      model: model,
+      collection: collection
+    }));
+    app.footer.show(new Footer());
+    app.setTitle((model ? model.get('title') : __('Forms')));
+  },
+
   showForms: function (fid, pid) {
     var app = window.hackdash.app;
-
-
-    if(!window.hackdash.user) {
-      app.previousURL = window.location.pathname;
-      app.header.show(new Header());
-      app.main.show(new EmptyView());
-      app.footer.show(new Footer());
-      app.showLogin();
+    var self = this;
+    if(self.showLoginModal()) {
+      return;
     }
 
-    function showView(model, collection) {
-      app.header.show(new Header());
-      app.main.show(new FormView({
-        model: model,
-        collection: collection
-      }));
-      app.footer.show(new Footer());
-      app.setTitle((model ? model.get('title') : __('Forms')));
-    }
-
-    app.type = 'forms_list';
     if(fid) {
       app.type = 'forms_item';
       // find form
@@ -497,20 +475,40 @@ module.exports = Backbone.Marionette.AppRouter.extend({
 
             app.type = 'forms_project';
             app.project = project;
-            showView(form);
+            self.showFormsView(form);
           });
         } else {
-          showView(form);
+          self.showFormsView(form);
         }
       }).error(function(){
         app.main.show(new FormView()); // Shows no permissions form
       });
     } else {
+      app.type = 'forms_list';
       var forms = new Forms();
       forms.fetch().done(function(){
-        showView(null, forms);
+        self.showFormsView(null, forms);
       });
     }
+  },
+
+  showProjectForms: function(pid) {
+    var app = window.hackdash.app;
+    var self = this;
+    if(self.showLoginModal()) {
+      return;
+    }
+
+    var project = new Project({
+      _id: pid
+    });
+    project.fetch().done(function(){
+      app.project = project;
+      var forms = new Forms();
+      forms.fetch().done(function(){
+        self.showFormsView(null, forms.getForProject(pid));
+      });
+    });
   },
 
   showProfile: function(userId) {

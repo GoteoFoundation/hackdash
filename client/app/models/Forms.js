@@ -17,7 +17,7 @@ var Forms = module.exports = BaseCollection.extend({
     created_at: function(a){ return -a.get('created_at'); },
   },
 
-  url: function(){
+  url: function() {
     if (this.domain){
       return hackdash.apiURL + '/dashboards/' + this.domain + '/forms';
     }
@@ -27,14 +27,22 @@ var Forms = module.exports = BaseCollection.extend({
     return hackdash.apiURL + '/forms'; // User forms
   },
 
-  getActives: function(){
-
+  getActives: function() {
     var forms = new Forms(
-      this.filter(function(forms){
+      this.filter(function(forms) {
         return forms.get("open");
       })
     );
+    return forms;
+  },
 
+  getForProject: function(project_id) {
+    var forms = new Forms(
+      this.filter(function(forms) {
+        return _.findWhere(forms.get("projects"), {_id: project_id}) ? true : false;
+      })
+    );
+    console.log(forms);
     return forms;
   }
 
