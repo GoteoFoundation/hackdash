@@ -161,8 +161,8 @@ Roles are collections of atomic permissions. Current permissions are:
 - `project_update`: Permission to update others projects (except dashboard). **Requires to be admin in that dashboard** (project owner has this permission anyway).
 - `project_delete`: Permission to delete others projects. **Requires to be admin in that dashboard** (project owner has this permission anyway).
 - `project_change_dashboard`: Permission to change project's dashboard. **Requires to be admin in that dashboard**.
-- TODO`form_results`: Permission to view forms responses for a project. **Requires to be admin in that dashboard** (project owner has this permission anyway).
-- TODO`form_respond`: Permission to answer forms for a project. **Requires to be admin in that dashboard** (project owner has this permission anyway).
+- `form_results`: Permission to view forms responses for a project. **Requires to be admin in that dashboard** (project owner has this permission anyway).
+- `form_respond`: Permission to answer forms for a project. **Requires to be admin in that dashboard** (project owner has this permission anyway).
 - TODO`form_create`: Permission to create new forms in a dashboard or collection. **Requires to be admin in that dashboard or collection)**.
 - TODO`form_update`: Permission to edit existing forms in a dashboard or collection (form owner has this permission anyway). **Requires to be admin in that dashboard or collection)**.
 - TODO`form_delete`: Permission to delete existing forms in a dashboard or collection (form owner has this permission anyway). **Requires to be admin in that dashboard or collection)**.
