@@ -24,6 +24,9 @@ var Forms = module.exports = BaseCollection.extend({
     else if (this.group){
       return hackdash.apiURL + '/collections/' + this.group + '/forms';
     }
+    else if (this.project){
+      return hackdash.apiURL + '/projects/' + this.project + '/forms';
+    }
     return hackdash.apiURL + '/forms'; // User forms
   },
 
@@ -42,7 +45,6 @@ var Forms = module.exports = BaseCollection.extend({
         return _.findWhere(forms.get("projects"), {_id: project_id}) ? true : false;
       })
     );
-    console.log(forms);
     return forms;
   }
 

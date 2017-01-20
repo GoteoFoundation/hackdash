@@ -23,11 +23,17 @@
   {{#if isDummy}}
     <a class="btn btn-info send-form">Close demo</a>
   {{else}}
-    <a class="btn btn-success send-form">Send</a>
+
+    {{#unless readOnly}}
+      <a class="btn btn-success send-form">Send</a>
+    {{/unless}}
 
     <div class="pull-right">
-      <a class="btn btn-info" href="/forms">Go back to forms</a>
-      <a class="btn btn-danger" href="/projects/{{project.id}}">Go back to project</a>
+      {{#unless readOnly}}
+        {{!-- <a class="btn btn-info" href="/forms">Go back to my forms</a> --}}
+      {{/unless}}
+      <a class="btn btn-info" href="/projects/{{project.id}}/forms">Go to project forms</a>
+      <a class="btn btn-success" href="/projects/{{project.id}}">Go to project</a>
     </div>
   {{/if}}
 

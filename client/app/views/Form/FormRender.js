@@ -7,6 +7,7 @@ var
     template = require('./templates/formRender.hbs')
   , doneTemplate = require('./templates/formSent.hbs')
   , QuestionList = require('./QuestionList')
+  , ResponseItem = require('./ResponseItem')
   ;
 
 var DoneView = Backbone.Marionette.ItemView.extend({
@@ -43,27 +44,54 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       },
       isDummy: function() {
         return !!self.dummy;
+      },
+      readOnly: function() {
+        return self.readOnly;
       }
     };
   },
 
   initialize: function(options) {
     this.dummy = options && options.dummy;
+    this.readOnly = options && options.readOnly;
   },
 
   onRender: function() {
     var form = this.model;
+    var self = this;
     if(form && form.get('done')) {
       hackdash.app.project = null;
       hackdash.app.type = 'forms_list';
-      return this.formContent.show(new DoneView({
-        model: this.model.get('project')
+      return self.formContent.show(new DoneView({
+        model: self.model.get('project')
       }));
     }
-    this.questionsList.show(new QuestionList({
-      model: form,
-      collection: form.getQuestions()
-    }));
+    if(self.readOnly) {
+      var project = hackdash.app.project.toJSON();
+      var responses = _.findWhere(project.forms, {form: form.get('_id')}) || {responses:[]};
+      var responded = 0;
+      responses = _.map(form.get('questions'), function(q){
+        var res = _.findWhere(responses.responses, {question: q._id}) || {};
+        res.question = q;
+        if(res.value) {
+          responded++;
+        }
+        return res;
+      });
+      self.questionsList.show(new ResponseItem({
+        model: new Backbone.Model({
+          project: project,
+          responses: responses,
+          responded: responded/responses.length,
+          opened: true
+        })
+      }));
+    } else {
+      self.questionsList.show(new QuestionList({
+        model: form,
+        collection: form.getQuestions() // Questions as a model
+      }));
+    }
   },
 
   sendForm: function() {

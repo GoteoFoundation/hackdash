@@ -15,6 +15,9 @@ module.exports = Backbone.Marionette.ItemView.extend({
 	template: template,
 
   templateHelpers: {
+    collapse: function() {
+      return !this.opened;
+    },
     fa: function(type) {
       switch(type) {
         case 'text':
@@ -53,5 +56,9 @@ module.exports = Backbone.Marionette.ItemView.extend({
       return new Handlebars.SafeString(value);
     }
   },
+
+  initialize: function(options) {
+    console.log('init',options);
+  }
 
 });

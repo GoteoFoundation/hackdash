@@ -52,6 +52,7 @@ module.exports = Backbone.Marionette.AppRouter.extend({
     , "forms": "showForms"
     , "forms/:fid": "showForms"
     , "forms/:fid/:pid": "showForms"
+    , "forms/:fid/:pid/respond": "showFormRespond"
 
     , "projects/:pid/edit" : "showProjectEdit"
     , "projects/:pid" : "showProjectFull"
@@ -441,12 +442,13 @@ module.exports = Backbone.Marionette.AppRouter.extend({
       });
   },
 
-  showFormsView: function (model, collection) {
+  showFormsView: function (model, collection, readOnly) {
     var app = window.hackdash.app;
     app.header.show(new Header());
     app.main.show(new FormView({
       model: model,
-      collection: collection
+      collection: collection,
+      readOnly: readOnly
     }));
     app.footer.show(new Footer());
     app.setTitle((model ? model.get('title') : __('Forms')));
@@ -475,7 +477,7 @@ module.exports = Backbone.Marionette.AppRouter.extend({
 
             app.type = 'forms_project';
             app.project = project;
-            self.showFormsView(form);
+            self.showFormsView(form, null, true);
           });
         } else {
           self.showFormsView(form);
@@ -492,6 +494,29 @@ module.exports = Backbone.Marionette.AppRouter.extend({
     }
   },
 
+  showFormRespond: function(fid, pid) {
+    var app = window.hackdash.app;
+    var self = this;
+    if(self.showLoginModal()) {
+      return;
+    }
+    app.type = 'forms_item';
+    // find form
+    var form = new Form({
+      id: fid
+    });
+    form.fetch().done(function(){
+      var project = new Project({
+        _id: pid
+      });
+      project.fetch().done(function(){
+        app.type = 'forms_project';
+        app.project = project;
+        self.showFormsView(form);
+      });
+    });
+  },
+
   showProjectForms: function(pid) {
     var app = window.hackdash.app;
     var self = this;
@@ -504,7 +529,9 @@ module.exports = Backbone.Marionette.AppRouter.extend({
     });
     project.fetch().done(function(){
       app.project = project;
+      app.type = 'forms_project';
       var forms = new Forms();
+      forms.project = pid;
       forms.fetch().done(function(){
         self.showFormsView(null, forms.getForProject(pid));
       });

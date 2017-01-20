@@ -43,7 +43,8 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       formDesc: function() {
         switch(hackdash.app.type) {
           case 'forms_project':
-            return 'Form for project <strong>' + this.project.get('title') + '</strong>';
+            var title = this.project && this.project.get('title') || hackdash.app.project && hackdash.app.project.get('title');
+            return 'Form for project <strong>' + title + '</strong>';
           case 'forms_item':
             return 'List of projects under this form';
           case 'forms_list':
@@ -53,7 +54,8 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     };
   },
 
-  initialize: function() {
+  initialize: function(options) {
+    this.readOnly = options && options.readOnly;
     if(this.model && hackdash.app.project) {
       this.model.set({'project': hackdash.app.project});
     }
@@ -69,9 +71,10 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       }));
     } else if(this.model && project) {
       // Render view
-      console.log('Render form model for project', this.model, project);
+      console.log('Render form model for project', this.model, project, this.readOnly);
       this.formContent.show(new FormRender({
-        model: this.model
+        model: this.model,
+        readOnly: this.readOnly
       }));
     } else if(this.model) {
       console.log('Render form model', this.model);

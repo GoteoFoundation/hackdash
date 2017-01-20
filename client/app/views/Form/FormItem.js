@@ -24,6 +24,12 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       return new Handlebars.SafeString('<strong style="color:hsl(' + (120 * Math.pow(percent,3)) + ', 50%, 50%)">' +
         Math.round(100 * percent) +
         '% ' + __('Answered') + '</strong>');
+    },
+    canRespond: function() {
+      return true;
+    },
+    canView: function() {
+      return true;
     }
   },
 

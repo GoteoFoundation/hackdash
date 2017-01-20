@@ -158,9 +158,14 @@ Roles are collections of atomic permissions. Current permissions are:
 - `project_create`: Permission to create a new project.
 - `project_follow`: Permission to follow other projects.
 - `project_join`: Permission to join other projects as contributor.
-- `project_update`: Permission to update others projects (except dashboard). **Requires to be admin in that dashboard**
-- `project_delete`: Permission to delete others projects. **Requires to be admin in that dashboard**
-- `project_change_dashboard`: Permission to change project's dashboard. **Requires to be admin in that dashboard**
+- `project_update`: Permission to update others projects (except dashboard). **Requires to be admin in that dashboard** (project owner has this permission anyway).
+- `project_delete`: Permission to delete others projects. **Requires to be admin in that dashboard** (project owner has this permission anyway).
+- `project_change_dashboard`: Permission to change project's dashboard. **Requires to be admin in that dashboard**.
+- TODO`form_results`: Permission to view forms responses for a project. **Requires to be admin in that dashboard** (project owner has this permission anyway).
+- TODO`form_respond`: Permission to answer forms for a project. **Requires to be admin in that dashboard** (project owner has this permission anyway).
+- TODO`form_create`: Permission to create new forms in a dashboard or collection. **Requires to be admin in that dashboard or collection)**.
+- TODO`form_update`: Permission to edit existing forms in a dashboard or collection (form owner has this permission anyway). **Requires to be admin in that dashboard or collection)**.
+- TODO`form_delete`: Permission to delete existing forms in a dashboard or collection (form owner has this permission anyway). **Requires to be admin in that dashboard or collection)**.
 - `dashboard_create`: Permission for creating dashboards
 - `dashboard_view_private`: Permission to view projects in private dashboards (dashboard owner has this permission anyway). **Requires to be admin in that dashboard**
 - `dashboard_set_private`: Permission to change dashboard status. **Requires to be admin in that dashboard**

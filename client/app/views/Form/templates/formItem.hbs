@@ -20,9 +20,10 @@
           <span class="pull-right">
             {{ ../respondedLabel .. .}}
             <br>
-            {{#if ../open}}
-              <a href="/forms/{{../_id}}/{{_id}}" class="btn btn-info">{{ __ "Reply this form"}}</a>
-            {{else}}
+            {{#if ../canRespond}}
+              <a href="/forms/{{../_id}}/{{_id}}/respond" class="btn btn-info">{{ __ "Reply this form"}}</a>
+            {{/if}}
+            {{#if ../canView}}
               {{!-- <span class="badge">Closed</span> --}}
               <a href="/forms/{{../_id}}/{{_id}}" class="btn btn-default">{{ __ "View responses"}}</a>
             {{/if}}
