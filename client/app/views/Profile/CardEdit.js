@@ -34,6 +34,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
     "instagram": "input[name=instagram]",
     "google": "input[name=google]",
     "github": "input[name=github]",
+    "errorPicture": ".error-cover",
   },
 
   events: {
@@ -70,6 +71,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
   //--------------------------------------
   initialize: function(){
     this.autocomplete = null;
+    this.updatedPicture = false;
   },
 
   onRender: function(){
@@ -78,11 +80,56 @@ module.exports = Backbone.Marionette.ItemView.extend({
     if(!this.model.attributes.location || !this.model.attributes.location.coordinates || this.model.attributes.location.coordinates.length === 0) {
       this.geolocate(); //Ask for browser geolocation
     }
+    this.initImageDrop();
   },
+
   //--------------------------------------
   //+ PUBLIC METHODS / GETTERS / SETTERS
   //--------------------------------------
 
+  initImageDrop: function(){
+    var self = this;
+    var $dragdrop = $('#dragdrop', this.$el);
+
+    var pictureZone = new Dropzone($dragdrop.get(0), {
+      url: hackdash.apiURL + '/profiles/picture',
+      paramName: 'picture',
+      maxFiles: 1,
+      maxFilesize: 8, // MB
+      acceptedFiles: 'image/jpeg,image/png,image/gif',
+      uploadMultiple: false,
+      clickable: true,
+      dictDefaultMessage: __('Drop Image Here'),
+      dictFileTooBig: __('File is too big, 500 Kb is the max'),
+      dictInvalidFileType: __('Only jpg, png and gif are allowed')
+    });
+
+    pictureZone.on("error", function(file, message) {
+      console.log('error',message);
+      self.ui.errorPicture.removeClass('hidden').text(__(message));
+      file.accepted = false;
+    });
+
+    pictureZone.on("complete", function(file) {
+      if (!file.accepted){
+        pictureZone.removeFile(file);
+        return;
+      }
+
+      self.ui.errorPicture.addClass('hidden').text('');
+
+      var url = JSON.parse(file.xhr.response).href;
+      self.model.set({ "picture": url }, { silent: true });
+      self.updatedPicture = true;
+      pictureZone.removeFile(file);
+
+      $dragdrop
+        .css('background-image', 'url(' + url + ')');
+
+      $('.dz-message span', $dragdrop).css('opacity', '0.6');
+
+    });
+  },
   //--------------------------------------
   //+ EVENT HANDLERS
   //--------------------------------------
@@ -102,6 +149,9 @@ module.exports = Backbone.Marionette.ItemView.extend({
         github: this.ui.github.val(),
       }
     };
+    if(this.updatedPicture) {
+      toSave = this.model.get('picture');
+    }
     if(hackdash.userHasPermission(hackdash.user, 'user_change_role') && this.ui.role.val()) {
       toSave.role = this.ui.role.val();
     }

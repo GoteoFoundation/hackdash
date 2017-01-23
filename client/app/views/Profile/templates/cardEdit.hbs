@@ -3,8 +3,19 @@
 <div class="cover">{{getProfileImageHex .}}</div>
 
 <form>
+
   <div class="form-content">
     <label class="profile-fields-required">{{__ "all fields required"}}</label>
+
+    <div class="form-group">
+      <div id="dragdrop" class="dropzone item-cover"
+        {{#if picture}}
+        style="background-image: url({{picture}});"
+        {{/if}}>
+      </div>
+      <p class="error-cover bg-danger text-danger hidden"></p>
+    </div>
+
     <div class="form-group">
       <input name="name" type="text" placeholder="Name" value="{{name}}" class="form-control"/>
     </div>
