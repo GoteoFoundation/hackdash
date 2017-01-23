@@ -7,7 +7,7 @@ module.exports = {
 
     "team": "Roadbook Team",
 
-    "Dashboards": "Event boards",
+    "Dashboards": "Ideas Board",
     "Projects":"Ideas",
     "create now":"create event",
 
@@ -25,7 +25,7 @@ module.exports = {
     "dashboard name (5-10 chars)": "event name (5-10 chars)",
 
     "No collections available yet": "Hold on! Collections of boards are not visible yet. They will be disclosed once there’s a significant number of ideas to be collected ;) !",
-    "No dashboards available yet": "Hold on! Event boards are not visible yet. They will be formed and disclosed once there’s a significant number of matching ideas to be featured together. Don’t forget to upload yours!",
+    "No dashboards available yet": "Hold on! Ideas Board are not visible yet. They will be formed and disclosed once there’s a significant number of matching ideas to be featured together. Don’t forget to upload yours!",
     "No projects available yet": "Ideas are not visible yet. The 50 ideas will be revealed to the rest of Idea Makers and Idea Camp community later on. Make sure to start working on yours!",
     "No users available yet": "No users available yet!",
     "No collections found": "No collections for these keywords!",
@@ -41,12 +41,12 @@ module.exports = {
     "Tags":"Add keywords separated with a coma",
     "Project URL Demo":"Your project page",
 
-    "Open dashboard website": "Open events website",
+    "Open dashboard website": "Open Ideas website",
     "Share this Dashboard": "Share this Event board",
     "Share this Project":"Share this Idea",
 
-    "embed this dashboard": "embed this event board",
-    "Add this dashboard to your website by coping this code below": "Add this event board to your website by coping this code below",
+    "embed this dashboard": "embed this Ideas Board",
+    "Add this dashboard to your website by coping this code below": "Add this Ideas Board to your website by coping this code below",
     "embed this project":"embed this idea",
     "Add this project to your website by coping this code below":"Add this idea to your website by coping this code below",
 
