@@ -27,6 +27,13 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     "link": "input[name=link]",
     "tags": "select[name=tags]",
     "status": "select[name=status]",
+    "location": "input[name=location]",
+    "city": "input[name=city]",
+    "region": "input[name=region]",
+    "country": "input[name=country]",
+    "zip": "input[name=zip]",
+    "lat": "input[name=lat]",
+    "lng": "input[name=lng]",
     "errorCover": ".error-cover",
     "toolsUrl": ".tools-url",
     "save": "#save"
@@ -37,6 +44,8 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     "click #searchGh": "searchRepo",
 
     "click @ui.toolsUrl": "toolsUrl",
+
+    // "focus @ui.location": "geolocate",
 
     "click @ui.save": "save",
     "click #cancel": "cancel"
@@ -73,6 +82,13 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   onRender: function() {
     if(this.model) {
       this.setModelStatus(this.model.get('status') || hackdash.statuses[0].status);
+      // console.log(this.model.attributes);
+      if(this.ui.location.length) {
+        this.initGoogleAutocomplete(this.ui.location.get(0));
+        // if(!this.model.get('location') || !this.model.get('location').coordinates || this.model.get('location').coordinates.length === 0) {
+        //   this.geolocate(); //Ask for browser geolocation
+        // }
+      }
     }
   },
 
@@ -140,6 +156,19 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       status: this.ui.status.val(),
       cover: this.model.get('cover')
     };
+
+    var lat = parseFloat(this.ui.lat.val());
+    var lng = parseFloat(this.ui.lng.val());
+    if(!isNaN(lat) && !isNaN(lng)) {
+      toSave.location = {
+        type: 'Point',
+        city: this.ui.city.val(),
+        region: this.ui.region.val(),
+        country: this.ui.country.val(),
+        zip: this.ui.zip.val(),
+        coordinates: [lng, lat]
+      };
+    }
 
     if(hackdash.userHasPermission(user, 'project_change_dashboard') && user.admin_in.indexOf(this.ui.domain.val()) >= 0) {
       toSave.domain = this.ui.domain.val();
@@ -330,6 +359,65 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
     $("#searchGh", this.$el).button('reset');
     $("#txt-repo", this.$el).val('');
+  },
+
+  initGoogleAutocomplete: function(el) {
+    if(window.google) {
+      this.autocomplete = new window.google.maps.places.Autocomplete(el, {types: ['geocode']});
+      this.autocomplete.addListener('place_changed', this.fillInAddress.bind(this));
+    }
+  },
+
+  fillInAddress: function() {
+    var place = this.autocomplete.getPlace();
+    this.ui.lat.val(place.geometry.location.lat());
+    this.ui.lng.val(place.geometry.location.lng());
+
+    // Get each component of the address from the place details
+    // and fill the corresponding field on the form.
+    for (var i = 0; i < place.address_components.length; i++) {
+      var addressType = place.address_components[i].types[0];
+      var short = place.address_components[i].short_name;
+      var long = place.address_components[i].long_name;
+      // console.log(addressType, short, long);
+      if(addressType === 'country') {
+        this.ui.country.val(short);
+      }
+      else if(addressType === 'locality') {
+        this.ui.city.val(long);
+      }
+      else if(addressType === 'administrative_area_level_2') {
+        this.ui.region.val(short);
+      }
+      else if(addressType === 'postal_code') {
+        this.ui.zip.val(short);
+      }
+    }
+  },
+  // Bias the autocomplete object to the user's geographical location,
+  // as supplied by the browser's 'navigator.geolocation' object.
+  geolocate: function () {
+    if (window.navigator.geolocation) {
+      if(this.geolocateAsked) {
+        return;
+      }
+      this.geolocateAsked = true;
+      var self = this;
+      window.navigator.geolocation.getCurrentPosition(function(position) {
+        var geolocation = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        self.ui.lat.val(geolocation.lat);
+        self.ui.lng.val(geolocation.lng);
+        var circle = new window.google.maps.Circle({
+          center: geolocation,
+          radius: position.coords.accuracy
+        });
+
+        self.autocomplete.setBounds(circle.getBounds());
+      });
+    }
   }
 
 });

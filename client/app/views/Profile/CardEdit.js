@@ -74,9 +74,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
         return hackdash.skills || [];
       },
       hasSkillSelected: function(skill) {
-        console.log(this.skills);
         var s = this.skills || [];
-        console.log(skill, s, s.indexOf(skill));
         return s.indexOf(skill) > -1 ? ' selected' : '';
       },
       skillsText: function() {
@@ -94,10 +92,11 @@ module.exports = Backbone.Marionette.ItemView.extend({
   },
 
   onRender: function(){
-    this.initGoogleAutocomplete(this.ui.location.get(0));
-    // console.log(this.model.attributes);
-    if(!this.model.attributes.location || !this.model.attributes.location.coordinates || this.model.attributes.location.coordinates.length === 0) {
-      this.geolocate(); //Ask for browser geolocation
+    if(this.ui.location.length) {
+      this.initGoogleAutocomplete(this.ui.location.get(0));
+      if(!this.model.get('location') || !this.model.get('location').coordinates || this.model.get('location').coordinates.length === 0) {
+        this.geolocate(); //Ask for browser geolocation
+      }
     }
     this.initImageDrop();
     this.initSelect2();
@@ -208,7 +207,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
         region: this.ui.region.val(),
         country: this.ui.country.val(),
         zip: this.ui.zip.val(),
-        coordinates: [lat, lng]
+        coordinates: [lng, lat]
       };
     }
 
