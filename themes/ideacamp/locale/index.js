@@ -1,6 +1,9 @@
 /*eslint-disable */
 module.exports = {
   en: {
+    "User skills":  "My expertise",
+    "Skills for role maker":  "What do you need?",
+
     "title_default": "Ideacamp Roadbook",
     "description_default": "The digital roadbook enhance the visualisation of the Idea Camp process and facilitate the matchmaking between participants",
     "site_name": "IdeaCamp2017",

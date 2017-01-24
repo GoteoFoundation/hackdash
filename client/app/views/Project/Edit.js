@@ -149,7 +149,6 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     var s = this.extraFields[this.ui.status.val()];
     if(s) {
       var model = s.model;
-      console.log("extra", model.get('extra'));
       toSave.extra = model.get('extra');
     }
 

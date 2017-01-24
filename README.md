@@ -70,6 +70,7 @@ Added vars for Wotify Dashboards:
 * `theme`: This allows to apply a custom themes to hackdash. Just put a `theme_name` with the same folder name inside `themes/theme_name`. Styles or hbs templates can be overwritten. (Look at the code inside themes for an example).
 * `language`: If `null` autodetects from user's browser settings. Otherwise specify a valid lang to force Hackdash to that lang (ie: `en`, `es`)
 * `maxUploadSize`: Max upload size for file uploads (defaults to 2M),
+* `skills`: List of user profiles skills (if empty none shown)
 
 
 Login keys setup

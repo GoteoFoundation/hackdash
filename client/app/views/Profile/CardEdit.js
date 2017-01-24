@@ -17,6 +17,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
   ui: {
     "name": "input[name=name]",
     "role": "select[name=role]",
+    "skills": "select[name=skills]",
     "email": "input[name=email]",
     "bio": "textarea[name=bio]",
     "birthdate": "input[name=birthdate]",
@@ -47,23 +48,41 @@ module.exports = Backbone.Marionette.ItemView.extend({
     "change": "render"
   },
 
-  templateHelpers: {
-    canEditRole: function () {
-      return hackdash.userHasPermission(hackdash.user, 'user_change_role');
-    },
-    roles: function() {
-      return roles;
-    },
-    getRole: function() {
-      if(roles) {
-        var r = _.findWhere(roles, {role: this.role});
-        if(r) {
-          return r.name;
+  templateHelpers: function() {
+    var self = this;
+    return {
+      canEditRole: function () {
+        return hackdash.userHasPermission(hackdash.user, 'user_change_role');
+      },
+      roles: function() {
+        return roles;
+      },
+      getRole: function() {
+        if(roles) {
+          var r = _.findWhere(roles, {role: this.role});
+          if(r) {
+            return r.name;
+          }
+          return this.role;
         }
-        return this.role;
+        return null;
+      },
+      showSkills: function() {
+        return hackdash.skills && hackdash.skills.length;
+      },
+      skillsList: function() {
+        return hackdash.skills || [];
+      },
+      hasSkillSelected: function(skill) {
+        console.log(this.skills);
+        var s = this.skills || [];
+        console.log(skill, s, s.indexOf(skill));
+        return s.indexOf(skill) > -1 ? ' selected' : '';
+      },
+      skillsText: function() {
+        return self.skillsText(this.role);
       }
-      return null;
-    }
+    };
   },
 
   //--------------------------------------
@@ -81,11 +100,26 @@ module.exports = Backbone.Marionette.ItemView.extend({
       this.geolocate(); //Ask for browser geolocation
     }
     this.initImageDrop();
+    this.initSelect2();
   },
 
   //--------------------------------------
   //+ PUBLIC METHODS / GETTERS / SETTERS
   //--------------------------------------
+
+  initSelect2: function(){
+    if (this.model && this.model.get('skills')){
+      this.ui.skills.val(this.model.get('skills'));
+    }
+
+    this.ui.skills.select2({
+      theme: 'bootstrap',
+      placeholder: this.skillsText(this.model && this.model.get('role')),
+      minimumResultsForSearch: 10
+    });
+    // Fix for select2
+    $('.select2-container', this.$el).css({width: '100%'});
+  },
 
   initImageDrop: function(){
     var self = this;
@@ -140,6 +174,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
       name: this.ui.name.val(),
       email: this.ui.email.val(),
       bio: this.ui.bio.val(),
+      skills: this.ui.skills.val(),
       social: {
         facebook: this.ui.facebook.val(),
         twitter: this.ui.twitter.val(),
@@ -194,6 +229,15 @@ module.exports = Backbone.Marionette.ItemView.extend({
   //--------------------------------------
   //+ PRIVATE AND PROTECTED METHODS
   //--------------------------------------
+  skillsText: function(role) {
+    // Text can be personalized for every role if needed
+    var s = 'Skills for role ' + role;
+    var t =  __(s);
+    if(t === s) {
+      return __('User skills');
+    }
+    return t;
+  },
 
   errors: {
     "name_required": __("Name is required"),

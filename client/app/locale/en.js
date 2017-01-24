@@ -148,6 +148,8 @@ module.exports = {
 "Male": "Male",
 "Female": "Female",
 "Other": "Other",
+"Role": "Role",
+"User skills":  "My expertise",
 /* listItem.hbs */
 
 "Remove":"Remove",

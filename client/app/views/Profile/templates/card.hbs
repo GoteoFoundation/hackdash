@@ -4,10 +4,17 @@
 
 {{#isLoggedIn}}
   <p>{{email}}</p>
-  <p>{{getRole}}</p>
 {{else}}
   <p><a class="login" style="color: #A8A8A8;">{{__ "[ Log in to reveal e-mail ]"}}</a></p>
 {{/isLoggedIn}}
 
+  <p>{{getRole}}</p>
+
   <p>{{bio}}</p>
+
+  {{#if getSkills}}
+    <p><strong>{{skillsText}}</strong></p>
+    <p>{{getSkills}}</p>
+  {{/if}}
+
 </div>

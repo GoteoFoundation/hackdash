@@ -32,7 +32,21 @@ module.exports = Backbone.Marionette.ItemView.extend({
         return this.role;
       }
       return null;
+    },
+    skillsText: function() {
+      // Text can be personalized for every role if needed
+      var s = 'Skills for role ' + this.role;
+      var t =  __(s);
+      if(t === s) {
+        return __('User skills');
+      }
+      return t;
+    },
+    getSkills: function() {
+      var skills = this.skills || [];
+      return skills.map(function(s){return __(s);}).join(', ');
     }
+
   },
   //--------------------------------------
   //+ INHERITED / OVERRIDES

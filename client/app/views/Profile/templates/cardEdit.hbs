@@ -8,6 +8,10 @@
     <label class="profile-fields-required">{{__ "all fields required"}}</label>
 
     <div class="form-group">
+      <input name="name" type="text" placeholder="Name" value="{{name}}" class="form-control"/>
+    </div>
+
+    <div class="form-group">
       <div id="dragdrop" class="dropzone item-cover"
         {{#if picture}}
         style="background-image: url({{picture}});"
@@ -16,30 +20,39 @@
       <p class="error-cover bg-danger text-danger hidden"></p>
     </div>
 
-    <div class="form-group">
-      <input name="name" type="text" placeholder="Name" value="{{name}}" class="form-control"/>
-    </div>
-
-    {{#if canEditRole}}
-    <div class="form-group">
-      <select name="role" class="form-control">
-        <option value="">{{__ "Role"}}</option>
-        {{#each roles}}
-          <option value="{{role}}"{{selected role ../role}}>{{name}}</option>
-        {{/each}}
-      </select>
-    </div>
-    {{else}}
-    <div class="form-group">
-      <p>{{getRole}}</p>
+    {{#if showSkills}}
+      <div class="form-group">
+        <label>{{skillsText}}</label>
+        <select name="skills" class="form-control" multiple>
+          {{#each skillsList}}
+            <option value="{{.}}"{{../hasSkillSelected . }}>{{__ .}}</option>
+          {{/each}}
+        </select>
     </div>
     {{/if}}
+
+    {{#if canEditRole}}
+      <div class="form-group">
+        <select name="role" class="form-control">
+          <option value="">{{__ "Role"}}</option>
+          {{#each roles}}
+            <option value="{{role}}"{{selected role ../role}}>{{name}}</option>
+          {{/each}}
+        </select>
+      </div>
+    {{else}}
+      <div class="form-group">
+        <p>{{getRole}}</p>
+      </div>
+    {{/if}}
+
     <div class="form-group">
       <input name="email" type="text" placeholder="Email" value="{{email}}" class="form-control"/>
       {{#unless email}}
       <label class="email-info">{{__ "email only visible for logged in users"}}</label>
       {{/unless}}
     </div>
+
     <div class="form-group">
       <textarea name="bio" placeholder='{{__ "about_you"}}' class="form-control" rows="4">{{bio}}</textarea>
     </div>
