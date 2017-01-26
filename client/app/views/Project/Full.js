@@ -4,9 +4,11 @@
  */
 
 var template = require("Project/templates/full.hbs")
+  , Comments = require('../../models/Comments')
+  , CommentsView = require('./Comments')
   , Sharer = require("../Sharer");
 
-module.exports = Backbone.Marionette.ItemView.extend({
+module.exports = Backbone.Marionette.LayoutView.extend({
 
   //--------------------------------------
   //+ PUBLIC PROPERTIES / CONSTANTS
@@ -23,7 +25,6 @@ module.exports = Backbone.Marionette.ItemView.extend({
     toolsUrl: function() {
       var status = _.findWhere(hackdash.statuses, {status: this.status});
       if(status) {
-        console.log(status, status.toolsUrl);
         return status.toolsUrl;
       }
       return '';
@@ -67,6 +68,10 @@ module.exports = Backbone.Marionette.ItemView.extend({
     "shareLink": '.share'
   },
 
+  regions: {
+    "commentsContent": ".comments-ctn"
+  },
+
   events: {
     "click @ui.contribute": "onContribute",
     "click @ui.follow": "onFollow",
@@ -85,11 +90,23 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
   onRender: function(){
     this.$el.addClass(this.model.get("status"));
+    var self = this;
     $(".tooltips", this.$el).tooltip({});
-    if (hackdash.discourseUrl) {
+    if (hackdash.internalComments) {
+      // Get comments
+      var comments = new Comments();
+      comments.project = this.model.get('_id');
+      comments.fetch().done(function(){
+        console.log('Comments', comments);
+        self.commentsContent.show(new CommentsView({
+          collection: comments
+        }));
+      });
+    }
+    else if (hackdash.discourseUrl) {
       $.getScript("/js/discourse.js");
     }
-    if (hackdash.disqus_shortname) {
+    else if (hackdash.disqus_shortname) {
       $.getScript("/js/disqus.js");
     }
 
