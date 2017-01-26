@@ -4,6 +4,14 @@ module.exports = {
     "User skills":  "My expertise",
     "Skills for role maker":  "What do you need?",
 
+    /* Comments titles */
+    "comment-type-": "",
+    "comment-type-join": "I will join this if...",
+    "comment-type-great": "I think this is great because...",
+    "comment-type-improved": "I think this can be improved by...",
+    "comment-type-similar": "I know a similar thing, check this",
+
+
     "title_default": "Ideacamp Roadbook",
     "description_default": "The digital roadbook enhance the visualisation of the Idea Camp process and facilitate the matchmaking between participants",
     "site_name": "IdeaCamp2017",

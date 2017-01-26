@@ -71,6 +71,8 @@ Added vars for Wotify Dashboards:
 * `language`: If `null` autodetects from user's browser settings. Otherwise specify a valid lang to force Hackdash to that lang (ie: `en`, `es`)
 * `maxUploadSize`: Max upload size for file uploads (defaults to 2M),
 * `skills`: List of user profiles skills (if empty none shown)
+* `internalComments`: Use internal comments instead of disqus or discourse
+* `commentsTypes`: If internal comments are used, a categorization of the comments can be specified by this array
 
 
 Login keys setup

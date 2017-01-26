@@ -315,6 +315,10 @@ module.exports = Backbone.Marionette.ItemView.extend({
     var place = this.autocomplete.getPlace();
     this.ui.lat.val(place.geometry.location.lat());
     this.ui.lng.val(place.geometry.location.lng());
+    this.ui.country.val('');
+    this.ui.city.val('');
+    this.ui.region.val('');
+    this.ui.zip.val('');
 
     // Get each component of the address from the place details
     // and fill the corresponding field on the form.

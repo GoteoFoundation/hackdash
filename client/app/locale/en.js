@@ -176,6 +176,8 @@ module.exports = {
 "GitHub":"GitHub",
 "LOADING":"LOADING",
 "import":"import",
+"Location":"Location",
+"City":"City",
 "Tags":"Tags ( comma separated values )",
 "Project URL Demo":"Project URL Demo",
 "Save":"Save",
