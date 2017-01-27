@@ -935,18 +935,31 @@ footer {
         &.comments-ctn {
           margin: 0 auto;
           padding: 0;
+
           .hexagon {
             .getHexagon(40px);
             margin-right: 10px;
           }
+
+          textarea.form-control{
+            font-family: @primary-font;
+            text-transform: none;
+            font-size: @fsize-15;
+          }
+
           h3 {
             padding:5px 0;
             margin:10px 0;
             border-bottom: 2px solid #E7E9EE;
           }
+
           .media {
             margin-left: 10px;
             margin-top:20px;
+            font-size: @fsize-15;
+            .media-body p {
+              white-space: pre-line;
+            }
           }
         }
 

@@ -327,6 +327,6 @@ module.exports = {
 /* Comments */
 "Comments": "Comments",
 "Post comment": "Post comment",
-"Start the discussion...": "Start the discussion...",
+"Add a comment...": "Add a comment...",
 "Comments can't be blank": "Comments can't be blank"
 };

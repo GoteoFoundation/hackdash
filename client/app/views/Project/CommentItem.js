@@ -21,6 +21,13 @@ module.exports = Backbone.Marionette.ItemView.extend({
         return __('comment-type-' + this.type);
       }
       return '';
+    },
+    getComment: function() {
+      var md = this.comment.trim();
+      if(md) {
+        return markdown.toHTML(md).trim();
+      }
+      return '';
     }
   }
 

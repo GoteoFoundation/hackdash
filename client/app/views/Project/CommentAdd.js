@@ -25,7 +25,6 @@ module.exports = Backbone.Marionette.ItemView.extend({
     "change": "render"
   },
 
-
   templateHelpers: {
     getTypes: function() {
       return hackdash.commentTypes && hackdash.commentTypes.map(function(e){
@@ -35,6 +34,9 @@ module.exports = Backbone.Marionette.ItemView.extend({
   },
 
   addComment: function() {
+    if(!hackdash.user) {
+      return hackdash.app.showLogin();
+    }
     var self = this;
     var toSave = {
       type: self.ui.type.val(),
@@ -50,7 +52,6 @@ module.exports = Backbone.Marionette.ItemView.extend({
         $('[name="send"]', self.$el).button('reset');
         $('.error', self.$el).text('');
         self.model.trigger('change');
-        console.log('ok');
       })
       .error(function(err){
         $('[name="send"]', self.$el).button('reset');
