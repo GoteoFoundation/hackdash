@@ -324,4 +324,9 @@ module.exports = {
 "This file type is not allowed": "This file type is not allowed",
 "Answered": "Answered",
 "Reply this form": "Reply this form",
+/* Comments */
+"Comments": "Comments",
+"Post comment": "Post comment",
+"Start the discussion...": "Start the discussion...",
+"Comments can't be blank": "Comments can't be blank"
 };

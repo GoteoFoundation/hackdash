@@ -5,10 +5,10 @@ module.exports = {
     "Skills for role maker":  "What do you need?",
 
     /* Comments titles */
-    "comment-type-": "",
+    "comment-type-null": "--Other--",
     "comment-type-join": "I will join this if...",
     "comment-type-great": "I think this is great because...",
-    "comment-type-improved": "I think this can be improved by...",
+    "comment-type-improve": "I think this can be improved by...",
     "comment-type-similar": "I know a similar thing, check this",
 
 

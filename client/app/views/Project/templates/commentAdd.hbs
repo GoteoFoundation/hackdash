@@ -1,0 +1,24 @@
+<div class="media-left">
+  <a href="/users/profile">
+    {{getMyProfileImageHex}}
+  </a>
+</div>
+<div class="media-body">
+  {{#if getTypes}}
+    <div class="form-group">
+      <select class="form-control" name="comment-type">
+        <option disabled selected>{{__ 'Subject'}}</option>
+      {{#each getTypes}}
+        <option value="{{value}}">{{title}}</option>
+      {{/each}}
+      </select>
+    </div>
+  {{/if}}
+  <div class="form-group">
+    <textarea name="add-comment" class="form-control" placeholder="{{__ 'Start the discussion...' }}"></textarea>
+  </div>
+  <div class="form-group">
+    <p class="text-danger error pull-left"></p>
+    <button name="send" class="pull-right btn btn-primary">{{__ 'Post comment'}}</button>
+  </div>
+</div>

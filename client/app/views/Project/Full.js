@@ -22,6 +22,9 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   template: template,
 
   templateHelpers: {
+    internalComments: function() {
+      return hackdash.internalComments;
+    },
     toolsUrl: function() {
       var status = _.findWhere(hackdash.statuses, {status: this.status});
       if(status) {
@@ -99,7 +102,8 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       comments.fetch().done(function(){
         console.log('Comments', comments);
         self.commentsContent.show(new CommentsView({
-          collection: comments
+          collection: comments,
+          model: self.model
         }));
       });
     }

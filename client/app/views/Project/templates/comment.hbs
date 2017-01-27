@@ -1,1 +1,12 @@
-<p>{{comment}}</p>
+<div class="media-left">
+  <a href="/users/{{user._id}}">
+    {{getProfileImageHex user}}
+  </a>
+</div>
+<div class="media-body">
+{{#if getType}}
+  <h4 class="media-heading">{{getType}}</h4>
+{{/if}}
+
+  {{{markdown comment}}}
+</div>

@@ -5,14 +5,11 @@
 
 module.exports = Backbone.Model.extend({
 
-  idAttribute: "_id",
-
-  defaults: {
-    active: true
+  url: function(){
+    return hackdash.apiURL + "/comments";
   },
 
-  urlRoot: function(){
-    return hackdash.apiURL + '/comments';
-  }
+  idAttribute: "_id",
 
 });
+

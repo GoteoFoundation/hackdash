@@ -123,71 +123,74 @@
 
     <div class="col-md-12 buttons-panel">
 
-    {{#if link}}
-    <div class="pull-right">
-      <a href="{{link}}" target="__blank" class="btn btn-default">{{__ "demo"}}</a>
-    </div>
-    {{/if}}
+      {{#if link}}
+        <div class="pull-right">
+          <a href="{{link}}" target="__blank" class="btn btn-default">{{__ "demo"}}</a>
+        </div>
+      {{/if}}
 
-    {{#isLoggedIn}}
+      {{#isLoggedIn}}
 
-      {{#if isAdminOrLeader}}
+        {{#if isAdminOrLeader}}
 
-        {{#if showActionDelete}}
-          <div class="pull-right remove">
-            <a class="btn btn-danger">{{__ "Remove"}}</a>
+          {{#if showActionDelete}}
+            <div class="pull-right remove">
+              <a class="btn btn-danger">{{__ "Remove"}}</a>
+            </div>
+          {{/if}}
+
+          <div class="pull-right edit">
+            {{#if toolsUrl}}
+              <a class="btn btn-primary bnt-red" href="{{toolsUrl}}" target="_blank" data-bypass>Tools for this stage</a>
+            {{/if}}
+            <a class="btn btn-info" href="/projects/{{_id}}/forms" data-bypass>{{__ "Forms"}}</a>
+            {{#if showActionEdit}}
+              <a class="btn btn-success" href="/projects/{{_id}}/edit">{{__ "Edit"}}</a>
+            {{/if}}
           </div>
         {{/if}}
 
-        <div class="pull-right edit">
-          {{#if toolsUrl}}
-            <a class="btn btn-primary bnt-red" href="{{toolsUrl}}" target="_blank" data-bypass>Tools for this stage</a>
-          {{/if}}
-          <a class="btn btn-info" href="/projects/{{_id}}/forms" data-bypass>{{__ "Forms"}}</a>
-          {{#if showActionEdit}}
-            <a class="btn btn-success" href="/projects/{{_id}}/edit">{{__ "Edit"}}</a>
-          {{/if}}
+
+        <div class="pull-left bottom-buttons">
+
+        {{#if showActionContribute}}
+          <div class="pull-left contributor">
+            {{#if contributing}}
+            <a data-loading-text="{{__ "leaving..."}}" class="btn btn-default leave">{{__ "Leave"}}</a>
+            {{else}}
+            <a data-loading-text="{{__ "joining..."}}" class="btn btn-default join">{{__ "Join"}}</a>
+            {{/if}}
+          </div>
+        {{/if}}
+
+        {{#if showActionFollow}}
+          <div class="pull-left follower">
+            {{#if following}}
+            <a data-loading-text="{{__ "unfollowing..."}}" class="btn btn-default unfollow">{{__ "Unfollow"}}</a>
+            {{else}}
+            <a data-loading-text="{{__ "following..."}}" class="btn btn-default follow">{{__ "Follow"}}</a>
+            {{/if}}
+          </div>
+        {{/if}}
+
         </div>
-      {{/if}}
 
+      {{else}}
 
-      <div class="pull-left bottom-buttons">
-
-      {{#if showActionContribute}}
-        <div class="pull-left contributor">
-          {{#if contributing}}
-          <a data-loading-text="{{__ "leaving..."}}" class="btn btn-default leave">{{__ "Leave"}}</a>
-          {{else}}
-          <a data-loading-text="{{__ "joining..."}}" class="btn btn-default join">{{__ "Join"}}</a>
-          {{/if}}
+        <div class="pull-left bottom-buttons">
+          <a class="btn btn-default login">{{__ "Follow"}}</a>
+          <a class="btn btn-default login">{{__ "Join"}}</a>
         </div>
-      {{/if}}
 
-      {{#if showActionFollow}}
-        <div class="pull-left follower">
-          {{#if following}}
-          <a data-loading-text="{{__ "unfollowing..."}}" class="btn btn-default unfollow">{{__ "Unfollow"}}</a>
-          {{else}}
-          <a data-loading-text="{{__ "following..."}}" class="btn btn-default follow">{{__ "Follow"}}</a>
-          {{/if}}
-        </div>
-      {{/if}}
-
-      </div>
-
-    {{else}}
-
-      <div class="pull-left bottom-buttons">
-        <a class="btn btn-default login">{{__ "Follow"}}</a>
-        <a class="btn btn-default login">{{__ "Join"}}</a>
-      </div>
-
-    {{/isLoggedIn}}
+      {{/isLoggedIn}}
     </div>
 
   </div>
 
   <div class="container comments-ctn">
+    {{#if internalComments }}
+      <i class="fa fa-2x fa-spinner fa-pulse"></i>
+    {{/if}}
   </div>
 
   <div class="container discourse-ctn">

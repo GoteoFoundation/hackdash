@@ -1,20 +1,54 @@
 /**
- * VIEW: An Embed Project
+ * VIEW: Comment Item
  *
  */
 
-var CommentItem = require('./CommentItem');
+var
+    template = require('./templates/comments.hbs')
+  , Comment = require('../../models/Comment')
+  , CommentsList = require('./CommentsList')
+  , CommentAdd = require('./CommentAdd');
 
-var EmptyView = Backbone.Marionette.ItemView.extend({
-  template: _.template('<p>No comments yet, be the first!</p>')
-});
+module.exports = Backbone.Marionette.LayoutView.extend({
+  template: template,
 
-module.exports = Backbone.Marionette.CollectionView.extend({
+  className: 'comments col-md-12',
 
-  tagName: 'div',
+  regions: {
+    commentsList: '.comments-list',
+    newComment: '.comments-add'
+  },
 
-  childView: CommentItem,
+  modelEvents: {
+    "change": "render"
+  },
 
-  emptyView: EmptyView,
+  templateHelpers: function(){
+
+  },
+
+  onRender: function() {
+    var self = this;
+    self.commentsList.show(new CommentsList({
+      collection: self.collection
+    }));
+    self.initNewComment();
+  },
+
+  initNewComment: function() {
+    var self = this;
+    self.comment = new Comment({
+        project: self.model && self.model.get('_id'),
+        user: hackdash.user && hackdash.user._id
+      });
+    self.newComment.show(new CommentAdd({
+      model: self.comment
+    }));
+    // Saved comment in the sub-view
+    self.comment.on('change',function(){
+      self.collection.add(self.comment);
+      self.initNewComment();
+    });
+  },
 
 });
