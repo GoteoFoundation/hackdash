@@ -19,14 +19,6 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     newComment: '.comments-add'
   },
 
-  modelEvents: {
-    "change": "render"
-  },
-
-  templateHelpers: function(){
-
-  },
-
   onRender: function() {
     var self = this;
     self.commentsList.show(new CommentsList({
@@ -47,7 +39,9 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     // Saved comment in the sub-view
     self.comment.on('change',function(){
       self.collection.add(self.comment);
+      self.model.set('commentsCount', self.collection.length, {silent:true});
       self.initNewComment();
+      self.render();
     });
   },
 
