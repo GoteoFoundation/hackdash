@@ -2,7 +2,7 @@
 module.exports = {
   en: {
     "User skills":  "My expertise",
-    "Skills for role maker":  "What do you need?",
+    "Skills for role maker":  "What help and expertise do you need?",
 
     /* Comments titles */
     "comment-type-null": "--Other--",
