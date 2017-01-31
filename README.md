@@ -157,7 +157,7 @@ Roles are collections of atomic permissions. Current permissions are:
 
 - `user_update`: Permission to update others users data (except role)
 - `user_change_role`: Permission to change user role
-- `project_comment`: TODO: when a custom comment forum
+- `comment_project`: TODO: when a custom comment forum
 - `project_create`: Permission to create a new project.
 - `project_follow`: Permission to follow other projects.
 - `project_join`: Permission to join other projects as contributor.

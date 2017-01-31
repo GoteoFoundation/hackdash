@@ -3,7 +3,7 @@
     "role": "user",
     "name": "User",
     "perms": [
-      "project_comment",
+      "comment_project",
       "project_create",
       "project_follow"
     ]
@@ -14,7 +14,7 @@
     "perms": [
       "user_update",
       "user_change_role",
-      "project_comment",
+      "comment_project",
       "project_create",
       "project_delete",
       "project_follow",
