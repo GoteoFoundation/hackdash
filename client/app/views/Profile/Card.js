@@ -45,8 +45,49 @@ module.exports = Backbone.Marionette.ItemView.extend({
     getSkills: function() {
       var skills = this.skills || [];
       return skills.map(function(s){return __(s);}).join(', ');
+    },
+    facebook: function() {
+      var s = this.social && this.social.facebook;
+      if(s) {
+        s = 'https://' + s.replace(/^https?\:\/\//i, '');
+      }
+      return s;
+    },
+    twitter: function() {
+      var s = this.social && this.social.twitter;
+      if(s) {
+        s = 'https://' + s.replace(/^https?\:\/\//i, '');
+      }
+      return s;
+    },
+    google: function() {
+      var s = this.social && this.social.google;
+      if(s) {
+        s = 'https://' + s.replace(/^https?\:\/\//i, '');
+      }
+      return s;
+    },
+    linkedin: function() {
+      var s = this.social && this.social.linkedin;
+      if(s) {
+        s = 'https://' + s.replace(/^https?\:\/\//i, '');
+      }
+      return s;
+    },
+    instagram: function() {
+      var s = this.social && this.social.instagram;
+      if(s) {
+        s = 'https://' + s.replace(/^https?\:\/\//i, '');
+      }
+      return s;
+    },
+    github: function() {
+      var s = this.social && this.social.github;
+      if(s) {
+        s = 'https://' + s.replace(/^https?\:\/\//i, '');
+      }
+      return s;
     }
-
   },
   //--------------------------------------
   //+ INHERITED / OVERRIDES
