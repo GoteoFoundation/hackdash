@@ -3,7 +3,6 @@ var
     config = require('../config/config.json')
   , async = require('async')
   , util = require('util')
-  // , mongoose = require('mongoose')
   , mongoose = require('mongoose')
   , colors = require('colors');
 
