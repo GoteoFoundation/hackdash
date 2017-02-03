@@ -18,7 +18,8 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   events: {
-    "click .export-csv": 'exportCSV'
+    "click .export-csv": 'exportCSV',
+    "click .export-zip": 'exportZIP'
   },
 
   templateHelpers: {
@@ -51,6 +52,10 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
   exportCSV: function() {
     window.location = this.model.url() + '/responses?csv';
+  },
+
+  exportZIP: function() {
+    window.location = this.model.url() + '/responses?zip';
   }
 
 });

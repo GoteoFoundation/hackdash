@@ -63,7 +63,7 @@ if(program.list) {
                 var question = _.find(form.questions, function(q){return q._id.toString() == r.question.toString();});
                 // console.log(question.type,r.value);
                 var original = r.value && r.value.path && __dirname + '/../public' + r.value.path;
-                if(question.type == 'file' && original && fs.existsSync(original)) {
+                if(question && question.type == 'file' && original && fs.existsSync(original)) {
                   var dir = dirPath + '/' + slug(id+' ' +project.title);
                   // Export to a file
                   if(!fs.existsSync(dir)) {
