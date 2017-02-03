@@ -11,6 +11,10 @@ var configM = require('./config');
 
 jf.spaces = 2;
 
+/*
+ * DB Connection
+ */
+
 mongoose.connect(config.db.url ||
   ('mongodb://' + config.db.host + '/'+ config.db.name));
 
