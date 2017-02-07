@@ -61,8 +61,13 @@ function processForm (form, callback) {
                 fs.mkdirSync(dir);
               }
               // Copy files
-              fs.copySync(original, dir + '/' + slug(r.value.name || r.value.path));
-              console.log('copied', original);
+              var name = r.value.name || r.value.path;
+              var pos = name.lastIndexOf('.');
+              var ext = name.substring(pos);
+              var name = name.substring(0, pos);
+              console.log(name," -- ",ext);
+              fs.copySync(original, dir + '/' + slug(name) + ext);
+              console.log('COPIED', original, 'AS', slug(name)+ext);
             }
           });
         });
