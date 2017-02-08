@@ -9,6 +9,7 @@ var
 require('../lib/models');
 
 var program = require('commander');
+var promptly = require('promptly');
 
 program
   .version('1.0.0')
@@ -61,7 +62,8 @@ function execute() {
           if(!col) return done('Collection not found');
           console.log(">>> About to modify this collection: ");
           console.log(colors.blue(col.title), 'WITH THIS DASHBOARDS:', colors.blue(col.dashboards));
-          program.confirm('Continue? ', function(ok){
+          promptly.confirm('Continue? ', function(err, ok){
+            if(err) return done(err);
             collection.col = col;
             collection.title = col.title;
             collection.owner = col.owner;
@@ -73,7 +75,8 @@ function execute() {
         console.log(">>> About to create this collection: ");
         console.dir(collection);
 
-        program.confirm('Continue? ', function(ok){
+        promptly.confirm('Continue? ', function(err, ok){
+          if(err) return done(err);
           if (ok) return done(null, collection);
           done('canceled');
         });
@@ -123,7 +126,8 @@ function execute() {
       console.log(">>> Creating collection: ");
       console.dir(collection);
 
-      program.confirm('Is it ok? ', function(ok){
+      promptly.confirm('Is it ok? ', function(err, ok){
+        if(err) return done(err);
         if (ok) return done(null, collection);
         done('canceled');
       });

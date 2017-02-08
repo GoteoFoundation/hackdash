@@ -53,6 +53,7 @@
     "passport-meetup": "^1.0.0",
     "passport-twitter": "^1.0.4",
     "prerender-node": "1.1.1",
+    "promptly": "^2.1.0",
     "pug": "^2.0.0-beta6",
     "quickthumb": "0.0.12",
     "serve-favicon": "^2.3.2",
