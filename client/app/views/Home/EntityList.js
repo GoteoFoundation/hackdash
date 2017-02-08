@@ -22,6 +22,8 @@ module.exports = Backbone.Marionette.CollectionView.extend({
   initialize: function(options){
     // option for fixed slides & not responsive (embeds)
     this.slides = options && options.slides;
+    this.search = options && options.search;
+
   },
 
   onBeforeRender: function(){
@@ -36,6 +38,21 @@ module.exports = Backbone.Marionette.CollectionView.extend({
     _.defer(function(){
       self.updateGrid();
     });
+
+    if(self.search) {
+      // Event for fetch by offset
+      self.search.on('collection:fetched:offset', function(col, type, data) {
+        console.log('offset fetched collection', col, type, data, col.models[data.offset]);
+        // Add Items to slick
+        self.updateGrid();
+        // var item = new Item({
+        //     model: col.models[data.offset]
+        //   });
+        // // console.log(item, Backbone.Marionette.Renderer.render(Item, {model: col.models[data.offset]}));
+        // console.log(item, item.render().$el.html());
+        // // var slick = self.$el.slick('getSlick');
+      });
+    }
   },
 
   //--------------------------------------
@@ -117,6 +134,23 @@ module.exports = Backbone.Marionette.CollectionView.extend({
       .off('setPosition')
       .on('setPosition', this.replaceIcons.bind(this));
 
+    var self = this;
+    this.$el
+      .off('edge')
+      .on('edge', function(event, slick, direction){
+        console.log('edge was hit', direction);
+        var total = self.$el.slick('getSlick') &&
+                    self.$el.slick('getSlick').$slides &&
+                    self.$el.slick('getSlick').$slides.length;
+        if(total) {
+          if(direction === 'left') {
+            self.search.trigger('collection:fetch:offset', total);
+          } else {
+            self.search.trigger('collection:fetch:offset', -total);
+          }
+        }
+      });
+
     this.replaceIcons();
 
     this.initialized = true;
@@ -124,6 +158,13 @@ module.exports = Backbone.Marionette.CollectionView.extend({
   },
 
   replaceIcons: function(){
+    // console.log($('.slick-next', this.$el).is(':visible'), this.search);
+    // if(!$('.slick-next', this.$el).is(':visible') && this.search) {
+      // var total = this.$el.slick('getSlick') && this.$el.slick('getSlick').$slides && this.$el.slick('getSlick').$slides.length;
+      // var offset = parseInt(this.search.offset, 10) + total;
+      // console.log('total', total, offset);
+      // this.search.trigger('collection:fetch:offset', total);
+    // }
     $('.slick-prev', this.$el).html('<i class="fa fa-chevron-left"></i>');
     $('.slick-next', this.$el).html('<i class="fa fa-chevron-right"></i>');
   }

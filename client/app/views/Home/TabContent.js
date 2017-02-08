@@ -133,7 +133,8 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       });
 
       this.content.show(new ListView({
-        collection: this.collection
+        collection: this.collection,
+        search: search
       }));
 
     }

@@ -28,6 +28,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
   initialize: function(options) {
     this.type = options && options.type;
+    this.offset = 0;
   },
 
   onRender: function(){
@@ -38,6 +39,27 @@ module.exports = Backbone.Marionette.ItemView.extend({
     }
 
     this.search();
+
+    var self = this;
+    this.on('collection:fetch:offset', function(offset){
+      // console.log('re-search', self.offset, offset);
+      if(self.collection && self.lastData) {
+        self.offset += offset;
+        self.lastData.offset = self.offset;
+        self.collection.fetch({
+            reset: true,
+            // remove: false,
+            data: $.param(self.lastData)
+          }).done(function() {
+            if(self.collection.length === 0) {
+              self.offset = 0;
+              self.trigger('collection:fetch:offset', 0);
+            } else {
+              self.trigger('collection:fetched:offset', self.collection, self.type, self.lastData);
+            }
+          });
+      }
+    });
   },
 
   serializeData: function(){
@@ -90,6 +112,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
             self.trigger('collection:fetched:init', self.collection, self.type, data);
           });
         }
+        self.lastData = data;
       }
 
     }, 300);
