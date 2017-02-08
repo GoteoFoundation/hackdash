@@ -230,12 +230,17 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
     var ctrl = error.split("_")[0];
     var el = this.ui[ctrl] ? this.ui[ctrl] : this.ui.save;
-    el.parents('.control-group').addClass('has-error');
+    el.parents('.form-group').addClass('has-error');
     el.after('<span class="help-block">' + (this.errors[error] ? this.errors[error] : error) + '</span>');
+    el.focus();
+    $('html, body').animate({
+        scrollTop: el.offset().top
+    }, 500);
+
   },
 
   cleanErrors: function(){
-    $(".has-error", this.$el).removeClass("error");
+    $(".has-error", this.$el).removeClass("has-error");
     $("span.help-block", this.$el).remove();
   },
 

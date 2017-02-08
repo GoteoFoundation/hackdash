@@ -179,9 +179,9 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       var self = this;
       _.each(error.errors, function(o, k) {
         var ctrl = k.substr(k.lastIndexOf('.') + 1);
-        self.ui[ctrl].parents('.control-group').addClass('error');
+        self.ui[ctrl].parents('.form-group').addClass('has-error');
         var m = self.errors[o.path + '_' + o.kind] ? self.errors[o.path + '_' + o.kind] : o.message;
-        self.ui[ctrl].after('<span class="help-inline">' + m + '</span>');
+        self.ui[ctrl].after('<span class="help-block">' + m + '</span>');
       });
     } catch(e) {
       window.alert(e + "\n" + err.responseText);
@@ -190,8 +190,8 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   cleanErrors: function(){
-    $(".error", this.$el).removeClass("error");
-    $("span.help-inline", this.$el).remove();
+    $(".has-error", this.$el).removeClass("has-error");
+    $("span.help-block", this.$el).remove();
   },
 
   isType: function(type) {

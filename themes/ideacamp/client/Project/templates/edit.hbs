@@ -2,7 +2,7 @@
 <div class="header">
   <div class="container">
     <h1>
-      <div class="control-group">
+      <div class="form-group">
           <input name="title" type="text" placeholder='{{__ "Project Title"}}' value="{{title}}" class="form-control"/>
       </div>
     </h1>
@@ -54,7 +54,7 @@
 
       <div class="extra-fields-top"></div>
 
-      <div class="description control-group">
+      <div class="description form-group">
         <label for="description">{{__ "Short Description"}}</label>
         <textarea class="form-control" id="description" name="description" placeholder="{{__ "description_placeholder"}}">{{description}}</textarea>
       </div>
@@ -71,7 +71,7 @@
       <input name="lng" type="hidden" value="{{location.coordinates.[0]}}"/>
       <input name="lat" type="hidden" value="{{location.coordinates.[1]}}"/>
 
-      <div class="tags control-group">
+      <div class="tags form-group">
         <label for="tags">{{__ "Keywords"}}</label>
         <select id="tags" name="tags" multiple data-placeholder="{{__ "Tags" }}" class="form-control">
         {{#each tags}}
@@ -79,7 +79,7 @@
         {{/each}}
         </select>
       </div>
-      <div class="link control-group">
+      <div class="link form-group">
         <label for="link">{{__ "Project URL Demo"}}</label>
         <input id="link" type="text" name="link" placeholder='{{__ "Project URL Demo"}}' class="form-control" value="{{link}}"/>
       </div>
@@ -87,7 +87,7 @@
 
     <div class="col-md-8 buttons-panel">
 
-      <div class="pull-right save control-group">
+      <div class="pull-right save form-group">
         <a id="save" class="btn btn-success">{{__ "Save"}}</a>
       </div>
 

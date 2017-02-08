@@ -145,8 +145,8 @@ module.exports = Backbone.Marionette.ItemView.extend({
     try {
       var error = JSON.parse(err.responseText).error;
       var ctrl = error.split("_")[0];
-      this.ui[ctrl].parents('.control-group').addClass('error');
-      this.ui[ctrl].after('<span class="help-inline">' + this.errors[error] + '</span>');
+      this.ui[ctrl].parents('.form-group').addClass('has-error');
+      this.ui[ctrl].after('<span class="help-block">' + this.errors[error] + '</span>');
     } catch(e) {
       window.alert(err.responseText);
     }
@@ -154,7 +154,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
   },
 
   cleanErrors: function(){
-    $(".error", this.$el).removeClass("error");
-    $("span.help-inline", this.$el).remove();
+    $(".has-error", this.$el).removeClass("has-error");
+    $("span.help-block", this.$el).remove();
   },
 });

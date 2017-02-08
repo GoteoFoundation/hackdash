@@ -287,11 +287,14 @@ module.exports = Backbone.Marionette.ItemView.extend({
     }
 
     var error = JSON.parse(err.responseText).error;
-
     if(this.errors[error]) {
       var ctrl = error.split("_")[0];
-      this.ui[ctrl].parents('.control-group').addClass('error');
-      this.ui[ctrl].after('<span class="help-inline">' + this.errors[error] + '</span>');
+      this.ui[ctrl].parents('.form-group').addClass('has-error');
+      this.ui[ctrl].after('<span class="help-block">' + this.errors[error] + '</span>');
+      this.ui[ctrl].focus();
+      $('html, body').animate({
+          scrollTop: this.ui[ctrl].offset().top
+      }, 500);
     } else {
       // Quick and dirty
       window.alert(error);
@@ -300,8 +303,8 @@ module.exports = Backbone.Marionette.ItemView.extend({
   },
 
   cleanErrors: function(){
-    $(".error", this.$el).removeClass("error");
-    $("span.help-inline", this.$el).remove();
+    $(".has-error", this.$el).removeClass("has-error");
+    $("span.help-block", this.$el).remove();
   },
 
   initGoogleAutocomplete: function(el) {
