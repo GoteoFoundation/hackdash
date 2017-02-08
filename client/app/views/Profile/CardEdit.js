@@ -286,18 +286,22 @@ module.exports = Backbone.Marionette.ItemView.extend({
       return;
     }
 
-    var error = JSON.parse(err.responseText).error;
-    if(this.errors[error]) {
-      var ctrl = error.split("_")[0];
-      this.ui[ctrl].parents('.form-group').addClass('has-error');
-      this.ui[ctrl].after('<span class="help-block">' + this.errors[error] + '</span>');
-      this.ui[ctrl].focus();
-      $('html, body').animate({
-          scrollTop: this.ui[ctrl].offset().top
-      }, 500);
-    } else {
+    try {
+      var error = JSON.parse(err.responseText).error;
+      if(this.errors[error]) {
+        var ctrl = error.split("_")[0];
+        this.ui[ctrl].parents('.form-group').addClass('has-error');
+        this.ui[ctrl].after('<span class="help-block">' + this.errors[error] + '</span>');
+        this.ui[ctrl].focus();
+        $('html, body').animate({
+            scrollTop: this.ui[ctrl].offset().top
+        }, 500);
+      } else {
+        window.alert(error);
+      }
+    } catch(e) {
       // Quick and dirty
-      window.alert(error);
+      window.alert(err.responseText);
     }
 
   },
