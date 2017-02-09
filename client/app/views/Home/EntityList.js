@@ -131,6 +131,7 @@ module.exports = Backbone.Marionette.CollectionView.extend({
       .on('setPosition', this.replaceIcons.bind(this));
 
     var self = this;
+    // TODO: make this capable with arrow clicks
     this.$el
       .off('edge')
       .on('edge', function(event, slick, direction){

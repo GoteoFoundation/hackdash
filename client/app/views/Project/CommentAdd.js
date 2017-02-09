@@ -7,7 +7,7 @@ var
     template = require('./templates/commentAdd.hbs');
 
 module.exports = Backbone.Marionette.ItemView.extend({
-  tagName: 'li',
+  tagName: 'div',
   className: 'media',
   template: template,
   ui: {
@@ -18,7 +18,8 @@ module.exports = Backbone.Marionette.ItemView.extend({
   },
 
   events: {
-    'click @ui.send': 'addComment'
+    'click @ui.send': 'addComment',
+    'focus @ui.comment': 'checkLogin'
   },
 
   modelEvents: {
@@ -30,6 +31,12 @@ module.exports = Backbone.Marionette.ItemView.extend({
       return hackdash.commentTypes && hackdash.commentTypes.map(function(e){
         return {value: e, title: __('comment-type-' +e)};
       });
+    }
+  },
+
+  checkLogin: function() {
+    if(!hackdash.user) {
+      return hackdash.app.showLogin();
     }
   },
 
