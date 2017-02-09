@@ -1,4 +1,4 @@
-Wotify/Hackdash Dev guide
+Wotify/Hackdash API guide
 =========================
 
 As Hackdash uses Backbone (Marionettejs) a resful-api is available.
@@ -26,7 +26,7 @@ List all projects in a dashboard (not paginated)
 
 - `DOMAIN` A valid dashboard ID
 
-**URL GET Params** (*?limit=10&page=1*):
+**URL GET Params** (*?q=project*):
 
 - `q` Any text to be search in the *title*, *description*, *tags* or *domain* (dashboard) fields
 
