@@ -181,6 +181,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       toSave.extra = model.get('extra');
     }
 
+    console.log('Project toSave', toSave);
     $("#save", this.$el).button('loading');
 
     this.model
@@ -247,6 +248,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   extraFields: {},
 
   setModelStatus: function(status) {
+    var self = this;
     if(this.model) {
       if(status) {
         this.model.set({status: status}, {silent: true});
@@ -257,6 +259,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       } else {
         this.ui.toolsUrl.addClass('hidden');
       }
+      $('.form-group', self.$el).show();
       if(this.currentStatus.fields && this.currentStatus.fields.length) {
         console.log('extra fields',this.currentStatus.fields);
         // if(!this.extraFieldsValues[this.currentStatus.status]) {
@@ -268,6 +271,12 @@ module.exports = Backbone.Marionette.LayoutView.extend({
             fields: this.currentStatus.fields
           });
         this.extraFieldsTop.show(this.extraFields[this.currentStatus.status]);
+        if(this.currentStatus.hide) {
+          console.log('HIDE', this.currentStatus.hide);
+          _.each(this.currentStatus.hide, function(f){
+            $('[name="' + f + '"]', self.$el).closest('.form-group').hide();
+          });
+        }
       } else {
         this.extraFieldsTop.empty();
       }

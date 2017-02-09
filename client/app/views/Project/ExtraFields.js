@@ -11,7 +11,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
   template: template,
 
   events: {
-    "change textarea": "changeValue"
+    "change .extra-field": "changeValue"
   },
 
   templateHelpers: function() {
@@ -39,12 +39,12 @@ module.exports = Backbone.Marionette.ItemView.extend({
   },
 
   changeValue: function(e) {
-    var id = $(e.target).attr('id');
+    var id = $(e.target).attr('id').substr(6); // remove "extra-"
     var val = $(e.target).val();
     var extra = this.model.get('extra') || {};
-    extra[this.status] = {};
+    extra[this.status] = extra[this.status] || {};
     extra[this.status][id] = val;
-    this.model.set({extra: extra}, {silent: true});
+    this.model.set({extra: extra}, {patch:true, silent: true});
     console.log('defined extra',extra);
   }
 

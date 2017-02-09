@@ -41,16 +41,12 @@ module.exports = Backbone.Marionette.CollectionView.extend({
 
     if(self.search) {
       // Event for fetch by offset
-      self.search.on('collection:fetched:offset', function(col, type, data) {
-        console.log('offset fetched collection', col, type, data, col.models[data.offset]);
-        // Add Items to slick
+      self.search.on('collection:fetched:page', function(col, type, data) {
+        console.log('page fetched collection', col, type, data, data.page);
         self.updateGrid();
-        // var item = new Item({
-        //     model: col.models[data.offset]
-        //   });
-        // // console.log(item, Backbone.Marionette.Renderer.render(Item, {model: col.models[data.offset]}));
-        // console.log(item, item.render().$el.html());
-        // // var slick = self.$el.slick('getSlick');
+        if(data.page > 0) {
+          $('.slick-prev', this.$el).show();
+        }
       });
     }
   },
@@ -142,12 +138,10 @@ module.exports = Backbone.Marionette.CollectionView.extend({
         var total = self.$el.slick('getSlick') &&
                     self.$el.slick('getSlick').$slides &&
                     self.$el.slick('getSlick').$slides.length;
-        if(total) {
-          if(direction === 'left') {
-            self.search.trigger('collection:fetch:offset', total);
-          } else {
-            self.search.trigger('collection:fetch:offset', -total);
-          }
+        if(direction === 'left' && total >= hackdash.maxQueryLimit) {
+          self.search.trigger('collection:fetch:page', self.search.page + 1);
+        } else if(self.search.page > 0) {
+          self.search.trigger('collection:fetch:page', self.search.page - 1);
         }
       });
 
