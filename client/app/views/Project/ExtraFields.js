@@ -19,11 +19,15 @@ module.exports = Backbone.Marionette.ItemView.extend({
     return {
       fields: function() {
         return self.fields;
+      },
+      readOnly: function() {
+        return self.readOnly;
       }
     };
   },
 
   initialize: function(options) {
+    this.readOnly = !! options.readOnly;
     this.status = options.status || hackdash.statuses[0].status;
     this.fields = options.fields || [];
     var extra = this.model.get('extra') || {};

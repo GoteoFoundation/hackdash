@@ -68,7 +68,6 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
   changeTab: function(){
     if (!this[this.section].currentView){
-
       this[this.section].show(new EntityList({
         collection: this.model.get(this.section),
         type: this.section,

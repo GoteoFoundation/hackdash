@@ -1,11 +1,30 @@
-{{#each fields}}
-  {{#if help}}
-    {{{markdown help}}}
-  {{/if}}
-  <div class="form-group">
-    {{#if title}}
-      <label for="{{id}}">{{title}}</label>
+{{#if readOnly}}
+  {{#each fields}}
+    <div class="extra-field">
+      {{#if header}}
+        {{{markdown header}}}
+      {{/if}}
+      {{#if title}}
+        <h4>{{title}}</h4>
+      {{/if}}
+      <blockquote>{{{markdown value}}}</blockquote>
+    </div>
+  {{/each}}
+{{else}}
+  {{#each fields}}
+    {{#if help}}
+      {{{markdown help}}}
     {{/if}}
-    <textarea class="form-control extra-field" id="extra-{{id}}" name="extra[{{id}}]" placeholder="{{placeholder}}">{{value}}</textarea>
-  </div>
-{{/each}}
+    {{#if header}}
+      {{{markdown header}}}
+    {{/if}}
+    <div class="form-group">
+      {{#if title}}
+        <label for="{{id}}">{{title}}</label>
+      {{/if}}
+      {{#if id}}
+        <textarea class="form-control extra-field" id="extra-{{id}}" name="extra[{{id}}]" placeholder="{{placeholder}}">{{value}}</textarea>
+      {{/if}}
+    </div>
+  {{/each}}
+{{/if}}

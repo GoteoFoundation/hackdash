@@ -14,6 +14,17 @@
   <div class="bg-body-entity"></div>
   <div class="container">
 
+    <div class="col-xs-12">
+      <ul class="status-steps">
+        {{#each statuses}}
+          <li class="{{status}}{{../activeStatus status ../status}}">
+            {{{../linkStatus status}}}
+          </li>
+        {{/each}}
+      </ul>
+
+    </div>
+
     <div class="col-md-4">
 
       <div class="cover {{#unless cover}}no-cover{{/unless}}">
@@ -102,6 +113,9 @@
     </div>
 
     <div class="col-md-8">
+
+      <div class="extra-fields-top"></div>
+
       <div class="description">
         {{{markdown description}}}
       </div>

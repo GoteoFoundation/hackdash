@@ -93,9 +93,243 @@
     &.role-team {
       background: url(../images/roles/team.svg) no-repeat 0 0 e('/') 100% 100%;
     }
+    &.role-facilitator {
+      background: url(../images/roles/facilitator.svg) no-repeat 0 0 e('/') 100% 100%;
+    }
     &.role-superadmin {
       background: url(../images/roles/superadmin.svg) no-repeat 0 0 e('/') 100% 100%;
     }
   }
 }
 
+.status-steps {
+  // border: 1px solid @color-action;
+
+  li {
+   &.step0 {
+
+    // border-top: 1px solid @color-step0;
+
+    @media all and (min-width: 48em) {
+      &:before {
+        // border-left: 15px solid @color-step1;
+      }
+      &.active:before {
+        border-left: 15px solid @color-step0;
+      }
+    }
+    a {
+      // color: @color-step0;
+    }
+
+    &:hover {
+      background-color: tint(@color-step0, 90%);
+
+      &:after {
+        border-left: 14px solid tint(@color-step0, 90%);
+      }
+    }
+
+    &.active {
+      background-color: @color-step0;
+      &:after {
+        border-left: 14px solid @color-step0;
+      }
+    }
+   }
+
+   &.step1 {
+
+    // border-top: 1px solid @color-step1;
+
+    @media all and (min-width: 48em) {
+      &:before {
+        // border-left: 15px solid @color-step2;
+      }
+      &.active:before {
+        border-left: 15px solid @color-step1;
+      }
+    }
+    a {
+      // color: @color-step1;
+    }
+
+    &:hover {
+      background-color: tint(@color-step1, 90%);
+
+      &:after {
+        border-left: 14px solid tint(@color-step1, 90%);
+      }
+    }
+
+    &.active {
+      background-color: @color-step1;
+      &:after {
+        border-left: 14px solid @color-step1;
+      }
+    }
+   }
+
+   &.step2 {
+
+    // border-top: 1px solid @color-step2;
+
+    @media all and (min-width: 48em) {
+      &:before {
+        // border-left: 15px solid @color-step3;
+      }
+      &.active:before {
+        border-left: 15px solid @color-step2;
+      }
+    }
+    a {
+      // color: @color-step2;
+    }
+
+    &:hover {
+      background-color: tint(@color-step2, 90%);
+
+      &:after {
+        border-left: 14px solid tint(@color-step2, 90%);
+      }
+    }
+
+    &.active {
+      background-color: @color-step2;
+      &:after {
+        border-left: 14px solid @color-step2;
+      }
+    }
+   }
+
+   &.step3 {
+
+    // border-top: 1px solid @color-step3;
+
+    @media all and (min-width: 48em) {
+      &:before {
+        // border-left: 15px solid @color-step4;
+      }
+      &.active:before {
+        border-left: 15px solid @color-step3;
+      }
+    }
+    a {
+      // color: @color-step3;
+    }
+
+    &:hover {
+      background-color: tint(@color-step3, 90%);
+
+      &:after {
+        border-left: 14px solid tint(@color-step3, 90%);
+      }
+    }
+
+    &.active {
+      background-color: @color-step3;
+      &:after {
+        border-left: 14px solid @color-step3;
+      }
+    }
+   }
+
+   &.step4 {
+
+    // border-top: 1px solid @color-step4;
+
+    @media all and (min-width: 48em) {
+      &:before {
+        // border-left: 15px solid @color-step5;
+      }
+      &.active:before {
+        border-left: 15px solid @color-step4;
+      }
+
+    }
+    a {
+      // color: @color-step4;
+    }
+
+    &:hover {
+      background-color: tint(@color-step4, 90%);
+
+      &:after {
+        border-left: 14px solid tint(@color-step4, 90%);
+      }
+    }
+
+    &.active {
+      background-color: @color-step4;
+      &:after {
+        border-left: 14px solid @color-step4;
+      }
+    }
+   }
+
+   &.step5 {
+
+    // border-top: 1px solid @color-step5;
+
+    @media all and (min-width: 48em) {
+      &:before {
+        // border-left: 15px solid @color-step6;
+      }
+      &.active:before {
+        border-left: 15px solid @color-step5;
+      }
+    }
+    a {
+      // color: @color-step5;
+    }
+
+    &:hover {
+      background-color: tint(@color-step5, 90%);
+
+      &:after {
+        border-left: 14px solid tint(@color-step5, 90%);
+      }
+    }
+
+    &.active {
+      background-color: @color-step5;
+      &:after {
+        border-left: 14px solid @color-step5;
+      }
+    }
+   }
+
+   &.step6 {
+
+    // border-top: 1px solid @color-step6;
+
+    @media all and (min-width: 48em) {
+      &:before {
+        // border-left: 15px solid @color-step6;
+      }
+      &.active:before {
+        border-left: 15px solid @color-step6;
+      }
+    }
+    a {
+      // color: @color-step6;
+    }
+
+    &:hover {
+      background-color: tint(@color-step6, 90%);
+
+      &:after {
+        border-left: 14px solid tint(@color-step6, 90%);
+      }
+    }
+
+    &.active {
+      background-color: @color-step6;
+      &:after {
+        border-left: 14px solid @color-step6;
+      }
+    }
+   }
+
+  }
+}

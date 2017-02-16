@@ -57,6 +57,7 @@ module.exports = Backbone.Marionette.AppRouter.extend({
     , "projects/:pid/edit" : "showProjectEdit"
     , "projects/:pid" : "showProjectFull"
     , "projects/:pid/forms": "showProjectForms"
+    , "projects/:pid/:status" : "showProjectFull"
 
     , "collections/:cid" : "showCollection"
     , "collections/:cid/forms" : "showCollectionFormsEdit"
@@ -394,7 +395,7 @@ module.exports = Backbone.Marionette.AppRouter.extend({
     app.setTitle('Edit project');
   },
 
-  showProjectFull: function(pid){
+  showProjectFull: function(pid, status){
 
     var app = window.hackdash.app;
     app.type = "project";
@@ -406,7 +407,8 @@ module.exports = Backbone.Marionette.AppRouter.extend({
       app.header.show(new Header());
 
       app.main.show(new ProjectFullView({
-        model: app.project
+        model: app.project,
+        status: status
       }));
 
       app.setTitle(app.project.get('title') || __('Projects'));
@@ -563,7 +565,7 @@ module.exports = Backbone.Marionette.AppRouter.extend({
     app.header.show(new Header());
 
     app.profile.fetch({ parse: true }).done(function(){
-
+      console.log('PROFILE',app.profile);
       app.main.show(new ProfileView({
         model: app.profile
       }));

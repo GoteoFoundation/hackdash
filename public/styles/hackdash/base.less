@@ -169,6 +169,106 @@ h6 { font-size: @fsize-12; }
   display: inline-block;
 }
 
+
+.status-steps {
+  list-style: none;
+  padding: 0;
+  border: 1px solid @color-status;
+  overflow: hidden;
+
+  @media all and (min-width: 48em) {
+    margin: 0 0 2em 0;
+    display: table;
+    width: 100%;
+    height: 40px;
+  }
+
+  li {
+    text-align: center;
+    width: 100%;
+    border-top: 1px solid @color-status;
+    margin: 0;
+    position: relative;
+    padding: 1em 0;
+    box-sizing: border-box;
+    color: @color-status;
+
+    &:first-child {
+      border-top: 0;
+    }
+
+    @media all and (min-width: 48em) {
+      display: table-cell;
+      width: auto;
+      vertical-align: middle;
+      padding: 0 0 0 15px; /* left padding should compensate for arrow width */
+      margin: 0;
+      border: none;
+
+      &:before {
+        content:"";
+        position: absolute;
+        left: 100%;
+        top: -1px;
+        width: 0;
+        height: 0;
+        border-top: 21px solid transparent;
+        border-left: 15px solid @color-status;
+        border-bottom: 21px solid transparent;
+        z-index: 10;
+      }
+      &:after {
+        content:"";
+        position: absolute;
+        left: 99%; /* IE8 and Android don't do calc so well */
+        left: calc(100% - 1px);
+        top: 0;
+        width: 0;
+        height: 0;
+        border-top: 20px solid transparent;
+        border-left: 14px solid white;
+        border-bottom: 20px solid transparent;
+        z-index: 11;
+      }
+
+      &:last-child {
+        &:before, &:after {
+          border: none;
+        }
+      }
+    }
+
+    a {
+      // color: @color-status;
+      color: @color-blackC;
+      text-decoration: none;
+      border: none;
+      display: block;
+    }
+
+    &:hover {
+      background-color: tint(@color-status, 90%);
+
+      &:after {
+        border-left: 14px solid tint(@color-status, 90%);
+      }
+    }
+
+    &.active {
+      background-color: @color-status;
+      color: white;
+
+      &:after {
+        border-left: 14px solid @color-status;
+      }
+
+      a {
+        color: white;
+      }
+    }
+  }
+}
+
 .form-control {
   font-family: @secondary-font;
   font-size: @fsize-20;
@@ -271,20 +371,20 @@ h6 { font-size: @fsize-12; }
     &.arrow-left {
       left: 17px;
       border-width: 142.5px 50px 142.5px 0;
-      border-color: transparent @colo-arrow-box transparent transparent;
+      border-color: transparent @color-arrow-box transparent transparent;
 
       &:hover {
-        border-color: transparent lighten(@colo-arrow-box, 10%) transparent transparent;
+        border-color: transparent lighten(@color-arrow-box, 10%) transparent transparent;
       }
     }
 
     &.arrow-right {
       right: 17px;
       border-width: 142.5px 0 142.5px 50px;
-      border-color: transparent transparent transparent @colo-arrow-box;
+      border-color: transparent transparent transparent @color-arrow-box;
 
       &:hover {
-        border-color: transparent transparent transparent lighten(@colo-arrow-box, 10%);
+        border-color: transparent transparent transparent lighten(@color-arrow-box, 10%);
       }
     }
   }

@@ -4,6 +4,7 @@
  */
 
 var template = require("Project/templates/full.hbs")
+  , ExtraFields = require('./ExtraFields')
   , Comments = require('../../models/Comments')
   , CommentsView = require('./Comments')
   , Sharer = require("../Sharer");
@@ -21,57 +22,77 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   className: "page-ctn project",
   template: template,
 
-  templateHelpers: {
-    internalComments: function() {
-      return hackdash.internalComments;
-    },
-    toolsUrl: function() {
-      var status = _.findWhere(hackdash.statuses, {status: this.status});
-      if(status) {
-        return status.toolsUrl;
+  templateHelpers: function() {
+    var self = this;
+    return {
+      internalComments: function() {
+        return hackdash.internalComments;
+      },
+      statuses: function() {
+        return hackdash.statuses;
+      },
+      activeStatus: function(st1,st2) {
+        return st2 === st1 ? ' active' : '';
+      },
+      linkStatus: function(status) {
+        var extra = self.model && self.model.get('extra');
+        var text = _.findWhere(hackdash.statuses, {'status' : status});
+        if(extra && extra[status]) {
+          return '<a href="/projects/' + self.id() + '/' + status + '">' + text.text + '</a>';
+        } else {
+          return text.text;
+        }
+      },
+      toolsUrl: function() {
+        var status = _.findWhere(hackdash.statuses, {status: this.status});
+        if(status) {
+          return status.toolsUrl;
+        }
+        return '';
+      },
+      showActionContribute: function(){
+        if (hackdash.user && this.leader){
+          return hackdash.user._id !== this.leader._id && hackdash.userHasPermission(hackdash.user, 'project_join');
+        }
+        return false;
+      },
+      showActionFollow: function(){
+        if (hackdash.user && this.leader){
+          return hackdash.user._id !== this.leader._id && hackdash.userHasPermission(hackdash.user, 'project_follow');
+        }
+        return false;
+      },
+      showActionEdit: function(){
+        if (hackdash.user && this.leader){
+          return hackdash.user._id === this.leader._id || hackdash.userHasPermission(hackdash.user, 'project_update');
+        }
+        return false;
+      },
+      showActionDelete: function(){
+        if (hackdash.user && this.leader){
+          return hackdash.user._id === this.leader._id || hackdash.userHasPermission(hackdash.user, 'project_delete');
+        }
+        return false;
+      },
+      isAdminOrLeader: function(){
+        var user = hackdash.user;
+        if (this.leader && user){
+          return user._id === this.leader._id || user.admin_in.indexOf(this.domain) >= 0;
+        }
+        return false;
       }
-      return '';
-    },
-    showActionContribute: function(){
-      if (hackdash.user && this.leader){
-        return hackdash.user._id !== this.leader._id && hackdash.userHasPermission(hackdash.user, 'project_join');
-      }
-      return false;
-    },
-    showActionFollow: function(){
-      if (hackdash.user && this.leader){
-        return hackdash.user._id !== this.leader._id && hackdash.userHasPermission(hackdash.user, 'project_follow');
-      }
-      return false;
-    },
-    showActionEdit: function(){
-      if (hackdash.user && this.leader){
-        return hackdash.user._id === this.leader._id || hackdash.userHasPermission(hackdash.user, 'project_update');
-      }
-      return false;
-    },
-    showActionDelete: function(){
-      if (hackdash.user && this.leader){
-        return hackdash.user._id === this.leader._id || hackdash.userHasPermission(hackdash.user, 'project_delete');
-      }
-      return false;
-    },
-    isAdminOrLeader: function(){
-      var user = hackdash.user;
-      if (this.leader && user){
-        return user._id === this.leader._id || user.admin_in.indexOf(this.domain) >= 0;
-      }
-      return false;
-    }
+    };
   },
 
   ui: {
     "contribute": ".contributor a",
     "follow": ".follower a",
-    "shareLink": '.share'
+    "shareLink": '.share',
+    'statusSteps': '.status-steps'
   },
 
   regions: {
+    "extraFieldsTop": ".extra-fields-top",
     "commentsContent": ".comments-ctn"
   },
 
@@ -87,14 +108,30 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     "change": "render"
   },
 
+  initialize:function(options) {
+    if(options && options.status) {
+      this.currentStatus = _.findWhere(hackdash.statuses, {status: options.status});
+    }
+    // TODO: Default status (0 or active)
+    if(!this.currentStatus && hackdash.statuses && hackdash.statuses.length) {
+      this.currentStatus = hackdash.statuses[0];
+    }
+    console.log(options, this.currentStatus);
+  },
+
   //--------------------------------------
   //+ INHERITED / OVERRIDES
   //--------------------------------------
 
   onRender: function(){
-    this.$el.addClass(this.model.get("status"));
+    this.$el.addClass(this.model.get('status'));
+    // Status from url
+    var extra = this.model && this.model.get('extra');
+    if(extra && this.currentStatus && extra[this.currentStatus.status]) {
+      this.setStatusView(this.currentStatus);
+    }
     var self = this;
-    $(".tooltips", this.$el).tooltip({});
+    $('.tooltips', this.$el).tooltip({});
     if (hackdash.internalComments) {
       // Get comments
       var comments = new Comments();
@@ -127,6 +164,32 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   //--------------------------------------
   //+ PUBLIC METHODS / GETTERS / SETTERS
   //--------------------------------------
+  extraFields: {},
+
+  setStatusView: function(statusObj) {
+    // var status = this.model && this.model.get('status');
+    //
+    $('li', this.ui.statusSteps).removeClass('active');
+    $('li.' + statusObj.status, this.ui.statusSteps).addClass('active');
+    // Show extra fields
+    // Hide required fields
+    $('.extra-field', this.$el).show();
+    if(this.currentStatus.fields && this.currentStatus.fields.length) {
+      // console.log('extra fields',this.currentStatus.fields);
+      this.extraFields[this.currentStatus.status] = new ExtraFields({
+          model: this.model,
+          status: this.currentStatus.status,
+          fields: this.currentStatus.fields,
+          readOnly: true
+        });
+      this.extraFieldsTop.show(this.extraFields[this.currentStatus.status]);
+      if(this.currentStatus.hide) {
+        $('.' + this.currentStatus.hide.join(',.'), this.$el).hide();
+      }
+    } else {
+      this.extraFieldsTop.empty();
+    }
+  },
 
   //--------------------------------------
   //+ EVENT HANDLERS
@@ -171,5 +234,6 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   //--------------------------------------
   //+ PRIVATE AND PROTECTED METHODS
   //--------------------------------------
+
 
 });
