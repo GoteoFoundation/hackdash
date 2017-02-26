@@ -13,6 +13,6 @@
     "mongoose": "^4.6.8"
   },
   "engines": {
-    "node": "0.10.x"
+    "node": "6.9.x"
   }
 }
