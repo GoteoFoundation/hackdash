@@ -35,11 +35,12 @@ Users:
 
 ### `GET /api/v2/users`
 
-List all users (paginated). **ONLY SHOWS users with bio if parameter q is not present**
+List all users (paginated). **ONLY SHOWS users with bio if parameter `q` or `role` is not present**
 
 **URL GET Params** (*?limit=10&page=1*):
 - `limit` Number of results per page (defaults to 50 or whatever defined in config.json)
 - `page` Number of page (defaults to 0)
 - `q` Any text to be search in the *name*, *username* or *email* fields
+- `role` Shows users with specified role (if empty or ALL, shows all users, event without bio)
 
 ...TODO...
