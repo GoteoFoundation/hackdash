@@ -63,6 +63,7 @@ In your `config/config.json`:
 Added vars for Wotify Dashboards:
 
 * `defaultHomeTab`: By default Hackdash takes the user to the "dashboards" tab in the homepage. This allows to change it by any of these values: "dashboards", "projects", "users", "collections".
+* `homeTabOrder`: One of: **"first_created", last_created", "random"** (last_created by default)
 * `publicHost`: and alternative public host can be specified here (used in several links to return home, i.e: **wotify.co**). This is useful in case you run your node app behind a proxy in a different port than 80 (Please specify protocol (http://example.com or better https://example.com).
 * `publicDashboardCreation` : a boolean to specify if dashboards can be created by anyone or just the users with permission "dashboard_create"
 * `homeCreateProject` : Set it to true in order to show a button in the front page to create projects
