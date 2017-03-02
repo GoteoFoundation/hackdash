@@ -20,7 +20,7 @@
     {{/if}}
     <div class="form-group">
       {{#if title}}
-        <label for="{{id}}">{{title}}</label>
+        <label for="{{id}}">{{{markdown title}}}</label>
       {{/if}}
       {{#if id}}
         <textarea class="form-control extra-field" id="extra-{{id}}" name="extra[{{id}}]" placeholder="{{placeholder}}">{{value}}</textarea>

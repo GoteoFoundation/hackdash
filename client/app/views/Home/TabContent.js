@@ -111,32 +111,39 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       });
 
       this.header.show(search);
+
+      var createResults = function() {
+        return new ListView({
+          collection: self.collection,
+          search: search
+        });
+      };
+      // this.content.show(createResults());
+
       // Event for fetch without a search
       search.on('collection:fetched:init', function(col, type, data) {
-        console.log('initial fetched collection', col, type, data);
+        console.log('initial fetched collection', 'COLLECTION', col, 'TYPE', type, 'DATA', data);
         if(col.length === 0) {
           console.log('initial empty collection');
           self.content.show(new EmptyView({
             text: __('No ' + type + ' available yet')
           }));
+        } else {
+          self.content.show(createResults());
         }
       });
       // Event for fetch by a search
       search.on('collection:fetched:search', function(col, type, data) {
-        console.log('search fetched collection', col, type, data);
+        console.log('search fetched collection', 'COLLECTION', col, 'TYPE', type, 'DATA', data);
         if(col.length === 0) {
-          console.log('search empty collection');
+          console.log('Empty collection in search!');
           self.content.show(new EmptyView({
             text: __('No ' + type + ' found')
           }));
+        } else {
+          self.content.show(createResults());
         }
       });
-
-      this.content.show(new ListView({
-        collection: this.collection,
-        search: search
-      }));
-
     }
 
   },
