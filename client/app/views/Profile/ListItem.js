@@ -44,7 +44,13 @@ module.exports = Backbone.Marionette.ItemView.extend({
       case "projects":
       case "contributions":
       case "likes":
-        url = "/projects/" + this.model.get("_id");
+        console.log(this.model);
+        if(this.model.get('private')) {
+          url = "/dashboards/" + this.model.get("domain");
+          this.type = 'dashboards';
+        } else {
+          url = "/projects/" + this.model.get("_id");
+        }
         isProject = true;
         break;
     }
