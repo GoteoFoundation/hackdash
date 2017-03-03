@@ -37,7 +37,7 @@ module.exports = {
 
     "No collections available yet": "Hold on! Collections of boards are not visible yet. They will be disclosed once there’s a significant number of ideas to be collected ;) !",
     "No dashboards available yet": "Hold on! Ideas Board are not visible yet. They will be formed and disclosed once there’s a significant number of matching ideas to be featured together. Don’t forget to upload yours!",
-    "No projects available yet": "Ideas are not visible yet. The 50 ideas will be revealed to the rest of Idea Makers and Idea Camp community later on. Make sure to start working on yours!",
+    "No projects available yet": "Ideas on this board are not visible to the world. Idea Makers will decide to make it public or not.",
     "No users available yet": "No users available yet!",
     "No collections found": "No collections for these keywords!",
     "No dashboards found": "No dashboards for these keywords!",
