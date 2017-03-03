@@ -63,6 +63,7 @@
         <li class="visible-xs login-tab">
           <a class="login">{{__ "Log in"}}</a>
         </li>
+        {{/isLoggedIn}}
 
         <li id="collection" class="collection">
           <a href="#collections" role="tab" data-toggle="tab">{{__ "Collections"}}</a>
@@ -79,7 +80,6 @@
         <li class="conversations">
           <a href="//widgets.ideacamp2017.eu/notes" target="_blank" data-bypass>Conversations</a>
         </li>
-        {{/isLoggedIn}}
       </ul>
 
     </div>
