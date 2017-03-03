@@ -94,9 +94,48 @@
 }
 
 .nav-tabs.landing {
-    a.login {
+  li {
+    &.conversations {
+      .landing-tab(@color-conversation);
+    }
+    &.login-tab {
       .landing-tab(@color-login);
     }
+    a {
+      margin: 0;
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}
+// Fix bootstrap visible
+@media (max-width: 767px) {
+  .visible-xs {
+    display: inline-block !important;
+  }
+}
+@media (max-width: 1000px) {
+  .nav-tabs.landing {
+
+    li {
+      margin-left: 0;
+      margin-right: 0;
+      }
+    }
+}
+
+@media (max-width: 960px) {
+  .nav-tabs.landing {
+
+    li {
+      a {
+        font-size: @fsize-20;
+        min-height: 50px;
+        min-width: 140px;
+      }
+    }
+  }
+
 }
 
 .team-wrapper,.partners-wrapper,.network-wrapper {
