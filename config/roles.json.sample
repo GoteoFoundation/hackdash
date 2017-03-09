@@ -16,6 +16,7 @@
       "user_change_role",
       "comment_project",
       "project_create",
+      "project_edit",
       "project_delete",
       "project_follow",
       "project_join",
