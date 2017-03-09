@@ -179,6 +179,26 @@ Roles are collections of atomic permissions. Current permissions are:
 
 **Roles can be customized by editing `config/roles.json`.**
 
+### TOKENS
+
+Tokens that allows role authentication can be assigned in the database user's entry to use bearer authentication on the API endpoints.
+
+There's no yet an interface for easy token management, however it can be manually assigned using the command `scripts/users.js`:
+
+```
+node scripts/users.js -u {USERID} -t 'My token'
+```
+
+It will return the token UUID (ex: `b0e318d-0fe0-4e50-99f2-6a4883229ddd`).
+
+This token can be used as a replacement authentication method for the user by using the `Authentication: Bearer {TOKEN}` HTTP header.
+
+For example, using CURL:
+
+```
+curl -H "Authorization: Bearer b0e318d-0fe0-4e50-99f2-6a4883229ddd" localhost:3000/api/v2/projects
+```
+
 Contribute
 ==========
 

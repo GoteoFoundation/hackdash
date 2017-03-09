@@ -1,6 +1,6 @@
 {
   "name": "hackdash",
-  "version": "0.30.0",
+  "version": "0.31.0",
   "private": true,
   "scripts": {
     "start": "NODE_PATH=. DEBUG=hackdash:* nodemon index",
@@ -49,6 +49,7 @@
     "passport-github": "^1.1.0",
     "passport-google-oauth20": "^1.0.0",
     "passport-http": "^0.3.0",
+    "passport-http-bearer": "^1.0.1",
     "passport-local": "^1.0.0",
     "passport-meetup": "^1.0.0",
     "passport-twitter": "^1.0.4",
@@ -62,6 +63,7 @@
     "superagent": "0.10.0",
     "temp": "^0.8.3",
     "underscore": "^1.8.3",
+    "uuid": "^3.0.1",
     "zip-folder": "^1.0.0"
   },
   "devDependencies": {
