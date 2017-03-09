@@ -160,7 +160,9 @@ Roles are collections of atomic permissions. Current permissions are:
 - `user_change_role`: Permission to change user role
 - `comment_project`: TODO: when a custom comment forum
 - `project_create`: Permission to create a new project.
-- `project_follow`: Permission to follow other projects.
+- `project_view`: Permission to view private projects (without being admin of the dashboard).
+- `project_edit`: Permission to edit others projects.
+- `project_follow`: Permission to follow others projects.
 - `project_join`: Permission to join other projects as contributor.
 - `project_update`: Permission to update others projects (except dashboard). **Requires to be admin in that dashboard** (project owner has this permission anyway).
 - `project_delete`: Permission to delete others projects. **Requires to be admin in that dashboard** (project owner has this permission anyway).
