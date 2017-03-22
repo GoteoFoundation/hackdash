@@ -162,6 +162,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       description: this.ui.description.val(),
       link: this.ui.link.val(),
       tags: this.ui.tags.val(),
+      private: this.ui.private.is(':checked'),
       status: this.ui.status.val(),
       cover: this.model.get('cover')
     };
