@@ -119,6 +119,7 @@ module.exports = {
 "Close":"Close",
 "Dashboard Status":"Dashboard Status",
 "off":"off",
+"Open dashboard status": "Open Dashboard Status",
 
 /* Header directory */
 
@@ -248,6 +249,7 @@ module.exports = {
 
 "This Dashboard is open: click to close":"This Dashboard is open: click to close",
 "This Dashboard is closed: click to reopen":"This Dashboard is closed: click to reopen",
+"Private dashboard": "Private dashboard",
 "private-dashboards-description": "Private dashboards does not show listed projects to anybody but admins or leaders",
 "turned_off":"off",
 "Edit Showcase":"Edit Showcase",
@@ -293,6 +295,8 @@ module.exports = {
 "Drop Image Here":"Drop Image Here",
 "File is too big, 500 Kb is the max":"File is too big, 500 Kb is the max",
 "Only jpg, png and gif are allowed":"Only jpg, png and gif are allowed",
+"Private project": "Private project",
+"private-project-description": "Private projects are hidden to anybody but admins or leaders",
 
 /* Full.js */
 

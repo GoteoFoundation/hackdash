@@ -72,6 +72,13 @@
 
       </div>
 
+      <div class="checkbox {{#if private}}private-project{{else}}public-project{{/if}}">
+        <label>
+          <input type="checkbox" name="private"{{#if private}} checked{{/if}}> {{__ "Private project"}}
+        </label>
+        <span class="help-block">{{__ 'private-project-description'}}</span>
+      </div>
+
     </div>
 
     <div class="col-md-8">

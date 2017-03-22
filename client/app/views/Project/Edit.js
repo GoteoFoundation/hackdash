@@ -25,6 +25,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     "title": "input[name=title]",
     "description": "textarea[name=description]",
     "link": "input[name=link]",
+    "private": "input[name=private]",
     "tags": "select[name=tags]",
     "status": "select[name=status]",
     "location": "input[name=location]",
@@ -44,6 +45,8 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     "click #searchGh": "searchRepo",
 
     "click @ui.toolsUrl": "toolsUrl",
+
+    "change @ui.private": "changePrivate",
 
     // "focus @ui.location": "geolocate",
 
@@ -109,6 +112,12 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   //--------------------------------------
   //+ EVENT HANDLERS
   //--------------------------------------
+
+  changePrivate: function(){
+    this.ui.private.closest('div.checkbox')
+      .toggleClass('private-project')
+      .toggleClass('public-project');
+  },
 
   showGhImport: function(e){
     $(".gh-import", this.$el).removeClass('hide');

@@ -1035,6 +1035,36 @@ footer {
             }
           }
 
+          .public-project, .private-project {
+            background: #f0f0f0;
+            padding:10px 5px;
+            label {
+              font-weight: bold;
+              input[type="checkbox"] {
+                position: static;
+                vertical-align: middle;
+                margin-top:0;
+              }
+            }
+            .help-block {
+              margin-bottom: 0;
+            }
+            &.private-project {
+              background: #F0C0C0;
+              label {
+                color:#b00;
+              }
+            }
+            &.public-project {
+              // background: #8BC7AB;
+              label {
+                // color:#004C28;
+              }
+              .help-block {
+                display: none;
+              }
+            }
+          }
           .form-group {
             margin-bottom: 20px;
           }
