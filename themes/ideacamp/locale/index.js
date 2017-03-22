@@ -33,6 +33,9 @@ module.exports = {
     "Add Collaborators to your projects.":"Add Collaborators to your ideas.",
     "Share your app to the world.":"Share your idea to the world.",
 
+    "private-project-description": "Private projects are hidden to anybody but admins or Idea Makers",
+
+
     "dashboard name (5-10 chars)": "event name (5-10 chars)",
 
     "No collections available yet": "Hold on! Collections of boards are not visible yet. They will be disclosed once there’s a significant number of ideas to be collected ;) !",
