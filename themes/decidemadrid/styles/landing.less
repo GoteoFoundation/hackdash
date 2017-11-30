@@ -1,0 +1,301 @@
+@import '../../../public/styles/hackdash/landing';
+@import './base';
+@import './settings';
+
+.my-profile  {
+  float:none;
+  position: absolute;
+  text-align: right;
+  width: 100%;
+  top: 4%;
+  right: 1%;
+
+  .profile-btn {
+    display: inline-block;
+    vertical-align: top;
+    padding:0 5px;
+
+    .login {
+      text-transform: uppercase;
+      font-size: @fsize-25;
+      padding:5px 10px;
+      margin:0 0 0 -5px;
+      height: 50px;
+      font-family: @secondary-font;
+
+      position: static;
+      width: auto;
+      display: inline-block;
+      text-align: center;
+      color: @color-white;
+      text-shadow: none;
+
+      .landing-tab(@color-login);
+    }
+
+    .btn-profile {
+      position: static;
+    }
+    .logout {
+      position: static;
+    }
+
+    .dropdown-menu  {
+      left:auto;
+      right:0;
+    }
+  }
+}
+
+.landing-header {
+  background-image: url(@landing-ideacamp-url);
+  height: 65%;
+  .logo-roadbook {
+    background: url(@logo-roadbook-url) no-repeat;
+    width: 20%;
+    height: 40%;
+    max-width: 340px;
+    // max-height: 160px;
+    margin: 2% 0 0 2%;
+    background-size: 100%;
+    display: block;
+    position: absolute;
+    top:0;
+    left:0;
+    @media (max-width: 767px) {
+      width: 150px;
+
+    }
+
+  }
+
+  .call-action {
+    background: none;
+    h1 {
+      text-transform: uppercase;
+      color: @color-black;
+      font-weight: 300;
+      letter-spacing: -2px;
+      font-size: 5.5em;
+      margin: 0 5%;
+      line-height: 1;
+    }
+  }
+
+  #create-project.btn-primary {
+    font-size: @fsize-25;
+    line-height: 1em;
+    background-image: url(../images/pencil.svg);
+    background-repeat: no-repeat;
+    padding-left:50px;
+  }
+}
+
+.nav-tabs.landing {
+  li {
+    a {
+      margin: 0;
+      padding-left: 0;
+      padding-right: 0;
+    }
+    &.conversations {
+      .landing-tab(@color-conversation, @color-conversation-a);
+      a {
+        padding-top: 20px;
+        padding-bottom: 0;
+        margin-top: -20px;
+      }
+    }
+    &.login-tab {
+      .landing-tab(@color-login);
+    }
+  }
+}
+// Fix bootstrap visible
+@media (max-width: 767px) {
+  .visible-xs {
+    display: inline-block !important;
+  }
+}
+@media (max-width: 1000px) {
+  .nav-tabs.landing {
+
+    li {
+      margin-left: 0;
+      margin-right: 0;
+      }
+    }
+}
+
+@media (max-width: 960px) {
+  .nav-tabs.landing {
+
+    li {
+      a {
+        font-size: @fsize-20;
+        min-height: 50px;
+        min-width: 140px;
+      }
+    }
+  }
+
+}
+
+
+.team-wrapper {
+  display:none;
+}
+.partners-wrapper {
+  margin-top: -5px;
+  margin-bottom: -15px;
+  background-color: @color-background-partners;
+}
+
+.partners-tab {
+  background-color: transparent;
+}
+.partners-ctn {
+  border-bottom: none;
+  background-color: transparent;
+  ul {
+    li {
+      a {
+        width: 100%;
+        height: 100%;
+        display: inline-block;
+      }
+      &.decidemadrid {
+        width: 200px;
+        background-image: url('../images/partners/logo-decidemadrid.png');
+      }
+
+      &.platoniq {
+        background-image: url('../images/partners/logo-platoniq.png');
+      }
+
+      &.participalab {
+        width: 260px;
+        background-image: url('../images/partners/logo-participalab.png');
+      }
+    }
+  }
+}
+
+.landing-footer {
+  background: url(@landing-photo-url) no-repeat center center fixed;
+  display: table;
+  height: 300px;
+  position: relative;
+  width: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+  .call-action {
+
+    width: 100%;
+    height: 100%;
+    color: @color-white;
+    display: table-cell;
+    padding-bottom: 50px;
+    background-color: rgba(0,0,0,0.1);
+
+    h3 {
+      font-size: @fsize-50;
+      width: 100%;
+      padding:30px 0 10px 0;
+      text-transform: uppercase;
+      font-weight: 300;
+      letter-spacing: -2px;
+      line-height: 1;
+    }
+
+    @media (min-width: 768px) {
+      .step:nth-child(3n+0) {
+        text-align: left;
+      }
+      .step:nth-child(3n+1) {
+        text-align: right;
+      }
+    }
+    @media (min-width: 480px) and (max-width: 767px) {
+      .step:nth-child(even) {
+        text-align: left;
+      }
+      .step:nth-child(odd) {
+        text-align: right;
+      }
+    }
+
+    a.btn {
+      color: @color-white;
+      font-size: @fsize-17;
+      line-height: @fsize-17;
+      font-weight: 600;
+      width: 195px;
+      min-height: 69px;
+      line-height: 1;
+      padding:38px 10px 0 10px;
+      white-space: normal;
+      margin:10px 0 0 0;
+      background: url(../images/guideline/btn_1.svg) no-repeat;
+      &.btn2 {
+        background-image: url(../images/guideline/btn_2.svg);
+        padding:28px 40px 0 40px;
+      }
+      &.btn3 {
+        background-image: url(../images/guideline/btn_3.svg);
+      }
+      &.btn4 {
+        background-image: url(../images/guideline/btn_4.svg);
+        padding:28px 40px 0 40px;
+      }
+      &.btn5 {
+        background-image: url(../images/guideline/btn_5.svg);
+        padding-top:28px;
+      }
+      &.btn6 {
+        background-image: url(../images/guideline/btn_6.svg);
+        padding:28px 40px 0 40px;
+      }
+      i {
+        font-style: normal;
+        color: @color-black;
+      }
+    }
+    span {
+      font-size: @fsize-15;
+      line-height: @fsize-15;
+      color: @color-white;
+      text-transform: uppercase;
+      font-family: @secondary-font;
+      display: inline-block;
+      font-weight: 600;
+      line-height: 1;
+      width: 195px;
+      text-align: center;
+    }
+  }
+
+  button#goto-tools.btn-primary {
+    font-size: 2em;
+    line-height: 1em;
+    background-image: url(../images/eye.svg);
+    background-position: center left;
+    background-repeat: no-repeat;
+    padding:0 10px 0 60px;
+    margin-right: 10px;
+  }
+
+  @media (max-width: 768px) {
+    .pull-left, .pull-right {
+      float:none !important;
+      margin-bottom: 10px;
+    }
+  }
+
+  .btn-profile {
+    cursor: pointer;
+  }
+}

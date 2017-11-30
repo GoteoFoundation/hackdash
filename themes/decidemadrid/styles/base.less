@@ -1,0 +1,347 @@
+.btn-orange {
+  background-color: @color-upload;
+}
+.btn-primary.btn-orange {
+  .btn-custom(@color-upload);
+}
+
+.logo {
+  margin: 5px 0 0 10px;
+  width: 364px;
+  &.logo-wotify {
+    margin: 10px 0 0 10px;
+    background-image: url(@logo-wotify-url);
+  }
+}
+
+.logo-ideacamp {
+    width: 408px;
+    height: 280px;
+}
+
+.footer-ctn, footer {
+  .footer {
+     display: table;
+     width: 100%;
+
+    .brand{
+      display: table-cell;
+      text-align: center;
+      width: auto;
+      margin: 20px auto;
+
+      .logo {
+        width: 100px;
+        height: 45px;
+        float: none;
+        vertical-align: top;
+        display: inline-block;
+        margin: 5px 0 0 10px;
+        &.logo-wotify {
+          margin: 10px 0 0 10px;
+          background-image: url(@logo-wotify-url);
+        }
+      }
+
+      h3 {
+        display: inline-block;
+        // float: left;
+        color: @color-white;
+        margin: 15px 10px;
+        vertical-align: top;
+      }
+      .logo-platoniq {
+        display: inline-block;
+        vertical-align: top;
+        margin: 10px 0 10px 10px  ;
+        width: 120px;
+        background: url('../images/logo-platoniq-b.png') no-repeat;
+        background-size: auto 100%;
+        height: 25px;
+        height: 25px;
+        // float: left;
+        text-indent: -9999px;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      .logo-hackdash {
+        display: inline-block;
+        vertical-align: top;
+        margin-left: 20px;
+        width: 45px;
+        background: url('../images/logohack.png') no-repeat;
+        background-size: auto 100%;
+        height: 45px;
+        // float: left;
+        text-indent: -9999px;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
+  }
+}
+
+// Custom role images
+.hexagon {
+  .role {
+    &.role-user {
+      background: url(../images/roles/user.svg) no-repeat 0 0 e('/') 100% 100%;
+    }
+    &.role-maker {
+      background: url(../images/roles/maker.svg) no-repeat 0 0 e('/') 100% 100%;
+    }
+    &.role-feeder {
+      background: url(../images/roles/feeder.svg) no-repeat 0 0 e('/') 100% 100%;
+    }
+    &.role-taker {
+      background: url(../images/roles/taker.svg) no-repeat 0 0 e('/') 100% 100%;
+    }
+    &.role-team {
+      background: url(../images/roles/team.svg) no-repeat 0 0 e('/') 100% 100%;
+    }
+    &.role-facilitator {
+      background: url(../images/roles/facilitator.svg) no-repeat 0 0 e('/') 100% 100%;
+    }
+    &.role-superadmin {
+      background: url(../images/roles/superadmin.svg) no-repeat 0 0 e('/') 100% 100%;
+    }
+  }
+}
+
+.status-steps {
+  // border: 1px solid @color-action;
+
+  li {
+   &.step0 {
+
+    // border-top: 1px solid @color-step0;
+
+    @media all and (min-width: 48em) {
+      &:before {
+        // border-left: 15px solid @color-step1;
+      }
+      &.active:before {
+        border-left: 15px solid @color-step0;
+      }
+    }
+    a {
+      // color: @color-step0;
+    }
+
+    &:hover {
+      background-color: tint(@color-step0, 90%);
+
+      &:after {
+        border-left: 14px solid tint(@color-step0, 90%);
+      }
+    }
+
+    &.active {
+      background-color: @color-step0;
+      &:after {
+        border-left: 14px solid @color-step0;
+      }
+    }
+   }
+
+   &.step1 {
+
+    // border-top: 1px solid @color-step1;
+
+    @media all and (min-width: 48em) {
+      &:before {
+        // border-left: 15px solid @color-step2;
+      }
+      &.active:before {
+        border-left: 15px solid @color-step1;
+      }
+    }
+    a {
+      // color: @color-step1;
+    }
+
+    &:hover {
+      background-color: tint(@color-step1, 90%);
+
+      &:after {
+        border-left: 14px solid tint(@color-step1, 90%);
+      }
+    }
+
+    &.active {
+      background-color: @color-step1;
+      &:after {
+        border-left: 14px solid @color-step1;
+      }
+    }
+   }
+
+   &.step2 {
+
+    // border-top: 1px solid @color-step2;
+
+    @media all and (min-width: 48em) {
+      &:before {
+        // border-left: 15px solid @color-step3;
+      }
+      &.active:before {
+        border-left: 15px solid @color-step2;
+      }
+    }
+    a {
+      // color: @color-step2;
+    }
+
+    &:hover {
+      background-color: tint(@color-step2, 90%);
+
+      &:after {
+        border-left: 14px solid tint(@color-step2, 90%);
+      }
+    }
+
+    &.active {
+      background-color: @color-step2;
+      &:after {
+        border-left: 14px solid @color-step2;
+      }
+    }
+   }
+
+   &.step3 {
+
+    // border-top: 1px solid @color-step3;
+
+    @media all and (min-width: 48em) {
+      &:before {
+        // border-left: 15px solid @color-step4;
+      }
+      &.active:before {
+        border-left: 15px solid @color-step3;
+      }
+    }
+    a {
+      // color: @color-step3;
+    }
+
+    &:hover {
+      background-color: tint(@color-step3, 90%);
+
+      &:after {
+        border-left: 14px solid tint(@color-step3, 90%);
+      }
+    }
+
+    &.active {
+      background-color: @color-step3;
+      &:after {
+        border-left: 14px solid @color-step3;
+      }
+    }
+   }
+
+   &.step4 {
+
+    // border-top: 1px solid @color-step4;
+
+    @media all and (min-width: 48em) {
+      &:before {
+        // border-left: 15px solid @color-step5;
+      }
+      &.active:before {
+        border-left: 15px solid @color-step4;
+      }
+
+    }
+    a {
+      // color: @color-step4;
+    }
+
+    &:hover {
+      background-color: tint(@color-step4, 90%);
+
+      &:after {
+        border-left: 14px solid tint(@color-step4, 90%);
+      }
+    }
+
+    &.active {
+      background-color: @color-step4;
+      &:after {
+        border-left: 14px solid @color-step4;
+      }
+    }
+   }
+
+   &.step5 {
+
+    // border-top: 1px solid @color-step5;
+
+    @media all and (min-width: 48em) {
+      &:before {
+        // border-left: 15px solid @color-step6;
+      }
+      &.active:before {
+        border-left: 15px solid @color-step5;
+      }
+    }
+    a {
+      // color: @color-step5;
+    }
+
+    &:hover {
+      background-color: tint(@color-step5, 90%);
+
+      &:after {
+        border-left: 14px solid tint(@color-step5, 90%);
+      }
+    }
+
+    &.active {
+      background-color: @color-step5;
+      &:after {
+        border-left: 14px solid @color-step5;
+      }
+    }
+   }
+
+   &.step6 {
+
+    // border-top: 1px solid @color-step6;
+
+    @media all and (min-width: 48em) {
+      &:before {
+        // border-left: 15px solid @color-step6;
+      }
+      &.active:before {
+        border-left: 15px solid @color-step6;
+      }
+    }
+    a {
+      // color: @color-step6;
+    }
+
+    &:hover {
+      background-color: tint(@color-step6, 90%);
+
+      &:after {
+        border-left: 14px solid tint(@color-step6, 90%);
+      }
+    }
+
+    &.active {
+      background-color: @color-step6;
+      &:after {
+        border-left: 14px solid @color-step6;
+      }
+    }
+   }
+
+  }
+}
+
+.extra-fields-top {
+  p > img {
+    padding-right:1em;
+  }
+}

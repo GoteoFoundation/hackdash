@@ -1,0 +1,20 @@
+extends ../../../views/layout
+
+block styles_default
+
+  link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700')
+
+  link(rel='stylesheet', href='/styles/vendor.css?v=' + version)
+
+block content
+  .row
+    form.span4.offset4(method="post", action="/admin")
+      fieldset
+        legend Admin
+        label(for="title") Title
+        input#title(name="title", type="text", value=dashboard.title)
+        label(for="description") Description
+        textarea#description(maxlength="140", name="description")= dashboard.description
+        label(for="background") Background color
+        input#background(name="background", type="text", value=dashboard.background)
+        button.btn(type="submit") Save

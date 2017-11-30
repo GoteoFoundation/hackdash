@@ -1,0 +1,117 @@
+
+<div class="header">
+  <div class="container">
+    <h1>
+      <div class="form-group">
+          <input name="title" type="text" placeholder='{{__ "Project Title"}}' value="{{title}}" class="form-control"/>
+      </div>
+    </h1>
+    <h3 class="page-link-left">
+      {{#if domains}}
+        <select id="domain" name="domain" value="{{domain}}" class="form-control">
+        {{#each domains}}
+          <option value="{{.}}">{{.}}</option>
+        {{/each}}
+        </select>
+      {{else}}
+        <a href="/dashboards/{{domain}}">{{domain}}</a>
+      {{/if}}
+    </h3>
+  </div>
+</div>
+
+<div class="body">
+  <div class="bg-body-entity"></div>
+  <div class="container">
+
+    <div class="col-md-4">
+
+      <div class="cover">
+
+        <div class="progress" title="{{statusesText status}}">
+          <div class="status">
+            <select name="status" id="status" class="form-control" value="{{status}}">
+              {{#each statuses}}
+              <option value="{{status}}"{{#unless active}} disabled{{/unless}}>{{statusesText status}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </div>
+
+        <div id="dragdrop" class="dropzone item-cover"
+          {{#if cover}}
+          style="background-image: url({{cover}});"
+          {{/if}}>
+        </div>
+        <p class="error-cover bg-danger text-danger hidden"></p>
+        <p class="text-muted">Upload an image, sketch or diagram related to your scenario</p>
+
+      </div>
+
+      <div class="checkbox {{#if private}}private-project{{else}}public-project{{/if}}">
+        <label>
+          <input type="checkbox" name="private"{{#if private}} checked{{/if}}> {{__ "Private project"}}
+        </label>
+        <span class="help-block">{{__ 'private-project-description'}}</span>
+      </div>
+
+    </div>
+
+    <div class="col-md-8">
+
+      <div class="extra-fields-top"></div>
+
+      <div class="description form-group">
+        <label for="description">{{__ "Short Description"}}</label>
+        <textarea class="form-control" id="description" name="description" placeholder="{{__ "description_placeholder"}}">{{description}}</textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="location">{{__ "Location"}}</label>
+        <input name="location" type="text" placeholder="{{__ 'Location'}}" value="{{formatLocation location}}" class="form-control"/>
+      </div>
+
+      <input name="city" type="hidden" value="{{location.city}}"/>
+      <input name="region" type="hidden" value="{{location.region}}"/>
+      <input name="country" type="hidden" value="{{location.country}}"/>
+      <input name="zip" type="hidden" value="{{location.zip}}"/>
+      <input name="lng" type="hidden" value="{{location.coordinates.[0]}}"/>
+      <input name="lat" type="hidden" value="{{location.coordinates.[1]}}"/>
+
+      <div class="tags form-group">
+        <label for="tags">{{__ "Keywords"}}</label>
+        <select id="tags" name="tags" multiple data-placeholder="{{__ "Tags" }}" class="form-control">
+        {{#each tags}}
+          <option selected>{{this}}</option>
+        {{/each}}
+        </select>
+      </div>
+      <div class="link form-group">
+        <label for="link">{{__ "Project URL Demo"}}</label>
+        <input id="link" type="text" name="link" placeholder='{{__ "Project URL Demo"}}' class="form-control" value="{{link}}"/>
+      </div>
+    </div>
+
+    <div class="col-md-8 buttons-panel">
+
+      <div class="pull-right save form-group">
+        <a id="save" class="btn btn-success">{{__ "Save"}}</a>
+      </div>
+
+      <div class="pull-right cancel">
+        <a class="tools-url hidden btn btn-primary bnt-red">Tools for this stage</a>
+
+        <a id="cancel" class="btn btn-danger"
+          {{#if _id}}
+          href="/projects/{{_id}}"
+          {{else}}
+          href="/dashboards/{{domain}}"
+          {{/if}}
+        >{{__ "Cancel"}}</a>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
