@@ -10,6 +10,30 @@
   top: 4%;
   right: 1%;
 
+  .locale-list {
+    .dropdown {
+      button {
+        color: @color-white;
+        background: none;
+        border: none;
+        font-size: @fsize-25;
+        font-family: @secondary-font;
+        text-transform: uppercase;
+        text-shadow: none;
+        padding:5px 10px;
+        margin:0 0 0 -5px;
+        height: 50px;
+      }
+      .dropdown-menu {
+        min-width: auto;
+        li.active a {
+          background-color: inherit;
+          color: inherit;
+          font-weight: bold;
+        }
+      }
+    }
+  }
   .profile-btn {
     display: inline-block;
     vertical-align: top;
@@ -102,8 +126,14 @@
       .landing-tab(@color-conversation, @color-conversation-a);
       a {
         padding-top: 20px;
+        padding-left: 5px;
+        padding-right: 5px;
         padding-bottom: 0;
         margin-top: -20px;
+        &:hover {
+          background-color: transparent;
+          border-color: transparent;
+        }
       }
     }
     &.login-tab {

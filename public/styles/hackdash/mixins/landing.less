@@ -1,0 +1,29 @@
+
+.landing-tab(@color, @font-color: false) {
+  background-color: @color;
+  border: 1px solid @color;
+  a when (@font-color = false) {
+    color: @color-white;
+  }
+  a when not(@font-color = false) {
+    color: @font-color;
+  }
+
+  &:hover, a:hover, a:focus {
+    background-color: darken(@color, 6.5%);
+    border: 1px solid darken(@color, 6.5%);
+  }
+
+  &.active {
+    &:hover, a, a:hover, a:focus {
+      & when (@font-color = false) {
+        color: @color-white;
+      }
+      & when not(@font-color = false) {
+        color: @font-color;
+      }
+      background-color: @color;
+      border: 1px solid @color;
+    }
+  }
+}

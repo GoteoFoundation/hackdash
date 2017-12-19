@@ -1,6 +1,7 @@
 
 var template = require("Home/templates/home.hbs") // Required as absolute to allow themes
   , TabContent = require("./TabContent")
+  , LocaleView = require("./Locale")
   , LoginView = require("../Login")
   , RegisterView = require("../Register")
   , ForgotView = require("../Forgot")
@@ -32,6 +33,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     "collections": "#collections",
     "dashboardList": "#dashboard-list",
 
+    "locale": ".locale-list",
     "stats": ".stats-ctn",
     "team": ".team-ctn",
     "partners": ".partners-ctn",
@@ -108,6 +110,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       this.ui[this.section].addClass("active");
     }
 
+    this.locale.show(new LocaleView());
     this.stats.show(new StatsView());
 
     this.team.show(new TeamView({ collection: this.hdTeam }));

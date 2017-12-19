@@ -14,7 +14,7 @@ module.exports = {
 
     "title_default": "Caminando juntos para mejorar decide.madrid",
     "description_default": "The digital roadbook enhance the visualisation of the Idea Camp process and facilitate the matchmaking between participants",
-    "site_name": "IdeaCamp2017",
+    "site_name": "Decide.Madrid",
 
     "team": "Roadbook Team",
 
@@ -74,13 +74,13 @@ module.exports = {
 
     "These forms must be filled by the project leader": "These forms must be filled by the idea maker",
 
-    "template_email_wrapper": "[IdeaCamp2017] <%= subject %>",
-    "template_email_wrapper_body": "### IdeaCamp2017 message:\n\n<%= content %>\n\n*Please do no reply this email, this is an automated response from [<%= host_name %>]({<%= host %>)*\n\n![IdeaCamp2017](<%= host %>/images/mini-logo-ideacamp.png)",
+    "template_email_wrapper": "[Decide.Madrid] <%= subject %>",
+    "template_email_wrapper_body": "### Decide.Madrid message:\n\n<%= content %>\n\n*Please do no reply this email, this is an automated response from [<%= host_name %>]({<%= host %>)*\n\n![Decide.Madrid](<%= host %>/images/mini-logo-ideacamp.png)",
 
     "template_user_welcome": "Your Idea Camp journey starts here!",
-    "template_user_welcome_body": "Hi *<%= name %>*!\n\nThanks for creating your user profile in Idea Camp 2017's Digital Roadbook.\n\nMake sure you formulate your Idea by [creating a project](<%= host %>/dashboards/ideacamp17/create). The more projects gathered, the sooner we'll learn about the rest of Idea Makers coming to Madrid!\n\nAs soon as you will have uploaded your idea, you'll get another mail with a link to 2 Questionnaires. **These will be crucial to the development of the program**.\n\nIdeaCamp's Digital Roadbook is a platform for all Idea Makers to upload, improve and keep track of their idea development. The Roadbook is also an opportunity for the Idea Camp learning community to connect through time and to foster connection during and after the event.\n\n- If you've got any trouble using the platform, drop us an email at [roadbook@platoniq.net](mailto:roadbook@platoniq.net)\n\n- For any inquiries about the event itself please write to [ideacamp@culturalfoundation.eu](mailto:ideacamp@culturalfoundation.eu)",
+    "template_user_welcome_body": "Hi *<%= name %>*!\n\nThanks for creating your user profile in Wotify - Decide.Madrid.\n\nMake sure you formulate your Idea by [creating a project](<%= host %>/dashboards/ideacamp17/create). The more projects gathered, the sooner we'll learn about the rest of Idea Makers coming to Madrid!\n\nAs soon as you will have uploaded your idea, you'll get another mail with a link to 2 Questionnaires. **These will be crucial to the development of the program**.\n\nIdeaCamp's Digital Roadbook is a platform for all Idea Makers to upload, improve and keep track of their idea development. The Roadbook is also an opportunity for the Idea Camp learning community to connect through time and to foster connection during and after the event.\n\n- If you've got any trouble using the platform, drop us an email at [roadbook@platoniq.net](mailto:roadbook@platoniq.net)\n\n- For any inquiries about the event itself please write to [ideacamp@culturalfoundation.eu](mailto:ideacamp@culturalfoundation.eu)",
 
     "template_project_created": "Your Idea looks great!",
-    "template_project_created_body": "Wow! The Idea (*<%= project.title %>*) you just formulated in **Idea Camp 2017’s Digital Roadbook** looks just amazing.\n\nIf you need to rework it in the following weeks, upload an image or boost it a little more, you will always find it following this link:\n\n<%= host %>/projects/<%= project._id %>\n\nNow that you’ve got your Idea created, don’t forget to answer the questionnaires that you’ll find here:\n\n<%= host %>/forms\n\nThey’ve been prepared carefully to feed the program of activities in Madrid and help you out developing your project further.\n\nDeadline to fill them: **9th January 2017 at 10am**.\n\n- Should you have any trouble using the platform, drop us an email at [roadbook@platoniq.net](mailto:roadbook@platoniq.net)\n\n- For any inquiries about the event itself please write to [ideacamp@culturalfoundation.eu](mailto:ideacamp@culturalfoundation.eu)\n\nWith warm wishes",
+    "template_project_created_body": "Wow! The Idea (*<%= project.title %>*) you just formulated in **Wotify - Decide.Madrid** looks just amazing.\n\nIf you need to rework it in the following weeks, upload an image or boost it a little more, you will always find it following this link:\n\n<%= host %>/projects/<%= project._id %>\n\nNow that you’ve got your Idea created, don’t forget to answer the questionnaires that you’ll find here:\n\n<%= host %>/forms\n\nThey’ve been prepared carefully to feed the program of activities in Madrid and help you out developing your project further.\n\nDeadline to fill them: **9th January 2017 at 10am**.\n\n- Should you have any trouble using the platform, drop us an email at [roadbook@platoniq.net](mailto:roadbook@platoniq.net)\n\n- For any inquiries about the event itself please write to [ideacamp@culturalfoundation.eu](mailto:ideacamp@culturalfoundation.eu)\n\nWith warm wishes",
   }
 }

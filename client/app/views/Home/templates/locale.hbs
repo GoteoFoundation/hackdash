@@ -1,0 +1,13 @@
+{{#if languages}}
+  <div class="dropdown">
+    <button class="dropdown-toggle" type="button" id="localeDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+      {{language}}
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="localeDropdown">
+      {{#each languages}}
+        <li class="{{../isActive @key}}"><a data-bypass href="/?lang={{@key}}">{{this}}</a></li>
+      {{/each}}
+    </ul>
+  </div>
+{{/if}}

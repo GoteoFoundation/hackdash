@@ -37,6 +37,7 @@
   "googleApiKey": "",
   "useLocalLogin": true,
   "language": null,
+  "languages": null,
   "maxUploadSize": 2097152,
   "theme": null,
   "skills": []
