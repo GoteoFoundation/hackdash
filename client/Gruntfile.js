@@ -126,7 +126,8 @@ module.exports = function(grunt) {
 
     watch: {
       local: {
-        files: ["<%= paths.app.root %>**/*", "<%= paths.dist.exportCSS %>**/*.less", '<%= paths.app.theme %>/client/**/*', '<%= paths.app.theme %>/styles/**/*'],
+        // files: ["<%= paths.app.root %>**/*", "<%= paths.dist.exportCSS %>**/*.less", '<%= paths.app.theme %>/client/**/*', '<%= paths.app.theme %>/styles/**/*'],
+        files: ["<%= paths.app.root %>**/*", '<%= paths.app.theme %>/client/**/*', '<%= paths.app.theme %>/locale/**/*'],
         tasks: ['default'],
         options: {
           atBegin: true
@@ -137,7 +138,7 @@ module.exports = function(grunt) {
     jshint: {
       all: {
         files: {
-          src: ["<%= paths.app.root %>**/*.js"]
+          src: ["<%= paths.app.root %>**/*.js", '<%= paths.app.theme %>/client/**/*.js']
         },
         options: {
           bitwise: true
