@@ -33,10 +33,22 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     "collections": "#collections",
     "dashboardList": "#dashboard-list",
 
-    "locale": ".locale-list",
-    "stats": ".stats-ctn",
-    "team": ".team-ctn",
-    "partners": ".partners-ctn",
+    "locale": {
+      selector: ".locale-list",
+      allowMissingEl: true
+    },
+    "stats": {
+      selector: ".stats-ctn",
+      allowMissingEl: true
+    },
+    "team": {
+      selector: ".team-ctn",
+      allowMissingEl: true
+    },
+    "partners": {
+      selector: ".partners-ctn",
+      allowMissingEl: true
+    },
     "footer": ".footer-ctn",
   },
 
@@ -111,6 +123,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     }
 
     this.locale.show(new LocaleView());
+
     this.stats.show(new StatsView());
 
     this.team.show(new TeamView({ collection: this.hdTeam }));
