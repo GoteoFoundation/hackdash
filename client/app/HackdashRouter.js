@@ -276,8 +276,10 @@ module.exports = Backbone.Marionette.AppRouter.extend({
     app.collection = new Collection();
     app.collection.set('_id', cid);
     app.collection.fetch().done(function(){
-      if(!self.canEditDashboard(window.hackdash.user, app.collection.attributes)) {
-        window.location = "/collections/" + app.collection.attributes.domain;
+      console.log('checking collection permissions', app);
+      if(!self.canEditCollection(window.hackdash.user, app.collection.attributes)) {
+        console.log('Cannot edit, redirect to ', app.collection.attributes.domain);
+        window.location = "/collections/" + app.collection.attributes._id;
       }
       form.fetch().done(function(){
 
