@@ -1,0 +1,171 @@
+<div class="landing-header">
+
+  <div class="logo-roadbook" title="Ideacamp Digital Roadbook"></div>
+
+  <div class="my-profile">
+
+    {{#if homeCreateProject}}
+      <div class="profile-btn">
+        {{!-- <button id="create-project" class="btn btn-primary btn-blue" type="button">{{__ "Create Project"}}</button> --}}
+        <a id="create-project" class="btn btn-primary btn-blue" href="/dashboards/ideacamp17/create" data-bypass>{{__ 'Create Project'}}</a>
+        <div class="dropdown-project dropdown" id="dashboard-list"></div>
+      </div>
+    {{/if}}
+
+    <div class="profile-btn hidden-xs">
+    {{#isLoggedIn}}
+      <a class="btn-profile">
+        {{getMyProfileImageHex}}
+      </a>
+      <a class="logout" href="/logout" data-bypass>{{__ "Log out"}}</a>
+    {{else}}
+      <a class="login">{{__ "Log in"}}</a>
+    {{/isLoggedIn}}
+    </div>
+
+  </div>
+
+
+  <div class="text-vcenter call-action">
+
+    <div class="logo logo-ideacamp" title="2017 Moving communities"></div>
+
+    {{#if canCreateDashboard}}
+      <div class="col-xs-12">
+        <div class="input-group">
+          <input id="domain" type="text" class="form-control" placeholder="{{__ "event name (5-20 chars)"}}">
+          <span class="input-group-btn">
+            <button id="create-dashboard" class="btn btn-primary" type="button">{{__ "create now"}}</button>
+          </span>
+        </div>
+        <p id="new-dashboard-error" class="text-center text-danger hidden">{{__ "ERROR"}}</p>
+      </div>
+    {{/if}}
+
+  </div>
+
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 text-center">
+
+      <a class="btn btn-default mobile-menu visible-xs">
+        <i class="fa fa-align-justify"></i>
+      </a>
+
+      <ul class="nav nav-tabs landing" role="tablist">
+        {{#isLoggedIn}}
+        <li class="visible-xs login-tab">
+          <a class="logout" href="/logout" data-bypass>{{__ "Log out"}}</a>
+        </li>
+        {{else}}
+        <li class="visible-xs login-tab">
+          <a class="login">{{__ "Log in"}}</a>
+        </li>
+        {{/isLoggedIn}}
+
+        <li id="collection" class="collection">
+          <a href="#collections" role="tab" data-toggle="tab">{{__ "Collections"}}</a>
+        </li>
+        <li id="dashboard" class="dashboard">
+          <a href="#dashboards" role="tab" data-toggle="tab">{{__ "Dashboards"}}</a>
+        </li>
+        <li id="project" class="project">
+          <a href="#projects" role="tab" data-toggle="tab">{{__ "Projects"}}</a>
+        </li>
+        <li id="user" class="user">
+          <a href="#users" role="tab" data-toggle="tab">{{__ "People"}}</a>
+        </li>
+        <li class="conversations">
+          <a href="//widgets.ideacamp2017.eu/notes" target="_blank" data-bypass>Conversations</a>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+<div class="tab-content">
+  <div role="tabpanel" class="tab-pane" id="dashboards"></div>
+  <div role="tabpanel" class="tab-pane" id="projects"></div>
+  <div role="tabpanel" class="tab-pane" id="users"></div>
+  <div role="tabpanel" class="tab-pane" id="collections"></div>
+</div>
+
+<div class="landing-footer">
+  <div class="text-vcenter call-action">
+
+    <div class="container-fluid">
+
+      <h3>{{__ 'Guidelines for your idea on the run to Idea Camp'}}</h3>
+
+      <div class="row">
+
+      <div class="step col-xxs-12 col-xs-6 col-sm-4">
+        <a class="btn btn1 login"><i>1.</i> {{__ 'Log in'}}</a>
+      </div>
+      <div class="step col-xxs-12 col-xs-6 col-sm-4">
+        <a class="btn btn2 btn-profile"><i>2.</i> {{__ 'Create your profile'}}</a>
+      </div>
+      <div class="step col-xxs-12 col-xs-6 col-sm-4">
+        <a class="btn btn3" href="/dashboards/ideacamp17/create" data-bypass><i>3.</i> {{__ 'Upload Your Idea'}}</a>
+        <br>
+        <span>({{__ "In ideacamp2017 board"}})</span>
+      </div>
+      <div class="step col-xxs-12 col-xs-6 col-sm-4">
+        <a class="btn btn4" href="/dashboards/ideacamp17" data-bypass><i>4.</i> {{__ 'Synthesize your idea'}}</a>
+        <br>
+        <span>({{__ "Starting with a simple question what if..."}})</span>
+      </div>
+      <div class="step col-xxs-12 col-xs-6 col-sm-4">
+        <a class="btn btn5" href="/forms" data-bypass><i>5.</i> {{__ 'Answer questionnaires'}}</a>
+        <br>
+        <span>({{__ "Your context, state of your idea"}})</span>
+      </div>
+      <div class="step col-xxs-12 col-xs-6 col-sm-4">
+        <a class="btn btn6" href="mailto:roadbook@platoniq.net">{{__ 'Need Help'}} <i>{{__ 'Contact us'}}</i></a>
+      </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<div class="col-md-12 stats-ctn"></div>
+
+<div class="col-md-12 partners-wrapper">
+  <h3 class="partners-tab">{{__ "partners"}}</h3>
+  <div class="partners-ctn"></div>
+</div>
+
+<div class="col-md-12 network-wrapper">
+  <h3 class="network-tab"><a href="http://politicalcritique.org/connected-action" target="_blank" data-bypass>CONNECTED ACTION FOR THE COMMONS NETWORK</a></h3>
+  <div class="network-ctn">
+
+    <ul>
+      <li class="clubture"><a href="http://www.clubture.org" target="_blank" data-bypass></a></li>
+      <li class="pravonagrad"><a href="http://pravonagrad.org" target="_blank" data-bypass></a></li>
+      <li class="operacija-grad"><a href="https://operacijagrad.net" target="_blank" data-bypass></a></li>
+      <li class="tetes-art"><a href="http://www.lestetesdelart.fr" target="_blank" data-bypass></a></li>
+      <li class="goteo"><a href="https://www.goteo.org" target="_blank" data-bypass></a></li>
+      <li class="oberliht"><a href="http://www.oberliht.com" target="_blank" data-bypass></a></li>
+      <li class="critica-politica"><a href="http://www.krytykapolityczna.pl" target="_blank" data-bypass></a></li>
+      <li class="subtopia"><a href="http://www.subtopia.se" target="_blank" data-bypass></a></li>
+    </ul>
+
+  </div>
+</div>
+
+<div class="col-md-12 team-wrapper">
+  <h3 class="team-tab">{{__ "team"}}</h3>
+  <div class="team-ctn"></div>
+</div>
+
+<div class="col-md-12 about-ctn">
+  {{{__ "The HackDash was born"}}}
+</div>
+
+<div class="col-md-12 footer-ctn"></div>

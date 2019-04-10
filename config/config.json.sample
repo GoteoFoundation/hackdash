@@ -1,8 +1,8 @@
 {
   "db": {
-    "name": "hackdash",
+    "name": "wotify",
     "host": "mongodb",
-    "url": null
+    "url": "mongodb://mongodb/wotify"
   },
   "host": "local.host",
   "port": 3000,
