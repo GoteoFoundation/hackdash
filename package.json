@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "NODE_PATH=. DEBUG=hackdash:* nodemon index",
+    "build": "cd client && npm install && npm run build",
     "devel": "cd client && npm run watch & NODE_PATH=. DEBUG=hackdash:* nodemon index",
     "test": "NODE_PATH=. DEBUG=hackdash:* PORT=9999 NODE_ENV=test node_modules/mocha/bin/mocha test/bootstrap.test.js test/index.js -u bdd -R spec -b"
   },
