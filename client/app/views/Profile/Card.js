@@ -4,7 +4,7 @@
  */
 
 var template = require('./templates/card.hbs')
-  , roles = require('../../../../config/roles.json');
+  , roles = hackdash.roles;
 
 module.exports = Backbone.Marionette.ItemView.extend({
 

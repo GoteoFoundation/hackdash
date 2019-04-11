@@ -1,5 +1,3 @@
-var roles = require('../../config/roles.json');
-
 module.exports = function(){
 
   window.hackdash = window.hackdash || {};
@@ -19,7 +17,7 @@ module.exports = function(){
     if(!user) {
       return false;
     }
-    var role = _.findWhere(roles, {role: user.role}) || {role: null, perms:[]};
+    var role = _.findWhere(window.hackdash.roles, {role: user.role}) || {role: null, perms:[]};
     return role.perms.indexOf(perm) >= 0;
   };
 

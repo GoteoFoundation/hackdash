@@ -3,8 +3,8 @@
  *
  */
 
-var Handlebars = require("hbsfy/runtime");
-var roles = require("../../../config/roles.json");
+var Handlebars = require("hbsfy/runtime")
+  , roles = hackdash.roles;
 
 Handlebars.registerHelper('embedCode', function() {
   var embedUrl = window.location.protocol + "//" + window.location.host;

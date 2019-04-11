@@ -4,7 +4,6 @@
  */
 
 var HackdashRouter = require('./HackdashRouter')
-  , config = require("../../config/config")
   , LoginView = require("./views/Login")
   , MessageView = require("./views/MessageBox")
   , ModalRegion = require('./views/ModalRegion');
@@ -44,7 +43,7 @@ module.exports = function(){
     };
 
     app.setTitle = function(title){
-      window.document.title = title + " - " + config.title;
+      window.document.title = title + " - " + window.hackdash.title;
     };
   }
 
