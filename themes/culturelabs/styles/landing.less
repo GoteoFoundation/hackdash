@@ -1,0 +1,242 @@
+@import '../../../public/styles/hackdash/landing';
+@import './base';
+@import './settings';
+
+.my-profile  {
+  float:none;
+  position: absolute;
+  text-align: right;
+  width: 100%;
+  top: 4%;
+  right: 1%;
+  .btn-primary,
+  .btn-blue {
+    text-transform: capitalize;
+    border: none;
+    background: none;
+    color: @color-white;
+  }
+
+  .profile-btn {
+    display: inline-block;
+    vertical-align: top;
+    padding:0 5px;
+
+    .login {
+      text-transform: capitalize;
+      padding:5px 10px;
+      margin:0 0 0 -5px;
+      height: 50px;
+      font-family: @secondary-font;
+
+      position: static;
+      width: auto;
+      display: inline-block;
+      text-align: center;
+      text-shadow: none;
+
+      .landing-tab(transparent, @color-white);
+    }
+
+    .btn-profile {
+      position: static;
+    }
+    .logout {
+      position: static;
+    }
+
+    .dropdown-menu  {
+      left:auto;
+      right:0;
+    }
+  }
+}
+
+.landing-header {
+  background-image: url(@landing-culturelabs-url);
+  height: 65%;
+  .logo-roadbook {
+    background: url(@logo-roadbook-url) no-repeat;
+    width: 20%;
+    height: 40%;
+    max-width: 340px;
+    // max-height: 160px;
+    margin: 2% 0 0 2%;
+    background-size: 100%;
+    display: block;
+    position: absolute;
+    top:0;
+    left:0;
+    @media (max-width: 767px) {
+      width: 150px;
+
+    }
+
+  }
+
+  .call-action {
+    background: none;
+    .logo-culturelabs {
+      background-color: @color-orange-transparent;
+      background-image: url(../images/logo-culturelabs-b.png);
+      background-repeat: no-repeat;
+      background-size: auto 100px;
+      background-position: center center;
+      // margin: -40px auto 40px auto;
+      margin: 0% auto 0 auto;
+      height:90%;
+      width: 96%;
+      @media (max-width: 767px) {
+        margin: 0 auto;
+        width: 207px;
+        height: 173px;
+      }
+    }
+  }
+
+  #create-project.btn-primary {
+    font-size: @fsize-20;
+    line-height: 1em;
+    background-image: url(../images/upload-button.svg);
+    background-repeat: no-repeat;
+    background-size: auto 20px;
+    background-position: left center;
+    padding-left:30px;
+    height: auto;
+    display: block;
+  }
+}
+
+.nav-tabs.landing {
+  li {
+    &.collection {
+      .landing-tab(@color-white, @color-orange);
+    }
+    &.dashboard {
+      .landing-tab(@color-white, @color-orange);
+    }
+    &.project {
+      .landing-tab(@color-white, @color-orange);
+    }
+    &.user {
+      .landing-tab(@color-white, @color-orange);
+    }
+    &.conversations {
+      .landing-tab(@color-white, @color-orange);
+    }
+    &.login-tab {
+      .landing-tab(@color-white, @color-orange);
+    }
+    a {
+      text-transform: capitalize;
+      margin: 0;
+      font-size: @fsize-20;
+      padding-left: 0;
+      padding-right: 0;
+    }
+    &.active {
+      a,a:focus {
+        font-weight: bold;
+        &::after {
+          content: '';
+          position: absolute;
+          height:4px;
+          width: 90%;
+          bottom:0;
+          left:5%;
+          background: @color-yellow;
+        }
+      }
+    }
+  }
+}
+// Fix bootstrap visible
+@media (max-width: 767px) {
+  .visible-xs {
+    display: inline-block !important;
+  }
+}
+@media (max-width: 1000px) {
+  .nav-tabs.landing {
+
+    li {
+      margin-left: 0;
+      margin-right: 0;
+      }
+    }
+}
+
+@media (max-width: 960px) {
+  .nav-tabs.landing {
+
+    li {
+      a {
+        font-size: @fsize-17;
+        min-height: 50px;
+        min-width: 140px;
+      }
+    }
+  }
+
+}
+
+.team-wrapper,.partners-wrapper,.network-wrapper {
+  padding:0;
+  .team-ctn,.partners-ctn,.network-ctn {
+    width: 100%;
+    padding:40px 0 0 0;
+  }
+  .team-tab,.partners-tab,.network-tab {
+    text-align: center;
+    background: none;
+    position:absolute;
+    top:0;
+    left:0;
+    height: 20px;
+    width: 100%;
+    margin: 10px 0;
+    padding: 0;
+    font-size: @fsize-20;
+    a {
+      color:@color-black;
+    }
+    @media (max-width: 768px) {
+      margin: 10px 0;
+      padding: 0;
+      font-size: inherit;
+    }
+  }
+}
+.team-wrapper {
+  // border-bottom:#ff7c1c solid 4px;
+}
+.partners-wrapper {
+  margin-top: -20px;
+  .partners-ctn {
+    border-bottom:#febd91 solid 4px;
+  }
+}
+
+.partners-ctn, .network-ctn {
+  ul li a {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+  }
+}
+.partners-ctn {
+  ul {
+    li {
+
+      &.culturelabs {
+        background-image: url('../images/partners/logo-culturelabs.png');
+      }
+
+      &.platoniq {
+        background-image: url('../images/partners/logo-platoniq.png');
+      }
+
+    }
+  }
+}
+

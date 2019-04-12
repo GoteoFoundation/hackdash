@@ -6,8 +6,7 @@
 
     {{#if homeCreateProject}}
       <div class="profile-btn">
-        {{!-- <button id="create-project" class="btn btn-primary btn-blue" type="button">{{__ "Create Project"}}</button> --}}
-        <a id="create-project" class="btn btn-primary btn-blue" href="/dashboards/ideacamp17/create" data-bypass>{{__ 'Create Project'}}</a>
+        <a id="create-project" class="btn-primary">{{__ "Create Project"}}</a>
         <div class="dropdown-project dropdown" id="dashboard-list"></div>
       </div>
     {{/if}}
@@ -28,7 +27,8 @@
 
   <div class="text-vcenter call-action">
 
-    <div class="logo logo-ideacamp" title="2017 Moving communities"></div>
+    <div class="logo logo-culturelabs" title="2017 Moving communities">
+    </div>
 
     {{#if canCreateDashboard}}
       <div class="col-xs-12">
@@ -77,9 +77,6 @@
         <li id="user" class="user">
           <a href="#users" role="tab" data-toggle="tab">{{__ "People"}}</a>
         </li>
-        <li class="conversations">
-          <a href="//widgets.ideacamp2017.eu/notes" target="_blank" data-bypass>Conversations</a>
-        </li>
       </ul>
 
     </div>
@@ -93,70 +90,11 @@
   <div role="tabpanel" class="tab-pane" id="collections"></div>
 </div>
 
-<div class="landing-footer">
-  <div class="text-vcenter call-action">
-
-    <div class="container-fluid">
-
-      <h3>{{__ 'Guidelines for your idea on the run to Idea Camp'}}</h3>
-
-      <div class="row">
-
-      <div class="step col-xxs-12 col-xs-6 col-sm-4">
-        <a class="btn btn1 login"><i>1.</i> {{__ 'Log in'}}</a>
-      </div>
-      <div class="step col-xxs-12 col-xs-6 col-sm-4">
-        <a class="btn btn2 btn-profile"><i>2.</i> {{__ 'Create your profile'}}</a>
-      </div>
-      <div class="step col-xxs-12 col-xs-6 col-sm-4">
-        <a class="btn btn3" href="/dashboards/ideacamp17/create" data-bypass><i>3.</i> {{__ 'Upload Your Idea'}}</a>
-        <br>
-        <span>({{__ "In ideacamp2017 board"}})</span>
-      </div>
-      <div class="step col-xxs-12 col-xs-6 col-sm-4">
-        <a class="btn btn4" href="/dashboards/ideacamp17" data-bypass><i>4.</i> {{__ 'Synthesize your idea'}}</a>
-        <br>
-        <span>({{__ "Starting with a simple question what if..."}})</span>
-      </div>
-      <div class="step col-xxs-12 col-xs-6 col-sm-4">
-        <a class="btn btn5" href="/forms" data-bypass><i>5.</i> {{__ 'Answer questionnaires'}}</a>
-        <br>
-        <span>({{__ "Your context, state of your idea"}})</span>
-      </div>
-      <div class="step col-xxs-12 col-xs-6 col-sm-4">
-        <a class="btn btn6" href="mailto:roadbook@platoniq.net">{{__ 'Need Help'}} <i>{{__ 'Contact us'}}</i></a>
-      </div>
-
-      </div>
-
-    </div>
-
-  </div>
-</div>
-
 <div class="col-md-12 stats-ctn"></div>
 
 <div class="col-md-12 partners-wrapper">
   <h3 class="partners-tab">{{__ "partners"}}</h3>
   <div class="partners-ctn"></div>
-</div>
-
-<div class="col-md-12 network-wrapper">
-  <h3 class="network-tab"><a href="http://politicalcritique.org/connected-action" target="_blank" data-bypass>CONNECTED ACTION FOR THE COMMONS NETWORK</a></h3>
-  <div class="network-ctn">
-
-    <ul>
-      <li class="clubture"><a href="http://www.clubture.org" target="_blank" data-bypass></a></li>
-      <li class="pravonagrad"><a href="http://pravonagrad.org" target="_blank" data-bypass></a></li>
-      <li class="operacija-grad"><a href="https://operacijagrad.net" target="_blank" data-bypass></a></li>
-      <li class="tetes-art"><a href="http://www.lestetesdelart.fr" target="_blank" data-bypass></a></li>
-      <li class="goteo"><a href="https://www.goteo.org" target="_blank" data-bypass></a></li>
-      <li class="oberliht"><a href="http://www.oberliht.com" target="_blank" data-bypass></a></li>
-      <li class="critica-politica"><a href="http://www.krytykapolityczna.pl" target="_blank" data-bypass></a></li>
-      <li class="subtopia"><a href="http://www.subtopia.se" target="_blank" data-bypass></a></li>
-    </ul>
-
-  </div>
 </div>
 
 <div class="col-md-12 team-wrapper">

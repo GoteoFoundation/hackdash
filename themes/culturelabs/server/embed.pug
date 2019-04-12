@@ -1,0 +1,22 @@
+extends ../../../views/layout
+
+block styles_default
+
+  link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Open+Sans')
+
+  link(rel='stylesheet', href='/styles/vendor.css?v=' + version)
+
+block styles
+
+  link(rel='stylesheet', href='/styles/embed.css?v=' + version)
+
+block content
+
+block scripts
+
+  script(src="/js/embedApp.js?v=" + version)
+
+  script.
+    $(function(){
+      window.hackdash.startApp();
+    });
