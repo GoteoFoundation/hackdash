@@ -2,6 +2,10 @@
 @import './base';
 @import './settings';
 
+.form-control {
+  text-transform: none;
+}
+
 .my-profile  {
   float:none;
   position: absolute;
@@ -25,8 +29,8 @@
     .login {
       text-transform: capitalize;
       padding:5px 10px;
-      margin:0 0 0 -5px;
-      height: 50px;
+      margin:0 20px 0 -20px;
+      height: auto;
       font-family: @secondary-font;
 
       position: static;
@@ -34,6 +38,8 @@
       display: inline-block;
       text-align: center;
       text-shadow: none;
+      font-size:@fsize-17;
+
 
       .landing-tab(transparent, @color-white);
     }
@@ -61,7 +67,7 @@
     height: 40%;
     max-width: 340px;
     // max-height: 160px;
-    margin: 2% 0 0 2%;
+    margin: 4% 0 0 2%;
     background-size: 100%;
     display: block;
     position: absolute;
@@ -75,6 +81,10 @@
   }
 
   .call-action {
+    .input-group {
+      margin:0 25%;
+      bottom: 120px;
+    }
     background: none;
     .logo-culturelabs {
       background-color: @color-orange-transparent;
@@ -95,13 +105,14 @@
   }
 
   #create-project.btn-primary {
-    font-size: @fsize-20;
+    font-size: @fsize-17;
     line-height: 1em;
     background-image: url(../images/upload-button.svg);
     background-repeat: no-repeat;
     background-size: auto 20px;
     background-position: left center;
     padding-left:30px;
+    padding-top:10px;
     height: auto;
     display: block;
   }
@@ -109,23 +120,16 @@
 
 .nav-tabs.landing {
   li {
-    &.collection {
-      .landing-tab(@color-white, @color-orange);
-    }
-    &.dashboard {
-      .landing-tab(@color-white, @color-orange);
-    }
-    &.project {
-      .landing-tab(@color-white, @color-orange);
-    }
-    &.user {
-      .landing-tab(@color-white, @color-orange);
-    }
-    &.conversations {
-      .landing-tab(@color-white, @color-orange);
-    }
+    &.collection,
+    &.dashboard ,
+    &.project ,
+    &.user ,
+    &.conversations ,
     &.login-tab {
       .landing-tab(@color-white, @color-orange);
+      a:hover {
+        background-color:transparent;
+      }
     }
     a {
       text-transform: capitalize;
@@ -134,18 +138,18 @@
       padding-left: 0;
       padding-right: 0;
     }
-    &.active {
-      a,a:focus {
-        font-weight: bold;
-        &::after {
-          content: '';
-          position: absolute;
-          height:4px;
-          width: 90%;
-          bottom:0;
-          left:5%;
-          background: @color-yellow;
-        }
+    &.active a {
+      font-weight: bold;
+    }
+    &.active a, a:focus,a:hover {
+      &::after {
+        content: '';
+        position: absolute;
+        height:4px;
+        width: 90%;
+        bottom:0;
+        left:5%;
+        background: @color-yellow;
       }
     }
   }
@@ -180,6 +184,45 @@
 
 }
 
+.landing-search {
+
+  .media {
+    margin: 5px 0;
+    .media-body {
+      color: @color-orange;
+    }
+    .fa {
+      color: @color-orange;
+      font-size: @fsize-40;
+      border-radius: 0;
+      padding: 7px 7px;
+      height:60px;
+      width:60px;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: @color-orange;
+      &:before {
+        content: none;
+      };
+
+      &.fa-tasks {
+        background-image: url(../images/progress.svg);
+      }
+      &.fa-cloud-upload{
+        background-image: url(../images/upload.svg);
+      }
+      &.fa-user-plus {
+        background-image: url(../images/collaborate.svg);
+      }
+      &.fa-share-alt {
+        background-image: url(../images/share.svg);
+        background-color:@color-white;
+        padding: 7px 9px;
+      }
+
+    }
+  }
+}
 .team-wrapper,.partners-wrapper,.network-wrapper {
   padding:0;
   .team-ctn,.partners-ctn,.network-ctn {
