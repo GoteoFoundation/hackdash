@@ -65,9 +65,9 @@
     background: url(@logo-roadbook-url) no-repeat;
     width: 20%;
     height: 40%;
-    max-width: 340px;
+    max-width: 160px;
     // max-height: 160px;
-    margin: 4% 0 0 2%;
+    margin: 40px 0 0 3%;
     background-size: 100%;
     display: block;
     position: absolute;
@@ -83,7 +83,13 @@
   .call-action {
     .input-group {
       margin:0 25%;
-      bottom: 120px;
+      bottom: 140px;
+      .form-control {
+        text-transform: lowercase;
+      }
+      .btn {
+        text-transform: capitalize;
+      }
     }
     background: none;
     .logo-culturelabs {
@@ -97,9 +103,7 @@
       height:90%;
       width: 96%;
       @media (max-width: 767px) {
-        margin: 0 auto;
-        width: 207px;
-        height: 173px;
+        background-size: 200px auto;
       }
     }
   }
@@ -115,6 +119,22 @@
     padding-top:10px;
     height: auto;
     display: block;
+  }
+}
+
+.tab-content {
+  .header {
+   .input-group {
+      .form-control {
+        text-transform: none;
+      }
+      .btn {
+        text-transform: capitalize;
+      }
+    }
+  }
+  .content {
+    background-color: @color-whiteB;
   }
 }
 
@@ -196,8 +216,8 @@
       font-size: @fsize-40;
       border-radius: 0;
       padding: 7px 7px;
-      height:60px;
-      width:60px;
+      height:0.9em;
+      width:0.9em;
       background-position: center;
       background-repeat: no-repeat;
       color: @color-orange;
