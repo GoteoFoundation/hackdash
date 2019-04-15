@@ -5,6 +5,31 @@
 .form-control {
   text-transform: none;
 }
+.action-bar {
+  background-color:@color-orange;
+}
+.entity {
+  &.dashboard,
+  &.collection,
+  &.project {
+    .details > div h3 {
+      background: @color-yellow;
+      font-size:@fsize-15;
+      display: inline-block;
+      width: auto;
+      left: 0.5em;
+      text-shadow: none;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+  }
+  &.dashboard {
+    .details > div h3 {
+      bottom: auto;
+      top: 1em;
+    }
+  }
+}
 
 .my-profile  {
   float:none;
@@ -131,6 +156,11 @@
       .btn {
         text-transform: capitalize;
       }
+      .btn-primary  {
+        background-color:@color-orange;
+        border-color:@color-orange;
+      }
+
     }
   }
   .content {

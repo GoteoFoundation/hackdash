@@ -41,7 +41,7 @@
     "moment": "1.7.2",
     "mongodb": "^2.2.11",
     "mongoose": "^4.6.8",
-    "mongoose-auto-increment": "^5.0.1",
+    "mongoose-plugin-autoinc": "^1.1.9",
     "morgan": "1.5.3",
     "multer": "^1.2.0",
     "nodemailer": "^2.6.4",

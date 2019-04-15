@@ -233,17 +233,24 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       return;
     }
 
-    var error;
+    var error,ctrl;
     try {
       error = JSON.parse(err.responseText).error;
     } catch (e) {
       error = err.responseText;
     }
 
-    var ctrl = error.split("_")[0];
+    try {
+      ctrl = error.split("_")[0];
+    } catch(e) {
+      ctrl = 'title';
+      if(error.errmsg) {
+        error = error.errmsg;
+      }
+    }
     var el = this.ui[ctrl] ? this.ui[ctrl] : this.ui.save;
     el.parents('.form-group').addClass('has-error');
-    el.after('<span class="help-block">' + (this.errors[error] ? this.errors[error] : error) + '</span>');
+    el.after('<span class="help-block">' + (this.errors[error] || error) + '</span>');
     el.focus();
     $('html, body').animate({
         scrollTop: el.offset().top
