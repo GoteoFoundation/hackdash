@@ -103,6 +103,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       forceSync: true,
       spellChecker: false
     });
+    this.ui.title.focus();
   },
 
   //--------------------------------------

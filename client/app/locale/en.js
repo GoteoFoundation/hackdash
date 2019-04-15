@@ -297,6 +297,7 @@ module.exports = {
 "Only jpg, png and gif are allowed":"Only jpg, png and gif are allowed",
 "Private project": "Private project",
 "private-project-description": "Private projects are hidden to anybody but admins or leaders",
+"description_placeholder": "Summarise your idea and explain what do you want to achieve through it.",
 
 /* Full.js */
 
@@ -332,5 +333,13 @@ module.exports = {
 "Comments": "Comments",
 "Post comment": "Post comment",
 "Add a comment...": "Add a comment...",
-"Comments can't be blank": "Comments can't be blank"
+"Comments can't be blank": "Comments can't be blank",
+
+    /* Comments titles */
+    "comment-type-null": "--Other--",
+    "comment-type-join": "I will join this if...",
+    "comment-type-great": "I think this is great because...",
+    "comment-type-improve": "I think this can be improved by...",
+    "comment-type-similar": "I know a similar thing, check this",
+
 };

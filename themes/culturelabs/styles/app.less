@@ -2,19 +2,67 @@
 @import './base';
 @import './settings';
 
+.main-header {
+  background-color: @color-orange;
+  .search-ctn {
+    .search {
+      .input-group-btn {
+        button {
+          background-color:@color-red;
+          border-color:@color-red;
+        }
+      }
+    }
+  }
+}
+.dashboard .main-header {
+  height: 90px;
+}
+.form-control {
+  text-transform:none;
+  font-size:@fsize-15;
+}
+
 .page-ctn {
+  .header {
+    .container {
+      .page-link-left, .page-link-right {
+        a {
+          color: @color-black;
+        }
+      }
+    }
+  }
+  &.dashboard {
+    .header {
+      padding-top:80px;
+    }
+  }
   &.project {
     &.edition {
+      .header {
+        h1 {
+          .form-control {
+            background-color:transparent;
+            // border-color:inherit;
+            border: 1px solid #ccc;
+            color: @color-dark;
+          }
+        }
+      }
       .body {
-
         .container {
-
           .cover {
             // height: 400px;
             margin-bottom: 80px;
             .text-muted {
               margin: 10px 0 40px 0;
               font-style: italic;
+            }
+          }
+          .container {
+            textarea {
+              font-size:@fsize-15;
             }
           }
         }
