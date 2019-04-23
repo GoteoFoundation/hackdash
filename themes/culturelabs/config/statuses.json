@@ -1,0 +1,225 @@
+[
+  {
+    "status": "step0",
+    "alias": "brainstorming",
+    "text": "What if I - Stage 0",
+    "active": true,
+    "fields": [
+      {
+        "id": "whatif",
+        "title": "What If",
+        "placeholder": "[What if as a <type of user>] [I could <specific action>] [with <content / tool / ...>] [so <benefit / goal>]",
+        "help": "![](/images/steps/idea.svg) ![](/images/steps/project.svg) ![](/images/steps/plan.svg)\n### Try and explain your project following the What - if - I structure\n\nMost of you have used this tool during the Barcelona the Ignition workshop. You can find more information in the D 3.1 methodology deliverable or on [Wotify](https://wotify.eu/blog/tool/wotify-scenario/). As a reminder, you are asked to sum up your project scenario through the following structure. Please note that you can repeat the What - if - I exercise for your perspective and the perspectives of your different participant communities:\n\n* WHAT IF AS A <Role / Protagonist >  (This can be either you as pilot initiators or the community members you are working with)\n* // I COULD < Specific action> (What will happen during the pilot)\n* // WITH < Tools / Content / Recipes .. > (Through what tools, event, technology.. etc will this happen)\n*  // SO THAT .. <Outcome / Benefit> (What is the specific outcome, benefit of this scenario)"
+      }
+    ]
+  },
+  {
+    "status": "step1",
+    "alias": "forecasting",
+    "text": "Stage 1",
+    "active": true,
+    "hide": ["description", "location", "tags", "link"],
+    "fields": [
+      {
+        "id":  "communities",
+        "header": "### GROUPS & COMMUNITIES\n\n![](/images/steps/community.svg)",
+        "title":  "Who are the groups and communities that your project works with?",
+        "placeholder": " What is your relationship with them? Are you part of their community(ies)?"
+      },
+      {
+        "id": "gaps_1",
+        "header": "### GAPS IN YOUR KNOWLEDGE\n\n![](/images/steps/position.svg)\n\nAnswering these questions with respect to your positionality might help you shape the following sections on the participatory nature of your project.",
+        "title": "Are you part of these communities? If not, what are the gaps in your knowledge?",
+        "placeholder": "Answer 1"
+
+      },
+      {
+        "id": "gaps_2",
+        "title": "What kind of ingredients (methods, physical tools, digital tools etc.) can help you fill the gaps you identify?",
+        "placeholder": "Answer 2"
+      },
+      {
+        "id": "engagement_1",
+        "help": "### UNDERSTANDING NEEDS AND MOTIVATIONS\n\n![](/images/steps/engagement.svg)\n\n**What kind of activities have you conducted towards getting in touch with the different members of the migrant communities you are working with and towards understanding their needs and motivations?**\n\n(e.g. How many encounters have you hosted and will you host? (you can include meetings that happened within the framework on WP2 to identify the needs of the communities) Are you planning for these events to happen before, during and after the project activities? Who will be participating (members of migrant communities, members of your organisation, mediators…)? How did you choose the participants?)",
+        "placeholder": "Answer 1"
+      },
+      {
+        "id": "engagement_2",
+        "title": "What additional activities do you plan towards this direction in the future?",
+        "placeholder": "Answer 2"
+      },
+      {
+        "id": "steps_to_take",
+        "header": "### STEPS YOU NEED TO TAKE\n\n![](/images/steps/zebra.svg)",
+        "title": "What steps will you take to allow participant groups the express their own needs and wishes for this project?",
+        "placeholder": "Steps you need to take..."
+      },
+      {
+        "id": "reasons_to_engange_1",
+        "help": "### 3 REASONS TO ENGAGE\n\n![](/images/steps/reason.svg)\n\n**List 3 reasons for your participant groups (repeat this exercise for each group) to engage with you as project organiser and with your project and 3 reasons for you to engage with them**\n\n(e.g.  (What's in for your participants? Why would they participate? Why these specific community groups? What are your goals with these exchanges?)",
+        "placeholder": "1st reason to engage"
+      },
+      {
+        "id": "reasons_to_engange_2",
+        "placeholder": "2on reason to engage"
+      },
+      {
+        "id": "reasons_to_engange_3",
+        "placeholder": "3rd reason to engage"
+      }
+    ]
+  },
+  {
+    "status": "step2",
+    "alias": "prototyping",
+    "text": "Stage 2",
+    "active": true,
+    "hide": ["description", "location", "tags", "link"],
+    "fields": [
+      {
+        "id": "organisation_model",
+        "header": "#### ORGANIZATION OF THE PROJECT & SAFE(R) SPACES\n\n### YOUR ORGANIZATIONAL MODEL\n\n![](/images/steps/organization.svg)\n\n**What is the organisational model of your project?**\n\n(e.g. how will project be organised, does it have a structure / governance, how will you check accountability on project goals and responsibilities.. etc)",
+        "placeholder": "Organization model..."
+
+      },
+      {
+        "id": "power_imbalances",
+        "header": "### POWER IMBALANCES\n\n![](/images/steps/power.svg)\n\n**How do you account for the potential imbalances between the different parties involved in this co-creation process?**\n\n(e.g. this could refer to actions taken to tackle the power dynamics between organisers and participants, to balance the different time available to paid workers and volunteer community groups, to different gender roles to the mobility in the city to participate in the project, to the transparency of information between actors...etc)",
+        "placeholder": "Power imbalances..."
+
+      },
+      {
+        "id": "barriers",
+        "header": "### BARRIERS AND CHALLENGES\n\n![](/images/steps/obstacles.svg)\n\n**What kind of barriers and challenges do you think you and your participants will come across in their participation?**\n\n(e.g. The barriers mentioned in T2.1 Needs analysis questionnaire were: difficulty to establish a common understanding and agreement, lack of balance in the decision-making process, lack of effective management/planning tools, difficulty to contact stakeholders to collaborate/communicate with, lack of sufficient economic resources, lack of facilities and time resources, complex bureaucratic and legal procedures, difficulty to engage people with specific professional skills, lack of effective promotion/dissemination plans, difficulty to organize and keep track of projects tasks/activities, different cultural/educational background, difficulty to reach out and engage the targeted community, religious issues, language barriers or any other barriers.)",
+        "placeholder": "Barriers and challenges..."
+
+      },
+      {
+        "id": "safer_space",
+        "header": "### SAFE(R) SPACES\n\n![](/images/steps/house.svg)\n\n**What actions are you going to take to make your project activities as safe as possible for participants?**\n\n(e.g. How will you prepare and hold the space of the workshops? Do you have a set of safe(r) space policies? Have you thought about appointing a person available throughout the sessions to support participants where they to need help? Are you planning on providing an extra space / room was a participant to need a break out space? Do you need to organise contacts or presence of the care network of involved participants due to the sensitive nature of personal storytelling in the grassroots engagement events? Have you planned how and by who will the data gathered in the workshops be used and accessed?)",
+        "placeholder": "About safer space..."
+
+      },
+      {
+        "id": "accessibility",
+        "header": "### ACCESSIBILITY AND SPECIAL NEEDS\n\n![](/images/steps/accessibility.svg)\n\n**How are you planning on getting information on the accessibility needs of your participants? How are you going to take actions to tackle this?**\n\n(e.g .Planning activities in accessible venues, wheelchair access, child care provision, potential provision for sign language interpretation or visually impaired participants if needed.. )",
+        "placeholder": "About accessibility..."
+      }
+    ]
+  },
+  {
+    "status": "step3",
+    "alias": "wireframing",
+    "text": "Stage 3",
+    "active": true,
+    "hide": ["description", "location", "tags", "link"],
+    "fields": [
+      {
+        "id": "project_activities",
+        "header": "####![](/images/steps/galleries.svg) PROJECT ACTIVITIES\n\n**YOUR PROJECT ACTIVITIES**\n\n![](/images/steps/activities.svg)\n\n**What type of activities will you be organising as part of your pilot? What kind of workshops do you plan to organise? What will be their purpose?**\n\nPlease draft here a tentative sequence of the pilot activities.\n\n*Your answer should include ideas that have originated in your conversations with the groups and communities you are working with. This is the space for you to share the orientative set of activities you are planning for the months to come. These are likely to change and be nuanced, but this is important for you to arrive at the Sheffield workshop with a preliminary idea of “recipe” for your pilot.*",
+        "placeholder": "About your project activities..."
+      },
+      {
+        "id": "cultural_heritage",
+        "header": "### CULTURAL HERITAGE\n\n![](/images/steps/museum.svg)\n\n**What creative interactions with Cultural Heritage will your pilot entail?**\n\n*E.g. Will you be working with existing museum collections? With new audio narratives? With tangible heritage? etc How?*",
+        "placeholder": "Cultural heritage..."
+      },
+      {
+        "id": "pilot_cocreation",
+        "header": "### CO-CREATION IN YOUR PILOT\n\n![](/images/steps/co-creation.svg)\n\n**Where does Co-creation lie in your pilot project? How do you understand Co-creation in the context of your pilot? What will be co-created and with whom?**",
+        "placeholder": "Co-creation..."
+      },
+      {
+        "id": "digital_tools",
+        "header": "### DIGITAL TOOLS\n\n![](/images/steps/laptop.svg)\n\n**What kind of digital tools would you consider to use in the pilot to enable innovative interactions with Cultural Heritage?  Do you plan on using digital tools in any of the workshops?**\n\n*E.g. online educational games with custom questions/answers about CH objects, virtual exhibitions, crowdsourcing, storytelling etc.*\n\nFYI, the Wotify boards you are currently using the answer these questions can help you bridge the face-to-face dimension of co-creation and its digital tracing, gathering submissions, ideas and insights for following sessions or for legacy of the project)",
+        "placeholder": "Digital tools..."
+      },
+      {
+        "id": "storytelling",
+        "header": "### STORYTELLING\n\n![](/images/steps/storytelling.svg)\n\n**How do you plan to use storytelling in your pilot as a means for engaging with the communities and creating a space for co-creation? What specific tools would you need to this end?**\n\nThe methodology deliverable D3.1 (Grassroots engagement events) provides storytelling-centered examples of activities that can be carried out but you can take inspiration from ideas that are relevant for your context, as long as you aim at reaching the identified objectives (developing safe(r) spaces;  identifying community members; creating a group that feels legitimate in participating; setting the process of participation as early and as itatively as possible).",
+        "placeholder": "About storytelling..."
+      },
+      {
+        "id": "facilitation",
+        "header": "### FACILITATION\n\n![](/images/steps/facilitator.svg)\n\n**Who will be facilitating the Grassroots engagement and the Co-creation events between project organisers and community groups?**\n\n*E.g. Community members, project organisers, mediators/facilitators, a mix of the above..*",
+        "placeholder": "About facilitation..."
+      },
+      {
+        "id": "future",
+        "header": "### AFTER THE PROJECT FINISHES\n\n![](/images/steps/future.svg)\n\n**Do you want to keep engaging with the community groups you are working with, after the project finishes? If so, how?**\n\n*E.g. Are you planning on having follow-up activities?*",
+        "placeholder": "About the future of the project..."
+      }
+    ]
+  },
+  {
+    "status": "step4",
+    "alias": "tasklogging",
+    "text": "Stage 4",
+    "active": true,
+    "hide": ["description", "location", "tags", "link"],
+    "fields": [
+      {
+        "id": "participation",
+        "header": "####![](/images/steps/collaboration.svg) ![](/images/steps/decision.svg) PARTICIPATORY NATURE OF THE PROJECT\n\n### PARTICIPATION\n\n![](/images/steps/participate.svg)\n\n**Please describe in what way are the activities contributory, participative, co-creative or hosted.**\n\nYou can find your previous answers from the Athens meeting here and the Participatory Models Chart created by PHM here. Please note that your answers are expected to have developed further by now.\n\n*What restrictions are you having to adapt to? (for example, prevision in the Document of Work; activities you already committed to as an organisation, budget limitations.. etc)*",
+        "placeholder": "About participation..."
+      },
+      {
+        "id": "decision_making",
+        "header": "### DECISION MAKING\n\n![](/images/steps/collaboration.svg)\n\n**What is your plan to ensuring participation in decision making?**\n\nWhat concrete actions (e.g. organise a co-creation workshop for ideas collection, for working teams etc) do you plan to take?\n\n*What tools (e.g. the Wotify event board, the Wotify physical tools, other tools) do you plan to use in order to ensure that the community members participate in decision making?*",
+        "placeholder": "about decision making..."
+      },
+      {
+        "id": "speeds",
+        "header": "### MULTIPLE SPEEDS\n\n![](/images/steps/speed.svg)\n\n**Did you think of different levels of participation and interaction of groups?**\n\n*E.g. multiple \"speeds\": some groups might be able to participate a lot and some others in more limited instances*",
+        "placeholder": "Multiple speeds..."
+      },
+      {
+        "id": "share_back",
+        "header": "### SHARE BACK THE RESULTS WITH THE COMMUNITIES\n\n![](/images/steps/share.svg)\n\n**What are your tentative plans to organise “share back” sessions with your community groups?**\n\nThis are aimed at sharing how the collaboration has been fruitful and how their insights and action have shaped the project.",
+        "title": "How will you share back your results?"
+      }
+    ]
+  },
+  {
+    "status": "step5",
+    "alias": "building",
+    "text": "Stage 5",
+    "active": true,
+    "hide": ["description", "location", "tags", "link"],
+    "fields": [
+      {
+        "id": "vision",
+        "header": "####![](/images/steps/impact.svg) ![](/images/steps/result.svg) VISION & IMPACT\n\n### YOUR VISION\n\n![](/images/steps/vision.svg)\n\n**Jump ahead in time, two years from now. What is the situation after your pilot with respect to the social challenge you are tackling? What is your vision for that moment? What has been achieved?**\n\n(This is to help you guide the planning process with a vision in mind. \"Enriching a collection\" is not a goal in itself, rather it is a means to reach a broader objective and vision. What is this vision?)",
+        "placeholder": "Your vision..."
+      },
+      {
+        "id": "impact",
+        "header": "### YOUR IMPACT\n\n![](/images/steps/impact.svg)\n\n**What impact will your pilot have on (1) your organisation and (2) on the communities involved?** Please address both.",
+        "placeholder": "Your impact..."
+      },
+      {
+        "id": "measurement",
+        "header": "### IMPACT MEASUREMENTS\n\n![](/images/steps/measuring.svg)\n\n**How are you going to measure this impact? What indicators are you going to use?**",
+        "placeholder": "Measurement..."
+      }
+    ]
+  },
+  {
+    "status": "step6",
+    "alias": "releasing",
+    "text": "Stage 6",
+    "active": true,
+    "hide": ["description", "location", "tags", "link"],
+    "fields": [
+      {
+        "id": "methodology",
+        "header": "###  METHODOLOGY TAILORING AND SUPPORT\n\n!### CULTURELABS METHODOLOGY\n\n[](/images/steps/manual.svg) Key audiences\n\n**How are you planning to make use of tools and methods provided by Platoniq and by the D3.1 methodology deliverable?**\n\nYou can also check [Wotify.eu](https://wotify.eu) for more resources",
+        "placeholder": "Methodology..."
+      },
+      {
+        "id": "support",
+        "header": "### SUPPORT FROM PLATONIQ TEAM\n\n![](/images/steps/support.svg)\n\n**What kind of support do you need from Platoniq in the months to come in order to plan and deliver your pilot activities?**\n\n*For example, you can think of support in tailoring the tools and activities we have suggested; on how to create a safe(r) space for participation; help in facilitating; support with the provision of digital tools to allow contributions over time… and other needs you might have).*"
+      }
+    ]
+  }
+]
