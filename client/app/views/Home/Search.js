@@ -104,7 +104,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
         }
         else {
           hackdash.app.router.navigate(fragment, { trigger: true, replace: true });
-          data = { minProjects: 2 };
+          data = { minProjects: hackdash.minProjects };
           self.collection.fetch({
             reset: true,
             data: $.param(data)

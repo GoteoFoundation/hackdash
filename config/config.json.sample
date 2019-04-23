@@ -39,6 +39,7 @@
   "language": null,
   "languages": null,
   "maxUploadSize": 2097152,
+  "minProjects": 2,
   "theme": null,
   "skills": []
 }

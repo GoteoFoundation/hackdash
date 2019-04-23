@@ -4,6 +4,7 @@
     "alias": "brainstorming",
     "text": "What if I - Stage 0",
     "active": true,
+    "hide": ["link"],
     "fields": [
       {
         "id": "whatif",
@@ -55,17 +56,31 @@
         "placeholder": "Steps you need to take..."
       },
       {
-        "id": "reasons_to_engange_1",
+        "id": "you_engage_1",
         "help": "### 3 REASONS TO ENGAGE\n\n![](/images/steps/reason.svg)\n\n**List 3 reasons for your participant groups (repeat this exercise for each group) to engage with you as project organiser and with your project and 3 reasons for you to engage with them**\n\n*E.g.  (What's in for your participants? Why would they participate? Why these specific community groups? What are your goals with these exchanges?*",
-        "placeholder": "1st reason to engage"
+        "title": "3 reasons for them to engage with me:",
+        "placeholder": "1st reason for them to engage with me"
       },
       {
-        "id": "reasons_to_engange_2",
-        "placeholder": "2on reason to engage"
+        "id": "you_engage_2",
+        "placeholder": "2on reason for them to engage with me"
       },
       {
-        "id": "reasons_to_engange_3",
-        "placeholder": "3rd reason to engage"
+        "id": "you_engage_3",
+        "placeholder": "3rd reason for them to engage with me"
+      },
+      {
+        "title": "3 reasons for me to engage with them:",
+        "id": "they_engange_1",
+        "placeholder": "1st reason for me to engage with them"
+      },
+      {
+        "id": "they_engange_2",
+        "placeholder": "2on reason for me to engage with them"
+      },
+      {
+        "id": "they_engange_3",
+        "placeholder": "3rd reason for me to engage with them"
       }
     ]
   },
@@ -160,7 +175,7 @@
     "fields": [
       {
         "id": "participation",
-        "header": "####![](/images/steps/collaboration.svg) ![](/images/steps/decision.svg) PARTICIPATORY NATURE OF THE PROJECT\n\n### PARTICIPATION\n\n![](/images/steps/participate.svg)\n\n**Please describe in what way are the activities contributory, participative, co-creative or hosted.**\n\nYou can find your previous answers from the Athens meeting here and the Participatory Models Chart created by PHM here. Please note that your answers are expected to have developed further by now.\n\n*What restrictions are you having to adapt to? (for example, prevision in the Document of Work; activities you already committed to as an organisation, budget limitations.. etc)*",
+        "header": "####![](/images/steps/collaboration.svg) ![](/images/steps/decision.svg) PARTICIPATORY NATURE OF THE PROJECT\n\n### PARTICIPATION\n\n![](/images/steps/participate.svg)\n\n**Please describe in what way are the activities contributory, participative, co-creative or hosted.**\n\nYou can find your previous answers from the Athens meeting [here](https://docs.google.com/document/d/1o7OglphCPDVF5JY_QqGafdS9cImlaMVn53ego7OLvJM/edit) and the Participatory Models Chart created by PHM [here](https://docs.google.com/spreadsheets/d/1nyFfImIu4xTabe3VoV_RRvNCP4sv7HdF_v2VFzhVTkE/edit). Please note that your answers are expected to have developed further by now.\n\n*What restrictions are you having to adapt to? (for example, prevision in the Document of Work; activities you already committed to as an organisation, budget limitations.. etc)*",
         "placeholder": "About participation..."
       },
       {
@@ -175,7 +190,7 @@
       },
       {
         "id": "share_back",
-        "header": "### SHARE BACK THE RESULTS WITH THE COMMUNITIES\n\n![](/images/steps/share.svg)\n\n**What are your tentative plans to organise “share back” sessions with your community groups?**\n\nThis are aimed at sharing how the collaboration has been fruitful and how their insights and action have shaped the project.",
+        "header": "### SHARE BACK THE RESULTS WITH THE COMMUNITIES\n\n![](/images/steps/share.svg)\n\n**What are your tentative plans to organise “share back” sessions with your community groups?**\n\nThese are aimed at sharing how the collaboration has been fruitful and how their insights and action have shaped the project.",
         "title": "How will you share back your results?"
       }
     ]
@@ -213,7 +228,7 @@
     "fields": [
       {
         "id": "methodology",
-        "header": "###  METHODOLOGY TAILORING AND SUPPORT\n\n!### CULTURELABS METHODOLOGY\n\n[](/images/steps/manual.svg) Key audiences\n\n**How are you planning to make use of tools and methods provided by Platoniq and by the D3.1 methodology deliverable?**\n\nYou can also check [Wotify.eu](https://wotify.eu) for more resources",
+        "header": "####  METHODOLOGY TAILORING AND SUPPORT\n\n### CULTURELABS METHODOLOGY\n\n![](/images/steps/manual.svg) Key audiences\n\n**How are you planning to make use of tools and methods provided by Platoniq and by the D3.1 methodology deliverable?**\n\nYou can also check [Wotify.eu](https://wotify.eu) for more resources",
         "placeholder": "Methodology..."
       },
       {

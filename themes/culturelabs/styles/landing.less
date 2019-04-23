@@ -170,11 +170,13 @@
 
 .nav-tabs.landing {
   li {
-    &.collection,
-    &.dashboard ,
-    &.project ,
-    &.user ,
-    &.conversations ,
+    &.collection {
+      display: none;
+    }
+    &.dashboard,
+    &.project,
+    &.user,
+    &.conversations,
     &.login-tab {
       .landing-tab(@color-white, @color-orange);
       a:hover {
@@ -272,6 +274,9 @@
 
     }
   }
+}
+.team-ctn .team-user .details h2 {
+  text-transform: capitalize;
 }
 .team-wrapper,.partners-wrapper,.network-wrapper {
   padding:0;
