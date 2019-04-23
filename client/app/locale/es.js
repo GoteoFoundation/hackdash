@@ -264,7 +264,7 @@ module.exports = {
 "Title is required":"El título es requerido",
 "Description is required":"La descripción es requerida",
 "Drop Image Here":"Suelta la imagen aquí",
-"File is too big, 500 Kb is the max":"El archivo es muy grande, 500 Kb es el máximo",
+"File is too big, 500 Kb is the max":"El archivo es muy grande",
 "Only jpg, png and gif are allowed":"Sólo se permiten jpg, png y gif",
 
 /* Full.js */

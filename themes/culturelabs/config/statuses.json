@@ -40,7 +40,7 @@
       },
       {
         "id": "engagement_1",
-        "help": "### UNDERSTANDING NEEDS AND MOTIVATIONS\n\n![](/images/steps/engagement.svg)\n\n**What kind of activities have you conducted towards getting in touch with the different members of the migrant communities you are working with and towards understanding their needs and motivations?**\n\n(e.g. How many encounters have you hosted and will you host? (you can include meetings that happened within the framework on WP2 to identify the needs of the communities) Are you planning for these events to happen before, during and after the project activities? Who will be participating (members of migrant communities, members of your organisation, mediators…)? How did you choose the participants?)",
+        "help": "### UNDERSTANDING NEEDS AND MOTIVATIONS\n\n![](/images/steps/engagement.svg)\n\n**What kind of activities have you conducted towards getting in touch with the different members of the migrant communities you are working with and towards understanding their needs and motivations?**\n\n*E.g. How many encounters have you hosted and will you host? You can include meetings that happened within the framework on WP2 to identify the needs of the communities. Are you planning for these events to happen before, during and after the project activities? Who will be participating (members of migrant communities, members of your organisation, mediators…)? How did you choose the participants?*",
         "placeholder": "Answer 1"
       },
       {
@@ -56,7 +56,7 @@
       },
       {
         "id": "reasons_to_engange_1",
-        "help": "### 3 REASONS TO ENGAGE\n\n![](/images/steps/reason.svg)\n\n**List 3 reasons for your participant groups (repeat this exercise for each group) to engage with you as project organiser and with your project and 3 reasons for you to engage with them**\n\n(e.g.  (What's in for your participants? Why would they participate? Why these specific community groups? What are your goals with these exchanges?)",
+        "help": "### 3 REASONS TO ENGAGE\n\n![](/images/steps/reason.svg)\n\n**List 3 reasons for your participant groups (repeat this exercise for each group) to engage with you as project organiser and with your project and 3 reasons for you to engage with them**\n\n*E.g.  (What's in for your participants? Why would they participate? Why these specific community groups? What are your goals with these exchanges?*",
         "placeholder": "1st reason to engage"
       },
       {
@@ -78,31 +78,31 @@
     "fields": [
       {
         "id": "organisation_model",
-        "header": "#### ORGANIZATION OF THE PROJECT & SAFE(R) SPACES\n\n### YOUR ORGANIZATIONAL MODEL\n\n![](/images/steps/organization.svg)\n\n**What is the organisational model of your project?**\n\n(e.g. how will project be organised, does it have a structure / governance, how will you check accountability on project goals and responsibilities.. etc)",
+        "header": "#### ORGANIZATION OF THE PROJECT & SAFE(R) SPACES\n\n### YOUR ORGANIZATIONAL MODEL\n\n![](/images/steps/organization.svg)\n\n**What is the organisational model of your project?**\n\n*E.g. how will project be organised, does it have a structure / governance, how will you check accountability on project goals and responsibilities.. etc*",
         "placeholder": "Organization model..."
 
       },
       {
         "id": "power_imbalances",
-        "header": "### POWER IMBALANCES\n\n![](/images/steps/power.svg)\n\n**How do you account for the potential imbalances between the different parties involved in this co-creation process?**\n\n(e.g. this could refer to actions taken to tackle the power dynamics between organisers and participants, to balance the different time available to paid workers and volunteer community groups, to different gender roles to the mobility in the city to participate in the project, to the transparency of information between actors...etc)",
+        "header": "### POWER IMBALANCES\n\n![](/images/steps/power.svg)\n\n**How do you account for the potential imbalances between the different parties involved in this co-creation process?**\n\n*E.g. this could refer to actions taken to tackle the power dynamics between organisers and participants, to balance the different time available to paid workers and volunteer community groups, to different gender roles to the mobility in the city to participate in the project, to the transparency of information between actors...etc*",
         "placeholder": "Power imbalances..."
 
       },
       {
         "id": "barriers",
-        "header": "### BARRIERS AND CHALLENGES\n\n![](/images/steps/obstacles.svg)\n\n**What kind of barriers and challenges do you think you and your participants will come across in their participation?**\n\n(e.g. The barriers mentioned in T2.1 Needs analysis questionnaire were: difficulty to establish a common understanding and agreement, lack of balance in the decision-making process, lack of effective management/planning tools, difficulty to contact stakeholders to collaborate/communicate with, lack of sufficient economic resources, lack of facilities and time resources, complex bureaucratic and legal procedures, difficulty to engage people with specific professional skills, lack of effective promotion/dissemination plans, difficulty to organize and keep track of projects tasks/activities, different cultural/educational background, difficulty to reach out and engage the targeted community, religious issues, language barriers or any other barriers.)",
+        "header": "### BARRIERS AND CHALLENGES\n\n![](/images/steps/obstacles.svg)\n\n**What kind of barriers and challenges do you think you and your participants will come across in their participation?**\n\n*E.g. The barriers mentioned in T2.1 Needs analysis questionnaire were: difficulty to establish a common understanding and agreement, lack of balance in the decision-making process, lack of effective management/planning tools, difficulty to contact stakeholders to collaborate/communicate with, lack of sufficient economic resources, lack of facilities and time resources, complex bureaucratic and legal procedures, difficulty to engage people with specific professional skills, lack of effective promotion/dissemination plans, difficulty to organize and keep track of projects tasks/activities, different cultural/educational background, difficulty to reach out and engage the targeted community, religious issues, language barriers or any other barriers.*",
         "placeholder": "Barriers and challenges..."
 
       },
       {
         "id": "safer_space",
-        "header": "### SAFE(R) SPACES\n\n![](/images/steps/house.svg)\n\n**What actions are you going to take to make your project activities as safe as possible for participants?**\n\n(e.g. How will you prepare and hold the space of the workshops? Do you have a set of safe(r) space policies? Have you thought about appointing a person available throughout the sessions to support participants where they to need help? Are you planning on providing an extra space / room was a participant to need a break out space? Do you need to organise contacts or presence of the care network of involved participants due to the sensitive nature of personal storytelling in the grassroots engagement events? Have you planned how and by who will the data gathered in the workshops be used and accessed?)",
+        "header": "### SAFE(R) SPACES\n\n![](/images/steps/house.svg)\n\n**What actions are you going to take to make your project activities as safe as possible for participants?**\n\n*E.g. How will you prepare and hold the space of the workshops? Do you have a set of safe(r) space policies? Have you thought about appointing a person available throughout the sessions to support participants where they to need help? Are you planning on providing an extra space / room was a participant to need a break out space? Do you need to organise contacts or presence of the care network of involved participants due to the sensitive nature of personal storytelling in the grassroots engagement events? Have you planned how and by who will the data gathered in the workshops be used and accessed?*",
         "placeholder": "About safer space..."
 
       },
       {
         "id": "accessibility",
-        "header": "### ACCESSIBILITY AND SPECIAL NEEDS\n\n![](/images/steps/accessibility.svg)\n\n**How are you planning on getting information on the accessibility needs of your participants? How are you going to take actions to tackle this?**\n\n(e.g .Planning activities in accessible venues, wheelchair access, child care provision, potential provision for sign language interpretation or visually impaired participants if needed.. )",
+        "header": "### ACCESSIBILITY AND SPECIAL NEEDS\n\n![](/images/steps/accessibility.svg)\n\n**How are you planning on getting information on the accessibility needs of your participants? How are you going to take actions to tackle this?**\n\n*E.g .Planning activities in accessible venues, wheelchair access, child care provision, potential provision for sign language interpretation or visually impaired participants if needed...*",
         "placeholder": "About accessibility..."
       }
     ]

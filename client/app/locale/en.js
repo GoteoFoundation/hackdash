@@ -293,7 +293,7 @@ module.exports = {
 "Description is required":"Description is required",
 "Invalid status":"Invalid status",
 "Drop Image Here":"Drop Image Here",
-"File is too big, 500 Kb is the max":"File is too big, 500 Kb is the max",
+"File is too big, 500 Kb is the max":"File is too big",
 "Only jpg, png and gif are allowed":"Only jpg, png and gif are allowed",
 "Private project": "Private project",
 "private-project-description": "Private projects are hidden to anybody but admins or leaders",
