@@ -1,6 +1,7 @@
 /*eslint-disable */
 module.exports = {
   "en" : {
+    "Hackathon Title":"Board Title",
     "Share your app to the world.": "Share your app with the world.",
     "Inform Progress to community.":"Share progress with your community.",
     "title_default": "Wotify Board: cooking recipes 4 social innovation",

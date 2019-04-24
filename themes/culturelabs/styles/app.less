@@ -27,6 +27,9 @@
   .header {
     .container {
       color: @color-dark;
+      a {
+        color: @color-orange;
+      }
       .page-link-left, .page-link-right {
         a {
           color: @color-black;
@@ -34,9 +37,25 @@
       }
     }
   }
-  &.dashboard {
+  &.dashboard,&.collections {
     .header {
-      padding-top:80px;
+      .container {
+        color: @color-dark;
+        .dash-buttons {
+          a.link {
+            background-color: @color-dark;
+          }
+        }
+        .dash-admins {
+          .add-admins {
+            background-color: @color-red;
+          }
+        }
+      }
+      padding-top: 80px;
+      h1 {
+        color: @color-orange;
+      }
     }
   }
   &.project {
