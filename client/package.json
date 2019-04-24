@@ -2,7 +2,7 @@
   "author": "Platoniq",
   "name": "hackdash",
   "description": "",
-  "version": "0.34.4",
+  "version": "0.34.5",
   "engines": {
     "node": "6.9.x"
   },
