@@ -1,20 +1,22 @@
-
 require('babel-core/register');
+require("babel-polyfill");
+
 var
     config = require('../config/config.json')
   , async = require('async')
-  , mongoose = require('mongoose');
+  , mongoose = require('mongoose')
+  , _ = require('underscore')
+  , program = require('commander')
+  , uuid = require('uuid/v4')
+  , gravatar = require("../lib/utils/gravatar");
 
 
 require('../lib/models');
 
-var program = require('commander');
-var _ = require('underscore');
-var uuid = require('uuid/v4');
 
 program
-  .version('1.0.0')
-  .usage('[options] -u MONGO_DB_USER_ID -s 1|0')
+  .version('1.1.0')
+  .usage('[options] -u MONGO_DB_USER_ID')
   .option('-l, --list', 'List user ids')
   .option('-u, --user <userid>', 'The user id to manipulate')
   .option('-r, --role <string>', 'Sets the user role')
@@ -33,7 +35,7 @@ if(program.list) {
     process.exit(0);
   });
 } else if (program.user){
-  User.findById(program.user).exec(function(err, user){
+  User.findById(program.user).exec(async function(err, user){
     if(err) {
       console.log('User not found!');
       // throw err;
@@ -63,12 +65,23 @@ if(program.list) {
 
     console.log('User info:');
     console.log('Id: ' + user._id);
+    console.log('Username: ' + user.username);
     console.log('Name: ' + user.name);
     console.log('Email: ' + user.email);
+    console.log("Picture: " + user.picture);
+    console.log("Has gravatar: " + gravatar.isGravatar(user.picture));
+    console.log("Valid gravatar: " + await gravatar.isValid(user.picture));
+    console.log("Bio: " + user.bio);
     console.log('Role: ' + user.role);
-    console.log('Admin in: ',user.admin_in);
-    console.log('Collection admin in: ',user.group_admin_in);
-    console.log("Tokens:\n", _.map(user.tokens, function(t){ return "\t["  +t.name + ']: ' + t.token}).join("\n"));
+    console.log("Tokens:")
+    _.map(user.tokens, (t) => console.log(`\t[${t.name}]: ${t.token}`) );
+    console.log('Admin in: ',_.toArray(user.admin_in));
+    console.log('Collection admin in: ',_.toArray(user.group_admin_in));
+    console.log("OAuth provider: " + user.provider);
+    console.log("Created at: " + user.created_at);
+    console.log("Social: ");
+    _.mapObject(user.social, (v,k) => v && _.isString(v) && console.log(`\t${k}: ${v}`));
+    console.log("Skills: " + user.skills);
 
     if(save) {
       user.save(function(err) {
