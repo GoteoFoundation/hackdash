@@ -4,9 +4,6 @@
     "name": "Parachuter",
     "perms": [
       "comment_project"
-      "project_view",
-      "project_create",
-      "project_follow"
     ]
   },
   {

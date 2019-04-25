@@ -12,4 +12,6 @@ export const validateUser = async (model) => {
   if(!model.picture) throw new Error('picture_required');
   // check if is a empty gravatar picture
   if(isGravatar(model.picture) && !await isValid(model.picture)) throw new Error('picture_required');
+  // set default role if empty
+  if(!model.role) model.role = 'maker';
 }
