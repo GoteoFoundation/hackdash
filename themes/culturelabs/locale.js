@@ -1,6 +1,8 @@
 /*eslint-disable */
 module.exports = {
   "en" : {
+    "bio_required": "Please write something about you!",
+    "picture_required": "Please add and image for your profile!",
     "Hackathon Title":"Board Title",
     "Share your app to the world.": "Share your app with the world.",
     "Inform Progress to community.":"Share progress with your community.",

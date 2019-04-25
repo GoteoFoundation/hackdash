@@ -13,7 +13,6 @@ var live = require('lib/live');
 //Listener for mail sending on events
 require('lib/notifications/listener.js');
 
-
 /**
  * Create HTTP server.
  */

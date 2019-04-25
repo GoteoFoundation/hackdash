@@ -288,13 +288,13 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
     try {
       var error = JSON.parse(err.responseText).error;
-      if(this.errors[error]) {
-        var ctrl = error.split("_")[0];
-        this.ui[ctrl].parents('.form-group').addClass('has-error');
-        this.ui[ctrl].after('<span class="help-block">' + this.errors[error] + '</span>');
-        this.ui[ctrl].focus();
+      var ctrl = error.split("_");
+      if(ctrl && this.ui[ctrl[0]]) {
+        this.ui[ctrl[0]].parents('.form-group').addClass('has-error');
+        this.ui[ctrl[0]].after('<span class="help-block">' + (this.errors[error] || __(error)) + '</span>');
+        this.ui[ctrl[0]].focus();
         $('html, body').animate({
-            scrollTop: this.ui[ctrl].offset().top
+            scrollTop: this.ui[ctrl[0]].offset().top
         }, 500);
       } else {
         window.alert(error);

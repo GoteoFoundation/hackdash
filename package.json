@@ -1,6 +1,6 @@
 {
   "name": "hackdash",
-  "version": "0.34.5",
+  "version": "0.35.1",
   "private": true,
   "scripts": {
     "start": "NODE_PATH=. DEBUG=hackdash:* nodemon index",
