@@ -1,3 +1,5 @@
+import {isGravatar, isValid} from 'lib/utils/gravatar';
+
 const original = require('lib/validations/model_validations');
 
 export const validateUser = async (model) => {
@@ -6,7 +8,8 @@ export const validateUser = async (model) => {
   await original.validateUser(model);
   // Apply additional validations
   // Bio is required
-  if(!model.picture) throw new Error('picture_required');
-  // TODO: check if is a empty gravatar picture
   if(!model.bio) throw new Error('bio_required');
+  if(!model.picture) throw new Error('picture_required');
+  // check if is a empty gravatar picture
+  if(isGravatar(model.picture) && !await isValid(model.picture)) throw new Error('picture_required');
 }
