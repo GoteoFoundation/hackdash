@@ -185,7 +185,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
       }
     };
     if(this.updatedPicture) {
-      toSave = this.model.get('picture');
+      toSave.picture = this.model.get('picture');
     }
     if(hackdash.userHasPermission(hackdash.user, 'user_change_role') && this.ui.role.val()) {
       toSave.role = this.ui.role.val();
@@ -212,7 +212,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
       };
     }
 
-    // console.log(toSave);
+    // console.log('TOSAVE',toSave);
 
     this.cleanErrors();
     $("#save", this.$el).button('loading');

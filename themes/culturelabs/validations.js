@@ -1,7 +1,7 @@
 import {isGravatar, isValid, createUrlFromEmail} from 'lib/utils/gravatar';
 const original = require('lib/validations/model_validations');
 
-export const validateUser = async (model) => {
+export const validateUser = async (model, req) => {
   // Apply default validations
   console.log("name",model.name,"email",model.email,"picture",model.picture);
   await original.validateUser(model);
