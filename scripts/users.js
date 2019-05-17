@@ -27,10 +27,10 @@ program
 var User = mongoose.model('User');
 
 if(program.list) {
-  User.find().select('_id name email role').exec(function(err, users){
-    console.log('ID                       ROLE     NAME');
+  User.find().select('_id name email role picture bio').exec(function(err, users){
+    console.log('ID BIO                         ROLE     NAME PICTURE');
     for(var u in users) {
-      console.log(users[u]._id + ' ' + users[u].role + '       ' + users[u].name + ' <' + users[u].email +'>');
+      console.log(users[u]._id + ' ' + (users[u].bio ? 'BIO OK':'NO BIO')+ ' ' + users[u].role + '       ' + users[u].name + ' <' + users[u].email +'> ' + users[u].picture);
     }
     process.exit(0);
   });
