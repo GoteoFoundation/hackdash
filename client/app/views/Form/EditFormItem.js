@@ -125,7 +125,9 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   editQuestion: function(e) {
-    var id = $(e.target).is('[id]') ? $(e.target).attr('id') : null;
+    console.log('target e',e);
+    var $target = $(e.target).is('i') ? $(e.target).parent() : $(e.target);
+    var id = $($target).is('[id]') ? $($target).attr('id') : null;
 
     var form = new Form({
       id: this.model.get('_id'),

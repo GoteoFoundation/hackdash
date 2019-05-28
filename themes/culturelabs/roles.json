@@ -13,6 +13,7 @@
       "comment_project",
       "project_view",
       "project_create",
+      "project_join",
       "project_follow"
     ]
   },
@@ -34,6 +35,7 @@
     "perms": [
       "comment_project",
       "project_create",
+      "project_view",
       "project_follow",
       "project_join",
       "dashboard_view_private"

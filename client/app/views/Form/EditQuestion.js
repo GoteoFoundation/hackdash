@@ -122,14 +122,14 @@ module.exports = Backbone.Marionette.LayoutView.extend({
           return q;
         });
     } else {
-      var last = _.last(toSave.questions);
-      if(last._id) {
-        toSave.questions.push(query);
-      } else {
-        toSave.questions[toSave.questions.length - 1] = query;
-      }
+      toSave.questions.push(query);
+      // var last = _.last(toSave.questions);
+      // if(last && last._id) {
+      // } else {
+      //   toSave.questions[toSave.questions.length - 1] = query;
+      // }
     }
-    // console.log(toSave, model, id);
+    console.log('Question', 'Query', query, 'toSave',toSave, 'Model', model, 'Id', id);
 
     this.cleanErrors();
 
