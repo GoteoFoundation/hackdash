@@ -175,6 +175,20 @@
     "fields": [
       {
         "id": "participation",
+        "header": "####![](/images/steps/project_activities.svg) ![](/images/steps/collaboration.svg) STEPS AND PROJECT ACTIVITIES",
+        "placeholder": "About participation..."
+      }
+    ]
+  },
+  {
+    "status": "step6",
+    "alias": "tasklogging",
+    "text": "Stage 6",
+    "active": true,
+    "hide": ["description", "location", "tags", "link"],
+    "fields": [
+      {
+        "id": "participation",
         "header": "####![](/images/steps/collaboration.svg) ![](/images/steps/decision.svg) PARTICIPATORY NATURE OF THE PROJECT\n\n### PARTICIPATION\n\n![](/images/steps/participate.svg)\n\n**Please describe in what way are the activities contributory, participative, co-creative or hosted.**\n\nYou can find your previous answers from the Athens meeting [here](https://docs.google.com/document/d/1o7OglphCPDVF5JY_QqGafdS9cImlaMVn53ego7OLvJM/edit) and the Participatory Models Chart created by PHM [here](https://docs.google.com/spreadsheets/d/1nyFfImIu4xTabe3VoV_RRvNCP4sv7HdF_v2VFzhVTkE/edit). Please note that your answers are expected to have developed further by now.\n\n*What restrictions are you having to adapt to? (for example, prevision in the Document of Work; activities you already committed to as an organisation, budget limitations.. etc)*",
         "placeholder": "About participation..."
       },
@@ -196,9 +210,9 @@
     ]
   },
   {
-    "status": "step5",
+    "status": "step7",
     "alias": "building",
-    "text": "Stage 5",
+    "text": "Stage 7",
     "active": true,
     "hide": ["description", "location", "tags", "link"],
     "fields": [
