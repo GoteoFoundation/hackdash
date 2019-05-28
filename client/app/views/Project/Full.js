@@ -5,7 +5,6 @@
 
 var template = require("Project/templates/full.hbs")
   , ExtraFields = require('./ExtraFields')
-  , Forms = require('../../models/Forms')
   , Comments = require('../../models/Comments')
   , CommentsView = require('./Comments')
   , Sharer = require("../Sharer");
@@ -66,7 +65,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       showActionForms: function(){
         if (hackdash.user && this.leader){
           if(hackdash.user._id === this.leader._id || hackdash.userHasPermission(hackdash.user, 'form_respond')) {
-            return (new Forms()).getForProject(self.id()).length;
+            return self.options && self.options.forms && self.options.forms.length;
           }
         }
         return false;

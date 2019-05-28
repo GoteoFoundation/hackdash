@@ -1,0 +1,15 @@
+<div class="form-group">
+  <label>{{title}}</label>
+
+  {{#each values}}
+    <div class="{{../inputType}}">
+      <label>
+        <input name="{{../name}}" type="{{../inputType}}" {{../checked this}} value="{{this}}"> {{this}}
+      </label>
+    </div>
+  {{/each}}
+
+  {{#if help}}
+    <p class="help-block">{{help}}</p>
+  {{/if}}
+</div>

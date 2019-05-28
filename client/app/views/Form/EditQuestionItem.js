@@ -23,6 +23,8 @@ module.exports = Backbone.Marionette.ItemView.extend({
           return 'check-square-o';
         case 'select':
           return 'list';
+        case 'checkbox':
+          return 'check-square';
         case 'range':
           return 'sliders';
         case 'geocoder':

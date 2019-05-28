@@ -41,8 +41,10 @@ var Forms = module.exports = BaseCollection.extend({
 
   getForProject: function(project_id) {
     var forms = new Forms(
-      this.filter(function(forms) {
-        return _.findWhere(forms.get("projects"), {_id: project_id}) ? true : false;
+      this.filter(function(form) {
+        var ret = _.findWhere(form.get("projects"), {_id: project_id}) ? true : false;
+        // console.log('filter form', form, 'projects', form.get('projects'), project_id, 'FIND', _.findWhere(form.get("projects"), {_id: project_id}), "RET", ret);
+        return ret;
       })
     );
     return forms;

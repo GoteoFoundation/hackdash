@@ -10,6 +10,7 @@ var Text = require('./Element/Text')
   , Range = require('./Element/Range')
   , Geocoder = require('./Element/Geocoder')
   , File = require('./Element/File')
+  , Checkbox = require('./Element/Checkbox')
   , Bool = require('./Element/Boolean');
 
 var EmptyView = Backbone.Marionette.ItemView.extend({
@@ -38,6 +39,8 @@ module.exports = Backbone.Marionette.CollectionView.extend({
         return File;
       case 'boolean':
         return Bool;
+      case 'checkbox':
+        return Checkbox;
       default:
         return Text;
     }

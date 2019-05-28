@@ -6,6 +6,7 @@
 var
     template = require('./templates/editQuestion.hbs')
   , OptSelect = require('./EditSelectOptions')
+  , OptCheckbox = require('./EditCheckboxOptions')
   , OptGeocoder = require('./EditGeocoderOptions')
   , OptFile = require('./EditFileOptions')
   , OptRange = require('./EditRangeOptions');
@@ -76,6 +77,9 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     var region = null;
     if(c.type === 'select') {
       region = new OptSelect({ model: new Backbone.Model(c) });
+    }
+    if(c.type === 'checkbox') {
+      region = new OptCheckbox({ model: new Backbone.Model(c) });
     }
     if(c.type === 'range') {
       region = new OptRange({ model: new Backbone.Model(c) });

@@ -26,6 +26,8 @@ module.exports = Backbone.Marionette.ItemView.extend({
           return 'align-left';
         case 'boolean':
           return 'check-square-o';
+        case 'checkbox':
+          return 'check-square';
         case 'select':
           return 'list';
         case 'range':

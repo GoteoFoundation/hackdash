@@ -406,14 +406,21 @@ module.exports = Backbone.Marionette.AppRouter.extend({
 
     app.project.fetch().done(function(){
 
-      app.header.show(new Header());
+      var forms = new Forms();
+      forms.project = pid;
+      forms.fetch().done(function(){
+        // console.log('obtained forms', forms, 'pid', pid, forms.getForProject(pid));
 
-      app.main.show(new ProjectFullView({
-        model: app.project,
-        status: status
-      }));
+        app.header.show(new Header());
 
-      app.setTitle(app.project.get('title') || __('Projects'));
+        app.main.show(new ProjectFullView({
+          model: app.project,
+          status: status,
+          forms: forms.getForProject(pid)
+        }));
+
+        app.setTitle(app.project.get('title') || __('Projects'));
+      });
     });
 
     app.footer.show(new Footer());
@@ -567,7 +574,7 @@ module.exports = Backbone.Marionette.AppRouter.extend({
     app.header.show(new Header());
 
     app.profile.fetch({ parse: true }).done(function(){
-      console.log('PROFILE',app.profile);
+      // console.log('PROFILE',app.profile);
       app.main.show(new ProfileView({
         model: app.profile
       }));
