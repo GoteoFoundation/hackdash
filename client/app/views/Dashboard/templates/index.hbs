@@ -20,6 +20,12 @@
       <a class="share tooltips" data-original-title='{{__ "Share this Dashboard"}}'>
         <i class="fa fa-share-alt"></i>
       </a>
+
+      {{#hasForms}}
+        <a class="surveys" href="/dashboards/{{domain}}/forms">
+          <i class="fa fa-heart"></i> Surveys
+        </a>
+      {{/hasForms}}
     </div>
 
     {{#isDashOpen}}

@@ -48,6 +48,9 @@ module.exports = Backbone.Marionette.LayoutView.extend({
         return false;
       }
       return this.open;
+    },
+    hasForms: function(){
+      return window.hackdash.user && this.model.get('forms') && this.model.get('forms').length;
     }
   },
 

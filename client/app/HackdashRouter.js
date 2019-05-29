@@ -154,7 +154,11 @@ module.exports = Backbone.Marionette.AppRouter.extend({
     }
 
     app.dashboard.fetch().done(function(){
-      app.projects.fetch({}, { parse: true })
+      var forms = new Forms();
+      forms.domain = dash;
+      forms.fetch().done(function(){
+        console.log('obtained forms', forms, 'dash', dash, forms.getPublic());
+        app.projects.fetch({}, { parse: true })
         .done(function(){
           app.projects.buildShowcase(app.dashboard.get("showcase"));
 
@@ -164,7 +168,8 @@ module.exports = Backbone.Marionette.AppRouter.extend({
           }));
 
           app.main.show(new DashboardView({
-            model: app.dashboard
+            model: app.dashboard,
+            forms: forms.getPublic()
           }));
 
           app.footer.show(new Footer({
@@ -174,6 +179,7 @@ module.exports = Backbone.Marionette.AppRouter.extend({
           app.setTitle(app.dashboard.get('title') || app.dashboard.get('domain'));
 
         });
+      });
     });
 
   },

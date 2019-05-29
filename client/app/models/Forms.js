@@ -39,6 +39,15 @@ var Forms = module.exports = BaseCollection.extend({
     return forms;
   },
 
+  getPublic: function() {
+    var forms = new Forms(
+      this.filter(function(forms) {
+        return forms.get("open") && forms.get("public");
+      })
+    );
+    return forms;
+  },
+
   getForProject: function(project_id) {
     var forms = new Forms(
       this.filter(function(form) {
