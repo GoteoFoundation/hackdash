@@ -36,12 +36,24 @@
     <div class="form-group">
       <div class="checkbox">
         <label>
-        <input type="checkbox" name="template" value="1"{{#if template}} checked="true"{{/if}}>
-        Available as template
+          <input type="checkbox" name="template" value="1"{{#if template}} checked="true"{{/if}}>
+          Available as template
         </label>
       </div>
 
       <p class="help-block">Marking this option will allow to create new forms with this same configuration (as it is when it's copied).</p>
+
+    </div>
+
+    <div class="form-group">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" name="public" value="1"{{#if public}} checked="true"{{/if}}>
+          Make it public
+        </label>
+      </div>
+
+      <p class="help-block">Public forms can be answered by anyone registered.</p>
 
     </div>
 

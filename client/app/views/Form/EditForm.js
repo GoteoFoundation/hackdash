@@ -15,6 +15,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
     'title' : 'input[name=title]',
     'description' : 'textarea[name=description]',
     'template' : 'input[name=template]',
+    'public' : 'input[name=public]',
     'fromTemplate': '.from-template'
   },
 
@@ -83,7 +84,8 @@ module.exports = Backbone.Marionette.ItemView.extend({
     var toSave = {
       title: this.ui.title.val(),
       description: this.ui.description.val(),
-      template: this.ui.template.is(':checked')
+      template: this.ui.template.is(':checked'),
+      public: this.ui.public.is(':checked')
     };
 
     // console.log(toSave, this.model, this.model.isNew());
