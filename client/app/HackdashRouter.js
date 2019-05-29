@@ -45,6 +45,7 @@ module.exports = Backbone.Marionette.AppRouter.extend({
 
     // APP
     , "dashboards/:dash": "showDashboard"
+    , "dashboards/:dash/surveys": "showDashboardSurveys"
     , "dashboards/:dash/create": "showProjectCreate"
     , "dashboards/:dash/forms": "showDashboardFormsEdit"
     , "dashboards/:dash/forms/:form": "showDashboardFormsResponses"
@@ -157,7 +158,7 @@ module.exports = Backbone.Marionette.AppRouter.extend({
       var forms = new Forms();
       forms.domain = dash;
       forms.fetch().done(function(){
-        console.log('obtained forms', forms, 'dash', dash, forms.getPublic());
+        // console.log('obtained forms', forms, 'dash', dash, forms.getPublic());
         app.projects.fetch({}, { parse: true })
         .done(function(){
           app.projects.buildShowcase(app.dashboard.get("showcase"));
@@ -194,6 +195,43 @@ module.exports = Backbone.Marionette.AppRouter.extend({
       return true;
     }
     return false;
+  },
+
+  showDashboardSurveys: function(dashboard){
+
+    console.log('surveys', dashboard);
+    var app = window.hackdash.app;
+    var self = this;
+    if(self.showLoginModal()) {
+      return;
+    }
+
+    app.type = "dashboard_forms";
+
+    app.dashboard = new Dashboard();
+    app.dashboard.set('domain', dashboard);
+    app.dashboard.fetch().done(function(){
+
+      var forms = new Forms();
+      forms.domain = dashboard;
+      forms.fetch().done(function(){
+        console.log('obtained forms', forms, 'dash', dashboard, forms.getPublic());
+
+        app.header.show(new Header());
+
+        // here the forms list view
+        app.main.show(new FormView({
+          model: null,
+          collection: forms.getPublic(),
+          readOnly: false
+        }));
+
+        app.footer.show(new Footer({
+          model: app.dashboard
+        }));
+      });
+      app.setTitle('Public Forms/Surveys for ' + (app.dashboard.get('title') || app.dashboard.get('domain')));
+    });
   },
 
   showDashboardFormsEdit: function(dashboard){

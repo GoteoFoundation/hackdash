@@ -16,8 +16,14 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   },
 
   templateHelpers: {
+    isPublic: function() {
+      return this.public;
+    },
     respondedLabel: function(form, prj) {
       var questions = (form && form.questions) || [];
+
+      // TODO: if empty prj, use users for public forms
+      //
       var responses = _.findWhere(prj.forms , {form: form._id});
       responses = (responses && responses.responses) || [];
       var percent = Math.min(1, responses.length / questions.length);

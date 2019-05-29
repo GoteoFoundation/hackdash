@@ -33,5 +33,17 @@
       </ul>
     {{/if}}
 
+    {{#isPublic}}
+      {{ respondedLabel .}}
+      <br>
+      {{#canRespond}}
+        <a href="/dashboards/{{domain}}/surveys/{{_id}}/respond" class="btn btn-info">{{ __ "Reply this form"}}</a>
+      {{/canRespond}}
+      {{#canView}}
+        {{!-- <span class="badge">Closed</span> --}}
+        <a href="/dashboards/{{domain}}/surveys/{{_id}}" class="btn btn-default">{{ __ "View responses"}}</a>
+      {{/canView}}
+    {{/isPublic}}
+
   </div>
 </div>

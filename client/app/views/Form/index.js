@@ -11,7 +11,7 @@ var
   ;
 
 var EmptyView = Backbone.Marionette.ItemView.extend({
-  template: _.template('<p class="text-danger">Sorry, this form is not for you!</p>')
+  template: _.template('<p class="text-danger text-center">Sorry, this form is not for you!</p>')
 });
 
 module.exports = Backbone.Marionette.LayoutView.extend({
@@ -40,10 +40,22 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       showMessages: function(){
         return flashMessage;
       },
-      formDesc: function() {
+      formTitle: function() {
+        var title;
         switch(hackdash.app.type) {
+          case 'dashboard_forms':
+            title = this.dashboard && this.dashboard.get('title') || hackdash.app.dashboard && hackdash.app.dashboard.get('title');
+            return "Forms for <small>" + title + "</small>";
+        }
+        return 'Forms';
+      },
+      formDesc: function() {
+        var title;
+        switch(hackdash.app.type) {
+          case 'dashboard_forms':
+            return "These surveys can be filled by anyone registered";
           case 'forms_project':
-            var title = this.project && this.project.get('title') || hackdash.app.project && hackdash.app.project.get('title');
+            title = this.project && this.project.get('title') || hackdash.app.project && hackdash.app.project.get('title');
             return 'Form for project <strong>' + title + '</strong>';
           case 'forms_item':
             return 'List of projects under this form';

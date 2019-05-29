@@ -41,17 +41,20 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     "save:showcase": "onSaveEditShowcase"
   },
 
-  templateHelpers: {
-    isDashOpen: function(){
-      var isDashboard = (hackdash.app.type === "dashboard" ? true : false);
-      if (!isDashboard){
-        return false;
+  templateHelpers: function() {
+    var self = this;
+    return {
+      isDashOpen: function(){
+        var isDashboard = (hackdash.app.type === "dashboard" ? true : false);
+        if (!isDashboard){
+          return false;
+        }
+        return this.open;
+      },
+      hasForms: function(){
+        return window.hackdash.user && self.options && self.options.forms && self.options.forms.length;
       }
-      return this.open;
-    },
-    hasForms: function(){
-      return window.hackdash.user && this.model.get('forms') && this.model.get('forms').length;
-    }
+    };
   },
 
   //--------------------------------------
@@ -65,7 +68,8 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     var self = this;
 
     this.dashboard.show(new DashboardView({
-      model: this.model
+      model: this.model,
+      forms: this.forms
     }));
 
     this.model.get("admins").fetch().done(function(){
