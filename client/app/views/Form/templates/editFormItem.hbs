@@ -3,6 +3,12 @@
     <div class="panel-heading" role="tab" id="h-{{_id}}">
       <h4 class="panel-title">
         <a class="pull-left" role="button" data-toggle="collapse" data-parent="#accordion" href="#c-{{_id}}" aria-expanded="{{#if opened}}true{{/if}}" aria-controls="c-{{_id}}" data-bypass>
+          {{#if public}}
+            <i class="fa fa-globe"></i> <span class="badge">Public</span>
+          {{else}}
+            <i class="fa fa-user-secret"></i> <span class="badge">Project owner</span>
+          {{/if}}
+          <br>
           {{title}}
         </a>
         <button class="pull-right btn btn-link edit-form" data-id="{{_id}}"><i class="fa fa-edit"></i></button>
