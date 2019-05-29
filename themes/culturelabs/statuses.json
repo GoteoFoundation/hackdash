@@ -174,9 +174,183 @@
     "hide": ["description", "location", "tags", "link"],
     "fields": [
       {
-        "id": "participation",
-        "header": "####![](/images/steps/project_activities.svg) ![](/images/steps/collaboration.svg) STEPS AND PROJECT ACTIVITIES",
-        "placeholder": "About participation..."
+        "id": "step1_title",
+        "header": "####![](/images/steps/project_activities.svg) ![](/images/steps/collaboration.svg) STEPS AND PROJECT ACTIVITIES\n\n---\n\n#### STEP 1\n\n---\n\n**Title**",
+        "placeholder": "Pilot action title"
+      },
+      {
+        "id": "step1_description",
+        "header": "**Description of action**",
+        "placeholder": "Action description..."
+      },
+      {
+        "id": "step1_barriers",
+        "header": "**Barriers to participation and ownership**: What barriers are there for participants to co-shape (not only be involved in) this activity? What risks do you identify?",
+        "placeholder": "Barriers..."
+      },
+      {
+        "id": "step1_alternatives",
+        "header": "**Alternative**: What solutions can you find for the risks and barriers you identified?",
+        "placeholder": "Alternative solutions..."
+      },
+      {
+        "id": "step1_experiences",
+        "header": "**Participants’ experiences**: Starting from the previous Empathy map exercise, put yourself in the shoes of your participants and imagine their testimony for this activity. Repeat this with your participants in real life.",
+        "placeholder": "Participants experiences..."
+      },
+      {
+        "id": "step2_title",
+        "header": "---\n\n#### STEP 2\n\n---\n\n**Title**",
+        "placeholder": "Pilot action title"
+      },
+      {
+        "id": "step2_description",
+        "header": "**Description of action**",
+        "placeholder": "Action description..."
+      },
+      {
+        "id": "step2_barriers",
+        "header": "**Barriers to participation and ownership**: What barriers are there for participants to co-shape (not only be involved in) this activity? What risks do you identify?",
+        "placeholder": "Barriers..."
+      },
+      {
+        "id": "step2_alternatives",
+        "header": "**Alternative**: What solutions can you find for the risks and barriers you identified?",
+        "placeholder": "Alternative solutions..."
+      },
+      {
+        "id": "step2_experiences",
+        "header": "**Participants’ experiences**: Starting from the previous Empathy map exercise, put yourself in the shoes of your participants and imagine their testimony for this activity. Repeat this with your participants in real life.",
+        "placeholder": "Participants experiences..."
+      },
+      {
+        "id": "step3_title",
+        "header": "---\n\n#### STEP 3\n\n---\n\n**Title**",
+        "placeholder": "Pilot action title"
+      },
+      {
+        "id": "step3_description",
+        "header": "**Description of action**",
+        "placeholder": "Action description..."
+      },
+      {
+        "id": "step3_barriers",
+        "header": "**Barriers to participation and ownership**: What barriers are there for participants to co-shape (not only be involved in) this activity? What risks do you identify?",
+        "placeholder": "Barriers..."
+      },
+      {
+        "id": "step3_alternatives",
+        "header": "**Alternative**: What solutions can you find for the risks and barriers you identified?",
+        "placeholder": "Alternative solutions..."
+      },
+      {
+        "id": "step3_experiences",
+        "header": "**Participants’ experiences**: Starting from the previous Empathy map exercise, put yourself in the shoes of your participants and imagine their testimony for this activity. Repeat this with your participants in real life.",
+        "placeholder": "Participants experiences..."
+      },
+      {
+        "id": "step4_title",
+        "header": "---\n\n#### STEP 4\n\n---\n\n**Title**",
+        "placeholder": "Pilot action title"
+      },
+      {
+        "id": "step4_description",
+        "header": "**Description of action**",
+        "placeholder": "Action description..."
+      },
+      {
+        "id": "step4_barriers",
+        "header": "**Barriers to participation and ownership**: What barriers are there for participants to co-shape (not only be involved in) this activity? What risks do you identify?",
+        "placeholder": "Barriers..."
+      },
+      {
+        "id": "step4_alternatives",
+        "header": "**Alternative**: What solutions can you find for the risks and barriers you identified?",
+        "placeholder": "Alternative solutions..."
+      },
+      {
+        "id": "step4_experiences",
+        "header": "**Participants’ experiences**: Starting from the previous Empathy map exercise, put yourself in the shoes of your participants and imagine their testimony for this activity. Repeat this with your participants in real life.",
+        "placeholder": "Participants experiences..."
+      },
+      {
+        "id": "step5_title",
+        "header": "---\n\n#### STEP 5\n\n---\n\n**Title**",
+        "placeholder": "Pilot action title"
+      },
+      {
+        "id": "step5_description",
+        "header": "**Description of action**",
+        "placeholder": "Action description..."
+      },
+      {
+        "id": "step5_barriers",
+        "header": "**Barriers to participation and ownership**: What barriers are there for participants to co-shape (not only be involved in) this activity? What risks do you identify?",
+        "placeholder": "Barriers..."
+      },
+      {
+        "id": "step5_alternatives",
+        "header": "**Alternative**: What solutions can you find for the risks and barriers you identified?",
+        "placeholder": "Alternative solutions..."
+      },
+      {
+        "id": "step5_experiences",
+        "header": "**Participants’ experiences**: Starting from the previous Empathy map exercise, put yourself in the shoes of your participants and imagine their testimony for this activity. Repeat this with your participants in real life.",
+        "placeholder": "Participants experiences..."
+      },
+      {
+        "id": "step6_title",
+        "header": "---\n\n#### STEP 6\n\n---\n\n**Title**",
+        "placeholder": "Pilot action title"
+      },
+      {
+        "id": "step6_description",
+        "header": "**Description of action**",
+        "placeholder": "Action description..."
+      },
+      {
+        "id": "step6_barriers",
+        "header": "**Barriers to participation and ownership**: What barriers are there for participants to co-shape (not only be involved in) this activity? What risks do you identify?",
+        "placeholder": "Barriers..."
+      },
+      {
+        "id": "step6_alternatives",
+        "header": "**Alternative**: What solutions can you find for the risks and barriers you identified?",
+        "placeholder": "Alternative solutions..."
+      },
+      {
+        "id": "step6_experiences",
+        "header": "**Participants’ experiences**: Starting from the previous Empathy map exercise, put yourself in the shoes of your participants and imagine their testimony for this activity. Repeat this with your participants in real life.",
+        "placeholder": "Participants experiences..."
+      }
+    ]
+  },
+  {
+    "status": "step5",
+    "alias": "tasklogging",
+    "text": "Stage 5",
+    "active": true,
+    "hide": ["description", "location", "tags", "link"],
+    "fields": [
+      {
+        "id": "ingredients",
+        "header": "####![](/images/steps/ingredients.svg) ![](/images/steps/recipe.svg) RECIPE INGREDIENTS\n\n**Ingredients**: What ingredients will your pilot recipe use? (e.g. what kind of co-creation tools, impact measurement tools, etc)",
+        "placeholder": "Pilot ingredients..."
+      },
+      {
+        "id": "a-has",
+        "header": "**A-HAs**: What A-Ha moments did you have? What insights from the workshop will influence your work on the pilot?",
+        "placeholder": "Pilot A-Ha moments..."
+      },
+      {
+        "id": "pilot_heritage",
+        "header": "**Cultural heritage**: What is the role of cultural heritage in your pilot? What different interpretations of this have you encountered? What insights do they give you on how to adapt your work?",
+        "placeholder": "Pilot cultural heritage..."
+      },
+      {
+        "id": "tech_tools",
+        "header": "**Tech tools**: How can tech tools help your activities? What tools are you planning  on deploying? How are you planning on using them?",
+        "placeholder": "Pilot tech tools..."
       }
     ]
   },
@@ -195,7 +369,7 @@
       {
         "id": "decision_making",
         "header": "### DECISION MAKING\n\n![](/images/steps/collaboration.svg)\n\n**What is your plan to ensuring participation in decision making?**\n\nWhat concrete actions (e.g. organise a co-creation workshop for ideas collection, for working teams etc) do you plan to take?\n\n*What tools (e.g. the Wotify event board, the Wotify physical tools, other tools) do you plan to use in order to ensure that the community members participate in decision making?*",
-        "placeholder": "about decision making..."
+        "placeholder": "About decision making..."
       },
       {
         "id": "speeds",
@@ -234,15 +408,15 @@
     ]
   },
   {
-    "status": "step6",
+    "status": "step8",
     "alias": "releasing",
-    "text": "Stage 6",
+    "text": "Stage 8",
     "active": true,
     "hide": ["description", "location", "tags", "link"],
     "fields": [
       {
         "id": "methodology",
-        "header": "####  METHODOLOGY TAILORING AND SUPPORT\n\n### CULTURELABS METHODOLOGY\n\n![](/images/steps/manual.svg) Key audiences\n\n**How are you planning to make use of tools and methods provided by Platoniq and by the D3.1 methodology deliverable?**\n\nYou can also check [Wotify.eu](https://wotify.eu) for more resources",
+        "header": "####  METHODOLOGY TAILORING AND SUPPORT\n\n### CULTURELABS METHODOLOGY\n\n![](/images/steps/manual.svg)\n\n**How are you planning to make use of tools and methods provided by Platoniq and by the D3.1 methodology deliverable?**\n\nYou can also check [Wotify.eu](https://wotify.eu) for more resources",
         "placeholder": "Methodology..."
       },
       {
