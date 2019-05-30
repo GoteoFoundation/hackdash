@@ -52,7 +52,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
         return this.open;
       },
       hasForms: function(){
-        return window.hackdash.user && self.options && self.options.forms && self.options.forms.length;
+        return window.hackdash.user && self.options && self.options.forms && self.options.forms.length > 0;
       }
     };
   },

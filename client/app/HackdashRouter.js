@@ -159,8 +159,7 @@ module.exports = Backbone.Marionette.AppRouter.extend({
       forms.domain = dash;
       forms.fetch().done(function(){
         // console.log('obtained forms', forms, 'dash', dash, forms.getPublic());
-        app.projects.fetch({}, { parse: true })
-        .done(function(){
+        app.projects.fetch({}, { parse: true }).done(function(){
           app.projects.buildShowcase(app.dashboard.get("showcase"));
 
           app.header.show(new Header({
