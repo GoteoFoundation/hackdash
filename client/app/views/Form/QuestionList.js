@@ -47,9 +47,14 @@ module.exports = Backbone.Marionette.CollectionView.extend({
   },
 
   childViewOptions: function (model) {
-    var project = this.model.get('project');
+    var entity = this.model.get('project');
+    var public = this.model.get('public');
+    if(public) {
+      entity = hackdash.user;
+    }
+    console.log('public', public, 'model', model);
     var form = this.model;
-    var forms = project ? project.get('forms') : [];
+    var forms = entity ? entity.get('forms') : [];
     var responses = _.find(forms, function(e) { return e.form === form.get('_id'); });
 
     responses = responses && responses.responses ? responses.responses : [];
@@ -61,7 +66,7 @@ module.exports = Backbone.Marionette.CollectionView.extend({
       responses: responses, // If form element need info about other values
       response: response,
       form: form,
-      project: project
+      entity: entity
     };
   },
 

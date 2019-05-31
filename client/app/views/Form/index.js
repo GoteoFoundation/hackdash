@@ -44,6 +44,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
         var title;
         switch(hackdash.app.type) {
           case 'dashboard_forms':
+          case 'dashboard_forms_item':
             title = this.dashboard && this.dashboard.get('title') || hackdash.app.dashboard && hackdash.app.dashboard.get('title');
             return "Forms for <small>" + title + "</small>";
         }
@@ -53,6 +54,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
         var title;
         switch(hackdash.app.type) {
           case 'dashboard_forms':
+          case 'dashboard_forms_item':
             return "These surveys can be filled by anyone registered";
           case 'forms_project':
             title = this.project && this.project.get('title') || hackdash.app.project && hackdash.app.project.get('title');
@@ -75,6 +77,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
   onRender: function(){
     var project = hackdash.app.project;
+    var dashboard = hackdash.app.dashboard;
     if(this.collection) {
       // Render list
       console.log('Render form collection', this.collection);
@@ -87,6 +90,14 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       this.formContent.show(new FormRender({
         model: this.model,
         readOnly: this.readOnly
+      }));
+    } else if(this.model && dashboard) {
+      // Render view
+      console.log('Render form model for dashboard', this.model, dashboard, this.readOnly);
+      this.formContent.show(new FormRender({
+        model: this.model,
+        readOnly: this.readOnly,
+        dashboard: dashboard
       }));
     } else if(this.model) {
       console.log('Render form model', this.model);

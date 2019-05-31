@@ -58,13 +58,18 @@ module.exports = Backbone.Model.extend({
     if(typeof callback !== 'function') {
       callback = function(){};
     }
-
-    if(!this.get('project').get('_id')) {
-      callback('Expected a project property!');
-      return;
+    var url = this.url();
+    console.log('SEND FORM', this);
+    if(this.get('public')) {
+      url += '/public';
+    } else {
+      var project = this.get('project');
+      if(!project || !project.get('_id')) {
+        callback('Expected a project property!');
+        return;
+      }
+      url += '/' + project.get('_id');
     }
-
-    var url = this.url() + '/' + this.get('project').get('_id');
 
     $.ajax({
       url: url,

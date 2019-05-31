@@ -47,6 +47,9 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       },
       readOnly: function() {
         return self.readOnly;
+      },
+      dashboard: function() {
+        return self.dashboard;
       }
     };
   },
@@ -54,11 +57,13 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   initialize: function(options) {
     this.dummy = options && options.dummy;
     this.readOnly = options && options.readOnly;
+    this.dashboard = options && options.dashboard;
   },
 
   onRender: function() {
     var form = this.model;
     var self = this;
+    console.log('RENDER', 'SELF', self);
     if(form && form.get('done')) {
       hackdash.app.project = null;
       hackdash.app.type = 'forms_list';
@@ -101,6 +106,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     }
     var values = this.questionsList.currentView.getValues();
     var self = this;
+    // console.log('send form', 'VALUES', values, 'SELF', self);
     var res = {
         form: self.model.get('_id'),
         responses: values

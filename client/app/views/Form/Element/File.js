@@ -37,7 +37,7 @@ module.exports = Text.extend({
     this.invalidText = __('This file type is not allowed');
     this.maxSize = 16;
     this.formId = this.form ? this.form.get('_id') : null;
-    this.projectId = this.project ? this.project.get('_id') : null;
+    this.entityId = this.entity ? this.entity.get('_id') : null;
     if(this.imagesOnly) {
       this.text = __('Drop Image Here');
       this.invalidText = __('Only jpg, png and gif are allowed');
@@ -45,7 +45,7 @@ module.exports = Text.extend({
     if(this.model) {
       this.imagesOnly = this.model.get('options') && this.model.get('options').images;
       this.file = this.model.get('value');
-      this.uploadURL = hackdash.apiURL + '/forms/upload/' + this.formId + '/' + this.projectId + '/' + this.model.get('_id');
+      this.uploadURL = hackdash.apiURL + '/forms/upload/' + this.formId + '/' + this.entityId + '/' + this.model.get('_id');
     }
     this.initImageDrop();
     // Remove value as it has his own API endpoint

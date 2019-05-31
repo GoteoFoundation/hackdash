@@ -46,6 +46,8 @@ module.exports = Backbone.Marionette.AppRouter.extend({
     // APP
     , "dashboards/:dash": "showDashboard"
     , "dashboards/:dash/surveys": "showDashboardSurveys"
+    , "dashboards/:dash/surveys/:fid": "showDashboardSurveys"
+    , "dashboards/:dash/surveys/:fid/respond": "showDashboardSurveysRespond"
     , "dashboards/:dash/create": "showProjectCreate"
     , "dashboards/:dash/forms": "showDashboardFormsEdit"
     , "dashboards/:dash/forms/:form": "showDashboardFormsResponses"
@@ -196,7 +198,7 @@ module.exports = Backbone.Marionette.AppRouter.extend({
     return false;
   },
 
-  showDashboardSurveys: function(dashboard){
+  showDashboardSurveys: function(dashboard, fid){
 
     console.log('surveys', dashboard);
     var app = window.hackdash.app;
@@ -205,34 +207,70 @@ module.exports = Backbone.Marionette.AppRouter.extend({
       return;
     }
 
-    app.type = "dashboard_forms";
-
     app.dashboard = new Dashboard();
     app.dashboard.set('domain', dashboard);
     app.dashboard.fetch().done(function(){
 
-      var forms = new Forms();
-      forms.domain = dashboard;
-      forms.fetch().done(function(){
-        console.log('obtained forms', forms, 'dash', dashboard, forms.getPublic());
+      if(fid) {
+        app.type = 'dashboard_forms_item';
+        // find form
+        var form = new Form({
+          id: fid
+        });
+        form.fetch().done(function(){
+          self.showFormsView(form);
+        }).error(function(){
+          app.main.show(new FormView()); // Shows no permissions form
+        });
+      } else {
 
-        app.header.show(new Header());
+        app.type = "dashboard_forms";
 
-        // here the forms list view
-        app.main.show(new FormView({
-          model: null,
-          collection: forms.getPublic(),
-          readOnly: false
-        }));
+          var forms = new Forms();
+          forms.domain = dashboard;
+          forms.fetch().done(function(){
+            console.log('obtained forms', forms, 'dash', dashboard, forms.getPublic());
 
-        app.footer.show(new Footer({
-          model: app.dashboard
-        }));
-      });
+            app.header.show(new Header());
+
+            // here the forms list view
+            app.main.show(new FormView({
+              model: null,
+              collection: forms.getPublic(),
+              readOnly: false
+            }));
+
+            app.footer.show(new Footer({
+              model: app.dashboard
+            }));
+          });
+      }
+
       app.setTitle('Public Forms/Surveys for ' + (app.dashboard.get('title') || app.dashboard.get('domain')));
     });
   },
 
+  showDashboardSurveysRespond: function(dashboard, fid) {
+    var app = window.hackdash.app;
+    var self = this;
+    if(self.showLoginModal()) {
+      return;
+    }
+
+    app.type = 'dashboard_forms_item';
+    app.dashboard = new Dashboard();
+    app.dashboard.set('domain', dashboard);
+    app.dashboard.fetch().done(function(){
+      // find form
+      var form = new Form({
+        id: fid
+      });
+      form.fetch().done(function(){
+        self.showFormsView(form);
+      });
+      app.setTitle('Public Forms/Surveys for ' + (app.dashboard.get('title') || app.dashboard.get('domain')));
+    });
+  },
   showDashboardFormsEdit: function(dashboard){
 
     var app = window.hackdash.app;

@@ -24,18 +24,19 @@
     <a class="btn btn-info send-form">Close demo</a>
   {{else}}
 
-    {{#unless readOnly}}
-      <a class="btn btn-success send-form">Send</a>
-    {{/unless}}
+  {{#unless readOnly}}
+    <a class="btn btn-success send-form">Send</a>
+  {{/unless}}
 
-    <div class="pull-right">
-      {{#unless readOnly}}
-        {{!-- <a class="btn btn-info" href="/forms">Go back to my forms</a> --}}
-      {{/unless}}
+  <div class="pull-right">
+    {{#if dashboard}}
+      <a class="btn btn-info" href="/dashboards/{{dashboard.id}}">Go to dashboard</a>
+    {{else}}
       <a class="btn btn-info" href="/projects/{{project.id}}/forms">Go to project forms</a>
       <a class="btn btn-success" href="/projects/{{project.id}}">Go to project</a>
-    </div>
-  {{/if}}
+    {{/if}}
+  </div>
+{{/if}}
 
 </div>
 
