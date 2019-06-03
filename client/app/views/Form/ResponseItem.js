@@ -56,6 +56,10 @@ module.exports = Backbone.Marionette.ItemView.extend({
         value = value.replace(/(?:\r\n|\r|\n)/g, '<br>');
       }
       return new Handlebars.SafeString(value);
+    },
+
+    itemId: function() {
+      return 'fansw-' + (this.project ? this.project._id : this.user._id);
     }
   },
 

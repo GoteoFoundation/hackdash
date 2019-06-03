@@ -1,6 +1,6 @@
 <div class="panel-heading" role="tab">
   <h4 class="panel-title">
-    <a role="button"{{#if collapse}} data-toggle="collapse"{{/if}} href="#prj-{{ project._id }}" data-bypass>
+    <a role="button"{{#if collapse}} data-toggle="collapse"{{/if}} href="#{{ itemId }}" data-bypass>
     {{#if project}}
       <span class="label label-default">ID: {{project.projectId}}</span>
       {{project.title}}
@@ -18,7 +18,7 @@
     </a></h4>
 </div>
 
-<div id="prj-{{ project._id }}" class="{{#if collapse}}panel-collapse collapse{{/if}}" role="tabpanel">
+<div id="{{ itemId }}" class="{{#if collapse}}panel-collapse collapse{{/if}}" role="tabpanel">
   <dl>
   {{#each responses}}
     <dt><i class="fa fa-{{../fa question.type}} fa-fw"></i> {{ question.title }}</dt>

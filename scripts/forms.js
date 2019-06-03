@@ -25,7 +25,47 @@ program
 
 var Form = mongoose.model('Form');
 var Project = mongoose.model('Project');
+var User = mongoose.model('User');
 // temp.track();
+
+function copyFiles(form, forms, dir) {
+  var responses = _.find(forms, function(f){return f.form == form._id.toString();}) || {responses:[]};
+  _.each(responses.responses, function(r){
+    var question = _.find(form.questions, function(q){return q._id.toString() == r.question.toString();});
+    // console.log(question.type,r.value);
+    var original = r.value && r.value.path && __dirname + '/../public' + r.value.path;
+    if(question && question.type == 'file' && original && fs.existsSync(original)) {
+      // Export to a file
+      if(!fs.existsSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+      dir = dir + '/' + slug(question.title);
+      if(!fs.existsSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+      // Copy files
+      var name = r.value.name || r.value.path;
+      var pos = name.lastIndexOf('.');
+      var ext = name.substring(pos);
+      var name = name.substring(0, pos);
+      console.log(name," -- ",ext);
+      fs.copySync(original, dir + '/' + slug(name) + ext);
+      console.log('COPIED', original, 'AS', slug(name)+ext);
+    }
+  });
+}
+
+function createFile(form, dirPath, callback){
+  console.log(colors.yellow('Creating ZIP file'));
+  var name = '/uploads/export/' + slug(form._id + ' ' + form.title) + '.zip';
+  zipFolder(dirPath, __dirname + '/../public' + name, function(err){
+    console.log('done '+name,err);
+    if(err) {
+      callback(err);
+    }
+    callback(null, name);
+  });
+}
 
 function processForm (form, callback) {
   if(typeof callback != 'function') {
@@ -36,6 +76,21 @@ function processForm (form, callback) {
   temp.mkdir('form', function(err, dirPath) {
     if (err) callback(err);
     console.log(dirPath);
+    if(form.public) {
+      User.find({'forms.form':form._id})
+        .exec(function(err, users){
+          if (err) throw err;
+          console.log('Found ' + users.length +' responding users');
+          console.log(colors.yellow('Creating temporary files'));
+          _.each(users, function(user){
+            var id = user.userId || user._id;
+            console.log(colors.red(id) +' ' + user.username);
+            copyFiles(form, user.forms, dirPath + '/' + slug(id+' ' +user.username));
+          });
+          createFile(form, dirPath, callback);
+        });
+      return;
+    }
     Project.find({'forms.form':form._id})
       .populate('leader')
       .exec(function(err, projects){
@@ -45,41 +100,9 @@ function processForm (form, callback) {
         _.each(projects, function(project){
           var id = project.projectId || project._id;
           console.log(colors.red(id) +' ' + project.title);
-          var responses = _.find(project.forms, function(f){return f.form == form._id.toString();}) || {responses:[]};
-          _.each(responses.responses, function(r){
-            var question = _.find(form.questions, function(q){return q._id.toString() == r.question.toString();});
-            // console.log(question.type,r.value);
-            var original = r.value && r.value.path && __dirname + '/../public' + r.value.path;
-            if(question && question.type == 'file' && original && fs.existsSync(original)) {
-              var dir = dirPath + '/' + slug(id+' ' +project.title);
-              // Export to a file
-              if(!fs.existsSync(dir)) {
-                fs.mkdirSync(dir);
-              }
-              dir = dir + '/' + slug(question.title);
-              if(!fs.existsSync(dir)) {
-                fs.mkdirSync(dir);
-              }
-              // Copy files
-              var name = r.value.name || r.value.path;
-              var pos = name.lastIndexOf('.');
-              var ext = name.substring(pos);
-              var name = name.substring(0, pos);
-              console.log(name," -- ",ext);
-              fs.copySync(original, dir + '/' + slug(name) + ext);
-              console.log('COPIED', original, 'AS', slug(name)+ext);
-            }
-          });
+          copyFiles(form, project.forms, dirPath + '/' + slug(id+' ' +project.title));
         });
-        console.log(colors.yellow('Creating ZIP file'));
-        var name = '/uploads/export/' + slug(form._id + ' ' + form.title) + '.zip';
-        zipFolder(dirPath, __dirname + '/../public' + name, function(err){
-          console.log('done '+name,err);
-          if(err) {
-            callback(err);
-          }
-          callback(null, name);
-        });
+        createFile(form, dirPath, callback);
       });
   });
 }
