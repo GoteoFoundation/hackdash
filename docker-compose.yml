@@ -10,7 +10,7 @@ services:
     volumes:
       - ../data/db:/data/db
   app:
-    image: node:alpine
+    build: .
     volumes:
       - ./:/app
     working_dir: /app

@@ -37,7 +37,8 @@ module.exports = Text.extend({
     this.invalidText = __('This file type is not allowed');
     this.maxSize = 16;
     this.formId = this.form ? this.form.get('_id') : null;
-    this.entityId = this.entity ? this.entity.get('_id') : null;
+    this.public = this.form && this.form.get('public');
+    this.entityId = this.public ? 'public' : (this.entity ? this.entity.get('_id') : null);
     if(this.imagesOnly) {
       this.text = __('Drop Image Here');
       this.invalidText = __('Only jpg, png and gif are allowed');
@@ -94,12 +95,14 @@ module.exports = Text.extend({
 
 
     zone.on("success", function(file, response) {
-      // console.log('success', file, response.href);
+      console.log('SUCCESS', file, self.file, response.href);
+      self.file = self.file || {};
       self.file.path = response.href;
     });
 
     zone.on("error", function(file, message) {
-      // console.log('ERROR',message);
+      console.log('ERROR',message);
+      message = message.message ? message.message : message;
       file.accepted = false;
       self.ui.errorFile.removeClass('hidden').text(__(message));
     });
