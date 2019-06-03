@@ -80,8 +80,9 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       }));
     }
     if(self.readOnly) {
-      var project = hackdash.app.project.toJSON();
-      var responses = _.findWhere(project.forms, {form: form.get('_id')}) || {responses:[]};
+      var entity = hackdash.app.project && hackdash.app.project.toJSON();
+      var forms = form.get('public') ? hackdash.user && hackdash.user.forms : entity && entity.forms;
+      var responses = _.findWhere(forms, {form: form.get('_id')}) || {responses:[]};
       var responded = 0;
       responses = _.map(form.get('questions'), function(q){
         var res = _.findWhere(responses.responses, {question: q._id}) || {};
@@ -93,7 +94,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
       });
       self.questionsList.show(new ResponseItem({
         model: new Backbone.Model({
-          project: project,
+          entity: entity,
           responses: responses,
           responded: responded/responses.length,
           opened: true

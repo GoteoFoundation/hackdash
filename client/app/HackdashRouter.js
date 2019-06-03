@@ -218,7 +218,7 @@ module.exports = Backbone.Marionette.AppRouter.extend({
           id: fid
         });
         form.fetch().done(function(){
-          self.showFormsView(form);
+          self.showFormsView(form, null, true);
         }).error(function(){
           app.main.show(new FormView()); // Shows no permissions form
         });

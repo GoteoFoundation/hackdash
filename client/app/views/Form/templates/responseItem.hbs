@@ -1,15 +1,17 @@
 <div class="panel-heading" role="tab">
   <h4 class="panel-title">
     <a role="button"{{#if collapse}} data-toggle="collapse"{{/if}} href="#prj-{{ project._id }}" data-bypass>
-    <span class="label label-default">ID: {{project.projectId}}</span>
-
-
-    {{project.title}}
-    -
-    {{project.leader.name}}
-    {{#if project.leader.email}}
+    {{#if project}}
+      <span class="label label-default">ID: {{project.projectId}}</span>
+      {{project.title}}
       -
-      {{project.leader.email}}
+      {{project.leader.name}}
+      {{#if project.leader.email}}
+        -
+        {{project.leader.email}}
+      {{/if}}
+    {{else}}
+    {{userName}}
     {{/if}}
 
     <span class="pull-right">{{percentLabel responded}}</span>
