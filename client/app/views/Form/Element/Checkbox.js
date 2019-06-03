@@ -12,7 +12,7 @@ module.exports = Text.extend({
   template: template,
 
   ui: {
-    input: '.checkbox input'
+    input: '.form-group input'
   },
 
   templateHelpers: function() {

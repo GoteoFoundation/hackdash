@@ -1,4 +1,8 @@
 <div class="pull-right">
-  <a href="/projects/{{_id}}/forms" class="btn btn-info">Back to project forms</a>
-  <a href="/projects/{{_id}}" class="btn btn-success">Back to project</a>
+  {{#if dashboard}}
+    <a class="btn btn-info" href="/dashboards/{{dashboard}}">Go to dashboard</a>
+  {{else}}
+    <a href="/projects/{{_id}}/forms" class="btn btn-info">Back to project forms</a>
+    <a href="/projects/{{_id}}" class="btn btn-success">Back to project</a>
+  {{/if}}
 </div>

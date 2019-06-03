@@ -72,7 +72,9 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     this.readOnly = options && options.readOnly;
     if(this.model) {
       this.model.set({'user': hackdash.user});
-      this.model.set({'project': hackdash.app.project});
+      if(hackdash.app.project) {
+        this.model.set({'project': hackdash.app.project});
+      }
     }
   },
 

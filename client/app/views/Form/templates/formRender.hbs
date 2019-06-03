@@ -2,17 +2,17 @@
 
 {{{markdown description}}}
 
-  {{#if showErrors}}
-    <div class="alert alert-danger" id="login-errors">
-      {{showErrors}}
-    </div>
-  {{/if}}
+{{#if showErrors}}
+  <div class="alert alert-danger" id="login-errors">
+    {{showErrors}}
+  </div>
+{{/if}}
 
-  {{#if showMessages}}
-    <div class="alert alert-success" id="login-messages">
-      {{showMessages}}
-    </div>
-  {{/if}}
+{{#if showMessages}}
+  <div class="alert alert-success" id="login-messages">
+    {{showMessages}}
+  </div>
+{{/if}}
 
 <div class="form-content">
 
@@ -24,21 +24,19 @@
     <a class="btn btn-info send-form">Close demo</a>
   {{else}}
 
-  {{#unless readOnly}}
-    <a class="btn btn-success send-form">Send</a>
-  {{/unless}}
+    {{#unless readOnly}}
+      <a class="btn btn-success send-form">Send</a>
+    {{/unless}}
 
-  <div class="pull-right">
-    {{dashboard.id}}
-    {{#if dashboard}}
-      <a class="btn btn-info" href="/dashboards/{{dashboard.id}}">Go to dashboard</a>
-    {{else}}
-      <a class="btn btn-info" href="/projects/{{project.id}}/forms">Go to project forms</a>
-      <a class="btn btn-success" href="/projects/{{project.id}}">Go to project</a>
-    {{/if}}
-  </div>
-{{/if}}
-
+    <div class="pull-right">
+      {{#if dashboard}}
+        <a class="btn btn-info" href="/dashboards/{{dashboard}}">Go to dashboard</a>
+      {{else}}
+        <a class="btn btn-info" href="/projects/{{project.id}}/forms">Go to project forms</a>
+        <a class="btn btn-success" href="/projects/{{project.id}}">Go to project</a>
+      {{/if}}
+    </div>
+  {{/if}}
 </div>
 
 <div class="done"></div>

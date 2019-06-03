@@ -11,7 +11,15 @@ var
   ;
 
 var DoneView = Backbone.Marionette.ItemView.extend({
-  template: doneTemplate
+  template: doneTemplate,
+  templateHelpers: function() {
+    var self = this;
+    return {
+      dashboard: function() {
+        return self.options && self.options.dashboard && self.options.dashboard.id;
+      }
+    };
+  }
 });
 
 module.exports = Backbone.Marionette.LayoutView.extend({
@@ -49,8 +57,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
         return self.readOnly;
       },
       dashboard: function() {
-        console.log('dashboard', self.dashboard);
-        return self.dashboard;
+        return self.dashboard && self.dashboard.id;
       }
     };
   },
@@ -64,12 +71,12 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   onRender: function() {
     var form = this.model;
     var self = this;
-    console.log('RENDER', 'SELF', self);
     if(form && form.get('done')) {
       hackdash.app.project = null;
       hackdash.app.type = 'forms_list';
       return self.formContent.show(new DoneView({
-        model: self.model.get('project')
+        model: self.model.get('project'),
+        dashboard: self.dashboard
       }));
     }
     if(self.readOnly) {
