@@ -49,6 +49,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
         return self.readOnly;
       },
       dashboard: function() {
+        console.log('dashboard', self.dashboard);
         return self.dashboard;
       }
     };

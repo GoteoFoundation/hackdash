@@ -26,7 +26,7 @@ module.exports = Text.extend({
       },
       checked: function(val) {
         var value = self.model.get('value');
-        console.log('checkbox values', value);
+        console.log('checkbox values', value, self.model.get('options'));
         if(_.isArray(value) && value.length) {
           return _.indexOf(value, val) > -1 ? ' checked' : '';
         }
@@ -41,6 +41,7 @@ module.exports = Text.extend({
 
   setValue: function() {
     var values = [];
+    console.log('set val', this.ui.input);
     this.ui.input.each(function(i, el) {
       if(el.checked) {
         values.push(el.value);
