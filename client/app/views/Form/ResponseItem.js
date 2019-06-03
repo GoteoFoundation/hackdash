@@ -56,12 +56,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
         value = value.replace(/(?:\r\n|\r|\n)/g, '<br>');
       }
       return new Handlebars.SafeString(value);
-    },
-
-    userName: function() {
-      return hackdash.user && hackdash.user.name;
     }
-
   },
 
   initialize: function(options) {

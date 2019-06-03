@@ -11,7 +11,7 @@
         {{project.leader.email}}
       {{/if}}
     {{else}}
-    {{userName}}
+    <span class="label label-default">{{user.username}}</span> {{user.name}} - {{user.email}}
     {{/if}}
 
     <span class="pull-right">{{percentLabel responded}}</span>
