@@ -489,7 +489,7 @@ module.exports = Backbone.Marionette.AppRouter.extend({
 
       var forms = new Forms();
       forms.project = pid;
-      forms.fetch().done(function(){
+      forms.fetch().always(function(){
         // console.log('obtained forms', forms, 'pid', pid, forms.getForProject(pid));
 
         app.header.show(new Header());
