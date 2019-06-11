@@ -59,7 +59,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
     },
 
     itemId: function() {
-      return 'fansw-' + (this.project ? this.project._id : this.user._id);
+      return 'fansw-' + (this.project ? this.project._id : (this.user ? this.user._id : Math.random()));
     }
   },
 
