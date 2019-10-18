@@ -1,0 +1,88 @@
+[
+  {
+    "role": "user",
+    "name": "Parachuter",
+    "perms": [
+      "comment_project"
+    ]
+  },
+  {
+    "role": "maker",
+    "name": "Idea Maker",
+    "perms": [
+      "comment_project",
+      "project_view",
+      "project_create",
+      "project_follow"
+    ]
+  },
+  {
+    "role": "feeder",
+    "name": "Idea Feeder",
+    "perms": [
+      "comment_project",
+      "project_create",
+      "project_view",
+      "project_follow",
+      "project_join",
+      "dashboard_view_private"
+    ]
+  },
+  {
+    "role": "taker",
+    "name": "Storyteller",
+    "perms": [
+      "comment_project",
+      "project_create",
+      "project_follow",
+      "project_join",
+      "dashboard_view_private"
+    ]
+  },
+  {
+    "role": "facilitator",
+    "name": "Facilitator",
+    "perms": [
+      "comment_project",
+      "project_follow",
+      "project_join",
+      "dashboard_view_private"
+    ]
+  },
+  {
+    "role": "team",
+    "name": "Team",
+    "perms": [
+      "comment_project",
+      "project_view",
+      "project_follow",
+      "project_join",
+      "dashboard_view_private"
+    ]
+  },
+  {
+    "role": "superadmin",
+    "name": "Development team",
+    "perms": [
+      "user_update",
+      "user_change_role",
+      "comment_project",
+      "project_create",
+      "project_edit",
+      "project_view",
+      "project_delete",
+      "project_follow",
+      "project_join",
+      "project_update",
+      "project_change_dashboard",
+      "form_results",
+      "form_respond",
+      "dashboard_create",
+      "dashboard_view_private",
+      "dashboard_set_private",
+      "dashboard_set_status",
+      "dashboard_set_showcase",
+      "dashboard_set_open"
+    ]
+  }
+]

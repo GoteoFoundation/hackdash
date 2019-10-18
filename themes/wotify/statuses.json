@@ -1,0 +1,44 @@
+[
+  {
+    "status": "brainstorming",
+    "text": "Inception",
+    "active": true,
+    "toolsUrl": "http://wotify.eu"
+  },
+  {
+    "status": "forecasting",
+    "text": "Scenario Forecasting",
+    "active": true,
+    "toolsUrl": "http://wotify.eu"
+  },
+  {
+    "status": "prototyping",
+    "text": "Prototyping",
+    "active": true,
+    "toolsUrl": "http://wotify.eu"
+  },
+  {
+    "status": "wireframing",
+    "text": "Wireframing",
+    "active": true,
+    "toolsUrl": "http://wotify.eu"
+  },
+  {
+    "status": "tasklogging",
+    "text": "Tasklogging",
+    "active": true,
+    "toolsUrl": "http://wotify.eu"
+  },
+  {
+    "status": "building",
+    "text": "Building",
+    "active": true,
+    "toolsUrl": "http://wotify.eu"
+  },
+  {
+    "status": "releasing",
+    "text": "Releasing",
+    "active": true,
+    "toolsUrl": "http://wotify.eu"
+  }
+]

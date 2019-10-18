@@ -1,0 +1,305 @@
+[
+  {
+    "status": "step0",
+    "alias": "brainstorming",
+    "text": "What if I - Step 0",
+    "active": true,
+    "fields": [
+      {
+        "id": "whatif",
+        "title": "What If",
+        "placeholder": "[What if as a <type of user>] [I could <specific action>] [with <content / tool / ...>] [so <benefit / goal>]",
+        "help": "**WHAT IF... SET THE SCENARIO**\n\nExpress your idea in one sentence, divided in 4 parts, following that structure:\n\n*“[What if as a <type of user>] [I could <specific action>] [with <content / tool / ...>] [so <benefit / goal>]”*\n\nIt starts with a simple sentence, beginning **“What if as a…”**, and then adding an initial reference to what type of user/community would be active in (or benefiting from) your idea scenario. Second comes the action, the type of use;  For example, **“…I could…”**, using at least one descriptive verb. Third comes the type of tool or device that will be needed to realize that action. The final part should stress the goal, the final objective of the scenario described in a short but clear style, like, **“…in order to…”** highlighting the benefit for the beneficiary and the society.\n\n**Example:**\n\n*Activating public space: What if… in an abandoned site in my neighbourhood I could clean up the space and grow vegetables with the contribution of an organized community in order for my neighbours to strengthen bonds across local networks and for municipal administrations to become aware of the situation*"
+      }
+    ]
+  },
+  {
+    "status": "step1",
+    "alias": "forecasting",
+    "text": "Step 1",
+    "active": true,
+    "hide": ["description", "location", "tags", "link"],
+    "fields": [
+      {
+        "id":  "beneficiaries",
+        "header": "### Groups & communities",
+        "title":  "Who are the groups and communities that your project works with?",
+        "placeholder": " What is your relationship with them? Are you part of their community(ies)?",
+        "help": "**USERS & BENEFICIARIES**\n\nStep 1 centers your project on the people and community(ies) it engages with. It aims at challenging assumptions and giving a multi-layered representation of users’ needs and profiles (it should, therefore, include personal struggles/blockers, not only details such as *“profession”*, *“age”*, *“gender”*, etc.)"
+      },
+      {
+        "id": "assumptions",
+        "header": "### Beyond assumptions\n\n![](/images/steps/step1/01.svg) ![](/images/steps/step1/02.svg) ![](/images/steps/step1/03.svg) ![](/images/steps/step1/04.svg) ![](/images/steps/step1/05.svg)",
+        "title": "What do your beneficiaries THINK and FEEL, SAY and DO, SEE? What are the gaps in your knowledge? What steps will you take to allow users and beneficiaries to be the ones expressing their own needs?",
+        "placeholder": "What assumptions have you made regarding their experiences?"
+      },
+      {
+        "id": "you_engage_1",
+        "header": "### Challenging Perspectives",
+        "title": "3 reasons for you to engage with them",
+        "placeholder": "Answer 1"
+
+      },
+      {
+        "id": "you_engage_2",
+        "placeholder": "Answer 2"
+      },
+      {
+        "id": "you_engage_3",
+        "placeholder": "Answer 3"
+      },
+      {
+        "id": "they_engage_1",
+        "title": "3 reasons for them to engage with you",
+        "placeholder": "Answer 1"
+      },
+      {
+        "id": "they_engage_2",
+        "placeholder": "Answer 2"
+      },
+      {
+        "id": "they_engage_3",
+        "placeholder": "Answer 3"
+      }
+    ]
+  },
+  {
+    "status": "step2",
+    "alias": "prototyping",
+    "text": "Step 2",
+    "active": true,
+    "hide": ["description", "location", "tags", "link"],
+    "fields": [
+      {
+        "id": "close_range",
+        "header": "### Mapping your networks\n\n![](/images/steps/step2/01.svg) ![](/images/steps/step2/02.svg) ![](/images/steps/step2/03.svg) ![](/images/steps/step2/04.svg) ![](/images/steps/step2/05.svg) ![](/images/steps/step2/06.svg) \n\nCan you identify people and organizations that are related to your work (for similar topic area, potential collaborations and mutual help)? Write down some of these names here and try to keep in mind what resources they have that you need (Money? People? Decision-making authority?)\n\n**Who are the ones that...**",
+        "help": "**NETWORK, CONNECTIONS & POTENTIAL COLLABORATIONS**\n\n*Step 2 allows you to create a map to understand the finer details of engaging with multiple affected groups, collaborators or beneficiaries*. It allows you to develop a clearer picture of how all the different people and organisations relate both to your work and each other. These might include the people or communities you work directly with; the various bodies from which you receive (or are seeking) funding; or your own peers, local communities and even international support networks.",
+        "title": "![](/images/steps/step2/circle-1.svg) ..could be easily reached through your current connections?",
+        "placeholder": "Your close range connections..."
+
+      },
+      {
+        "id": "medium_range",
+        "title": "![](/images/steps/step2/circle-2.svg) ..could be reached only through the support of people in the previous circle?",
+        "placeholder": "Your medium range connections"
+      },
+      {
+        "id": "long_range",
+        "title": "![](/images/steps/step2/circle-3.svg) ..you cannot quite reach yet but aim at connecting with in the long term?",
+        "placeholder": "Your long range connections"
+      }
+    ]
+  },
+  {
+    "status": "step3",
+    "alias": "wireframing",
+    "text": "Step 3",
+    "active": true,
+    "hide": ["description", "location", "tags", "link"],
+    "fields": [
+      {
+        "id": "difference",
+        "help": "**STAKEHOLDER ENGAGEMENT STRATEGY**\n\n![](/images/steps/step3/s01.svg) ![](/images/steps/step3/s02.svg) ![](/images/steps/step3/s03.svg) ![](/images/steps/step3/s04.svg)\n\nStep number 3 helps you identify potential partners and strategise how to best motivate them and encourage them to work with you. Learn how identify what you have in common, what’s in for the potential partner and how to go about the relationship: turn strategy into actions!",
+        "header": "### ![](/images/steps/step3/01.svg) Social challenge",
+        "title": "What is the social challenge you are tackling?",
+        "placeholder": "What difference are you trying to make?"
+      },
+      {
+        "id": "common_1",
+        "header": "### ![](/images/steps/step3/02.svg) Common values\n\nChoose the three most relevant stakeholders between: Media partners, Peers/Similar project, Communities you work with, Institutional partners, Sources of funding  and identify common values.",
+        "title": "What are the values you have in common with stakeholders that are facing the same social challenge as you?",
+        "placeholder": "Answer 1"
+      },
+      {
+        "id": "common_2",
+        "placeholder": "Answer 2"
+      },
+      {
+        "id": "common_3",
+        "placeholder": "Answer 3"
+      },
+      {
+        "id": "stakeholders",
+        "header": "### ![](/images/steps/step3/03.svg) Planning the relationship with your stakeholders",
+        "title": "What is the current stage of the relationship with your stakeholder? Analyse at what phase of partnership you and your partner are, so that you can move through the next phases and  build a strong partnership together.",
+        "placeholder": "You can use “pre-relationship / initial stages / developing key details / mature relationship / stakeholder involved at the core of my project/ … ”"
+      },
+      {
+        "id": "commitment",
+        "title": "How will you interact with these stakeholders to ensure long term commitment?",
+        "placeholder": "Building partnerships takes a lot of effort from all those involved. They often take a considerable investment of time to build the high quality working relationships that underpin effective collaboration.  You might want to think about how frequently will you interact, how will you measure the effectiveness of the interaction, the results you want to get, the people you will appoint to this task."
+      }
+    ]
+  },
+  {
+    "status": "step4",
+    "alias": "tasklogging",
+    "text": "Step 4",
+    "active": true,
+    "hide": ["description", "location", "tags", "link"],
+    "fields": [
+      {
+        "id": "team",
+        "help": "**MY IDEA AS A PLATFORM. MY ORGANISATIONAL MODEL**\n\nStep 4 is about  how accessible is your project is to the participation of your stakeholders and beneficiaries. It helps clarifying relationships between stakeholders and identifying what sustainability means for the project (human, financial).\n\n![](/images/steps/step4/s01.svg)\n\nWhen mentioning Stakeholders, please describe from which of these 4 groups they belong to:\n\n**Doers and Makers**\n\nSet of players that are involved in the realization or the production of the idea / platform.\n\n**Beneficiaries and users**\n\nPlayers interested in accessing and utilising what is created by the project and eventually do something with it.\n\n**Partners**\n\nEntities that create additional effectiveness to your mission. Partners can also facilitate, cater, enhance your mission by acting as facilitator and connectors.\n\n**External Partners**\n\nEntities that have a specific interest in the platform, its success or failure, in controlling effects and outcomes of the project, in regulating it or exercising rights in the way the platform is run. (For examples, it can be public actors or bodies dealing with regulation).",
+        "header": "### ![](/images/steps/step4/01.svg) Your organizational model",
+        "title": "How will your team be structured?",
+        "placeholder": "Think about what will the team dynamic be / horizontal vs. hierarchical structure"
+      },
+      {
+        "id": "organisation",
+        "title": "How is your organisation structured?",
+        "placeholder": "Think about how are stakeholders and beneficiaries  involved in the structure of your organisation.  Are they informing / consulting / (co)designing / (co)producing / (co)managing)?"
+      },
+      {
+        "id": "open",
+        "title": "Is your organization open at its core?",
+        "placeholder": "Think about whether stakeholders can be integrated into the design, production and delivery of your project, especially  if they will have a role at the core of it and if they will be taking on roles of management and governance."
+      },
+      {
+        "id": "sustainability",
+        "header": "### ![](/images/steps/step4/02.svg) Your sustainability",
+        "title": "If your project will be run by volunteers, how will you ensure their (human) sustainability?"
+      },
+      {
+        "id": "stakeholders",
+        "title": "What’s in for your stakeholders?",
+        "placeholder": "What benefit do they get from participating?  What is the mutual benefit?"
+      },
+      {
+        "id": "resources",
+        "title": "What resources will you need from stakeholders to run your activities?",
+        "placeholder": "People, finance, infrastructure?"
+      }
+    ]
+  },
+  {
+    "status": "step5",
+    "alias": "building",
+    "text": "Step 5",
+    "active": true,
+    "hide": ["description", "location", "tags", "link"],
+    "fields": [
+      {
+        "id": "vision",
+        "header": "### ![](/images/steps/step5/01.svg) Your vision statement",
+        "help": "**VISION STATEMENT AND EXPECTED IMPACT**\n\nStep 5 lets you go beyond writing long-winded paper visions to generate a vision of what you are going to fight for, the long term changes or benefits you’re going to create, and what steps you are going to take to get “there.” The bold steps canvas is a perfect tool to align your own team and your collaborators.",
+        "title": "Can you describe your vision for the future state of your project in a sentence?",
+        "placeholder": "This relates to your mission with regards to  the impact on your communities. The inspiring vision should be concrete and clear."
+      },
+      {
+        "id": "supports",
+        "header": "### ![](/images/steps/step5/02.svg) Your supports to reach the vision",
+        "title": "What are the supports that strengthen you while reaching your vision?",
+        "placeholder": "Think of resources, partners, skills, broader context and circumstances, existing processes..."
+      },
+      {
+        "id": "challenges",
+        "header": "### ![](/images/steps/step5/03.svg) Your challenges to reach the vision",
+        "title": "What are the challenges or risks that hinder you while reaching your vision?",
+        "placeholder": "Think of resources, partners, lack of skills, broader context and circumstances, existing processes, weaknesses..."
+      },
+      {
+        "id": "steps_1",
+        "header": "### ![](/images/steps/step5/04.svg) 3 bold steps to your vision",
+        "title": "What are the 3 bold steps you need to take to reach this vision?",
+        "help": "Think of strategical decisions, partnerships, radical changes, internal/external necessities...",
+        "placeholder": "Answer 1"
+      },
+      {
+        "id": "steps_2",
+        "placeholder": "Answer 2"
+      },
+      {
+        "id": "steps_3",
+        "placeholder": "Answer 3"
+      },
+      {
+        "id": "impact",
+        "header": "### ![](/images/steps/step5/05.svg) The impact of your project",
+        "title": "What is the social, environmental, territorial and cultural impact of your project?",
+        "placeholder": "What are the measurable effects of your work?"
+      },
+      {
+        "id": "measure_1",
+        "title": "How are you going to measure impact for each of the bold steps you need to take? ",
+        "placeholder": "Answer 1"
+      },
+      {
+        "id": "measure_2",
+        "placeholder": "Answer 2"
+      },
+      {
+        "id": "measure_3",
+        "placeholder": "Answer 3"
+      },
+      {
+        "id": "data",
+        "title": "What open data can you generate along the way?"
+      }
+    ]
+  },
+  {
+    "status": "step6",
+    "alias": "releasing",
+    "text": "Step 6",
+    "active": true,
+    "hide": ["description", "location", "tags", "link"],
+    "fields": [
+      {
+        "id": "1_identify",
+        "help": "**SET THE SCENARIO AND THE TONE FOR THE FUTURE**\n\nWhat is the most amazing future you see for your idea (and yourself and your beneficiaries)? What are your key audiences?\n\nStep number 6 challenges you and your team to project yourselves in the future: how will the world respond to what you have accomplished in one year or 2 years time? So what does it take to create a great story? And how do you make sure it finds an audience?\n\nFor this step we can you to think about the following:\n\n**AUDIENCES:** Identify what are your 2 main audiences.\n\n**GOALS**: What do these 2 audiences need to know? What do you want to achieve with your narrative?\n\n**KEY MESSAGES**: what are the key messages for each audience?",
+        "header": "### ![](/images/steps/step6/01.svg) Key audiences\n\nIdentify what are your 2 main audiences\n\n### Key audience 1",
+        "title": "IDENTIFY: Describe Audience 1"
+      },
+      {
+        "id": "1_goals",
+        "title": "GOALS: What do they need to know?"
+      },
+      {
+        "id": "1_messages",
+        "title": "KEY MESSAGES: What are the key messages to this audience?"
+      },
+      {
+        "id": "1_channels",
+        "title": "CHANNELS: Through what channels do you expect to **connect with this audience**?"
+      },
+      {
+        "id": "2_identify",
+        "header": "### Key audience 2",
+        "title": "IDENTIFY: Describe Audience 2"
+      },
+      {
+        "id": "2_goals",
+        "title": "GOALS: What do they need to know?"
+      },
+      {
+        "id": "2_messages",
+        "title": "KEY MESSAGES: What are the key messages to this audience?"
+      },
+      {
+        "id": "2_channels",
+        "title": "CHANNELS: Through what channels do you expect to **connect with this audience**?"
+      },
+      {
+        "id": "story",
+        "header": "### The story",
+        "title": "Choose the  main character of your story. What is their **most pressing issue, problem, or desire**?",
+        "placeholder": "Who is telling your story?"
+      },
+      {
+        "id": "featured",
+        "title": "What **newspaper, magazine or website** you’d like to be featured in once you’ve achieved your vision?",
+        "placeholder": "The tone, voice, and readership of the particular media make a big difference."
+      },
+      {
+        "id": "resume",
+        "title": " What’s the bottom line, the facts and figures that support the story?",
+        "placeholder": "This it the raw information that needs to be translated into narratives that touch and engage."
+      },
+      {
+        "id": "essence",
+        "title": "**Capture the essence of your story in a sentence**. Try not to write more than 140 characters."
+      }
+    ]
+  }
+]

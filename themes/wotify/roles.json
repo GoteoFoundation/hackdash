@@ -1,0 +1,34 @@
+[
+  {
+    "role": "user",
+    "name": "User",
+    "perms": [
+      "comment_project",
+      "project_create",
+      "project_follow"
+    ]
+  },
+  {
+    "role": "admin",
+    "name": "Development team",
+    "perms": [
+      "user_update",
+      "user_change_role",
+      "comment_project",
+      "project_create",
+      "project_delete",
+      "project_follow",
+      "project_join",
+      "project_update",
+      "project_change_dashboard",
+      "form_results",
+      "form_respond",
+      "dashboard_create",
+      "dashboard_view_private",
+      "dashboard_set_private",
+      "dashboard_set_status",
+      "dashboard_set_showcase",
+      "dashboard_set_open"
+    ]
+  }
+]
