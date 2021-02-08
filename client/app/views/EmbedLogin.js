@@ -1,11 +1,9 @@
 /**
- * VIEW: Login Modal
+ * VIEW: Embeded Login Modal
  *
  */
 
-var template = require('./templates/login.hbs');
-var Register = require("./Register");
-var Forgot = require("./Forgot");
+var template = require('./templates/embedLogin.hbs');
 
 module.exports = Backbone.Marionette.ItemView.extend({
 
@@ -13,7 +11,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
   //+ PUBLIC PROPERTIES / CONSTANTS
   //--------------------------------------
 
-  className: "login",
+  className: "login embed",
   template: template,
 
   ui: {
@@ -21,9 +19,6 @@ module.exports = Backbone.Marionette.ItemView.extend({
   },
 
   events: {
-    "click .register": "register",
-    "click .lostpass": "lostPassword",
-    "click .close": "destroy"
   },
 
   //--------------------------------------
@@ -48,6 +43,9 @@ module.exports = Backbone.Marionette.ItemView.extend({
       redirectURL: function(){
         var url = hackdash.app.previousURL || '';
         return (url.length ? '?redirect=' + url : url);
+      },
+      logged: function() {
+        return !!hackdash.user;
       }
     };
   },
@@ -59,29 +57,6 @@ module.exports = Backbone.Marionette.ItemView.extend({
   //--------------------------------------
   //+ EVENT HANDLERS
   //--------------------------------------
-
-  register: function(){
-    var flashError = this.flashError;
-    hackdash.app.modals.show(new Register({
-        model: new Backbone.Model({
-          flashError: flashError
-         })
-      }));
-    this.destroy();
-  },
-
-  lostPassword: function(){
-    var flashError = this.flashError;
-    var flashMessage = this.flashMessage;
-    hackdash.app.modals.show(new Forgot({
-        model: new Backbone.Model({
-          flashError: flashError,
-          flashMessage: flashMessage,
-         })
-      }));
-    this.destroy();
-    return false; // do not follow routes
-  }
 
   //--------------------------------------
   //+ PRIVATE AND PROTECTED METHODS

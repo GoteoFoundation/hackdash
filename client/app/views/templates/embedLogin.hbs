@@ -1,0 +1,66 @@
+{{#if logged}}
+  <div class="modal-header">
+    <h2 class="modal-title">{{__ "Already logged"}}</h2>
+
+    <a href="/" class="register" target="_blank" data-bypass>Go to Wotify</a>
+  </div>
+{{else}}
+  <div class="modal-header">
+    <h2 class="modal-title">{{__ "Log In"}}</h2>
+  </div>
+
+  <div class="modal-body">
+
+    {{#if showErrors}}
+      <div class="alert alert-danger" id="login-errors">
+        {{showErrors}}
+      </div>
+    {{/if}}
+
+    {{#if showMessages}}
+      <div class="alert alert-success" id="login-messages">
+        {{showMessages}}
+      </div>
+    {{/if}}
+
+    <div class="row">
+        {{#each providers}}
+
+        <div class="col-xs-12 col-md-8 col-md-offset-2">
+          <a href="/auth/{{.}}{{../redirectURL}}" class="btn btn-primary signup-btn signup-{{.}}" data-bypass>
+            <i class="fa fa-{{.}}"></i>{{__ "Access with"}} {{firstUpper .}}
+          </a>
+        </div>
+
+        {{/each}}
+    </div>
+
+    {{#if localLogin}}
+      <div class="row">
+        <div class="col-xs-12 col-md-8 col-md-offset-2">
+
+        <hr>
+        <h3>Or login with your email/password:</h3>
+
+        <form class="login" action="/embed/login{{redirectURL}}" method="post">
+          <div class="form-group">
+            <label for="username">Email address</label>
+            <input type="email" class="form-control" id="username" name="username" placeholder="Em@il">
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+            <span class="help-block"><a href="/lost-password" class="lostpass"  target="_blank" data-bypass>lost password?</a></span>
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+
+        <hr>
+        <p class="pull-right"><strong>New user?</strong> <a href="/register" class="register" target="_blank" data-bypass>Register here</a></p>
+
+        </div>
+      </div>
+    {{/if}}
+  </div>
+
+{{/if}}

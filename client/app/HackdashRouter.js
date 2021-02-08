@@ -12,6 +12,8 @@ var Dashboard = require("./models/Dashboard")
 
   , Header = require("./views/Header")
   , Footer = require("./views/Footer")
+  , EmbedHeader = require("./views/Header/Simple.js")
+  , EmbedLogin = require("./views/EmbedLogin")
 
   , HomeLayout = require("./views/Home")
   , ProfileView = require("./views/Profile")
@@ -36,6 +38,9 @@ module.exports = Backbone.Marionette.AppRouter.extend({
     , "register" : "showRegister"
     , "lost-password" : "showForgot"
     , "lost-password/:token" : "showForgot"
+
+    // Standalone login (no modal, suitable for embeds)
+    , "embed/login" : "showEmbedLogin"
 
     // LANDING
     , "dashboards" : "showLandingDashboards"
@@ -99,6 +104,20 @@ module.exports = Backbone.Marionette.AppRouter.extend({
   showForgot: function(token){
     this.showHome();
     this.homeView.showForgot(token);
+  },
+
+  showEmbedLogin: function(){
+    var app= window.hackdash.app;
+    app.type = "embedLogin";
+    app.header.show(new EmbedHeader());
+    app.main.show(new EmbedLogin({
+      model: new Backbone.Model({
+        providers: window.hackdash.providers.split(','),
+        localLogin: window.hackdash.useLocalLogin,
+        flashError: window.hackdash.flashError,
+        flashMessage: window.hackdash.flashMessage,
+      })
+    }));
   },
 
   getSearchQuery: function(){
