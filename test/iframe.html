@@ -1,1 +1,9 @@
-<iframe src="http://localhost:3000/login" width="466" height="662" frameborder="0"></iframe>
+<iframe src="http://localhost:3000/embed/login" width="466" height="662" frameborder="0"></iframe>
+
+<script>
+
+window.addEventListener("message", function(event) {
+    console.log("Login secret: " + event.data);
+    // remove the iframe / popup
+});
+</script>
