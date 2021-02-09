@@ -60,9 +60,10 @@ module.exports = Backbone.Marionette.ItemView.extend({
   onRender: function() {
     // send the bearer to embeding iframe if detected
     if(hackdash.user && window.parent !== window ) {
-      console.log('sending bearer token');
+      var origin = hackdash.allowedOrigins || "http://localhost";
+      console.log('sending bearer token, allowedOrigins:', origin);
       var token = _.findWhere(hackdash.user.tokens, {name: "LoginAuto"});
-      window.parent.postMessage(token && token.token);
+      window.parent.postMessage(token && token.token, origin);
     }
   }
 
