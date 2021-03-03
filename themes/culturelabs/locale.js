@@ -7,7 +7,7 @@ module.exports = {
     "Share your app to the world.": "Share your app with the world.",
     "Inform Progress to community.":"Share progress with your community.",
     "title_default": "Wotify Board: cooking recipes 4 social innovation",
-    "description_default": "Co-creating projects. Upload your project. Add colaborators. Inform status. Share your app.",
+    "description_default": "Co-creating projects. Upload your project. Add collaborators. Inform status. Share your app.",
     "about_you":"Something about you",
     "The HackDash was born": "Wotify Dashboard is a repository of events and projects where the \"Co-creation made Agile\" methodology is applied (developed by <a href=\"http://platoniq.net/\" data-bypass=\"true\" target=\"__blank\">Platoniq</a> as part of the Europeana Creative project). Wotify Dashboard is a fork of <a href=\"https://github.com/Platoniq/wotify\" data-bypass=\"true\" target=\"__blank\">Hackdash</a>.",
 
